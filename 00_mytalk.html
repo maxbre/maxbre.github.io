@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Massimo Bressan" />
+    <link rel="stylesheet" href="img_css/mytemplate2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici
+## alcune note su un caso studio <br/>in Provincia di Treviso<br/>
+### Massimo Bressan
+### SMV - DAP TV
+### <br/>12/12/2019 (updated: 2019-10-24)
+
+---
+
+
+
+### la sorgente
+#### fonderia di getti in ghisa (40.000 t/a)
+
+- parametri geometrici camino (forno fusorio, 'cubilotto')
+  - altezza = 25 m
+  - raggio  = 0.635 m
+
+- parametri fisico e chimici di esercizio
+  - NOx = 0.369 g/s
+  - portata = 37500 Nm3/h
+  - temperatura = 100.5 °C
+  - velocità = 11.9 m/s
+
+- ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
+
+### inquadramento territoriale
+cfr. file  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+
+---
+class: inverse, center, middle
+
+# CALPUFF
+
+### 'stima base'
+
+### cfr. file [01_calpuff.html](./01_calpuff.html)
+
+---
+
+### CALPUFF 'stima base' (specifiche)
+approccio 'no obs', semestre 'invernale' 01/10/17 – 31/03/18
+
+COSMO-LAMI 7 
+
+- velocità e direzione vento, temperatura, umidità relativa
+- passo griglia: 7 km
+- dominio: 35 km * 35 km
+
+CALMET (v. 5.85, EPA approved)
+
+- orografia e uso suolo: DTM 250 m
+- n celle: 51 * 51, griglia regolare
+- dimensione celle: 250 m
+- dimensione dominio: 12.75 km * 12.75 km
+- n. livelli verticali: 11,  da 0 a 6000 m
+
+CALPUFF (v. 5.85, EPA approved)
+
+- cella di campionamento: 60 m, nesting factor MESHDN = 4
+- coefficienti dispersione da variabili micro-meteo MDISP = 2
+- no reazioni chimiche, no deposizione secca e umida
+- n. puffs 'da seguire' - to track -  NPFDEB = 10
+- min vv per 'non calma': 0.5 m/s
+- min-max mixing height: 50-2500 m
+
+---
+### CALMET - rosa venti (camino)
+
+
+
+vv media = 1.5 m/s; calme &lt;0.5 m/s = 7.2%
+
+&lt;img src="00_mytalk_files/figure-html/calmet-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+### CALMET - rosa venti (camino) 
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+&lt;img src="00_mytalk_files/figure-html/calmet-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+### CALMET - classi vv (camino)
+
+&lt;img src="00_mytalk_files/figure-html/calmetws-class-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+### CALMET - stat vv (camino)
+tutte le osservazioni
+
+|month         |   n| mean| median|  sd| min| max|
+|:-------------|---:|----:|------:|---:|---:|---:|
+|October 2017  | 743|  1.4|    1.3| 0.8| 0.0| 4.4|
+|November 2017 | 720|  1.5|    1.3| 1.0| 0.1| 6.1|
+|December 2017 | 744|  1.4|    1.1| 0.9| 0.1| 5.0|
+|January 2018  | 744|  1.4|    1.2| 0.9| 0.0| 5.5|
+|February 2018 | 672|  1.8|    1.7| 1.0| 0.2| 5.6|
+|March 2018    | 744|  1.9|    1.7| 1.0| 0.2| 5.3|
+
+solo calme
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; month &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; median &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; min &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; max &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; October 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; November 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; December 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; January 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; February 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; March 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+### CALMET - hmix (camino)
+
+&lt;img src="00_mytalk_files/figure-html/calmet-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'stazione cmt'
+
+### cfr. file [02_aermod.html](./02_aermod.html)
+---
+### AERMOD 'stazione cmt' (specifiche)
+
+prima valutazione speditiva di tipo 'esplorativo'  
+- approccio 'obs - no obs'
+
+- cmt castelfranco (10 m): temp, vv, dv, prec, srad, rhu
+
+- lami: tcc, press
+
+- radiosondaggio: san pietro capofiume 16144
+
+- risoluzione griglia calcolo: 250 m
+
+- elevated terrain ('receptors.rec')
+
+- orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
+
+- parametri superficiali (centro dominio di calcolo)
+  - albedo 0.15
+  - roughness length 0.5
+  - bowen ratio 0.25
+  
+&lt;strong&gt;no elevazione base sorgente, optional parameter .red[default 0 (!!)]&lt;strong/&gt;
+---
+### AERMET - rosa venti (castelfranco)
+
+
+vv media = 0.8 m/s; calme &lt;0.5 m/s = 46.8%
+
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+
+---
+### AERMET - rosa venti (castelfranco) 
+
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+### AERMET - classi vv (castelfranco)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-class-vv-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+
+### AERMET - stat vv (castelfranco)
+tutte le osservazioni
+
+|month         |   n| mean|  sd| min| max| median|
+|:-------------|---:|----:|---:|---:|---:|------:|
+|October 2017  | 743|  0.4| 0.5|   0| 4.5|    0.4|
+|November 2017 | 720|  0.6| 0.7|   0| 4.3|    0.4|
+|December 2017 | 744|  0.4| 0.6|   0| 3.5|    0.3|
+|January 2018  | 744|  0.7| 0.9|   0| 7.5|    0.5|
+|February 2018 | 672|  1.6| 1.3|   0| 7.8|    1.2|
+|March 2018    | 744|  1.4| 1.1|   0| 6.2|    1.2|
+
+solo calme
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; month &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; min &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; max &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; median &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; October 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 481 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; November 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 424 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; December 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 517 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; January 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 378 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; February 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; March 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 133 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+### AERMET - hmix (castelfranco)
+nota: fuori scala alcuni 'spikes' a 4000 m (dic 2017 e feb 2018)
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'punto lami'
+
+### cfr. file [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+---
+### AERMOD 'punto lami' (specifiche)
+
+- approccio 'no obs'
+
+- punto 'più vicino': centro abitato Montebelluna (...è perfetto!?)  
+
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+
+- in varie configurazioni rispetto all'elevazione base sorgente:
+
+  - default 0, optional parameter 
+      - (cfr. file precedente)
+        
+  - input utente, 90 m (come per stima 'base' calpuff)
+      - cfr. file [03_aermod_base090m_user.html](./03_aermod_base090m_user.html)
+
+  - calcolata da AERMAP su DTM Regione, 114 m
+      - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
+
+---
+### AERMET - rosa venti (punto lami)
+
+
+vv media = 1.4 m/s; calme &lt;0.5 m/s = 8.9%
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+### AERMET - rosa venti (punto lami) 
+
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+### AERMET - classi vv (punto lami)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-class-ws-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+
+### AERMET - stat vv (ppunto lami)
+tutte le osservazioni
+
+|month         |   n| mean|  sd| min| max| median|
+|:-------------|---:|----:|---:|---:|---:|------:|
+|October 2017  | 743|  1.3| 0.8|   0| 4.3|    1.3|
+|November 2017 | 720|  1.4| 0.9|   0| 5.3|    1.2|
+|December 2017 | 744|  1.3| 0.8|   0| 4.2|    1.1|
+|January 2018  | 744|  1.3| 0.8|   0| 5.0|    1.2|
+|February 2018 | 672|  1.6| 0.8|   0| 4.6|    1.5|
+|March 2018    | 744|  1.7| 0.9|   0| 4.9|    1.5|
+
+solo calme
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; month &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; min &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; max &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; median &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; October 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; November 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; December 2017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; January 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; February 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; March 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+### AERMET - hmix (punto lami)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'punto calmet'
+
+### varie configurazioni
+###.red[(segue)]
+
+---
+### AERMOD 'punto calmet' (specifiche)
+
+- approccio 'no obs'
+
+- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo punti LAMI: temp, ws, wd, prec, srad, rhu,tcc, press
+
+- estrazione CALMET su punto camino (come per stima base CALPUFF)
+
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+in particolare
+- parametri superficiali da centro dominio di calcolo:
+  - albedo 0.15
+  - roughness length 0.5
+  - bowen ratio 0.25
+
+- elevazione base soergente, user input 90 m (= stima base CALPUFF)
+cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
+
+---
+### AERMOD 'punto calmet' (variazioni)
+
+tutto come prima... ma rispetto alla precedente configurazione cambiano  
+
+- parametri superficiali .red[estrazione su punto camino]
+
+  - albedo  0.16
+  - roughness lenght 0.94 (~ “urban” = 1)
+  - bowen ratio 0.87  
+
+cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
+
+---
+### AERMOD 'punto calmet' (roughness)
+
+tutto come prima... ma rispetto alla precedente configurazione cambia  
+
+sensitività rispetto a .red[roughness length]&lt;sup&gt;1&lt;sup&gt;
+
+stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
+
+  - roughness 0.1 (grassland)
+    - cfr. file: [04_aermod_calmet_250m_02_rough01.html](./04_aermod_calmet_250m_02_rough01.html)
+
+  - roughness 1 (urban)
+    - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1_.html)
+
+.footnote[
+[1] per brevità si onmette l'analisi di sensitività rispetto a 'albedo e 'bowen ratio' perchè bisognerebbe verificare almeno le 'combinazioni' più siginificative .red[(cfr. slide seguente)]  
+[2] range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+]
+
+---
+### AERMOD (sensitività - refs)
+#### Sensitivity of the AEMOD air quality model to the selection of land use parameters&lt;sup&gt;*&lt;sup/&gt;
+
+Articolo datato che però sembra ben centrare il problema... 
+
+- “only the surface roughness lenght affects the concentrations significantly” 
+
+- “albedo and Bowen ratio have little or no effect” 
+
+- .red[“effects these parameters have on modeled concentrations are sufficiently complex” [...] “it cannot be accurately anticipated what effect any changes [...] will have on concentrations for a given source configuration”]
+
+- “modeled design concentrations can vary sustantially due to normal ranges of variations in the albedo, Bowen ratio, and surface roughness length”
+
+.footnote[
+[*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
+]
+---
+### AERMOD 'punto calmet' (griglia)
+
+tutto come prima... ma rispetto alla precedente configurazione cambia  
+
+sensitività rispetto a .red[risoluzione di griglia computazionale]
+
+- 125 m (è la ‘metà’ rispetto al caso precedente)
+  - cfr. file: [04_aermod_risoluzione_125m.html](./04_aermod_risoluzione_125m.html)
+
+- 62 m (ancora ‘dimezzamento’, per arrivare alla risoluzione di calcolo della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)&lt;sup&gt;*&lt;sup/&gt;
+  - cfr. file: [04_aermod_risoluzione__62m.html](./04_aermod_risoluzione__62m.html)
+
+.footnote[
+[*] attenzione: i tempi di calcolo (AERMAP) si dilatano molto! (fino a ~ 12 h)
+]
+
+---
+###...e per il futuro? (ipotesi!)
+
+c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
+ 
+gratuito (no costi) e libero (codice fortran ‘in chiaro’)
+
+modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione soprattutto per dispersione sostanze odorigene (peak-to-mean)
+
+questo caso studio con parametrizzazione ‘default’ (da rivedere)
+
+- cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
+
+
+obiettivo (spero condivisibile a livello più ampio)
+
+acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
+
+...cioè, si ricomincia daccapo!  ;-( 
+
+---
+### Conclusioni
+#### in forma di indicazioni operative
+
+- valutare presenza di ‘orografia complessa’ e
+- scegliere accuratamente input meteo (sembra un’enorme perdita di tempo ma guadagno in ripercorribilità, accuratezza/precisione)
+- considerare entità condizioni di calma di vento (AERMOD è un gaussiano ‘evoluto’ ma…)
+
+- inserire quota base di sorgente nel caso ‘regulatory ELEV terrain' (è invece non influente nel caso ‘non-regulatory FLAT terrain’)
+
+- definire parametri superficiali roughness length, bowen ratio, albedo (analisi sensitività, ma non è sempre possibile...)
+
+- leggere manuale, anche se non sempre chiaro ed esaustivo (e questa è soprattutto per me!)
+
+- valutare ‘trade-off’  accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio (non solo tempi macchina, che sono i meno rilevanti!)
+
+- valutare i risultati rispetto a differenti approcci modellistici (ma è un ‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+
+---
+&lt;!--class: inverse, center, middle--&gt;
+
+# Grazie!
+
+### massimo.bressan@arpa.veneto.it
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
