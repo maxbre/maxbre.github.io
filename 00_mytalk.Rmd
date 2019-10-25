@@ -1,0 +1,800 @@
+---
+title: "Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici"
+subtitle: "alcune note su un caso studio <br/>in Provincia di Treviso<br/>"
+author: "Massimo Bressan"
+institute: "SMV - DAP TV"
+date: "<br/>12/12/2019 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["./img_css/mytemplate2.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      #countdown: 60000
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+### la sorgente
+#### fonderia di getti in ghisa (40.000 t/a)
+
+- parametri geometrici camino (forno fusorio, 'cubilotto')
+  - altezza = 25 m
+  - raggio  = 0.635 m
+
+- parametri fisico e chimici di esercizio
+  - NOx = 0.369 g/s
+  - portata = 37500 Nm3/h
+  - temperatura = 100.5 °C
+  - velocità = 11.9 m/s
+
+- ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
+
+### inquadramento territoriale
+cfr. file  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+
+---
+class: inverse, center, middle
+
+# CALPUFF
+
+### 'stima base'
+
+### cfr. file [01_calpuff.html](./01_calpuff.html)
+
+---
+
+### CALPUFF 'stima base' (specifiche)
+approccio 'no obs', semestre 'invernale' 01/10/17 – 31/03/18
+
+COSMO-LAMI 7 
+
+- velocità e direzione vento, temperatura, umidità relativa
+- passo griglia: 7 km
+- dominio: 35 km * 35 km
+
+CALMET (v. 5.85, EPA approved)
+
+- orografia e uso suolo: DTM 250 m
+- n celle: 51 * 51, griglia regolare
+- dimensione celle: 250 m
+- dimensione dominio: 12.75 km * 12.75 km
+- n. livelli verticali: 11,  da 0 a 6000 m
+
+CALPUFF (v. 5.85, EPA approved)
+
+- cella di campionamento: 60 m, nesting factor MESHDN = 4
+- coefficienti dispersione da variabili micro-meteo MDISP = 2
+- no reazioni chimiche, no deposizione secca e umida
+- n. puffs 'da seguire' - to track -  NPFDEB = 10
+- min vv per 'non calma': 0.5 m/s
+- min-max mixing height: 50-2500 m
+
+---
+### CALMET - rosa venti (camino)
+
+```{r include =FALSE}
+mypath<-'./01_calpuff_stima_iniziale/prtmet/'
+myfile<-paste0(mypath,'prtmet.dat')
+met<-read.delim(myfile, header=FALSE, sep='', skip=4)
+names(met)<-c('y','m','d', 'h', 'ws', 'wd', 't', 'w', 'pg', 'u_', 'lmo', 'wstar', 'prec', 'mixh')
+met$date<-as.POSIXct(strptime(paste0(met$y,'-',met$m,'-',met$d, ' ', met$h),'%Y-%m-%d %H'))
+
+#delete last row (april)
+met<-met[-nrow(met),]
+
+library(openair)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+
+#define factor
+myfac<-cut(met$ws,
+           c(0, 0.5, 1, 2, 3, 6, max(met$ws)),
+           labels=c('< 0.5','[ 0.5, 1 )','[ 1, 2 )','[ 2, 3 )','[ 3, 6 )','>= 6'),
+           include.lowest=TRUE, right=FALSE)
+
+#frequency distribution of wind classes
+wsfd<-met %>%
+    mutate(recs_all=n())%>%
+    group_by(class=myfac) %>%
+    summarise(recs=n(),
+              perc=recs/first(recs_all)*100)
+
+#stat for wind speed by month
+ws_month<-met %>%
+  group_by(month=factor(format(date, '%B %Y'),
+                              levels = c('October 2017',
+                                         'November 2017',
+                                         'December 2017',
+                                         'January 2018',
+                                         'February 2018',
+                                         'March 2018')
+                        )
+           ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            median=median(ws),
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws)
+            )
+
+#stat for wind calm
+calm_month<-met %>%
+    filter(ws<0.5)%>%
+    group_by(month=factor(format(date, '%B %Y'),
+                        levels = c('October 2017',
+                                   'November 2017',
+                                   'December 2017',
+                                   'January 2018',
+                                   'February 2018',
+                                   'March 2018')
+                        )
+           ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            median=median(ws),
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws)
+            )
+
+
+```
+
+vv media = `r round(mean(met$ws),1)` m/s; calme <0.5 m/s = `r round(sum(met$ws<0.5)/length(met$ws)*100,1)`%
+
+```{r calmet-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         #c(0,0.5,2,4,max(met$ws)),
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='monthyear'
+         )
+```
+---
+### CALMET - rosa venti (camino) 
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+```{r calmet-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='daylight',
+         latitude=45.7,
+         longitude=12.1
+         )
+    
+```
+
+---
+### CALMET - classi vv (camino)
+
+```{r calmetws-class, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+ggplot(wsfd, aes(x=class, y=perc, fill=class))+
+  geom_col()+
+  geom_text(aes(label=round(perc,1)), vjust=-0.3, size=3.5)+
+  ylim(0,100)+
+  #scale_y_continuous('%', limits=c(0,100))+
+  labs(title='distribuzione di frequenza classi velocità vento', 
+       y='frequenza %',
+       x='classi',
+       fill = "m/s")
+
+```
+
+---
+### CALMET - stat vv (camino)
+tutte le osservazioni
+```{r echo=FALSE}
+kable(ws_month, format='markdown', digits=1)
+```
+
+solo calme
+```{r echo=FALSE}
+kable(calm_month, format='html', digits=1)
+```
+---
+
+### CALMET - hmix (camino)
+
+```{r calmet-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+ggplot(met, aes(x=factor(format(date, '%H')), y=mixh)) +
+  geom_point(alpha=0.3)+
+  stat_summary(aes(group=1), # dummy group all points
+               fun.y='mean', colour='red', size=0.75, geom='line')+
+  facet_grid(~factor(format(date, '%B %Y'), levels = c('October 2017',
+                                                       'November 2017',
+                                                       'December 2017',
+                                                       'January 2018',
+                                                       'February 2018',
+                                                       'March 2018')))+
+  xlab('ora')+
+  ylab('Hmix [m]')+
+  ylim(0,2500)+
+  scale_x_discrete(breaks=c('00','04','08','12','16','20'))
+
+```
+
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'stazione cmt'
+
+### cfr. file [02_aermod.html](./02_aermod.html)
+---
+### AERMOD 'stazione cmt' (specifiche)
+
+prima valutazione speditiva di tipo 'esplorativo'  
+- approccio 'obs - no obs'
+
+- cmt castelfranco (10 m): temp, vv, dv, prec, srad, rhu
+
+- lami: tcc, press
+
+- radiosondaggio: san pietro capofiume 16144
+
+- risoluzione griglia calcolo: 250 m
+
+- elevated terrain ('receptors.rec')
+
+- orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
+
+- parametri superficiali (centro dominio di calcolo)
+  - albedo 0.15
+  - roughness length 0.5
+  - bowen ratio 0.25
+  
+<strong>no elevazione base sorgente, optional parameter .red[default 0 (!!)]<strong/>
+---
+### AERMET - rosa venti (castelfranco)
+
+```{r include=FALSE}
+
+mypath2<-'./02_aermod_speditiva/aermet/'
+myfile2<-paste0(mypath2,'AERMET.SFC')
+
+sfc<-read.table(myfile2, skip=1)
+
+names(sfc)<-c('year','month','day','jday','hour','H','ustar','wstar','VPTG',
+  'Zic', 'Zim', 'L', 'z0', 'B0','r','ws','wd','zref','temp','ztemp',
+  'ipcode','pamt', 'rh', 'pres', 'ccvr', 'wsadj','dsf')
+
+#deal with missing values
+sfc[sfc$ws==999,"ws"]<-NA
+sfc[sfc$wd==999,"wd"]<-NA
+
+#create date string
+str_date<-with(sfc, paste0(20, year, '-', 
+                           sprintf('%02d',month), '-', 
+                           sprintf('%02d',day), ' ', 
+                           sprintf('%02d',hour)
+                           )
+               )
+
+#add new variable
+sfc$date<-as.POSIXct(strptime(str_date, "%Y-%m-%d %H"))
+
+#delete last row (april)
+sfc<-sfc[-nrow(sfc),]
+
+library(openair)
+library(dplyr)
+
+myfac<-cut(sfc$ws,
+           c(0, 0.5, 1, 2, 3, 6, max(sfc$ws)),
+           labels=c('< 0.5','[ 0.5, 1 )','[ 1, 2 )','[ 2, 3 )','[ 3, 6 )','>= 6'),
+           include.lowest=TRUE, right=FALSE)
+
+#frequency distribution of wind classes
+wsfd<-sfc %>%
+  mutate(recs_all=n())%>%
+  group_by(class=myfac) %>%
+  summarise(recs=n(),
+            perc=recs/first(recs_all)*100)
+
+
+#stat for wind by month
+ws_month<-sfc %>% 
+  group_by(month=factor(format(date, '%B %Y'),
+                        levels = c('October 2017',
+                                   'November 2017',
+                                   'December 2017',
+                                   'January 2018',
+                                   'February 2018',
+                                   'March 2018')
+                        )
+           ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+  )
+
+#stat for wind calm
+calm_month<-sfc %>% 
+  filter(ws<0.5)%>%
+  group_by(month=factor(format(date, '%B %Y'),
+                        levels = c('October 2017',
+                                   'November 2017',
+                                   'December 2017',
+                                   'January 2018',
+                                   'February 2018',
+                                   'March 2018')
+  )
+  ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+  )
+
+#calculate mixing height with function pmax
+sfc$mixh<-ifelse(pmax(sfc$Zic,sfc$Zim)==-999,NA,pmax(sfc$Zic,sfc$Zim))
+
+```
+vv media = `r round(mean(sfc$ws),1)` m/s; calme <0.5 m/s = `r round(sum(sfc$ws<0.5)/length(sfc$ws)*100,1)`%
+
+```{r aermet-cmt-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(sfc, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='monthyear'
+         )
+```
+
+
+---
+### AERMET - rosa venti (castelfranco) 
+
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+```{r aermet-cmt-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(sfc, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='daylight',
+         latitude=45.7,
+         longitude=12.1
+         )
+    
+```
+---
+### AERMET - classi vv (castelfranco)
+
+```{r aermet-cmt-class-vv, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+ggplot(wsfd, aes(x=class, y=perc, fill=class))+
+  geom_col()+
+  geom_text(aes(label=round(perc,1)), vjust=-0.3, size=3.5)+
+  ylim(0,100)+
+  #scale_y_continuous('%', limits=c(0,100))+
+  labs(title='distribuzione di frequenza classi velocità vento', 
+       y='frequenza %',
+       x='classi',
+       fill = "m/s")
+
+```
+---
+
+### AERMET - stat vv (castelfranco)
+tutte le osservazioni
+```{r echo=FALSE}
+kable(ws_month, format='markdown', digits=1)
+```
+
+solo calme
+```{r echo=FALSE}
+kable(calm_month, format='html', digits=1)
+```
+---
+### AERMET - hmix (castelfranco)
+nota: fuori scala alcuni 'spikes' a 4000 m (dic 2017 e feb 2018)
+```{r aermet-cmt-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE, warning=FALSE}
+
+ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
+  geom_point(alpha=0.3)+
+  stat_summary(aes(group=1), # dummy group all points
+               fun.y='mean', colour='red', size=0.75, geom='line')+
+  facet_grid(~factor(format(date, '%B %Y'), levels = c('October 2017',
+                                                       'November 2017',
+                                                       'December 2017',
+                                                       'January 2018',
+                                                       'February 2018',
+                                                       'March 2018')))+
+  xlab('ora')+
+  ylab('Hmix [m]')+
+# ylim(0,2500)+ #dropping some observations
+  coord_cartesian(ylim=c(0,2500))+ #this is not dropping obs, it's like a magnifying glass
+  scale_x_discrete(breaks=c('00','04','08','12','16','20'))
+
+```
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'punto lami'
+
+### cfr. file [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+---
+### AERMOD 'punto lami' (specifiche)
+
+- approccio 'no obs'
+
+- punto 'più vicino': centro abitato Montebelluna (...è perfetto!?)  
+
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+
+- in varie configurazioni rispetto all'elevazione base sorgente:
+
+  - default 0, optional parameter 
+      - (cfr. file precedente)
+        
+  - input utente, 90 m (come per stima 'base' calpuff)
+      - cfr. file [03_aermod_base090m_user.html](./03_aermod_base090m_user.html)
+
+  - calcolata da AERMAP su DTM Regione, 114 m
+      - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
+
+---
+### AERMET - rosa venti (punto lami)
+
+```{r include=FALSE}
+
+mypath3<-'./03_aermod_punto_lami_varie_configurazioni/aermet/'
+myfile3<-paste0(mypath3,'AERMET.SFC')
+
+sfc<-read.table(myfile3, skip=1)
+
+names(sfc)<-c('year','month','day','jday','hour','H','ustar','wstar','VPTG',
+  'Zic', 'Zim', 'L', 'z0', 'B0','r','ws','wd','zref','temp','ztemp',
+  'ipcode','pamt', 'rh', 'pres', 'ccvr', 'wsadj','dsf')
+
+#deal with missing values
+sfc[sfc$ws==999,"ws"]<-NA
+sfc[sfc$wd==999,"wd"]<-NA
+
+#create date string
+str_date<-with(sfc, paste0(20, year, '-', 
+                           sprintf('%02d',month), '-', 
+                           sprintf('%02d',day), ' ', 
+                           sprintf('%02d',hour)
+                           )
+               )
+
+#add new variable
+sfc$date<-as.POSIXct(strptime(str_date, "%Y-%m-%d %H"))
+
+#delete last row (april)
+sfc<-sfc[-nrow(sfc),]
+
+library(openair)
+library(dplyr)
+
+myfac<-cut(sfc$ws,
+           c(0, 0.5, 1, 2, 3, 6, max(sfc$ws)),
+           labels=c('< 0.5','[ 0.5, 1 )','[ 1, 2 )','[ 2, 3 )','[ 3, 6 )','>= 6'),
+           include.lowest=TRUE, right=FALSE)
+
+#frequency distribution of wind classes
+wsfd<-sfc %>%
+  mutate(recs_all=n())%>%
+  group_by(class=myfac) %>%
+  summarise(recs=n(),
+            perc=recs/first(recs_all)*100)
+
+
+#stat for wind by month
+ws_month<-sfc %>% 
+  group_by(month=factor(format(date, '%B %Y'),
+                        levels = c('October 2017',
+                                   'November 2017',
+                                   'December 2017',
+                                   'January 2018',
+                                   'February 2018',
+                                   'March 2018')
+                        )
+           ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+  )
+
+#stat for wind calm
+calm_month<-sfc %>% 
+  filter(ws<0.5)%>%
+  group_by(month=factor(format(date, '%B %Y'),
+                        levels = c('October 2017',
+                                   'November 2017',
+                                   'December 2017',
+                                   'January 2018',
+                                   'February 2018',
+                                   'March 2018')
+  )
+  ) %>%
+  
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+  )
+
+#calculate mixing height with function pmax
+sfc$mixh<-ifelse(pmax(sfc$Zic,sfc$Zim)==-999,NA,pmax(sfc$Zic,sfc$Zim))
+
+
+```
+vv media = `r round(mean(sfc$ws),1)` m/s; calme <0.5 m/s = `r round(sum(sfc$ws<0.5)/length(sfc$ws)*100,1)`%
+```{r aermet-lami-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(sfc, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='monthyear'
+         )
+
+```
+---
+### AERMET - rosa venti (punto lami) 
+
+stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+
+```{r aermet-lami-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+windRose(sfc, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='daylight',
+         latitude=45.7,
+         longitude=12.1
+         )
+
+```
+---
+### AERMET - classi vv (punto lami)
+
+```{r aermet-lami-class-ws, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+
+ggplot(wsfd, aes(x=class, y=perc, fill=class))+
+  geom_col()+
+  geom_text(aes(label=round(perc,1)), vjust=-0.3, size=3.5)+
+  ylim(0,100)+
+  #scale_y_continuous('%', limits=c(0,100))+
+  labs(title='distribuzione di frequenza classi velocità vento', 
+       y='frequenza %',
+       x='classi',
+       fill = "m/s")
+
+
+```
+---
+
+### AERMET - stat vv (ppunto lami)
+tutte le osservazioni
+```{r echo=FALSE}
+kable(ws_month, format='markdown', digits=1)
+```
+
+solo calme
+```{r echo=FALSE}
+kable(calm_month, format='html', digits=1)
+```
+---
+### AERMET - hmix (punto lami)
+
+```{r aermet-lami-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE, warning=FALSE}
+
+ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
+  geom_point(alpha=0.3)+
+  stat_summary(aes(group=1), # dummy group all points
+               fun.y='mean', colour='red', size=0.75, geom='line')+
+  facet_grid(~factor(format(date, '%B %Y'), levels = c('October 2017',
+                                                       'November 2017',
+                                                       'December 2017',
+                                                       'January 2018',
+                                                       'February 2018',
+                                                       'March 2018')))+
+  xlab('ora')+
+  ylab('Hmix [m]')+
+# ylim(0,2500)+ #dropping some observations
+  coord_cartesian(ylim=c(0,2500))+ #this is not dropping obs, it's like a magnifying glass
+  scale_x_discrete(breaks=c('00','04','08','12','16','20'))
+
+
+```
+---
+class: inverse, center, middle
+
+# AERMOD
+
+### 'punto calmet'
+
+### varie configurazioni
+###.red[(segue)]
+
+---
+### AERMOD 'punto calmet' (specifiche)
+
+- approccio 'no obs'
+
+- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo punti LAMI: temp, ws, wd, prec, srad, rhu,tcc, press
+
+- estrazione CALMET su punto camino (come per stima base CALPUFF)
+
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+in particolare
+- parametri superficiali da centro dominio di calcolo:
+  - albedo 0.15
+  - roughness length 0.5
+  - bowen ratio 0.25
+
+- elevazione base soergente, user input 90 m (= stima base CALPUFF)
+cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
+
+---
+### AERMOD 'punto calmet' (variazioni)
+
+tutto come prima... ma rispetto alla precedente configurazione cambiano  
+
+- parametri superficiali .red[estrazione su punto camino]
+
+  - albedo  0.16
+  - roughness lenght 0.94 (~ “urban” = 1)
+  - bowen ratio 0.87  
+
+cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
+
+---
+### AERMOD 'punto calmet' (roughness)
+
+tutto come prima... ma rispetto alla precedente configurazione cambia  
+
+sensitività rispetto a .red[roughness length]<sup>1<sup>
+
+stima con due casi 'estremi 'di roughness ('land use')<sup>2<sup/>
+
+  - roughness 0.1 (grassland)
+    - cfr. file: [04_aermod_calmet_250m_02_rough01.html](./04_aermod_calmet_250m_02_rough01.html)
+
+  - roughness 1 (urban)
+    - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
+
+.footnote[
+[1] per brevità si onmette l'analisi di sensitività rispetto a 'albedo e 'bowen ratio' perchè bisognerebbe verificare almeno le 'combinazioni' più siginificative .red[(cfr. slide seguente)]  
+[2] range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+]
+
+---
+### AERMOD (sensitività - refs)
+#### Sensitivity of the AEMOD air quality model to the selection of land use parameters<sup>*<sup/>
+
+Articolo datato che però sembra ben centrare il problema... 
+
+- “only the surface roughness lenght affects the concentrations significantly” 
+
+- “albedo and Bowen ratio have little or no effect” 
+
+- .red[“effects these parameters have on modeled concentrations are sufficiently complex” [...] “it cannot be accurately anticipated what effect any changes [...] will have on concentrations for a given source configuration”]
+
+- “modeled design concentrations can vary sustantially due to normal ranges of variations in the albedo, Bowen ratio, and surface roughness length”
+
+.footnote[
+[*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
+]
+---
+### AERMOD 'punto calmet' (griglia)
+
+tutto come prima... ma rispetto alla precedente configurazione cambia  
+
+sensitività rispetto a .red[risoluzione di griglia computazionale]
+
+- 125 m (è la ‘metà’ rispetto al caso precedente)
+  - cfr. file: [04_aermod_risoluzione_125m.html](./04_aermod_risoluzione_125m.html)
+
+- 62 m (ancora ‘dimezzamento’, per arrivare alla risoluzione di calcolo della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)<sup>*<sup/>
+  - cfr. file: [04_aermod_risoluzione__62m.html](./04_aermod_risoluzione__62m.html)
+
+.footnote[
+[*] attenzione: i tempi di calcolo (AERMAP) si dilatano molto! (> 12 h)
+]
+
+---
+###...e per il futuro? (ipotesi!)
+
+c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
+ 
+gratuito (no costi) e libero (codice fortran ‘in chiaro’)
+
+modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione soprattutto per dispersione sostanze odorigene (peak-to-mean)
+
+questo caso studio con parametrizzazione ‘default’ (da rivedere)
+
+- cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
+
+
+obiettivo (spero condivisibile a livello più ampio)
+
+acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
+
+...cioè, si ricomincia daccapo!  ;-( 
+
+---
+### Conclusioni
+##### (in forma di indicazioni operative)
+
+- valutare presenza di ‘orografia complessa’ e
+- scegliere accuratamente input meteo (sembra un’enorme perdita di tempo ma si guadagna in ripercorribilità, accuratezza/precisione)
+- considerare entità condizioni di calma di vento (AERMOD è un gaussiano ‘evoluto’ ma…)
+
+- inserire sempre quota base di sorgente nel caso ‘regulatory ELEV terrain' (non influente nel caso ‘non-regulatory FLAT terrain’)
+
+- definire parametri superficiali roughness length, bowen ratio, albedo (analisi sensitività ma non sempre possibile...)
+
+- leggere manuale, anche se non sempre chiaro ed esaustivo (soprattutto per me!)
+
+- valutare ‘trade-off’  accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio (non solo tempi macchina che sono i meno rilevanti!)
+
+- valutare i risultati rispetto a differenti approcci modellistici (è un ‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+
+---
+<!--class: inverse, center, middle-->
+
+# Grazie!
+
+### massimo.bressan@arpa.veneto.it
