@@ -1,25 +1,32 @@
 ---
 title: "Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici"
-subtitle: "alcune note su un caso studio <br/>in Provincia di Treviso<br/>"
+subtitle: "note a margine di un caso studio <br/>in Provincia di Treviso<br/>"
 author: "Massimo Bressan"
 institute: "SMV - DAP TV"
 date: "<br/>12/12/2019 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
-    css: ["./img_css/mytemplate2.css"]
+    css: ["default", "./img_css/mytemplate2.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
+      highlightLanguage: ["r", "yaml", "markdown"]
       highlightLines: true
       countIncrementalSlides: false
       #countdown: 60000
 ---
 
-```{r setup, include=FALSE}
+```{r initial setup, include=FALSE}
+
 options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE,
+                      comment = NA)
+library(knitr)
 ```
 ### la sorgente
-#### fonderia di getti in ghisa (40.000 t/a)
+fonderia di getti in ghisa 
 
 - parametri geometrici camino (forno fusorio, 'cubilotto')
   - altezza = 25 m
@@ -34,7 +41,7 @@ options(htmltools.dir.version = FALSE)
 - ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
 
 ### inquadramento territoriale
-cfr. file  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
 
 ---
 class: inverse, center, middle
@@ -43,7 +50,7 @@ class: inverse, center, middle
 
 ### 'stima base'
 
-### cfr. file [01_calpuff.html](./01_calpuff.html)
+### cfr. file: [01_calpuff.html](./01_calpuff.html)
 
 ---
 
@@ -76,7 +83,7 @@ CALPUFF (v. 5.85, EPA approved)
 ---
 ### CALMET - rosa venti (camino)
 
-```{r include =FALSE}
+```{r calmet, include = FALSE}
 mypath<-'./01_calpuff_stima_iniziale/prtmet/'
 myfile<-paste0(mypath,'prtmet.dat')
 met<-read.delim(myfile, header=FALSE, sep='', skip=4)
@@ -166,7 +173,7 @@ windRose(met,
 ```
 ---
 ### CALMET - rosa venti (camino) 
-stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 ```{r calmet-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -266,11 +273,11 @@ prima valutazione speditiva di tipo 'esplorativo'
   - roughness length 0.5
   - bowen ratio 0.25
   
-<strong>no elevazione base sorgente, optional parameter .red[default 0 (!!)]<strong/>
+nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]<strong/>
 ---
 ### AERMET - rosa venti (castelfranco)
 
-```{r include=FALSE}
+```{r aermet, include=FALSE}
 
 mypath2<-'./02_aermod_speditiva/aermet/'
 myfile2<-paste0(mypath2,'AERMET.SFC')
@@ -479,7 +486,7 @@ class: inverse, center, middle
 ---
 ### AERMET - rosa venti (punto lami)
 
-```{r include=FALSE}
+```{r aermet-lami, include=FALSE}
 
 mypath3<-'./03_aermod_punto_lami_varie_configurazioni/aermet/'
 myfile3<-paste0(mypath3,'AERMET.SFC')
@@ -588,7 +595,7 @@ windRose(sfc,
 ---
 ### AERMET - rosa venti (punto lami) 
 
-stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 ```{r aermet-lami-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -716,11 +723,68 @@ stima con due casi 'estremi 'di roughness ('land use')<sup>2<sup/>
     - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
 
 .footnote[
-[1] per brevità si onmette l'analisi di sensitività rispetto a 'albedo e 'bowen ratio' perchè bisognerebbe verificare almeno le 'combinazioni' più siginificative .red[(cfr. slide seguente)]  
-[2] range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' .red[(cfr. slide seguente)]  
+[2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+]
+---
+### AERMOD plume 
+
+horizontal plume (terrain impacting) and terrain-following plume <sup>*<sup/>  
+
+```{r  aermod-plume, echo=FALSE, out.width = '75%', out.height='75%', fig.align='center'}
+
+knitr::include_graphics('./img_css/aermod_plume.png') 
+
+
+```
+
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+---
+### AERMOD receptor heigth
+
+.pull-left[
+**FLAT** (non regulatory) $Z_t = 0$
+
+$$Z_p = Z_r$$  
 ]
 
+.pull-right[
+**ELEV** (regulatory) $Z_t \neq 0$
+
+$$Z_p = Z_r - Z_t$$
+]
+
+$Z_r = receptor\ heigth\ relative\ to\ stack\ base\ elevation$
+$Z_t = terrain\ heigth\ at\ a\ receptor$ 
+$Z_p = height\ above\ terrain\ (receptor flagpole\ heigth)$
+
+**to note that for any concentration calculation all heights $(Z)$ are referred to stack base elevation $(Z_t)$** 
+
+Relative weighting of two states (horizontal vs. terrain) depends on: 
+1. the degree of atmospheric stability,
+2. the wind speed, 
+3. plume height relative to terrain.  
+
+In **stable** conditions, the horizontal plume 'dominates' and is given greater weight while in **neutral** and **unstable** conditions, the plume the plume travelling over the terran is 'more heavily' weighted (half way between the horizontal state and the terrain responding state).
+
 ---
+### AERMOD dividing streamline 
+
+the actual plumes is a weighted sum of two limiting plume states <sup>*<sup/>
+
+```{r  aermod-streamline, echo=FALSE, out.width = '75%', out.height='70%', fig.align='center'}
+
+knitr::include_graphics('./img_css/aermod_streamline.png') 
+
+
+```
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+---
+
 ### AERMOD (sensitività - refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters<sup>*<sup/>
 
@@ -755,7 +819,7 @@ sensitività rispetto a .red[risoluzione di griglia computazionale]
 ]
 
 ---
-###...e per il futuro? (ipotesi!)
+###...e per il futuro? (è solo una ipotesi di lavoro!)
 
 c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
  
@@ -768,7 +832,7 @@ questo caso studio con parametrizzazione ‘default’ (da rivedere)
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo (spero condivisibile a livello più ampio)
+obiettivo (condivisibile a livello più esteso?)
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 

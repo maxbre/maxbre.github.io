@@ -10,12 +10,12 @@ a, a > code {
   text-decoration: none; /* turns off background coloring of links */
 }
 
-/* slightly lower and bigger than default */
+/* footnote, slightly lower and smaller than default */
 .footnote {
   position: absolute;
   bottom: 1em;
   padding-right: 4em;
-  font-size: 95%;
+  font-size: 80%;
 }
 
 /* important code slightly red */
@@ -116,7 +116,7 @@ thead, tfoot, tr:nth-child(even) {background-color: #f2f2f2;}
 /* Add image and change bg color */
 .title-slide {
   background-image: url(./logo_arpav.jpeg);
-  background-position: 100% 0%;
+  background-position: 95% 5%;
   background-size: 250px;
   background-color: #fff;
   margin-top: -70px
@@ -130,7 +130,7 @@ thead, tfoot, tr:nth-child(even) {background-color: #f2f2f2;}
   font-size: 45px;
   text-align: left;
   text-shadow: none;
-  padding-top: 100px;
+  padding-top: 90px;
   padding-bottom: 18px;
   margin-bottom: 18px;
 }

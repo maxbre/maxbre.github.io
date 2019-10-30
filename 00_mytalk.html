@@ -4,6 +4,7 @@
     <title>Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici</title>
     <meta charset="utf-8" />
     <meta name="author" content="Massimo Bressan" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="img_css/mytemplate2.css" type="text/css" />
   </head>
   <body>
@@ -11,17 +12,17 @@
 class: center, middle, inverse, title-slide
 
 # Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici
-## alcune note su un caso studio <br/>in Provincia di Treviso<br/>
+## note a margine di un caso studio <br/>in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAP TV
-### <br/>12/12/2019 (updated: 2019-10-25)
+### <br/>12/12/2019 (updated: 2019-10-30)
 
 ---
 
 
 
 ### la sorgente
-#### fonderia di getti in ghisa (40.000 t/a)
+fonderia di getti in ghisa 
 
 - parametri geometrici camino (forno fusorio, 'cubilotto')
   - altezza = 25 m
@@ -36,7 +37,7 @@ class: center, middle, inverse, title-slide
 - ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
 
 ### inquadramento territoriale
-cfr. file  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
 
 ---
 class: inverse, center, middle
@@ -45,7 +46,7 @@ class: inverse, center, middle
 
 ### 'stima base'
 
-### cfr. file [01_calpuff.html](./01_calpuff.html)
+### cfr. file: [01_calpuff.html](./01_calpuff.html)
 
 ---
 
@@ -85,7 +86,7 @@ vv media = 1.5 m/s; calme &lt;0.5 m/s = 7.2%
 &lt;img src="00_mytalk_files/figure-html/calmet-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 ### CALMET - rosa venti (camino) 
-stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 &lt;img src="00_mytalk_files/figure-html/calmet-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 
@@ -214,7 +215,7 @@ prima valutazione speditiva di tipo 'esplorativo'
   - roughness length 0.5
   - bowen ratio 0.25
   
-&lt;strong&gt;no elevazione base sorgente, optional parameter .red[default 0 (!!)]&lt;strong/&gt;
+nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]&lt;strong/&gt;
 ---
 ### AERMET - rosa venti (castelfranco)
 
@@ -359,7 +360,7 @@ vv media = 1.4 m/s; calme &lt;0.5 m/s = 8.9%
 ---
 ### AERMET - rosa venti (punto lami) 
 
-stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
@@ -512,11 +513,58 @@ stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
     - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
 
 .footnote[
-[1] per brevità si onmette l'analisi di sensitività rispetto a 'albedo e 'bowen ratio' perchè bisognerebbe verificare almeno le 'combinazioni' più siginificative .red[(cfr. slide seguente)]  
-[2] range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' .red[(cfr. slide seguente)]  
+[2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
+]
+---
+### AERMOD plume 
+
+horizontal plume (terrain impacting) and terrain-following plume &lt;sup&gt;*&lt;sup/&gt;  
+
+&lt;img src="./img_css/aermod_plume.png" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+---
+### AERMOD receptor heigth
+
+.pull-left[
+**FLAT** (non regulatory) `\(Z_t = 0\)`
+
+`$$Z_p = Z_r$$`  
 ]
 
+.pull-right[
+**ELEV** (regulatory) `\(Z_t \neq 0\)`
+
+`$$Z_p = Z_r - Z_t$$`
+]
+
+`\(Z_r = receptor\ heigth\ relative\ to\ stack\ base\ elevation\)`
+`\(Z_t = terrain\ heigth\ at\ a\ receptor\)` 
+`\(Z_p = height\ above\ terrain\ (receptor flagpole\ heigth)\)`
+
+**to note that for any concentration calculation all heights `\((Z)\)` are referred to stack base elevation `\((Z_t)\)`** 
+
+Relative weighting of two states (horizontal vs. terrain) depends on: 
+1. the degree of atmospheric stability,
+2. the wind speed, 
+3. plume height relative to terrain.  
+
+In **stable** conditions, the horizontal plume 'dominates' and is given greater weight while in **neutral** and **unstable** conditions, the plume the plume travelling over the terran is 'more heavily' weighted (half way between the horizontal state and the terrain responding state).
+
 ---
+### AERMOD dividing streamline 
+
+the actual plumes is a weighted sum of two limiting plume states &lt;sup&gt;*&lt;sup/&gt;
+
+&lt;img src="./img_css/aermod_streamline.png" width="75%" height="70%" style="display: block; margin: auto;" /&gt;
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+---
+
 ### AERMOD (sensitività - refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters&lt;sup&gt;*&lt;sup/&gt;
 
@@ -551,7 +599,7 @@ sensitività rispetto a .red[risoluzione di griglia computazionale]
 ]
 
 ---
-###...e per il futuro? (ipotesi!)
+###...e per il futuro? (è solo una ipotesi di lavoro!)
 
 c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
  
@@ -564,7 +612,7 @@ questo caso studio con parametrizzazione ‘default’ (da rivedere)
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo (spero condivisibile a livello più ampio)
+obiettivo (condivisibile a livello più esteso?)
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
@@ -598,6 +646,7 @@ acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
+"highlightLanguage": ["r", "yaml", "markdown"],
 "highlightLines": true,
 "countIncrementalSlides": false
 });
