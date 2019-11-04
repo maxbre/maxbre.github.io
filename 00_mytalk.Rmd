@@ -27,7 +27,7 @@ library(knitr)
 ```
 ### la sorgente
 fonderia di getti in ghisa 
-
+ 
 - parametri geometrici camino (forno fusorio, 'cubilotto')
   - altezza = 25 m
   - raggio  = 0.635 m
@@ -268,7 +268,7 @@ prima valutazione speditiva di tipo 'esplorativo'
 
 - orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
 
-- parametri superficiali (centro dominio di calcolo)
+- parametri superficiali (landuse 1 km):
   - albedo 0.15
   - roughness length 0.5
   - bowen ratio 0.25
@@ -462,7 +462,7 @@ class: inverse, center, middle
 
 ### 'punto lami'
 
-### cfr. file [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
 ---
 ### AERMOD 'punto lami' (specifiche)
 
@@ -684,9 +684,10 @@ class: inverse, center, middle
 
 - estrazione CALMET su punto camino (come per stima base CALPUFF)
 
-- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco) 
+
 in particolare
-- parametri superficiali da centro dominio di calcolo:
+- parametri superficiali (landuse 1 km):
   - albedo 0.15
   - roughness length 0.5
   - bowen ratio 0.25
@@ -697,9 +698,11 @@ cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m
 ---
 ### AERMOD 'punto calmet' (variazioni)
 
-tutto come prima... ma rispetto alla precedente configurazione cambiano  
+tutto come prima... 
 
-- parametri superficiali .red[estrazione su punto camino]
+ma rispetto alla precedente configurazione cambiano  
+
+- parametri superficiali (su punto camino, landuse 250 m)
 
   - albedo  0.16
   - roughness lenght 0.94 (~ “urban” = 1)
@@ -710,7 +713,9 @@ cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m
 ---
 ### AERMOD 'punto calmet' (roughness)
 
-tutto come prima... ma rispetto alla precedente configurazione cambia  
+tutto come prima... 
+
+ma rispetto alla precedente configurazione cambia  
 
 sensitività rispetto a .red[roughness length]<sup>1<sup>
 
@@ -758,16 +763,17 @@ $$Z_p = Z_r - Z_t$$
 
 $Z_r = receptor\ heigth\ relative\ to\ stack\ base\ elevation$
 $Z_t = terrain\ heigth\ at\ a\ receptor$ 
-$Z_p = height\ above\ terrain\ (receptor flagpole\ heigth)$
+$Z_p = height\ above\ terrain\ (receptor flagpole\ heigth)$ 
 
-**to note that for any concentration calculation all heights $(Z)$ are referred to stack base elevation $(Z_t)$** 
+
+**to be noted that for any concentration calculation all heights $(Z)$ are referred to stack base elevation $(Z_t)$** 
 
 Relative weighting of two states (horizontal vs. terrain) depends on: 
 1. the degree of atmospheric stability,
 2. the wind speed, 
 3. plume height relative to terrain.  
 
-In **stable** conditions, the horizontal plume 'dominates' and is given greater weight while in **neutral** and **unstable** conditions, the plume the plume travelling over the terran is 'more heavily' weighted (half way between the horizontal state and the terrain responding state).
+In **stable** conditions, the horizontal plume *'dominates'* and is given greater weight while in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
 
 ---
 ### AERMOD dividing streamline 
@@ -788,13 +794,13 @@ knitr::include_graphics('./img_css/aermod_streamline.png')
 ### AERMOD (sensitività - refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters<sup>*<sup/>
 
-Articolo datato che però sembra ben centrare il problema... 
+Articolo datato, però sembra ben centrare il problema... 
 
 - “only the surface roughness lenght affects the concentrations significantly” 
 
 - “albedo and Bowen ratio have little or no effect” 
 
-- .red[“effects these parameters have on modeled concentrations are sufficiently complex” [...] “it cannot be accurately anticipated what effect any changes [...] will have on concentrations for a given source configuration”]
+- .red[“effects these parameters have on modeled concentrations are sufficiently complex [...] it cannot be accurately anticipated what effect any changes [...] will have on concentrations for a given source configuration”]
 
 - “modeled design concentrations can vary sustantially due to normal ranges of variations in the albedo, Bowen ratio, and surface roughness length”
 
@@ -806,12 +812,12 @@ Articolo datato che però sembra ben centrare il problema...
 
 tutto come prima... ma rispetto alla precedente configurazione cambia  
 
-sensitività rispetto a .red[risoluzione di griglia computazionale]
+.red[la risoluzione di griglia computazionale]
 
-- 125 m (è la ‘metà’ rispetto al caso precedente)
+- 125 m (‘metà’ rispetto al caso precedente)
   - cfr. file: [04_aermod_risoluzione_125m.html](./04_aermod_risoluzione_125m.html)
 
-- 62 m (ancora ‘dimezzamento’, per arrivare alla risoluzione di calcolo della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)<sup>*<sup/>
+- 62 m (ancora ‘dimezzamento’, per risoluzione di calcolo della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)<sup>*<sup/>
   - cfr. file: [04_aermod_risoluzione__62m.html](./04_aermod_risoluzione__62m.html)
 
 .footnote[
@@ -819,45 +825,48 @@ sensitività rispetto a .red[risoluzione di griglia computazionale]
 ]
 
 ---
-###...e per il futuro? (è solo una ipotesi di lavoro!)
+###...e per il futuro? (ipotesi di lavoro!)
 
 c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
  
 gratuito (no costi) e libero (codice fortran ‘in chiaro’)
 
-modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione soprattutto per dispersione sostanze odorigene (peak-to-mean)
+modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
 
-questo caso studio con parametrizzazione ‘default’ (da rivedere)
+questo caso studio con parametrizzazione ‘default’ (da rivedere!)
 
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo (condivisibile a livello più esteso?)
+obiettivo (condivisibile?):
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
-...cioè, si ricomincia daccapo!  ;-( 
+
 
 ---
-### Conclusioni: indicazioni operative
+### Conclusioni
+#### in forma di alcune semplici indicazioni operative
 
-- valutare presenza di ‘orografia complessa’ e
-- scegliere accuratamente input meteo (sembra un’enorme perdita di tempo ma si guadagna in ripercorribilità, accuratezza/precisione)
-- considerare entità condizioni di calma di vento (AERMOD è un gaussiano ‘evoluto’ ma…)
+- valutare con attenzione condizioni di 'terreno complesso' e
+- scegliere accuratamente input meteo
 
-- inserire sempre quota base di sorgente nel caso ‘regulatory ELEV terrain' (non influente nel caso ‘non-regulatory FLAT terrain’)
+- considerare conseguenze dovute a condizioni di calma di vento 
 
-- definire parametri superficiali roughness length, bowen ratio, albedo (analisi sensitività ma non sempre possibile...)
+- inserire sempre quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
 
-- leggere manuale, anche se non sempre chiaro ed esaustivo (soprattutto per me!)
+- definire attentamente parametri superficiali roughness, bowen ratio, albedo (*cfr. 'AERMOD implementation guide', p. 3.1.2*)
 
-- valutare ‘trade-off’  accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio (non solo tempi macchina che sono i meno rilevanti!)
+- leggere bene i manuali (tutti!), anche se non sempre chiari ed esaustivi 
+
+- valutare ‘trade-off’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
 - valutare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
 
 ---
-<!--class: inverse, center, middle-->
+class: inverse, center, middle
 
 # Grazie!
 
 ### massimo.bressan@arpa.veneto.it
+
