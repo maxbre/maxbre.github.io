@@ -54,7 +54,7 @@ class: inverse, center, middle
 
 ---
 
-### CALPUFF 'stima base' (specifiche)
+### CALPUFF - 'stima base' (specifiche)
 approccio 'no obs', semestre 'invernale' 01/10/17 – 31/03/18
 
 COSMO-LAMI 7 
@@ -251,7 +251,7 @@ class: inverse, center, middle
 
 ### cfr. file [02_aermod.html](./02_aermod.html)
 ---
-### AERMOD 'stazione cmt' (specifiche)
+### AERMOD - 'stazione cmt' (specifiche)
 
 prima valutazione speditiva di tipo 'esplorativo'  
 - approccio 'obs - no obs'
@@ -387,7 +387,7 @@ windRose(sfc,
 ---
 ### AERMET - rosa venti (castelfranco) 
 
-stratificazione dì / notte (alba e tramaonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 ```{r aermet-cmt-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -464,7 +464,7 @@ class: inverse, center, middle
 
 ### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
 ---
-### AERMOD 'punto lami' (specifiche)
+### AERMOD - 'punto lami' (specifiche)
 
 - approccio 'no obs'
 
@@ -632,7 +632,7 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ```
 ---
 
-### AERMET - stat vv (ppunto lami)
+### AERMET - stat vv (punto lami)
 tutte le osservazioni
 ```{r echo=FALSE}
 kable(ws_month, format='markdown', digits=1)
@@ -676,7 +676,7 @@ class: inverse, center, middle
 ###.red[(segue)]
 
 ---
-### AERMOD 'punto calmet' (specifiche)
+### AERMOD - 'punto calmet' (spec.)
 
 - approccio 'no obs'
 
@@ -696,7 +696,7 @@ in particolare
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
-### AERMOD 'punto calmet' (variazioni)
+### AERMOD - 'punto calmet' (variaz.)
 
 tutto come prima... 
 
@@ -711,7 +711,7 @@ ma rispetto alla precedente configurazione cambiano
 cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
 
 ---
-### AERMOD 'punto calmet' (roughness)
+### AERMOD - 'punto calmet' (rough.)
 
 tutto come prima... 
 
@@ -732,7 +732,7 @@ stima con due casi 'estremi 'di roughness ('land use')<sup>2<sup/>
 [2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
 ]
 ---
-### AERMOD plume 
+### AERMOD - plume (refs)
 
 horizontal plume (terrain impacting) and terrain-following plume <sup>*<sup/>  
 
@@ -747,7 +747,7 @@ knitr::include_graphics('./img_css/aermod_plume.png')
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-### AERMOD receptor heigth
+### AERMOD - receptor heigth (refs)
 
 .pull-left[
 **FLAT** (non regulatory) $Z_t = 0$
@@ -776,7 +776,7 @@ Relative weighting of two states (horizontal vs. terrain) depends on:
 In **stable** conditions, the horizontal plume *'dominates'* and is given greater weight while in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
 
 ---
-### AERMOD dividing streamline 
+### AERMOD - dividing streamline (refs)
 
 the actual plumes is a weighted sum of two limiting plume states <sup>*<sup/>
 
@@ -790,8 +790,7 @@ knitr::include_graphics('./img_css/aermod_streamline.png')
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-
-### AERMOD (sensitività - refs)
+### AERMOD - sensitivity (refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters<sup>*<sup/>
 
 Articolo datato, però sembra ben centrare il problema... 
@@ -808,7 +807,7 @@ Articolo datato, però sembra ben centrare il problema...
 [*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
 ]
 ---
-### AERMOD 'punto calmet' (griglia)
+### AERMOD - 'punto calmet' (griglia)
 
 tutto come prima... ma rispetto alla precedente configurazione cambia  
 
@@ -823,26 +822,6 @@ tutto come prima... ma rispetto alla precedente configurazione cambia
 .footnote[
 [*] attenzione: i tempi di calcolo (AERMAP) si dilatano molto! (> 12 h)
 ]
-
----
-###...e per il futuro? (ipotesi di lavoro!)
-
-c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
- 
-gratuito (no costi) e libero (codice fortran ‘in chiaro’)
-
-modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
-
-questo caso studio con parametrizzazione ‘default’ (da rivedere!)
-
-- cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
-
-
-obiettivo (condivisibile?):
-
-acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
-
-
 
 ---
 ### Conclusioni
@@ -862,6 +841,24 @@ acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle
 - valutare ‘trade-off’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
 - valutare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+
+---
+###...e per il futuro? (ipotesi di lavoro!)
+
+c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
+ 
+gratuito (no costi) e libero (codice fortran ‘in chiaro’)
+
+modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
+
+questo caso studio con parametrizzazione ‘default’ (da rivedere!)
+
+- cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
+
+
+obiettivo (condivisibile?):
+
+acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
 ---
 class: inverse, center, middle
