@@ -30,7 +30,7 @@ library(knitr)
 ### la sorgente
 
 fonderia di getti in ghisa: forno fusorio ('cubilotto')
- 
+
 - parametri geometrici camino
   - altezza = 25 m
   - raggio  = 0.635 m
