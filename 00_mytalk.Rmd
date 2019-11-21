@@ -6,7 +6,7 @@ institute: "SMV - DAP TV"
 date: "<br/>12/12/2019 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
-    css: ["default", "./img_css/mytemplate2.css"]
+    css: ["default", "img_css/mytemplate2.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -16,19 +16,22 @@ output:
       #countdown: 60000
 ---
 
-```{r initial setup, include=FALSE}
+```{r setup, include=FALSE}
 
 options(htmltools.dir.version = FALSE)
 
-knitr::opts_chunk$set(warning = FALSE, 
+knitr::opts_chunk$set(fig.retina = 3,
+                      warning = FALSE, 
                       message = FALSE,
                       comment = NA)
 library(knitr)
+
 ```
 ### la sorgente
-fonderia di getti in ghisa 
+
+fonderia di getti in ghisa: forno fusorio ('cubilotto')
  
-- parametri geometrici camino (forno fusorio, 'cubilotto')
+- parametri geometrici camino
   - altezza = 25 m
   - raggio  = 0.635 m
 
@@ -38,10 +41,30 @@ fonderia di getti in ghisa
   - temperatura = 100.5 °C
   - velocità = 11.9 m/s
 
-- ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
+- ratei emissione
+  - costanti e continui 24/7 (ipotesi cautelativa) 
 
 ### inquadramento territoriale
+
 cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+
+---
+class: center, bottom
+
+background-image: url(img_css/pianezze1.jpeg)
+background-position: center
+background-size: contain
+
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+
+---
+class: center, bottom
+
+background-image: url(img_css/pianezze2.jpeg)
+background-position: center
+background-size: contain
+
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
 
 ---
 class: inverse, center, middle
@@ -50,12 +73,15 @@ class: inverse, center, middle
 
 ### 'stima base'
 
+### periodo: 01/10/17 – 31/03/18
+
 ### cfr. file: [01_calpuff.html](./01_calpuff.html)
 
 ---
 
 ### CALPUFF - 'stima base' (specifiche)
-approccio 'no obs', semestre 'invernale' 01/10/17 – 31/03/18
+
+approccio 'no obs', semestre 'invernale'
 
 COSMO-LAMI 7 
 
@@ -66,24 +92,22 @@ COSMO-LAMI 7
 CALMET (v. 5.85, EPA approved)
 
 - orografia e uso suolo: DTM 250 m
-- n celle: 51 * 51, griglia regolare
-- dimensione celle: 250 m
+- griglia regolare: 51 * 51, 250 m
 - dimensione dominio: 12.75 km * 12.75 km
-- n. livelli verticali: 11,  da 0 a 6000 m
 
 CALPUFF (v. 5.85, EPA approved)
 
 - cella di campionamento: 60 m, nesting factor MESHDN = 4
-- coefficienti dispersione da variabili micro-meteo MDISP = 2
+- coeff. disp. da variabili micro-meteo, MDISP = 2
 - no reazioni chimiche, no deposizione secca e umida
-- n. puffs 'da seguire' - to track -  NPFDEB = 10
+- n. puffs 'da seguire' - to track -,  NPFDEB = 10
 - min vv per 'non calma': 0.5 m/s
-- min-max mixing height: 50-2500 m
 
 ---
 ### CALMET - rosa venti (camino)
 
 ```{r calmet, include = FALSE}
+
 mypath<-'./01_calpuff_stima_iniziale/prtmet/'
 myfile<-paste0(mypath,'prtmet.dat')
 met<-read.delim(myfile, header=FALSE, sep='', skip=4)
@@ -172,10 +196,11 @@ windRose(met,
          )
 ```
 ---
-### CALMET - rosa venti (camino) 
-stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
+### CALMET - rosa venti (camino)
 
-```{r calmet-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
+
+```{r calmet-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left', echo=FALSE}
 
 windRose(met, 
          paddle=FALSE, 
@@ -211,12 +236,15 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 
 ---
 ### CALMET - stat vv (camino)
+
 tutte le osservazioni
+
 ```{r echo=FALSE}
 kable(ws_month, format='markdown', digits=1)
 ```
 
 solo calme
+
 ```{r echo=FALSE}
 kable(calm_month, format='html', digits=1)
 ```
@@ -249,7 +277,7 @@ class: inverse, center, middle
 
 ### 'stazione cmt'
 
-### cfr. file [02_aermod.html](./02_aermod.html)
+### cfr. file: [02_aermod.html](./02_aermod.html)
 ---
 ### AERMOD - 'stazione cmt' (specifiche)
 
@@ -424,18 +452,23 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ---
 
 ### AERMET - stat vv (castelfranco)
+
 tutte le osservazioni
+
 ```{r echo=FALSE}
 kable(ws_month, format='markdown', digits=1)
 ```
 
 solo calme
+
 ```{r echo=FALSE}
 kable(calm_month, format='html', digits=1)
 ```
 ---
 ### AERMET - hmix (castelfranco)
-nota: fuori scala alcuni 'spikes' a 4000 m (dic 2017 e feb 2018)
+
+NB: molti NA + alcuni 'spikes' a 4000 m (fuori scala, dic 2017 e feb 2018)
+
 ```{r aermet-cmt-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE, warning=FALSE}
 
 ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
@@ -463,6 +496,7 @@ class: inverse, center, middle
 ### 'punto lami'
 
 ### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+
 ---
 ### AERMOD - 'punto lami' (specifiche)
 
@@ -577,7 +611,9 @@ sfc$mixh<-ifelse(pmax(sfc$Zic,sfc$Zim)==-999,NA,pmax(sfc$Zic,sfc$Zim))
 
 
 ```
+
 vv media = `r round(mean(sfc$ws),1)` m/s; calme <0.5 m/s = `r round(sum(sfc$ws<0.5)/length(sfc$ws)*100,1)`%
+
 ```{r aermet-lami-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
 windRose(sfc, 
@@ -595,9 +631,9 @@ windRose(sfc,
 ---
 ### AERMET - rosa venti (punto lami) 
 
-stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
-```{r aermet-lami-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+```{r aermet-lami-windrose-nightday, fig.width=10, fig.height=7.5, fig.align='left', echo=FALSE}
 
 windRose(sfc, 
          paddle=FALSE, 
@@ -633,12 +669,15 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ---
 
 ### AERMET - stat vv (punto lami)
+
 tutte le osservazioni
+
 ```{r echo=FALSE}
 kable(ws_month, format='markdown', digits=1)
 ```
 
 solo calme
+
 ```{r echo=FALSE}
 kable(calm_month, format='html', digits=1)
 ```
@@ -673,10 +712,10 @@ class: inverse, center, middle
 ### 'punto calmet'
 
 ### varie configurazioni
-###.red[(segue)]
+###.red[(segue files)]
 
 ---
-### AERMOD - 'punto calmet' (spec.)
+### AERMOD - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
 
@@ -696,7 +735,7 @@ in particolare
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (variaz.)
+### AERMOD - 'punto calmet' (variazione)
 
 tutto come prima... 
 
@@ -711,7 +750,7 @@ ma rispetto alla precedente configurazione cambiano
 cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (rough.)
+### AERMOD - 'punto calmet' (roughness)
 
 tutto come prima... 
 
@@ -809,7 +848,10 @@ Articolo datato, però sembra ben centrare il problema...
 ---
 ### AERMOD - 'punto calmet' (griglia)
 
-tutto come prima... ma rispetto alla precedente configurazione cambia  
+tutto come prima ... 
+
+
+... ma rispetto alla  configurazione precedente cambia
 
 .red[la risoluzione di griglia computazionale]
 
@@ -825,7 +867,8 @@ tutto come prima... ma rispetto alla precedente configurazione cambia
 
 ---
 ### Conclusioni
-#### in forma di alcune semplici indicazioni operative
+
+#### in forma di semplici indicazioni operative
 
 - valutare con attenzione condizioni di 'terreno complesso' e
 - scegliere accuratamente input meteo
@@ -851,7 +894,7 @@ gratuito (no costi) e libero (codice fortran ‘in chiaro’)
 
 modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
 
-questo caso studio con parametrizzazione ‘default’ (da rivedere!)
+questo caso studio con parametrizzazione ‘default’ (tutta da rivedere!)
 
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 

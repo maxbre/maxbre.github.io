@@ -290,10 +290,26 @@ h3 {
   font-size: 1.5em;
 }
 
+.bottomtext{
+  font-size:12px;
+  text-align: middle;
+}
+
 /*  example .small[some text here] */
-.large { font-size: 130% }
-.small { font-size: 70% }
-.tiny{font-size: 40%}
+.large{
+  font-size: 130% 
+  
+}
+
+.small{
+  font-size: 70%
+  
+}
+
+.tiny{
+  font-size: 40%
+  
+}
 
 
 /* blockquote */

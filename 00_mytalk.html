@@ -15,16 +15,17 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio <br/>in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAP TV
-### <br/>12/12/2019 (updated: 2019-11-05)
+### <br/>12/12/2019 (updated: 2019-11-21)
 
 ---
 
 
 
 ### la sorgente
-fonderia di getti in ghisa 
+
+fonderia di getti in ghisa: forno fusorio ('cubilotto')
  
-- parametri geometrici camino (forno fusorio, 'cubilotto')
+- parametri geometrici camino
   - altezza = 25 m
   - raggio  = 0.635 m
 
@@ -34,10 +35,30 @@ fonderia di getti in ghisa
   - temperatura = 100.5 °C
   - velocità = 11.9 m/s
 
-- ratei emissione: costanti e continui 24/7 (ipotesi cautelativa) 
+- ratei emissione
+  - costanti e continui 24/7 (ipotesi cautelativa) 
 
 ### inquadramento territoriale
+
 cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+
+---
+class: center, bottom
+
+background-image: url(img_css/pianezze1.jpeg)
+background-position: center
+background-size: contain
+
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+
+---
+class: center, bottom
+
+background-image: url(img_css/pianezze2.jpeg)
+background-position: center
+background-size: contain
+
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
 
 ---
 class: inverse, center, middle
@@ -46,12 +67,15 @@ class: inverse, center, middle
 
 ### 'stima base'
 
+### periodo: 01/10/17 – 31/03/18
+
 ### cfr. file: [01_calpuff.html](./01_calpuff.html)
 
 ---
 
 ### CALPUFF - 'stima base' (specifiche)
-approccio 'no obs', semestre 'invernale' 01/10/17 – 31/03/18
+
+approccio 'no obs', semestre 'invernale'
 
 COSMO-LAMI 7 
 
@@ -62,19 +86,16 @@ COSMO-LAMI 7
 CALMET (v. 5.85, EPA approved)
 
 - orografia e uso suolo: DTM 250 m
-- n celle: 51 * 51, griglia regolare
-- dimensione celle: 250 m
+- griglia regolare: 51 * 51, 250 m
 - dimensione dominio: 12.75 km * 12.75 km
-- n. livelli verticali: 11,  da 0 a 6000 m
 
 CALPUFF (v. 5.85, EPA approved)
 
 - cella di campionamento: 60 m, nesting factor MESHDN = 4
-- coefficienti dispersione da variabili micro-meteo MDISP = 2
+- coeff. disp. da variabili micro-meteo, MDISP = 2
 - no reazioni chimiche, no deposizione secca e umida
-- n. puffs 'da seguire' - to track -  NPFDEB = 10
+- n. puffs 'da seguire' - to track -,  NPFDEB = 10
 - min vv per 'non calma': 0.5 m/s
-- min-max mixing height: 50-2500 m
 
 ---
 ### CALMET - rosa venti (camino)
@@ -83,21 +104,24 @@ CALPUFF (v. 5.85, EPA approved)
 
 vv media = 1.5 m/s; calme &lt;0.5 m/s = 7.2%
 
-&lt;img src="00_mytalk_files/figure-html/calmet-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/calmet-windrose-month-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
-### CALMET - rosa venti (camino) 
-stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
+### CALMET - rosa venti (camino)
 
-&lt;img src="00_mytalk_files/figure-html/calmet-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
+
+&lt;img src="00_mytalk_files/figure-html/calmet-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
 ### CALMET - classi vv (camino)
 
-&lt;img src="00_mytalk_files/figure-html/calmetws-class-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/calmetws-class-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
 ### CALMET - stat vv (camino)
+
 tutte le osservazioni
+
 
 |month         |   n| mean| median|  sd| min| max|
 |:-------------|---:|----:|------:|---:|---:|---:|
@@ -109,6 +133,7 @@ tutte le osservazioni
 |March 2018    | 744|  1.9|    1.7| 1.0| 0.2| 5.3|
 
 solo calme
+
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -182,7 +207,7 @@ solo calme
 
 ### CALMET - hmix (camino)
 
-&lt;img src="00_mytalk_files/figure-html/calmet-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/calmet-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
 class: inverse, center, middle
@@ -191,7 +216,7 @@ class: inverse, center, middle
 
 ### 'stazione cmt'
 
-### cfr. file [02_aermod.html](./02_aermod.html)
+### cfr. file: [02_aermod.html](./02_aermod.html)
 ---
 ### AERMOD - 'stazione cmt' (specifiche)
 
@@ -222,7 +247,7 @@ nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]&lt
 
 vv media = 0.8 m/s; calme &lt;0.5 m/s = 46.8%
 
-&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-month-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 
 ---
@@ -230,15 +255,17 @@ vv media = 0.8 m/s; calme &lt;0.5 m/s = 46.8%
 
 stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
-&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 ### AERMET - classi vv (castelfranco)
 
-&lt;img src="00_mytalk_files/figure-html/aermet-cmt-class-vv-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-class-vv-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 
 ### AERMET - stat vv (castelfranco)
+
 tutte le osservazioni
+
 
 |month         |   n| mean|  sd| min| max| median|
 |:-------------|---:|----:|---:|---:|---:|------:|
@@ -250,6 +277,7 @@ tutte le osservazioni
 |March 2018    | 744|  1.4| 1.1|   0| 6.2|    1.2|
 
 solo calme
+
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -321,8 +349,10 @@ solo calme
 &lt;/table&gt;
 ---
 ### AERMET - hmix (castelfranco)
-nota: fuori scala alcuni 'spikes' a 4000 m (dic 2017 e feb 2018)
-&lt;img src="00_mytalk_files/figure-html/aermet-cmt-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+NB: molti NA + alcuni 'spikes' a 4000 m (fuori scala, dic 2017 e feb 2018)
+
+&lt;img src="00_mytalk_files/figure-html/aermet-cmt-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 class: inverse, center, middle
 
@@ -331,6 +361,7 @@ class: inverse, center, middle
 ### 'punto lami'
 
 ### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+
 ---
 ### AERMOD - 'punto lami' (specifiche)
 
@@ -355,22 +386,26 @@ class: inverse, center, middle
 ### AERMET - rosa venti (punto lami)
 
 
+
 vv media = 1.4 m/s; calme &lt;0.5 m/s = 8.9%
-&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-month-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-month-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 ### AERMET - rosa venti (punto lami) 
 
-stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
+stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
-&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-nightday-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 ### AERMET - classi vv (punto lami)
 
-&lt;img src="00_mytalk_files/figure-html/aermet-lami-class-ws-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-class-ws-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 
 ### AERMET - stat vv (punto lami)
+
 tutte le osservazioni
+
 
 |month         |   n| mean|  sd| min| max| median|
 |:-------------|---:|----:|---:|---:|---:|------:|
@@ -382,6 +417,7 @@ tutte le osservazioni
 |March 2018    | 744|  1.7| 0.9|   0| 4.9|    1.5|
 
 solo calme
+
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -454,7 +490,7 @@ solo calme
 ---
 ### AERMET - hmix (punto lami)
 
-&lt;img src="00_mytalk_files/figure-html/aermet-lami-hmix-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="00_mytalk_files/figure-html/aermet-lami-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 class: inverse, center, middle
 
@@ -463,10 +499,10 @@ class: inverse, center, middle
 ### 'punto calmet'
 
 ### varie configurazioni
-###.red[(segue)]
+###.red[(segue files)]
 
 ---
-### AERMOD - 'punto calmet' (spec.)
+### AERMOD - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
 
@@ -486,7 +522,7 @@ in particolare
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (variaz.)
+### AERMOD - 'punto calmet' (variazione)
 
 tutto come prima... 
 
@@ -501,7 +537,7 @@ ma rispetto alla precedente configurazione cambiano
 cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (rough.)
+### AERMOD - 'punto calmet' (roughness)
 
 tutto come prima... 
 
@@ -589,7 +625,10 @@ Articolo datato, però sembra ben centrare il problema...
 ---
 ### AERMOD - 'punto calmet' (griglia)
 
-tutto come prima... ma rispetto alla precedente configurazione cambia  
+tutto come prima ... 
+
+
+... ma rispetto alla  configurazione precedente cambia
 
 .red[la risoluzione di griglia computazionale]
 
@@ -605,7 +644,8 @@ tutto come prima... ma rispetto alla precedente configurazione cambia
 
 ---
 ### Conclusioni
-#### in forma di alcune semplici indicazioni operative
+
+#### in forma di semplici indicazioni operative
 
 - valutare con attenzione condizioni di 'terreno complesso' e
 - scegliere accuratamente input meteo
@@ -631,7 +671,7 @@ gratuito (no costi) e libero (codice fortran ‘in chiaro’)
 
 modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
 
-questo caso studio con parametrizzazione ‘default’ (da rivedere!)
+questo caso studio con parametrizzazione ‘default’ (tutta da rivedere!)
 
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
