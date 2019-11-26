@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici</title>
+    <title>Confronto tra differenti configurazioni modellistiche di dispersione degli inquinanti atmosferici</title>
     <meta charset="utf-8" />
     <meta name="author" content="Massimo Bressan" />
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="img_css/mytemplate2.css" type="text/css" />
+    <link rel="stylesheet" href="img_css/default-fonts_cl.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici
-## note a margine di un caso studio <br/>in Provincia di Treviso<br/>
+# Confronto tra differenti configurazioni modellistiche di dispersione degli inquinanti atmosferici
+## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
-### SMV - DAP TV
-### <br/>12/12/2019 (updated: 2019-11-21)
+### SMV - DAPTV
+### <br/>12/12/2019 (updated: 2019-11-26)
+
+---
+
+
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
 
 ---
 
 
 
-### la sorgente
+##sorgente
 
 fonderia di getti in ghisa: forno fusorio ('cubilotto')
 
@@ -38,7 +47,7 @@ fonderia di getti in ghisa: forno fusorio ('cubilotto')
 - ratei emissione
   - costanti e continui 24/7 (ipotesi cautelativa) 
 
-### inquadramento territoriale
+## inquadramento territoriale
 
 cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
 
@@ -49,7 +58,7 @@ background-image: url(img_css/pianezze1.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
 
 ---
 class: center, bottom
@@ -58,22 +67,31 @@ background-image: url(img_css/pianezze2.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
 
 ---
+name: calpuff
+layout: false
 class: inverse, center, middle
 
 # CALPUFF
 
-### 'stima base'
+## 'stima base'
 
-### periodo: 01/10/17 – 31/03/18
+### periodo di riferimento: 01/10/17 – 31/03/18
 
-### cfr. file: [01_calpuff.html](./01_calpuff.html)
+## cfr. file: [01_calpuff.html](./01_calpuff.html)
+
+[(jump to lapmod)](#lapmod)
+---
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
 
 ---
-
-### CALPUFF - 'stima base' (specifiche)
+## CALPUFF - 'stima base' (specifiche)
 
 approccio 'no obs', semestre 'invernale'
 
@@ -98,7 +116,7 @@ CALPUFF (v. 5.85, EPA approved)
 - min vv per 'non calma': 0.5 m/s
 
 ---
-### CALMET - rosa venti (camino)
+## CALMET - rosa venti (camino)
 
 
 
@@ -106,19 +124,19 @@ vv media = 1.5 m/s; calme &lt;0.5 m/s = 7.2%
 
 &lt;img src="00_mytalk_files/figure-html/calmet-windrose-month-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
-### CALMET - rosa venti (camino)
+## CALMET - rosa venti (camino)
 
 stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
 &lt;img src="00_mytalk_files/figure-html/calmet-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
-### CALMET - classi vv (camino)
+## CALMET - classi vv (camino)
 
 &lt;img src="00_mytalk_files/figure-html/calmetws-class-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
-### CALMET - stat vv (camino)
+## CALMET - stat vv (camino)
 
 tutte le osservazioni
 
@@ -205,20 +223,28 @@ solo calme
 &lt;/table&gt;
 ---
 
-### CALMET - hmix (camino)
+## CALMET - hmix (camino)
 
 &lt;img src="00_mytalk_files/figure-html/calmet-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
+layout: false
 class: inverse, center, middle
 
 # AERMOD
 
-### 'stazione cmt'
+## 'stazione cmt'
 
-### cfr. file: [02_aermod.html](./02_aermod.html)
+## cfr. file: [02_aermod.html](./02_aermod.html)
 ---
-### AERMOD - 'stazione cmt' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'stazione cmt' (specifiche)
 
 prima valutazione speditiva di tipo 'esplorativo'  
 - approccio 'obs - no obs'
@@ -242,7 +268,7 @@ prima valutazione speditiva di tipo 'esplorativo'
   
 nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]&lt;strong/&gt;
 ---
-### AERMET - rosa venti (castelfranco)
+## AERMET - rosa venti (cmt - castelfranco v.)
 
 
 vv media = 0.8 m/s; calme &lt;0.5 m/s = 46.8%
@@ -251,18 +277,18 @@ vv media = 0.8 m/s; calme &lt;0.5 m/s = 46.8%
 
 
 ---
-### AERMET - rosa venti (castelfranco) 
+## AERMET - rosa venti (cmt - castelfranco v.) 
 
 stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-cmt-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
-### AERMET - classi vv (castelfranco)
+## AERMET - classi vv (cmt - castelfranco v.)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-cmt-class-vv-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 
-### AERMET - stat vv (castelfranco)
+## AERMET - stat vv (cmt - castelfranco v.)
 
 tutte le osservazioni
 
@@ -348,22 +374,30 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 ---
-### AERMET - hmix (castelfranco)
+## AERMET - hmix (cmt - castelfranco v.)
 
 NB: molti NA + alcuni 'spikes' a 4000 m (fuori scala, dic 2017 e feb 2018)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-cmt-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 class: inverse, center, middle
+layout: false
 
 # AERMOD
 
-### 'punto lami'
+## 'punto lami'
 
-### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+## cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
 
 ---
-### AERMOD - 'punto lami' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'punto lami' (specifiche)
 
 - approccio 'no obs'
 
@@ -383,7 +417,7 @@ class: inverse, center, middle
       - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
 
 ---
-### AERMET - rosa venti (punto lami)
+## AERMET - rosa venti (punto lami)
 
 
 
@@ -391,18 +425,18 @@ vv media = 1.4 m/s; calme &lt;0.5 m/s = 8.9%
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-month-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
-### AERMET - rosa venti (punto lami) 
+## AERMET - rosa venti (punto lami) 
 
 stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-windrose-nightday-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
-### AERMET - classi vv (punto lami)
+## AERMET - classi vv (punto lami)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-class-ws-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 
-### AERMET - stat vv (punto lami)
+## AERMET - stat vv (punto lami)
 
 tutte le osservazioni
 
@@ -488,21 +522,29 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 ---
-### AERMET - hmix (punto lami)
+## AERMET - hmix (punto lami)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
 class: inverse, center, middle
+layout: false
 
 # AERMOD
 
-### 'punto calmet'
+## 'punto calmet'
 
-### varie configurazioni
-###.red[(segue files)]
+## varie configurazioni
+###.red[(segue files mappe)]
 
 ---
-### AERMOD - 'punto calmet' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
 
@@ -522,7 +564,7 @@ in particolare
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (variazione)
+## AERMOD - 'punto calmet' (variazione)
 
 tutto come prima... 
 
@@ -537,7 +579,9 @@ ma rispetto alla precedente configurazione cambiano
 cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (roughness)
+name: roughness
+
+## AERMOD - 'punto calmet' (roughness)
 
 tutto come prima... 
 
@@ -554,21 +598,22 @@ stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
     - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
 
 .footnote[
-[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' .red[(cfr. slide seguente)]  
+[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' [(cfr. slide 'sensitivity')](#sensitivity_refs)
+
 [2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
 ]
 ---
-### AERMOD - plume (refs)
+## AERMOD - plume (refs)
 
-horizontal plume (terrain impacting) and terrain-following plume &lt;sup&gt;*&lt;sup/&gt;  
+horizontal plume (terrain impacting) and terrain-following plume&lt;sup&gt;*&lt;sup/&gt;  
 
-&lt;img src="./img_css/aermod_plume.png" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_css/aermod_plume.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
 
 .footnote[
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-### AERMOD - receptor heigth (refs)
+## AERMOD - receptor heigth (refs)
 
 .pull-left[
 **FLAT** (non regulatory) `\(Z_t = 0\)`
@@ -597,16 +642,18 @@ Relative weighting of two states (horizontal vs. terrain) depends on:
 In **stable** conditions, the horizontal plume *'dominates'* and is given greater weight while in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
 
 ---
-### AERMOD - dividing streamline (refs)
+## AERMOD - dividing streamline (refs)
 
-the actual plumes is a weighted sum of two limiting plume states &lt;sup&gt;*&lt;sup/&gt;
+the actual plumes is a weighted sum of two limiting plume states&lt;sup&gt;*&lt;sup/&gt;
 
-&lt;img src="./img_css/aermod_streamline.png" width="75%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_css/aermod_streamline.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
 .footnote[
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-### AERMOD - sensitivity (refs)
+name: sensitivity_refs
+
+## AERMOD - sensitivity (refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters&lt;sup&gt;*&lt;sup/&gt;
 
 Articolo datato, però sembra ben centrare il problema... 
@@ -621,9 +668,12 @@ Articolo datato, però sembra ben centrare il problema...
 
 .footnote[
 [*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
+
+[(hop back to roughness)](#roughness)
 ]
+
 ---
-### AERMOD - 'punto calmet' (griglia)
+## AERMOD - 'punto calmet' (griglia)
 
 tutto come prima ... 
 
@@ -643,9 +693,9 @@ tutto come prima ...
 ]
 
 ---
-### Conclusioni
+## Conclusioni
 
-#### in forma di semplici indicazioni operative
+### in forma di alcune semplici indicazioni operative
 
 - valutare con attenzione condizioni di 'terreno complesso' e
 - scegliere accuratamente input meteo
@@ -658,30 +708,36 @@ tutto come prima ...
 
 - leggere bene i manuali (tutti!), anche se non sempre chiari ed esaustivi 
 
-- valutare ‘trade-off’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
+- valutare ‘trade-offs’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
-- valutare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+- confrontare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
 
 ---
-###...e per il futuro? (ipotesi di lavoro!)
 
-c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
+name: lapmod
+
+##...e per il futuro? (ipotesi di lavoro!)
+
+c’è anche [**LAPMOD**](https://www.enviroware.it/lapmod/) ...
  
-gratuito (no costi) e libero (codice fortran ‘in chiaro’)
+gratuito (no costi acquisto licenza) e libero (codice fortran ‘in chiaro’)
 
 modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
 
-questo caso studio con parametrizzazione ‘default’ (tutta da rivedere!)
+questo caso studio con parametrizzazione ‘default’ (è da rivedere!)
 
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo (condivisibile?):
+obiettivo:
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
+.footnote[.left[[(hop back to calpuff)](#calpuff)]]
+
 ---
 class: inverse, center, middle
+layout: false
 
 # Grazie!
 

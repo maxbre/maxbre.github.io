@@ -1,12 +1,12 @@
 ---
-title: "Confronto tra configurazioni modellistiche di dispersione degli inquinanti atmosferici"
-subtitle: "note a margine di un caso studio <br/>in Provincia di Treviso<br/>"
+title: "Confronto tra differenti configurazioni modellistiche di dispersione degli inquinanti atmosferici"
+subtitle: "note a margine di un caso studio in Provincia di Treviso<br/>"
 author: "Massimo Bressan"
-institute: "SMV - DAP TV"
+institute: "SMV - DAPTV"
 date: "<br/>12/12/2019 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
-    css: ["default", "img_css/mytemplate2.css"]
+    css: ["img_css/mytemplate2.css", "img_css/default-fonts_cl.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -14,6 +14,14 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       #countdown: 60000
+---
+
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +35,8 @@ knitr::opts_chunk$set(fig.retina = 3,
 library(knitr)
 
 ```
-### la sorgente
+
+##sorgente
 
 fonderia di getti in ghisa: forno fusorio ('cubilotto')
 
@@ -44,7 +53,7 @@ fonderia di getti in ghisa: forno fusorio ('cubilotto')
 - ratei emissione
   - costanti e continui 24/7 (ipotesi cautelativa) 
 
-### inquadramento territoriale
+## inquadramento territoriale
 
 cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
 
@@ -55,7 +64,7 @@ background-image: url(img_css/pianezze1.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
 
 ---
 class: center, bottom
@@ -64,22 +73,31 @@ background-image: url(img_css/pianezze2.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m), Mte Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
 
 ---
+name: calpuff
+layout: false
 class: inverse, center, middle
 
 # CALPUFF
 
-### 'stima base'
+## 'stima base'
 
-### periodo: 01/10/17 – 31/03/18
+### periodo di riferimento: 01/10/17 – 31/03/18
 
-### cfr. file: [01_calpuff.html](./01_calpuff.html)
+## cfr. file: [01_calpuff.html](./01_calpuff.html)
+
+[(jump to lapmod)](#lapmod)
+---
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
 
 ---
-
-### CALPUFF - 'stima base' (specifiche)
+## CALPUFF - 'stima base' (specifiche)
 
 approccio 'no obs', semestre 'invernale'
 
@@ -104,7 +122,7 @@ CALPUFF (v. 5.85, EPA approved)
 - min vv per 'non calma': 0.5 m/s
 
 ---
-### CALMET - rosa venti (camino)
+## CALMET - rosa venti (camino)
 
 ```{r calmet, include = FALSE}
 
@@ -181,7 +199,7 @@ calm_month<-met %>%
 
 vv media = `r round(mean(met$ws),1)` m/s; calme <0.5 m/s = `r round(sum(met$ws<0.5)/length(met$ws)*100,1)`%
 
-```{r calmet-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+```{r calmet-windrose-month, fig.width=10, fig.height=7, fig.align='left',  echo=FALSE}
 
 windRose(met, 
          paddle=FALSE, 
@@ -196,7 +214,7 @@ windRose(met,
          )
 ```
 ---
-### CALMET - rosa venti (camino)
+## CALMET - rosa venti (camino)
 
 stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
@@ -218,7 +236,7 @@ windRose(met,
 ```
 
 ---
-### CALMET - classi vv (camino)
+## CALMET - classi vv (camino)
 
 ```{r calmetws-class, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -235,7 +253,7 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ```
 
 ---
-### CALMET - stat vv (camino)
+## CALMET - stat vv (camino)
 
 tutte le osservazioni
 
@@ -250,7 +268,7 @@ kable(calm_month, format='html', digits=1)
 ```
 ---
 
-### CALMET - hmix (camino)
+## CALMET - hmix (camino)
 
 ```{r calmet-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 ggplot(met, aes(x=factor(format(date, '%H')), y=mixh)) +
@@ -271,15 +289,23 @@ ggplot(met, aes(x=factor(format(date, '%H')), y=mixh)) +
 ```
 
 ---
+layout: false
 class: inverse, center, middle
 
 # AERMOD
 
-### 'stazione cmt'
+## 'stazione cmt'
 
-### cfr. file: [02_aermod.html](./02_aermod.html)
+## cfr. file: [02_aermod.html](./02_aermod.html)
 ---
-### AERMOD - 'stazione cmt' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'stazione cmt' (specifiche)
 
 prima valutazione speditiva di tipo 'esplorativo'  
 - approccio 'obs - no obs'
@@ -303,7 +329,7 @@ prima valutazione speditiva di tipo 'esplorativo'
   
 nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]<strong/>
 ---
-### AERMET - rosa venti (castelfranco)
+## AERMET - rosa venti (cmt - castelfranco v.)
 
 ```{r aermet, include=FALSE}
 
@@ -413,7 +439,7 @@ windRose(sfc,
 
 
 ---
-### AERMET - rosa venti (castelfranco) 
+## AERMET - rosa venti (cmt - castelfranco v.) 
 
 stratificazione dì / notte (alba e tramonto da data-ora, long e lat)
 
@@ -434,7 +460,7 @@ windRose(sfc,
     
 ```
 ---
-### AERMET - classi vv (castelfranco)
+## AERMET - classi vv (cmt - castelfranco v.)
 
 ```{r aermet-cmt-class-vv, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -451,7 +477,7 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ```
 ---
 
-### AERMET - stat vv (castelfranco)
+## AERMET - stat vv (cmt - castelfranco v.)
 
 tutte le osservazioni
 
@@ -465,11 +491,11 @@ solo calme
 kable(calm_month, format='html', digits=1)
 ```
 ---
-### AERMET - hmix (castelfranco)
+## AERMET - hmix (cmt - castelfranco v.)
 
 NB: molti NA + alcuni 'spikes' a 4000 m (fuori scala, dic 2017 e feb 2018)
 
-```{r aermet-cmt-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE, warning=FALSE}
+```{r aermet-cmt-hmix, fig.width=10, fig.height=7, fig.align='left',  echo=FALSE, warning=FALSE}
 
 ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
   geom_point(alpha=0.3)+
@@ -490,15 +516,23 @@ ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
 ```
 ---
 class: inverse, center, middle
+layout: false
 
 # AERMOD
 
-### 'punto lami'
+## 'punto lami'
 
-### cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+## cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
 
 ---
-### AERMOD - 'punto lami' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'punto lami' (specifiche)
 
 - approccio 'no obs'
 
@@ -518,7 +552,7 @@ class: inverse, center, middle
       - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
 
 ---
-### AERMET - rosa venti (punto lami)
+## AERMET - rosa venti (punto lami)
 
 ```{r aermet-lami, include=FALSE}
 
@@ -614,7 +648,7 @@ sfc$mixh<-ifelse(pmax(sfc$Zic,sfc$Zim)==-999,NA,pmax(sfc$Zic,sfc$Zim))
 
 vv media = `r round(mean(sfc$ws),1)` m/s; calme <0.5 m/s = `r round(sum(sfc$ws<0.5)/length(sfc$ws)*100,1)`%
 
-```{r aermet-lami-windrose-month, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
+```{r aermet-lami-windrose-month, fig.width=10, fig.height=7, fig.align='left',  echo=FALSE}
 
 windRose(sfc, 
          paddle=FALSE, 
@@ -629,7 +663,7 @@ windRose(sfc,
 
 ```
 ---
-### AERMET - rosa venti (punto lami) 
+## AERMET - rosa venti (punto lami) 
 
 stratificazione dì / notte (alba e tramonto da: data-ora, long e lat)
 
@@ -650,7 +684,7 @@ windRose(sfc,
 
 ```
 ---
-### AERMET - classi vv (punto lami)
+## AERMET - classi vv (punto lami)
 
 ```{r aermet-lami-class-ws, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE}
 
@@ -668,7 +702,7 @@ ggplot(wsfd, aes(x=class, y=perc, fill=class))+
 ```
 ---
 
-### AERMET - stat vv (punto lami)
+## AERMET - stat vv (punto lami)
 
 tutte le osservazioni
 
@@ -682,7 +716,7 @@ solo calme
 kable(calm_month, format='html', digits=1)
 ```
 ---
-### AERMET - hmix (punto lami)
+## AERMET - hmix (punto lami)
 
 ```{r aermet-lami-hmix, fig.width=10, fig.height=7.5, fig.align='left',  echo=FALSE, warning=FALSE}
 
@@ -706,16 +740,24 @@ ggplot(sfc, aes(x=factor(format(date, '%H')), y=mixh)) +
 ```
 ---
 class: inverse, center, middle
+layout: false
 
 # AERMOD
 
-### 'punto calmet'
+## 'punto calmet'
 
-### varie configurazioni
-###.red[(segue files)]
+## varie configurazioni
+###.red[(segue files mappe)]
 
 ---
-### AERMOD - 'punto calmet' (specifiche)
+layout: true
+
+background-image: url(img_css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+## AERMOD - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
 
@@ -735,7 +777,7 @@ in particolare
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (variazione)
+## AERMOD - 'punto calmet' (variazione)
 
 tutto come prima... 
 
@@ -750,7 +792,9 @@ ma rispetto alla precedente configurazione cambiano
 cfr. file: [04_aermod_calmet_250m_01_new_param_sup.html](./04_aermod_calmet_250m_01_new_param_sup.html)
 
 ---
-### AERMOD - 'punto calmet' (roughness)
+name: roughness
+
+## AERMOD - 'punto calmet' (roughness)
 
 tutto come prima... 
 
@@ -767,15 +811,16 @@ stima con due casi 'estremi 'di roughness ('land use')<sup>2<sup/>
     - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
 
 .footnote[
-[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' .red[(cfr. slide seguente)]  
+[1] per brevità si omette l'analisi di sensitività rispetto ad 'albedo e 'bowen ratio' perchè significa verificare tutte le varie 'combinazioni' [(cfr. slide 'sensitivity')](#sensitivity_refs)
+
 [2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
 ]
 ---
-### AERMOD - plume (refs)
+## AERMOD - plume (refs)
 
-horizontal plume (terrain impacting) and terrain-following plume <sup>*<sup/>  
+horizontal plume (terrain impacting) and terrain-following plume<sup>*<sup/>  
 
-```{r  aermod-plume, echo=FALSE, out.width = '75%', out.height='75%', fig.align='center'}
+```{r  aermod-plume, echo=FALSE, out.width = '70%', out.height='70%', fig.align='center'}
 
 knitr::include_graphics('./img_css/aermod_plume.png') 
 
@@ -786,7 +831,7 @@ knitr::include_graphics('./img_css/aermod_plume.png')
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-### AERMOD - receptor heigth (refs)
+## AERMOD - receptor heigth (refs)
 
 .pull-left[
 **FLAT** (non regulatory) $Z_t = 0$
@@ -815,11 +860,11 @@ Relative weighting of two states (horizontal vs. terrain) depends on:
 In **stable** conditions, the horizontal plume *'dominates'* and is given greater weight while in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
 
 ---
-### AERMOD - dividing streamline (refs)
+## AERMOD - dividing streamline (refs)
 
-the actual plumes is a weighted sum of two limiting plume states <sup>*<sup/>
+the actual plumes is a weighted sum of two limiting plume states<sup>*<sup/>
 
-```{r  aermod-streamline, echo=FALSE, out.width = '75%', out.height='70%', fig.align='center'}
+```{r  aermod-streamline, echo=FALSE, out.width = '70%', out.height='70%', fig.align='center'}
 
 knitr::include_graphics('./img_css/aermod_streamline.png') 
 
@@ -829,7 +874,9 @@ knitr::include_graphics('./img_css/aermod_streamline.png')
 [*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 ---
-### AERMOD - sensitivity (refs)
+name: sensitivity_refs
+
+## AERMOD - sensitivity (refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters<sup>*<sup/>
 
 Articolo datato, però sembra ben centrare il problema... 
@@ -844,9 +891,12 @@ Articolo datato, però sembra ben centrare il problema...
 
 .footnote[
 [*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
+
+[(hop back to roughness)](#roughness)
 ]
+
 ---
-### AERMOD - 'punto calmet' (griglia)
+## AERMOD - 'punto calmet' (griglia)
 
 tutto come prima ... 
 
@@ -866,9 +916,9 @@ tutto come prima ...
 ]
 
 ---
-### Conclusioni
+## Conclusioni
 
-#### in forma di semplici indicazioni operative
+### in forma di alcune semplici indicazioni operative
 
 - valutare con attenzione condizioni di 'terreno complesso' e
 - scegliere accuratamente input meteo
@@ -881,30 +931,36 @@ tutto come prima ...
 
 - leggere bene i manuali (tutti!), anche se non sempre chiari ed esaustivi 
 
-- valutare ‘trade-off’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
+- valutare ‘trade-offs’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
-- valutare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+- confrontare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
 
 ---
-###...e per il futuro? (ipotesi di lavoro!)
 
-c’è anche [LAPMOD](https://www.enviroware.it/lapmod/)
+name: lapmod
+
+##...e per il futuro? (ipotesi di lavoro!)
+
+c’è anche [**LAPMOD**](https://www.enviroware.it/lapmod/) ...
  
-gratuito (no costi) e libero (codice fortran ‘in chiaro’)
+gratuito (no costi acquisto licenza) e libero (codice fortran ‘in chiaro’)
 
 modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
 
-questo caso studio con parametrizzazione ‘default’ (tutta da rivedere!)
+questo caso studio con parametrizzazione ‘default’ (è da rivedere!)
 
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo (condivisibile?):
+obiettivo:
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
+.footnote[.left[[(hop back to calpuff)](#calpuff)]]
+
 ---
 class: inverse, center, middle
+layout: false
 
 # Grazie!
 
