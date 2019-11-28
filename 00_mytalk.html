@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-11-26)
+### <br/>12/12/2019 (updated: 2019-11-28)
 
 ---
 
@@ -47,9 +47,13 @@ fonderia di getti in ghisa: forno fusorio ('cubilotto')
 - ratei emissione
   - costanti e continui 24/7 (ipotesi cautelativa) 
 
-## inquadramento territoriale
+## inquadramento urbanistico/territoriale
 
 cfr. file:  [00_regione_veneto_map_anemometri_cmt.html](./00_regione_veneto_map_anemometri_cmt.html)
+
+???
+zona collinare prealpina, densamente popolata che alterna aree residenziali, agricole, industriali secondo il tipico schema (letale) di insediamento diffuso caratteristico di tutta la pianura padana
+zona interessante anche dal punto di vista geomorfologico, rilievo del montello e paleoalveo del piave
 
 ---
 class: center, bottom
@@ -60,6 +64,16 @@ background-size: contain
 
 .white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
 
+???
+
+una di quelle giornate in cui in pianura si sguazza nell'aerosol vista da
+
+hmix esiste!
+
+lente larga 5km, lunga 13 km, 
+montello, punto max altitudine è in località Colesel Val dell'Acqua, 371 m slm,
+l’altezza media rispetto la pianura si aggira intorno ai 100 m
+
 ---
 class: center, bottom
 
@@ -68,6 +82,20 @@ background-position: center
 background-size: contain
 
 .white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
+
+???
+
+è possibile fare un calcolo a spanne hmix, per quella determinata ora e per quel determinato giorno 
+
+max altezza montello 371
+base altezza circa 100 m slm
+
+dislivello circa 250, approssimando...
+
+quindi, a occhio, hmix sicuramente meno di 100 m...
+
+ricordiamoci di questi numeri per dopo: da verificare sui grafici, teorici...
+
 
 ---
 name: calpuff
@@ -380,6 +408,7 @@ NB: molti NA + alcuni 'spikes' a 4000 m (fuori scala, dic 2017 e feb 2018)
 
 &lt;img src="00_mytalk_files/figure-html/aermet-cmt-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
+
 class: inverse, center, middle
 layout: false
 
@@ -526,6 +555,80 @@ solo calme
 
 &lt;img src="00_mytalk_files/figure-html/aermet-lami-hmix-1.png" width="720" style="display: block; margin: auto auto auto 0;" /&gt;
 ---
+
+## AERMOD - plume (refs)
+
+terrain impacting (horizontal plume) and terrain-following plume&lt;sup&gt;*&lt;sup/&gt;  
+
+&lt;img src="./img_css/aermod_plume.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+
+???
+two state approach: terrain impacting vs. following
+
+---
+
+
+## AERMOD - dividing streamline (refs)
+
+the actual plumes is a weighted sum of two limiting plume states&lt;sup&gt;*&lt;sup/&gt;
+
+&lt;img src="./img_css/aermod_streamline.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+.footnote[
+[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+]
+
+---
+
+## AERMOD - two state approach (refs)
+
+Relative weighting of two states (horizontal vs. terrain) depends on: 
+1. the degree of atmospheric stability,
+1. the wind speed, 
+3. plume height relative to terrain.  
+
+- in **stable** conditions, the horizontal plume *'dominates'* and is given greater weight. 
+
+- in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
+
+The total concentration predicted by AERMOD is the weighted sum of the two extreme possible plume states. 
+
+In the AERMOD approach, plume height, receptor elevation and `\(H_c\)` will determine how much plume material resides in each plume state.
+
+`\(H_c\)` ca be thought of as the level in the stable atmosphere where the flow has sufficient kinetic energy to overcome the stratification and rise to the height of terrain.
+---
+## AERMOD - flagpole receptor heigth (refs)
+
+.pull-left[
+**FLAT** (non regulatory) `\(Z_t = 0\)`
+
+`$$Z_p = Z_r$$`  
+]
+
+.pull-right[
+**ELEV** (regulatory) `\(Z_t &gt; 0\)`
+
+`$$Z_p = Z_r - Z_t$$`
+]
+
+`\(Z_p = height\ above\ terrain\ (receptor\ flagpole\ heigth)\)` 
+`\(Z_r = receptor\ heigth\ (above\ stack\ base\ elevation)\)`
+`\(Z_t = terrain\ heigth\ (above\ mean\ sea\ level)\)` 
+
+`\(Z_p\)` .red[**is the 'receptor flagpole height' where concentration is calculated**]
+
+ 
+**for any concentration calculation all heights are referred to stack base elevation (pay much attention!)**
+
+in flat terrain `\(Z_t=0\)` the concentration calculation is referring to the form of a single horizontal plume
+
+???
+in qualsiasi calcolo di concentrazione tutte le altezze sono riferite all'elevazione di base della sorgente
+
+---
 class: inverse, center, middle
 layout: false
 
@@ -602,54 +705,7 @@ stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
 
 [2] il range riportato nel manuale AERMOD è più ampio, cfr. p. 4-59
 ]
----
-## AERMOD - plume (refs)
 
-horizontal plume (terrain impacting) and terrain-following plume&lt;sup&gt;*&lt;sup/&gt;  
-
-&lt;img src="./img_css/aermod_plume.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
-
-.footnote[
-[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
-]
----
-## AERMOD - receptor heigth (refs)
-
-.pull-left[
-**FLAT** (non regulatory) `\(Z_t = 0\)`
-
-`$$Z_p = Z_r$$`  
-]
-
-.pull-right[
-**ELEV** (regulatory) `\(Z_t \neq 0\)`
-
-`$$Z_p = Z_r - Z_t$$`
-]
-
-`\(Z_r = receptor\ heigth\ relative\ to\ stack\ base\ elevation\)`
-`\(Z_t = terrain\ heigth\ at\ a\ receptor\)` 
-`\(Z_p = height\ above\ terrain\ (receptor flagpole\ heigth)\)` 
-
-
-**to be noted that for any concentration calculation all heights `\((Z)\)` are referred to stack base elevation `\((Z_t)\)`** 
-
-Relative weighting of two states (horizontal vs. terrain) depends on: 
-1. the degree of atmospheric stability,
-2. the wind speed, 
-3. plume height relative to terrain.  
-
-In **stable** conditions, the horizontal plume *'dominates'* and is given greater weight while in **neutral** and **unstable** conditions, the plume travelling over the terran is *'more heavily'* weighted (half way between the horizontal state and the terrain responding state).
-
----
-## AERMOD - dividing streamline (refs)
-
-the actual plumes is a weighted sum of two limiting plume states&lt;sup&gt;*&lt;sup/&gt;
-
-&lt;img src="./img_css/aermod_streamline.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
-.footnote[
-[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
-]
 ---
 name: sensitivity_refs
 
