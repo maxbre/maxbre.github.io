@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-11-28)
+### <br/>12/12/2019 (updated: 2019-11-29)
 
 ---
 
@@ -62,7 +62,7 @@ background-image: url(img_css/pianezze1.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen, TV***]
 
 ???
 
@@ -81,7 +81,7 @@ background-image: url(img_css/pianezze2.jpeg)
 background-position: center
 background-size: contain
 
-.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen, TV***]
 
 ???
 
@@ -95,7 +95,6 @@ dislivello circa 250, approssimando...
 quindi, a occhio, hmix sicuramente meno di 100 m...
 
 ricordiamoci di questi numeri per dopo: da verificare sui grafici, teorici...
-
 
 ---
 name: calpuff
@@ -277,25 +276,23 @@ background-size: 5%
 prima valutazione speditiva di tipo 'esplorativo'  
 - approccio 'obs - no obs'
 
-- cmt castelfranco (10 m): temp, vv, dv, prec, srad, rhu
-
-- lami: tcc, press
+- cmt castelfranco v. (10 m): temp, vv, dv, prec, srad, rhu; lami: tcc, press
 
 - radiosondaggio: san pietro capofiume 16144
 
-- risoluzione griglia calcolo: 250 m
-
-- elevated terrain ('receptors.rec')
-
-- orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
+- risoluzione griglia calcolo: 250 m, elevated terrain ('receptors.rec'), orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
 
 - parametri superficiali (landuse 1 km):
   - albedo 0.15
   - roughness length 0.5
   - bowen ratio 0.25
-  
-nb: no elevazione base sorgente, optional parameter .red[ELEV, default 0 (!)]&lt;strong/&gt;
+
+- .red[NO elevazione base sorgente, optional parameter, default = 0, nel caso ELEV è un errore !! (trattato in slides seguenti, qui focus calme di vento)]
+
+approccio 'corretto' è inserire l'elevazione di base della sorgente, cfr. file: [02_aermod_base90m.html](./02_aermod_base90m.html) (ma con altri 'problemi' trattati in slides seguenti)
+
 ---
+
 ## AERMET - rosa venti (cmt - castelfranco v.)
 
 
@@ -401,6 +398,8 @@ solo calme
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+.small[NB: eiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento rispetto a calme di vento (in condizioni ELEV) ma ovviamente entro certi limiti...] 
 ---
 ## AERMET - hmix (cmt - castelfranco v.)
 
@@ -416,7 +415,7 @@ layout: false
 
 ## 'punto lami'
 
-## cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
+## .red[(segue files mappe)]
 
 ---
 layout: true
@@ -436,8 +435,8 @@ background-size: 5%
 
 - in varie configurazioni rispetto all'elevazione base sorgente:
 
-  - default 0, optional parameter 
-      - (cfr. file precedente)
+  - default 0, optional parameter .red[(!!! attenzione, errore  con ELEV)]
+      - cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
         
   - input utente, 90 m (come per stima 'base' calpuff)
       - cfr. file [03_aermod_base090m_user.html](./03_aermod_base090m_user.html)
@@ -571,6 +570,41 @@ two state approach: terrain impacting vs. following
 
 ---
 
+## AERMOD - receptor flagpole heigth (refs)
+
+.pull-left[
+**FLAT** (non regulatory) `\(Z_t = 0\)`
+
+  `$$Z_p = Z_r$$`  
+  
+]
+
+.pull-right[
+**ELEV** (regulatory) `\(Z_t &gt; 0\)`
+  
+  `$$Z_p = Z_r - Z_t$$`
+]
+
+&lt;br/&gt;
+
+`\(Z_p = height\ above\ local\ ground\ (flagpole\ receptor\ heigth)\)`&lt;br/&gt;
+`\(Z_r = height\ of\ a\ receptor\ (relative\ to\ stack\ base\ elevation)\)`&lt;br/&gt;
+`\(Z_t = height\ of\ terrain\ at\ a\ receptor\)`&lt;br/&gt; 
+
+&lt;br/&gt;
+**for any concentration calculations all heights are referred to the stack base elevation**
+
+`\(Z_p\)`
+.red[**the 'flagpole receptor height', i.e. the height above terrain where concentration is calculated according to the terrain following state**]
+
+ 
+
+in a flat terrain `\(Z_t=0\)` the concentration calculation is referred to the form of a single horizontal plume, i.e. the terrain responding state sees the receptor on the hill as a ground-level receptor
+
+???
+in qualsiasi calcolo di concentrazione tutte le altezze sono riferite all'elevazione di base della sorgente
+
+---
 
 ## AERMOD - dividing streamline (refs)
 
@@ -598,37 +632,10 @@ The total concentration predicted by AERMOD is the weighted sum of the two extre
 
 In the AERMOD approach, plume height, receptor elevation and `\(H_c\)` will determine how much plume material resides in each plume state.
 
-`\(H_c\)` ca be thought of as the level in the stable atmosphere where the flow has sufficient kinetic energy to overcome the stratification and rise to the height of terrain.
----
-## AERMOD - flagpole receptor heigth (refs)
-
-.pull-left[
-**FLAT** (non regulatory) `\(Z_t = 0\)`
-
-`$$Z_p = Z_r$$`  
-]
-
-.pull-right[
-**ELEV** (regulatory) `\(Z_t &gt; 0\)`
-
-`$$Z_p = Z_r - Z_t$$`
-]
-
-`\(Z_p = height\ above\ terrain\ (receptor\ flagpole\ heigth)\)` 
-`\(Z_r = receptor\ heigth\ (above\ stack\ base\ elevation)\)`
-`\(Z_t = terrain\ heigth\ (above\ mean\ sea\ level)\)` 
-
-`\(Z_p\)` .red[**is the 'receptor flagpole height' where concentration is calculated**]
-
- 
-**for any concentration calculation all heights are referred to stack base elevation (pay much attention!)**
-
-in flat terrain `\(Z_t=0\)` the concentration calculation is referring to the form of a single horizontal plume
-
-???
-in qualsiasi calcolo di concentrazione tutte le altezze sono riferite all'elevazione di base della sorgente
+`\(H_c\)` can be thought of as the level in the stable atmosphere where the flow has sufficient kinetic energy to overcome the stratification and rise to the height of terrain.
 
 ---
+
 class: inverse, center, middle
 layout: false
 
