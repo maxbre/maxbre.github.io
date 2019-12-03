@@ -15,16 +15,16 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-11-29)
+### <br/>12/12/2019 (updated: 2019-12-03)
 
 ---
 
 
 layout: true
 
-background-image: url(img_css/logo_arpetta.jpeg)
+background-image: url(img_css/logo_arpav.jpeg)
 background-position: 98% 2%
-background-size: 5%
+background-size: 20%
 
 ---
 
@@ -66,7 +66,7 @@ background-size: contain
 
 ???
 
-una di quelle giornate in cui in pianura si sguazza nell'aerosol vista da
+una di quelle giornate in cui laggiù nella ridente e rigogliosa pianura del nord-est si sguazza nell'aerosol
 
 hmix esiste!
 
@@ -85,7 +85,7 @@ background-size: contain
 
 ???
 
-è possibile fare un calcolo a spanne hmix, per quella determinata ora e per quel determinato giorno 
+è possibile fare un piccolo calcolo spannometrico di hmix, per quella determinata ora e per quel determinato giorno 
 
 max altezza montello 371
 base altezza circa 100 m slm
@@ -105,17 +105,17 @@ class: inverse, center, middle
 
 ## 'stima base'
 
-### periodo di riferimento: 01/10/17 – 31/03/18
+## periodo riferimento: 01/10/17 – 31/03/18
 
 ## cfr. file: [01_calpuff.html](./01_calpuff.html)
 
-[(jump to lapmod)](#lapmod)
+[(vai a lapmod)](#lapmod)
 ---
 layout: true
 
-background-image: url(img_css/logo_arpetta.jpeg)
+background-image: url(img_css/logo_arpav.jpeg)
 background-position: 98% 2%
-background-size: 5%
+background-size: 20%
 
 ---
 ## CALPUFF - 'stima base' (specifiche)
@@ -261,35 +261,37 @@ class: inverse, center, middle
 # AERMOD
 
 ## 'stazione cmt'
+## .red[(segue files mappe)]
 
-## cfr. file: [02_aermod.html](./02_aermod.html)
 ---
 layout: true
 
-background-image: url(img_css/logo_arpetta.jpeg)
+background-image: url(img_css/logo_arpav.jpeg)
 background-position: 98% 2%
-background-size: 5%
+background-size: 20%
 
 ---
 ## AERMOD - 'stazione cmt' (specifiche)
 
-prima valutazione speditiva di tipo 'esplorativo'  
-- approccio 'obs - no obs'
+prima valutazione speditiva di tipo 'esplorativo', approccio 'obs - no obs'
 
-- cmt castelfranco v. (10 m): temp, vv, dv, prec, srad, rhu; lami: tcc, press
-
-- radiosondaggio: san pietro capofiume 16144
+- cmt castelfranco v. (anemometro 10 m): temp, vv, dv, prec, srad, rhu + lami: tcc, press +  radiosondaggio: san pietro capofiume 16144
 
 - risoluzione griglia calcolo: 250 m, elevated terrain ('receptors.rec'), orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
 
-- parametri superficiali (landuse 1 km):
-  - albedo 0.15
-  - roughness length 0.5
-  - bowen ratio 0.25
+- parametri superficiali (landuse 1 km): albedo 0.15, roughness length 0.5, bowen ratio 0.25
 
-- .red[NO elevazione base sorgente, optional parameter, default = 0, nel caso ELEV è un errore !! (trattato in slides seguenti, qui focus calme di vento)]
 
-approccio 'corretto' è inserire l'elevazione di base della sorgente, cfr. file: [02_aermod_base90m.html](./02_aermod_base90m.html) (ma con altri 'problemi' trattati in slides seguenti)
+- .red[NO elevazione base sorgente, optional parameter, default = 0, nel caso ELEV è un errore ! ](trattato in slides seguenti, qui focus calme di vento)
+
+cfr. file: [02_aermod.html](./02_aermod.html)  
+
+- la quota di base della sorgente determina la differenza di elevazione tra sorgente e recettori e l'elevazione del pennacchio rispetto al terreno (*cfr. 'AERMOD implementation guide', p. 4.5*)
+
+- .red[stima con elevazione di base della sorgente (90 m)] 
+
+cfr. file: [02_aermod_base90m.html](./02_aermod_base90m.html)  
+(stima che evidenzia però altri 'problemi', trattati in slides successive)
 
 ---
 
@@ -399,7 +401,7 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-.small[NB: eiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento rispetto a calme di vento (in condizioni ELEV) ma ovviamente entro certi limiti...] 
+.small[NB: eiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento rispetto a calme di vento (in condizioni ELEV) ma ovviamente entro certi limiti, non per questo caso...] 
 ---
 ## AERMET - hmix (cmt - castelfranco v.)
 
@@ -420,9 +422,9 @@ layout: false
 ---
 layout: true
 
-background-image: url(img_css/logo_arpetta.jpeg)
+background-image: url(img_css/logo_arpav.jpeg)
 background-position: 98% 2%
-background-size: 5%
+background-size: 20%
 
 ---
 ## AERMOD - 'punto lami' (specifiche)
@@ -431,19 +433,20 @@ background-size: 5%
 
 - punto 'più vicino': centro abitato Montebelluna (...è perfetto!?)  
 
-- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco)
+- 'tutto il resto' come nella stima 'stazione cmt'  
 
 - in varie configurazioni rispetto all'elevazione base sorgente:
 
-  - default 0, optional parameter .red[(!!! attenzione, errore  con ELEV)]
-      - cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)
-        
+  - default 0, optional parameter .red[(!! attenzione, errore  con ELEV)]&lt;sup&gt;*&lt;sup/&gt;
+     - cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)  
+
   - input utente, 90 m (come per stima 'base' calpuff)
       - cfr. file [03_aermod_base090m_user.html](./03_aermod_base090m_user.html)
 
   - calcolata da AERMAP su DTM Regione, 114 m
       - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
 
+.footnote[[*] in file ERRORS.OUT: "SOLOCA No Option Parameter Setting, Forced by Default to ZS = 0.0"]
 ---
 ## AERMET - rosa venti (punto lami)
 
@@ -570,42 +573,6 @@ two state approach: terrain impacting vs. following
 
 ---
 
-## AERMOD - receptor flagpole heigth (refs)
-
-.pull-left[
-**FLAT** (non regulatory) `\(Z_t = 0\)`
-
-  `$$Z_p = Z_r$$`  
-  
-]
-
-.pull-right[
-**ELEV** (regulatory) `\(Z_t &gt; 0\)`
-  
-  `$$Z_p = Z_r - Z_t$$`
-]
-
-&lt;br/&gt;
-
-`\(Z_p = height\ above\ local\ ground\ (flagpole\ receptor\ heigth)\)`&lt;br/&gt;
-`\(Z_r = height\ of\ a\ receptor\ (relative\ to\ stack\ base\ elevation)\)`&lt;br/&gt;
-`\(Z_t = height\ of\ terrain\ at\ a\ receptor\)`&lt;br/&gt; 
-
-&lt;br/&gt;
-**for any concentration calculations all heights are referred to the stack base elevation**
-
-`\(Z_p\)`
-.red[**the 'flagpole receptor height', i.e. the height above terrain where concentration is calculated according to the terrain following state**]
-
- 
-
-in a flat terrain `\(Z_t=0\)` the concentration calculation is referred to the form of a single horizontal plume, i.e. the terrain responding state sees the receptor on the hill as a ground-level receptor
-
-???
-in qualsiasi calcolo di concentrazione tutte le altezze sono riferite all'elevazione di base della sorgente
-
----
-
 ## AERMOD - dividing streamline (refs)
 
 the actual plumes is a weighted sum of two limiting plume states&lt;sup&gt;*&lt;sup/&gt;
@@ -636,24 +603,59 @@ In the AERMOD approach, plume height, receptor elevation and `\(H_c\)` will dete
 
 ---
 
+## AERMOD - receptor flagpole heigth (refs)
+
+.pull-left[
+**FLAT** (non regulatory) `\(Z_t = 0\)`
+
+  `$$Z_p = Z_r$$`  
+  
+]
+
+.pull-right[
+**ELEV** (regulatory) `\(Z_t &gt; 0\)`
+  
+  `$$Z_p = Z_r - Z_t$$`
+]
+
+&lt;br/&gt;
+
+`\(Z_p = height\ above\ local\ ground\ (flagpole\ receptor\ heigth)\)`&lt;br/&gt;
+`\(Z_r = height\ of\ a\ receptor\ (relative\ to\ stack\ base\ elevation)\)`&lt;br/&gt;
+`\(Z_t = height\ of\ terrain\ at\ a\ receptor\)`&lt;br/&gt; 
+
+&lt;br/&gt;
+**for any concentration calculations all heights are referred to the stack base elevation**
+
+`\(Z_p\)`
+.red[**the 'flagpole receptor height', i.e. the height above terrain where concentration is calculated according to the terrain following state**]
+
+
+in a flat terrain `\(Z_t=0\)` the concentration calculation is referred to the form of a single horizontal plume, i.e. the terrain responding state sees the receptor on the hill as a ground-level receptor
+
+???
+in qualsiasi calcolo di concentrazione tutte le altezze sono riferite all'elevazione di base della sorgente
+
+---
+
 class: inverse, center, middle
 layout: false
 
 # AERMOD
 
-## 'punto calmet'
-
-## varie configurazioni
-###.red[(segue files mappe)]
+## 'punto calmet', varie configurazioni
+##.red[(segue files mappe)]
 
 ---
+
 layout: true
 
-background-image: url(img_css/logo_arpetta.jpeg)
+background-image: url(img_css/logo_arpav.jpeg)
 background-position: 98% 2%
-background-size: 5%
+background-size: 20%
 
 ---
+
 ## AERMOD - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
@@ -670,7 +672,7 @@ in particolare
   - roughness length 0.5
   - bowen ratio 0.25
 
-- elevazione base soergente, user input 90 m (= stima base CALPUFF)
+- elevazione base soergente, user input 90 m (= stima base CALPUFF)  
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
@@ -765,7 +767,7 @@ tutto come prima ...
 
 - considerare conseguenze dovute a condizioni di calma di vento 
 
-- inserire sempre quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
+- inserire sempre (ed in modo accurato) quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
 
 - definire attentamente parametri superficiali roughness, bowen ratio, albedo (*cfr. 'AERMOD implementation guide', p. 3.1.2*)
 
@@ -796,7 +798,7 @@ obiettivo:
 
 acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
 
-.footnote[.left[[(hop back to calpuff)](#calpuff)]]
+.footnote[.left[[(torna calpuff)](#calpuff)]]
 
 ---
 class: inverse, center, middle

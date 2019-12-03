@@ -115,11 +115,11 @@ thead, tfoot, tr:nth-child(even) {background-color: #f2f2f2;}
 
 /* Add image and change bg color */
 .title-slide {
-  background-image: url(./logo_arpav.jpeg);
+  background-image: url(./snpa_arpav.svg);
   background-position: 95% 5%;
-  background-size: 250px;
+  background-size: 400px;
   background-color: #fff;
-  margin-top: -70px
+  margin-top: -50px
   padding-left: 100px;  /* delete this for 4:3 aspect ratio */
 }
 
