@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-12-03)
+### <br/>12/12/2019 (updated: 2019-12-04)
 
 ---
 
@@ -271,6 +271,7 @@ background-position: 98% 2%
 background-size: 20%
 
 ---
+
 ## AERMOD - 'stazione cmt' (specifiche)
 
 prima valutazione speditiva di tipo 'esplorativo', approccio 'obs - no obs'
@@ -288,10 +289,9 @@ cfr. file: [02_aermod.html](./02_aermod.html)
 
 - la quota di base della sorgente determina la differenza di elevazione tra sorgente e recettori e l'elevazione del pennacchio rispetto al terreno (*cfr. 'AERMOD implementation guide', p. 4.5*)
 
-- .red[stima con elevazione di base della sorgente (90 m)] 
+- .red[con elevazione di base della sorgente (90 m)], stima che che evidenzia altre 'problematiche' (trattate in slides successive)      
 
 cfr. file: [02_aermod_base90m.html](./02_aermod_base90m.html)  
-(stima che evidenzia però altri 'problemi', trattati in slides successive)
 
 ---
 
@@ -401,7 +401,7 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-.small[NB: eiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento rispetto a calme di vento (in condizioni ELEV) ma ovviamente entro certi limiti, non per questo caso...] 
+.small[NB: esiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento calme di vento (in condizioni ELEV) ma entro certi limiti, non per questo caso specifico... ] 
 ---
 ## AERMET - hmix (cmt - castelfranco v.)
 
@@ -734,7 +734,7 @@ Articolo datato, però sembra ben centrare il problema...
 .footnote[
 [*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
 
-[(hop back to roughness)](#roughness)
+[(torna a roughness)](#roughness)
 ]
 
 ---
@@ -762,20 +762,21 @@ tutto come prima ...
 
 ### in forma di alcune semplici indicazioni operative
 
-- valutare con attenzione condizioni di 'terreno complesso' e
-- scegliere accuratamente input meteo
+- valutare con attenzione condizioni di 'terreno complesso'  
 
-- considerare conseguenze dovute a condizioni di calma di vento 
+- scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta unica e sempre valida!)
+
+- considerare effetti dovuti a calma di vento (modello gaussiano!)
 
 - inserire sempre (ed in modo accurato) quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
 
-- definire attentamente parametri superficiali roughness, bowen ratio, albedo (*cfr. 'AERMOD implementation guide', p. 3.1.2*)
+- definire molto attentamente parametri superficiali roughness, bowen ratio, albedo (*cfr. 'AERMOD implementation guide', p. 3.1.2*)
 
 - leggere bene i manuali (tutti!), anche se non sempre chiari ed esaustivi 
 
 - valutare ‘trade-offs’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
-- confrontare i risultati rispetto a differenti approcci modellistici (‘plus’ molto ‘dispendioso’ e non sempre fattibile)
+- confrontare i risultati rispetto a differenti approcci modellistici (è un ‘plus’ molto ‘dispendioso’ ma non sempre fattibile)
 
 ---
 
@@ -804,7 +805,7 @@ acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle
 class: inverse, center, middle
 layout: false
 
-# Grazie!
+# Grazie!  
 
 ### massimo.bressan@arpa.veneto.it
     </textarea>
