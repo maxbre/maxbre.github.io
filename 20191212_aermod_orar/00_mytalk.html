@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-12-04)
+### <br/>12/12/2019 (updated: 2019-12-06)
 
 ---
 
@@ -95,6 +95,15 @@ dislivello circa 250, approssimando...
 quindi, a occhio, hmix sicuramente meno di 100 m...
 
 ricordiamoci di questi numeri per dopo: da verificare sui grafici, teorici...
+
+---
+class: center, top
+
+background-image: url(img_css/montello_altimetria.png)
+background-position: bottom
+background-size: contain
+
+# altimetria del Montello
 
 ---
 name: calpuff
@@ -274,22 +283,22 @@ background-size: 20%
 
 ## AERMOD - 'stazione cmt' (specifiche)
 
-prima valutazione speditiva di tipo 'esplorativo', approccio 'obs - no obs'
+stima speditiva, di tipo 'esplorativo', approccio 'obs - no obs'
 
 - cmt castelfranco v. (anemometro 10 m): temp, vv, dv, prec, srad, rhu + lami: tcc, press +  radiosondaggio: san pietro capofiume 16144
 
-- risoluzione griglia calcolo: 250 m, elevated terrain ('receptors.rec'), orografia DTM regione Veneto (geotiff): risoluzione x, y = 30 m
+- risoluzione griglia: 250 m, elevated terrain ('receptors.rec'), altimetria (orografia) DTM regione Veneto (geotiff) con risoluzione x, y = 30 m
 
 - parametri superficiali (landuse 1 km): albedo 0.15, roughness length 0.5, bowen ratio 0.25
 
 
-- .red[NO elevazione base sorgente, optional parameter, default = 0, nel caso ELEV è un errore ! ](trattato in slides seguenti, qui focus calme di vento)
+- no elevazione base sorgente, optional parameter, default = 0, .red[nb: nel caso ELEV è un errore !!]
 
 cfr. file: [02_aermod.html](./02_aermod.html)  
 
-- la quota di base della sorgente determina la differenza di elevazione tra sorgente e recettori e l'elevazione del pennacchio rispetto al terreno (*cfr. 'AERMOD implementation guide', p. 4.5*)
+- la quota di base della sorgente determina la differenza di elevazione tra sorgente e recettori e l'elevazione del pennacchio rispetto al terreno
 
-- .red[con elevazione di base della sorgente (90 m)], stima che che evidenzia altre 'problematiche' (trattate in slides successive)      
+- .red[con elevazione di base della sorgente (90 m)], stima che che evidenzia altre 'problematiche' (trattate in casi seguenti)      
 
 cfr. file: [02_aermod_base90m.html](./02_aermod_base90m.html)  
 
@@ -401,7 +410,7 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-.small[NB: esiste opzione .red[ADJ_U*] (friction velocity) per aggiustamento calme di vento (in condizioni ELEV) ma entro certi limiti, non per questo caso specifico... ] 
+.small[NB: opzione .red[ADJ_U*] (friction velocity) per 'aggiustamento' condizioni di calma di vento (in condizioni ELEV) è valida entro certi limiti]
 ---
 ## AERMET - hmix (cmt - castelfranco v.)
 
@@ -431,11 +440,11 @@ background-size: 20%
 
 - approccio 'no obs'
 
-- punto 'più vicino': centro abitato Montebelluna (...è perfetto!?)  
+- punto 'più vicino': centro abitato di Montebelluna (... è perfetto!?)  
 
 - 'tutto il resto' come nella stima 'stazione cmt'  
 
-- in varie configurazioni rispetto all'elevazione base sorgente:
+- stime in varie configurazioni rispetto all'elevazione base sorgente:
 
   - default 0, optional parameter .red[(!! attenzione, errore  con ELEV)]&lt;sup&gt;*&lt;sup/&gt;
      - cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)  
@@ -560,12 +569,13 @@ solo calme
 
 ## AERMOD - plume (refs)
 
-terrain impacting (horizontal plume) and terrain-following plume&lt;sup&gt;*&lt;sup/&gt;  
+- **terrain-following: .red[above Hc, height of critical dividing streamline]**    
+- **terrain-impacting (horizontal): .red[below Hc**]  
 
-&lt;img src="./img_css/aermod_plume.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_css/aermod_plume.png" width="70%" height="75%" style="display: block; margin: auto;" /&gt;
 
-.footnote[
-[*] AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
+.small[
+AERMOD Model formulation and Evaluation. EPA-454/R-18-003.
 ]
 
 ???
@@ -660,13 +670,14 @@ background-size: 20%
 
 - approccio 'no obs'
 
-- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo punti LAMI: temp, ws, wd, prec, srad, rhu,tcc, press
+- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo punti LAMI: temp, ws, wd, prec, srad, rhu, tcc, press
 
 - estrazione CALMET su punto camino (come per stima base CALPUFF)
 
-- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco) 
+- 'tutto il resto' come nella stima 'stazione cmt' (castelfranco v.)
 
-in particolare
+in particolare rimangono invariati  
+
 - parametri superficiali (landuse 1 km):
   - albedo 0.15
   - roughness length 0.5
@@ -697,9 +708,7 @@ name: roughness
 
 tutto come prima... 
 
-ma rispetto alla precedente configurazione cambia  
-
-sensitività rispetto a .red[roughness length]&lt;sup&gt;1&lt;sup&gt;
+ma rispetto alla configurazione precedente si valuta sensitività rispetto a .red[roughness length]&lt;sup&gt;1&lt;sup&gt;
 
 stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
 
@@ -721,7 +730,8 @@ name: sensitivity_refs
 ## AERMOD - sensitivity (refs)
 #### Sensitivity of the AEMOD air quality model to the selection of land use parameters&lt;sup&gt;*&lt;sup/&gt;
 
-Articolo datato, però sembra ben centrare il problema... 
+Articolo datato, però sembra ben centrare il problema...   
+(estratti)
 
 - “only the surface roughness lenght affects the concentrations significantly” 
 
@@ -729,7 +739,7 @@ Articolo datato, però sembra ben centrare il problema...
 
 - .red[“effects these parameters have on modeled concentrations are sufficiently complex [...] it cannot be accurately anticipated what effect any changes [...] will have on concentrations for a given source configuration”]
 
-- “modeled design concentrations can vary sustantially due to normal ranges of variations in the albedo, Bowen ratio, and surface roughness length”
+- “modeled design concentrations can vary substantially due to normal ranges of variations in the albedo, Bowen ratio, and surface roughness length”
 
 .footnote[
 [*] Grosh T.G. and Russel F.L., 1999. Transaction on ecology and the Environment, 29: 803-812.
@@ -750,7 +760,7 @@ tutto come prima ...
 - 125 m (‘metà’ rispetto al caso precedente)
   - cfr. file: [04_aermod_risoluzione_125m.html](./04_aermod_risoluzione_125m.html)
 
-- 62 m (ancora ‘dimezzamento’, per risoluzione di calcolo della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)&lt;sup&gt;*&lt;sup/&gt;
+- 62 m (ancora ‘dimezzamento’, per una risoluzione di calcolo pari a quella della 'stima base' CALPUFF – ma non è esattamente lo stesso approccio!)&lt;sup&gt;*&lt;sup/&gt;
   - cfr. file: [04_aermod_risoluzione__62m.html](./04_aermod_risoluzione__62m.html)
 
 .footnote[
@@ -766,7 +776,7 @@ tutto come prima ...
 
 - scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta unica e sempre valida!)
 
-- considerare effetti dovuti a calma di vento (modello gaussiano!)
+- considerare effetti dovuti a calma di vento (gaussiano!)
 
 - inserire sempre (ed in modo accurato) quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
 
@@ -795,9 +805,8 @@ questo caso studio con parametrizzazione ‘default’ (è da rivedere!)
 - cfr. file: [05_lapmod_default_media1h_vs_max1h.html](./05_lapmod_default_media1h_vs_max1h.html)
 
 
-obiettivo:
-
-acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle differenti configurazioni modellistiche (assunzioni di calcolo, parametrizzazioni, etc.)
+obiettivo:  
+acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle configurazioni modellistiche adottate (assunzioni di stima, parametrizzazioni, etc.)
 
 .footnote[.left[[(torna calpuff)](#calpuff)]]
 
