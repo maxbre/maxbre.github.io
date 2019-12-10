@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Confronto tra differenti configurazioni modellistiche di dispersione degli inquinanti atmosferici</title>
     <meta charset="utf-8" />
@@ -15,10 +15,9 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-12-06)
+### <br/>12/12/2019 (updated: 2019-12-10)
 
 ---
-
 
 layout: true
 
@@ -75,6 +74,7 @@ montello, punto max altitudine è in località Colesel Val dell'Acqua, 371 m slm
 l’altezza media rispetto la pianura si aggira intorno ai 100 m
 
 ---
+
 class: center, bottom
 
 background-image: url(img_css/pianezze2.jpeg)
@@ -85,7 +85,7 @@ background-size: contain
 
 ???
 
-è possibile fare un piccolo calcolo spannometrico di hmix, per quella determinata ora e per quel determinato giorno 
+è possibile fare un piccolo calcolo 'a spanne' di hmix, per quella determinata ora e per quel determinato giorno 
 
 max altezza montello 371
 base altezza circa 100 m slm
@@ -127,23 +127,23 @@ background-position: 98% 2%
 background-size: 20%
 
 ---
-## CALPUFF - 'stima base' (specifiche)
+## CALPUFF v. 5.8.5 - 'stima base' (specifiche)
 
 approccio 'no obs', semestre 'invernale'
 
 COSMO-LAMI 7 
 
 - velocità e direzione vento, temperatura, umidità relativa
-- passo griglia: 7 km
+- passo griglia: 5 * 5, 7 km
 - dominio: 35 km * 35 km
 
-CALMET (v. 5.85, EPA approved)
+CALMET (v. 5.8.5, EPA approved)
 
 - orografia e uso suolo: DTM 250 m
 - griglia regolare: 51 * 51, 250 m
 - dimensione dominio: 12.75 km * 12.75 km
 
-CALPUFF (v. 5.85, EPA approved)
+CALPUFF (v. 5.8.5, EPA approved)
 
 - cella di campionamento: 60 m, nesting factor MESHDN = 4
 - coeff. disp. da variabili micro-meteo, MDISP = 2
@@ -281,9 +281,9 @@ background-size: 20%
 
 ---
 
-## AERMOD - 'stazione cmt' (specifiche)
+## AERMOD v. 18081 - 'stazione cmt' (specifiche)
 
-stima speditiva, di tipo 'esplorativo', approccio 'obs - no obs'
+stima speditiva ('esplorativa'), approccio 'obs - no obs'
 
 - cmt castelfranco v. (anemometro 10 m): temp, vv, dv, prec, srad, rhu + lami: tcc, press +  radiosondaggio: san pietro capofiume 16144
 
@@ -292,7 +292,7 @@ stima speditiva, di tipo 'esplorativo', approccio 'obs - no obs'
 - parametri superficiali (landuse 1 km): albedo 0.15, roughness length 0.5, bowen ratio 0.25
 
 
-- no elevazione base sorgente, optional parameter, default = 0, .red[nb: nel caso ELEV è un errore !!]
+- no elevazione base sorgente, optional parameter, default = 0, .red[nb: caso ELEV è un errore !]
 
 cfr. file: [02_aermod.html](./02_aermod.html)  
 
@@ -410,7 +410,6 @@ solo calme
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-.small[NB: opzione .red[ADJ_U*] (friction velocity) per 'aggiustamento' condizioni di calma di vento (in condizioni ELEV) è valida entro certi limiti]
 ---
 ## AERMET - hmix (cmt - castelfranco v.)
 
@@ -436,7 +435,7 @@ background-position: 98% 2%
 background-size: 20%
 
 ---
-## AERMOD - 'punto lami' (specifiche)
+## AERMOD v. 18081 - 'punto lami' (specifiche)
 
 - approccio 'no obs'
 
@@ -444,7 +443,7 @@ background-size: 20%
 
 - 'tutto il resto' come nella stima 'stazione cmt'  
 
-- stime in varie configurazioni rispetto all'elevazione base sorgente:
+- in varie configurazioni rispetto all'elevazione base sorgente:
 
   - default 0, optional parameter .red[(!! attenzione, errore  con ELEV)]&lt;sup&gt;*&lt;sup/&gt;
      - cfr. file: [03_aermod_base000m_default.html](./03_aermod_base000m_default.html)  
@@ -455,7 +454,7 @@ background-size: 20%
   - calcolata da AERMAP su DTM Regione, 114 m
       - cfr. file [03_aermod_base114m_aermap.html](./03_aermod_base114m_aermap.html)
 
-.footnote[[*] in file ERRORS.OUT: "SOLOCA No Option Parameter Setting, Forced by Default to ZS = 0.0"]
+.footnote[[*] in file "ERRORS.OUT": "SOLOCA No Option Parameter Setting, Forced by Default to ZS = 0.0"]
 ---
 ## AERMET - rosa venti (punto lami)
 
@@ -609,7 +608,7 @@ The total concentration predicted by AERMOD is the weighted sum of the two extre
 
 In the AERMOD approach, plume height, receptor elevation and `\(H_c\)` will determine how much plume material resides in each plume state.
 
-`\(H_c\)` can be thought of as the level in the stable atmosphere where the flow has sufficient kinetic energy to overcome the stratification and rise to the height of terrain.
+`\(H_c\)` = level in the stable atmosphere where the flow has sufficient kinetic energy to overcome the stratification and rise to the height of terrain.
 
 ---
 
@@ -638,7 +637,7 @@ In the AERMOD approach, plume height, receptor elevation and `\(H_c\)` will dete
 **for any concentration calculations all heights are referred to the stack base elevation**
 
 `\(Z_p\)`
-.red[**the 'flagpole receptor height', i.e. the height above terrain where concentration is calculated according to the terrain following state**]
+.red[**= 'flagpole receptor height', i.e. the height above terrain where concentration is calculated according to the terrain following state**]
 
 
 in a flat terrain `\(Z_t=0\)` the concentration calculation is referred to the form of a single horizontal plume, i.e. the terrain responding state sees the receptor on the hill as a ground-level receptor
@@ -666,7 +665,7 @@ background-size: 20%
 
 ---
 
-## AERMOD - 'punto calmet' (specifiche)
+## AERMOD v. 18081 - 'punto calmet' (specifiche)
 
 - approccio 'no obs'
 
@@ -676,14 +675,14 @@ background-size: 20%
 
 - 'tutto il resto' come nella stima 'stazione cmt' (castelfranco v.)
 
-in particolare rimangono invariati  
+in particolare rimangono invariati...   
 
 - parametri superficiali (landuse 1 km):
   - albedo 0.15
   - roughness length 0.5
   - bowen ratio 0.25
 
-- elevazione base soergente, user input 90 m (= stima base CALPUFF)  
+- elevazione base sorgente, user input 90 m (= stima base CALPUFF)  
 cfr. file: [04_aermod_calmet_250m_00_old_param_sup.html](./04_aermod_calmet_250m_00_old_param_sup.html)
 
 ---
@@ -712,10 +711,10 @@ ma rispetto alla configurazione precedente si valuta sensitività rispetto a .re
 
 stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
 
-  - roughness 0.1 (grassland)
+  - roughness 0.1 ('grassland')
     - cfr. file: [04_aermod_calmet_250m_02_rough01.html](./04_aermod_calmet_250m_02_rough01.html)
 
-  - roughness 1 (urban)
+  - roughness 1 ('urban')
     - cfr. file: [04_aermod_calmet_250m_02_rough1.html](./04_aermod_calmet_250m_02_rough1.html)
 
 .footnote[
@@ -728,10 +727,10 @@ stima con due casi 'estremi 'di roughness ('land use')&lt;sup&gt;2&lt;sup/&gt;
 name: sensitivity_refs
 
 ## AERMOD - sensitivity (refs)
-#### Sensitivity of the AEMOD air quality model to the selection of land use parameters&lt;sup&gt;*&lt;sup/&gt;
+####"Sensitivity of the AEMOD air quality model to the selection of land use parameters"&lt;sup&gt;*&lt;sup/&gt;
 
 Articolo datato, però sembra ben centrare il problema...   
-(estratti)
+(alcuni estratti)
 
 - “only the surface roughness lenght affects the concentrations significantly” 
 
@@ -748,7 +747,7 @@ Articolo datato, però sembra ben centrare il problema...
 ]
 
 ---
-## AERMOD - 'punto calmet' (griglia)
+## AERMOD - 'punto calmet' (sensitività griglia)
 
 tutto come prima ... 
 
@@ -772,9 +771,8 @@ tutto come prima ...
 
 ### in forma di alcune semplici indicazioni operative
 
-- valutare con attenzione condizioni di 'terreno complesso'  
-
-- scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta unica e sempre valida!)
+- valutare con attenzione effetti dovuti a condizioni di 'terreno complesso'  
+- scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta 'unica' e sempre valida!)
 
 - considerare effetti dovuti a calma di vento (gaussiano!)
 
@@ -789,7 +787,6 @@ tutto come prima ...
 - confrontare i risultati rispetto a differenti approcci modellistici (è un ‘plus’ molto ‘dispendioso’ ma non sempre fattibile)
 
 ---
-
 name: lapmod
 
 ##...e per il futuro? (ipotesi di lavoro!)
@@ -806,7 +803,7 @@ questo caso studio con parametrizzazione ‘default’ (è da rivedere!)
 
 
 obiettivo:  
-acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle configurazioni modellistiche adottate (assunzioni di stima, parametrizzazioni, etc.)
+acquisire maggiore consapevolezza e sensibilità dei risultati in funzione delle configurazioni modellistiche (assunzioni di stima, parametrizzazioni, etc.)
 
 .footnote[.left[[(torna calpuff)](#calpuff)]]
 
