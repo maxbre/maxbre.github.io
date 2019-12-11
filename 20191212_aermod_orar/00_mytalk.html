@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 ## note a margine di un caso studio in Provincia di Treviso<br/>
 ### Massimo Bressan
 ### SMV - DAPTV
-### <br/>12/12/2019 (updated: 2019-12-10)
+### <br/>12/12/2019 (updated: 2019-12-11)
 
 ---
 
@@ -74,7 +74,15 @@ montello, punto max altitudine è in località Colesel Val dell'Acqua, 371 m slm
 l’altezza media rispetto la pianura si aggira intorno ai 100 m
 
 ---
+class: center, top
 
+background-image: url(img_css/montello_altimetria.png)
+background-position: bottom
+background-size: contain
+
+# altimetria del Montello
+
+---
 class: center, bottom
 
 background-image: url(img_css/pianezze2.jpeg)
@@ -97,15 +105,7 @@ quindi, a occhio, hmix sicuramente meno di 100 m...
 ricordiamoci di questi numeri per dopo: da verificare sui grafici, teorici...
 
 ---
-class: center, top
 
-background-image: url(img_css/montello_altimetria.png)
-background-position: bottom
-background-size: contain
-
-# altimetria del Montello
-
----
 name: calpuff
 layout: false
 class: inverse, center, middle
@@ -652,7 +652,8 @@ layout: false
 
 # AERMOD
 
-## 'punto calmet', varie configurazioni
+## 'punto calmet'
+## varie configurazioni
 ##.red[(segue files mappe)]
 
 ---
@@ -669,7 +670,7 @@ background-size: 20%
 
 - approccio 'no obs'
 
-- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo punti LAMI: temp, ws, wd, prec, srad, rhu, tcc, press
+- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo da 'punti LAMI': temp, ws, wd, prec, srad, rhu, tcc, press
 
 - estrazione CALMET su punto camino (come per stima base CALPUFF)
 
@@ -767,24 +768,22 @@ tutto come prima ...
 ]
 
 ---
-## Conclusioni
-
+## Conclusioni su applicazione AERMOD  
 ### in forma di alcune semplici indicazioni operative
 
-- valutare con attenzione effetti dovuti a condizioni di 'terreno complesso'  
-- scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta 'unica' e sempre valida!)
+- valutare con attenzione effetti dovuti a condizioni di 'terreno complesso' 
 
-- considerare effetti dovuti a calma di vento (gaussiano!)
+- inserire sempre (ed in modo accurato!) quota base di sorgente nel caso *‘regulatory ELEV'* (non influente nel caso *‘non-regulatory FLAT’*)
 
-- inserire sempre (ed in modo accurato) quota base di sorgente nel caso ‘regulatory ELEV' (non influente nel caso ‘non-regulatory FLAT’)
+- scegliere accuratamente input meteo (varie possibilità, non c'è una ricetta 'unica' e sempre valida!) e considerare eventuali effetti dovuti a calma di vento (approccio gaussiano!)
 
-- definire molto attentamente parametri superficiali roughness, bowen ratio, albedo (*cfr. 'AERMOD implementation guide', p. 3.1.2*)
+- definire molto attentamente parametri superficiali *roughness, bowen, albedo* ('site-specific sensitivity analysis', 'methods for determining surface characteristics', *AERMOD implementation guide, p. 3.1.1-2*)
 
 - leggere bene i manuali (tutti!), anche se non sempre chiari ed esaustivi 
 
 - valutare ‘trade-offs’ accuratezza/precisione dei risultati e tempi complessivi di elaborazione dello studio 
 
-- confrontare i risultati rispetto a differenti approcci modellistici (è un ‘plus’ molto ‘dispendioso’ ma non sempre fattibile)
+- confrontare i risultati rispetto a differenti approcci modellistici (molto utile ma altrettanto ‘dispendioso’ e quindi non sempre fattibile)
 
 ---
 name: lapmod
@@ -795,7 +794,7 @@ c’è anche [**LAPMOD**](https://www.enviroware.it/lapmod/) ...
  
 gratuito (no costi acquisto licenza) e libero (codice fortran ‘in chiaro’)
 
-modello lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (peak-to-mean)
+lagrangiano a particelle, tridimensionale, non stazionario, possibile utilizzazione per dispersione sostanze odorigene (trattazione *peak-to-mean*)
 
 questo caso studio con parametrizzazione ‘default’ (è da rivedere!)
 
