@@ -80,8 +80,8 @@ Iniziamo con la presentazione dei risultati di stima CALPUFF che rappresenta il 
   
 - COSMO-LAMI 7
     - velocità e direzione vento, temperatura, umidità relativa
-    - griglia: 5 * 5 (7 km)
-    - dominio: 35 km * 35 km
+    - griglia: 5 * 5 (5 km)
+    - dominio: 25 km * 25 km
 
    \
 - CALMET (v. 5.8.5, EPA approved)  
