@@ -1,0 +1,24 @@
+{
+    "id": "C238B7D0",
+    "path": "~/Documents/ARPAV_homework/2020/progetti/20200901_moriago_impatto_odorigeno_aermod_calpuff_lampod_NEW/aermod/volume_sources_szinit_0_syinit_0/20200902_function_plot_aermod.R",
+    "project_path": "20200902_function_plot_aermod.R",
+    "type": "r_source",
+    "hash": "2736832524",
+    "contents": "",
+    "dirty": false,
+    "created": 1599484386603.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "101,0",
+        "scrollLine": "88"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1599041286,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1599041286,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,6 @@
+"0",""
+"0","sync(list(map_avg_v, map_p98_v, map_p99_v, map_max_v),"
+"0","     ncol = 1)"
+"2","Error in sync(list(map_avg_v, map_p98_v, map_p99_v, map_max_v), ncol = 1) : 
+  could not find function ""sync""
+"

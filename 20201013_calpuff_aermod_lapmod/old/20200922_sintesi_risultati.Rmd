@@ -1,0 +1,1067 @@
+---
+title: "Appunti a margine di un esercizio modellistico:<br>CALPUFF vs. AERMOD vs. LAPMOD"
+subtitle: "Il caso studio di una sorgente odorigena di tipo passivo"
+author: "Massimo Bressan - ARPAV, DAPTV SMV"
+date: "last compiled on `r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+    html_document:
+          theme: yeti
+          highlight: tango
+          toc: true
+          toc_float: true
+          number_sections: true
+          df_print: kable
+---
+
+# - Introduzione ed obiettivi
+
+
+Considerate le sostanziali differenze tra sistemi modellistici basati su approcci di calcolo sostanzialmente differenti si propone di seguito un confronto in termini operativi dei risultati di stima prodotti da:
+
+- CALPUFF, ver. 5.8.5 (EPA approved), modello a puff, tridimensionale, non stazionario;
+- AERMOD,  ver. 19191 (EPA approved), modello gaussiano a pennacchio di tipo evoluto, stazionario;
+- LAPMOD,  ver. 20200629, modello lagrangiano a particelle, tridimensionale, non stazionario
+
+Dal punto di vista della pratica operativa (cioè di utilizzo e confronto tra i differenti output modellistici) l'obiettivo principale del presente documento è sinteticamente riassumibile in:
+
+- una verifica del grado di convergenza delle stime prodotte da differenti modelli in relazione ai molteplici parametri di set-up dei runs di calcolo cioè, in altri termini, un'analisi di sensitività rispetto ai differenti sistemi modellistici e relativi parametri di input);
+
+E' quindi del tutto evidente che non si tratta di un confronto modellistico dal punto di vista 'teorico' ma di una semplice ***annotazione sistematica delle difficoltà, delle incertezze e dei trade-offs che operativamente si devono fronteggiare al fine di assicurare consistenza, precisione ed accuratezza dei risultati di stima.***
+
+E' d'altro canto evidente che tutti questi aspetti hanno una significativa rilevanza in termini di interpretazione delle stime da parte degli operatori di settore, degli utenti finali e di tutte le varie parti interessate a vario titolo.
+
+
+#  - La sorgente
+
+
+L'insediamento industriale, ubicato nel Comune di Moriago della Battaglia (TV), svolge attività di macellazione di carni bovine con autorizzazione AIA. 
+
+La sorgente odorigena di tipo areale passivo è rappresentata dalle varie vasche e sezioni di depurazione e trattamento fanghi dell’impianto di depurazione aziendale.
+
+Le emissioni odorigene si producono a livello delle seguenti sezioni di depurazione:
+
+- sezioni di ingresso con equalizzazione del refluo;
+- sezione fanghi attivi con nitrificazione ed ossidazione del refluo;
+- ispessimento e disidratazione dei fanghi/digestato con stoccaggio in concimaia.
+
+Nell'impianto sono presenti le seguenti tipologie di sorgenti odorigene:
+
+- V1: vasca di equalizzazione
+- V2A: vasca di ossidazione primaria
+- V2B: vasca di ossidazione primaria
+- V3A: vasca di ossidazione secondaria
+- V3B: vasca di ossidazione secondaria
+- V4: concimaia
+
+che, in  riferimento ai risultati di un'indagine olfattometrica, hanno registrato quanto segue:
+
+sorgente |area tot (m2)  |SOER (ou/s/m2)|OER (ou/s) |
+:-------:|:-------------:|:------------:|:---------:|
+V1       |64             |113           |7232.0     |
+V2A      |216            |5.3           |1144.8     |
+V2B      |84             |5.3           |445.2      |
+V3A      |144            |144           |100.8      |
+V3B      |144            |144           |100.8      |
+V4       |280            |280           |1092.0     |
+
+I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispettivamente a quelli delle sorgenti V2A e V3B.
+
+
+# - CALPUFF
+
+Iniziamo con la presentazione dei risultati di stima CALPUFF che rappresentano il riferimento di 'base' in termini di input meteo da cui derivano tutte le altre stime (AERMOD e LAPMOD).
+
+## - Configurazione di base
+  
+- approccio 'no obs', intervallo temporale 1 anno (2019) 
+  
+- COSMO-LAMI 7
+    - velocità e direzione vento, temperatura, umidità relativa
+    - passo griglia: 5 * 5 (7 km)
+    - dominio: 35 km * 35 km
+
+   \
+- CALMET (v. 5.8.5, EPA approved)  
+    - orografia e uso suolo: DTM 250 m
+    - griglia regolare: 51 * 51, 250 m
+    - dimensione dominio: 12.75 km * 12.75 km
+
+    \
+- CALPUFF (v. 5.8.5, EPA approved)  
+    - sorgente areale
+    - dominio calcolo 5 km * 5 km (centrato su sorgente)
+    - cella di campionamento: 50 m, nesting factor MESHDN = 5
+    - coeff. disp. da variabili micro-meteo, MDISP = 2
+    - no reazioni chimiche, no deposizione secca e umida
+    - puffs 'da seguire' - to track -, NPFDEB = 10
+    - min vv per 'non calma': 0.5 m/s  
+
+
+## - Breve caratterizzazione 'micro-meteo'
+    
+rosa dei venti: stratificazione per mese
+
+```{r windorse_month, echo=FALSE, message=FALSE, warning=FALSE, fig.dim = c(8, 6)}
+
+library(tidyverse)
+library(lubridate)
+library(magrittr)
+
+#setwd('./')
+
+# read headings, i.e. col names
+col_names <- read_table('./results/prtmet.dat', skip= 1, n_max = 0)%>% names()%>% tolower()
+
+# read data, skip row and specify col names
+
+# pay attention here to read_table2 which is very like read.table
+# read_table2 allows for any number of whitespaces, read_table not
+# it is more strict, each line must be the same length, 
+# and each field is in the same position in every line. 
+# It first finds empty columns and then parses like a fixed width file.
+met<-read_table2('./results/prtmet.dat', col_names= col_names, skip=4)
+
+# create and format date column
+#met$date<-as.POSIXct(strptime(paste0(met$year_1,'-',met$month_1,'-',met$day_1, ' ', met$hour_1),'%Y-%m-%d %H'))
+
+# the same with lubridate
+met$date<-ymd_h(paste0(met$year_1,'-',met$month_1,'-',met$day_1, ' ', met$hour_1))
+
+#delete last row (april)
+met<-met[-nrow(met),]
+
+library(openair)
+
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         #c(0,0.5,2,4,max(met$ws)),
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         grid.line = 10,
+         type='month')
+
+```
+
+frequenza velocità vento: statistiche e distribuzione per classi discrete di intensità 
+
+```{r wind_stat, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(knitr)
+
+#stat for wind
+wsst<-met %>% 
+  group_by(month=factor(format(date, '%m'))) %>%
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+            )
+
+kable(wsst, digit=1)
+
+myfac<-cut(met$ws,
+           #c(seq(0, 6, 0.5), max(met$ws)),
+           c(0, 0.5, 1, 2, 3, 6, max(met$ws)),
+           labels=c('< 0.5','[ 0.5, 1 )','[ 1, 2 )','[ 2, 3 )','[ 3, 6 )','>= 6'),
+           include.lowest=TRUE, right=FALSE)
+
+#frequency distribution of wind classes
+wsfd<-met %>%
+    mutate(recs_all=n())%>%
+    group_by(class=myfac) %>%
+    summarise(recs=n(),
+              perc=recs/first(recs_all)*100)
+
+
+#kable(wsfd, digit=1)
+
+ggplot(wsfd, aes(x=class, y=perc, fill=class))+
+  geom_col()+
+  geom_text(aes(label=round(perc,1)), vjust=-0.3, size=3.5)+
+  ylim(0,100)+
+  #scale_y_continuous('%', limits=c(0,100))+
+  labs(title='distribuzione di frequenza classi velocità vento', 
+       y='frequenza %',
+       x='classi',
+       fill = "m/s")
+
+
+```
+
+altezza di rimescolamento: stratificazione per mese
+
+```{r hmix_chart, echo=FALSE, message=FALSE, warning=FALSE}
+
+ggplot(met, aes(x=factor(format(date, '%H')), y=mix.hgt)) +
+  geom_point(alpha=0.3)+
+  #geom_boxplot()+
+  #geom_smooth(aes(group=1))+
+  stat_summary(aes(group=1), # dummy group all points
+               fun='mean', colour='red', size=0.75, geom='line')+
+  facet_grid(~factor(format(date, '%m-%y')))+
+  xlab('ora')+
+  ylab('Hmix [m]')+
+  ylim(0,2500)+
+  scale_x_discrete(breaks=c('00','08','16'))
+
+
+```
+
+
+## - Stima CALPUFF come sorgente 'areale'
+
+La sorgente di emissione viene approssimata come di tipo areale con una dimensione verticale iniziale (sigma) del plume posta pari a zero per similitudine con quanto impostato nel run AERRMOD (cfr. successive specifiche per quanto riguarda le sorgenti areali passive contenute nel relativo manuale).
+
+Da considerare che per le sorgenti areali CALPUFF utilizza un algoritmo di calcolo differente (virtual point) rispetto al corrispondente utilizzato da AERMOD (cfr. seguenti).
+
+from: Calpuff User Guide (p 2-134)  
+
+> A specialized algorithm is used to simulate concentrations within and downwind of area sources. The original CALPUFF model approximated all area sources using the virtual point source method in which the overall size of the area source was represented by an initial sigma y. While such an approach is reasonable far from the area source, it becomes a poor approximation nearby, or for receptors embedded within, a large area source.
+
+
+```{r function_calpuff, message=FALSE, warning=FALSE, include=FALSE}
+
+# function to plot calpuff map from grid file
+
+leaflet_calpuff_map<-function(input_filename,
+                              lng_source,
+                              lat_source,
+                              name_of_map_layer)  {
+  
+  # by first strip the dot from coordinates headings from the original esri grid files produced by calpuff/calpost
+  # in order to set coordinates in meters (and not in km as per calpuff style)
+  
+  l<-readLines(input_filename)
+  l[3:4]<-gsub('\\.', '', l[3:4]) #gsub('[.]', '', l[3:4])
+  
+  #fname<-paste0(strsplit(input_filename,'\\.grd$'),'_meters', '.grd')
+  fext<-tools::file_ext(input_filename)
+  fpath<-tools::file_path_sans_ext(input_filename)
+  
+  #compose filename with new unit measures
+  fname_new<-paste0(fpath,'_coord_meters.', fext)
+  writeLines(l, fname_new)
+  
+  #read grd file
+  plt<-rgdal::readGDAL(fname_new)
+
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  # set it as a grid
+  sp::gridded(plt)<-TRUE
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  # out coordinates
+  epsg_out <- '+init=epsg:4326'
+  # set new crs
+  crs_new <- sp::CRS(epsg_out)
+   
+  # re-project raster
+  pltr<- raster::projectRaster(pltr, crs=crs_new)
+  
+  # max raster, pay attention SUPERASSIGNMENT
+  max_raster<<-round(max(raster::values(pltr), na.rm=TRUE), 0)
+   
+  # find max value position in raster
+  idx <- raster::which.max(pltr)
+  pos_max <- raster::xyFromCell(pltr, idx)
+  
+  # here change accordingly how to set
+  # the bins of the contour lines
+  
+  # set the user defined bins
+  #my_bins= c(1,3,5)
+  # create contourlines form raster
+  #cl_r<-raster::rasterToContour(pltr, levels=my_bins)
+  
+  # or pretty bins
+  cl_r<-raster::rasterToContour(pltr)
+  
+  ## reorder the factor levels
+  cl_r@data$level<-factor(cl_r@data$level,
+                          as.character(
+                            sort(as.numeric(levels(cl_r@data$level))
+                            )
+                          )
+                          )
+  
+  #here define labels for the contour lines
+  lab_contour<-as.character(cl_r@data$level)
+  
+  # reproject contour lines from original crs to wgs84
+  cl_r<-sp::spTransform(cl_r, crs_new)
+  
+  library(magrittr)
+  
+  # leaflet
+  # define palette for map
+  pal <- leaflet::colorNumeric(palette = 'RdYlBu',
+                               domain = raster::values(pltr),
+                               na.color = "#00000000",
+                               alpha = TRUE,
+                               reverse =TRUE)
+  
+  map_leaflet<-leaflet::leaflet() %>%
+    
+    leaflet::addTiles(group='osm') %>%
+    
+    leaflet::setView(lng=lng_source, lat= lat_source, zoom = 14)%>%
+    
+    leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron, group = 'carto_db')%>%
+    
+    leaflet::addProviderTiles(leaflet::providers$Esri.WorldImagery, group = 'esri_wi') %>%
+    
+    leaflet::addCircleMarkers(lng = lng_source,
+                              lat = lat_source,
+                              radius=3,
+                              label='sorgente emissione',
+                              #popup='emi',
+                              color='gray',
+                              weight = 2,
+                              #opacity= 0.5,
+                              fillColor = 'transparent',
+                              fillOpacity=1,
+                              group='sorgente')%>%
+
+   leaflet::addRasterImage(x=pltr, 
+                   colors = pal, 
+                   opacity = 0.3,
+                   group='raster') %>%
+    
+    leaflet::addLegend(pal = pal, 
+              values = raster::values(pltr),
+              opacity = 0.3,
+              title = name_of_map_layer,
+              #labFormat = leaflet::labelFormat(prefix = "(", suffix = "]", between = ", ", digits=1),
+              group = 'raster'
+              )%>%
+    
+    leaflet::addLabelOnlyMarkers(lng=pos_max[1],
+                        lat=pos_max[2],
+                        #label=round(max(raster::values(pltr), na.rm=TRUE), 0),
+                        label = max_raster,
+                        labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                                    textOnly = TRUE,
+                                                    opacity = 0.5,
+                                                    riseOnHover= TRUE))%>%
+    
+    leaflet::addPolylines(data=cl_r,
+                 color='gray', 
+                 weight = 1,
+                 label = lab_contour, 
+                 labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                            textOnly = TRUE, 
+                                            opacity = 0.5,
+                                            riseOnHover= TRUE),
+                 group='contour')%>%
+    leaflet::addMeasure(position = "topleft", primaryLengthUnit = "meters", primaryAreaUnit = "sqmeters",)%>%
+    leafem::addMouseCoordinates()%>%
+    leaflet::addLayersControl(
+            baseGroups = c('carto_db', 'osm', 'esri_wi'),
+            overlayGroups = c('sorgente','raster', 'contour'),
+            position = 'topleft'
+            )%>%
+    leaflet::hideGroup(group='contour')
+  
+    map_leaflet
+}
+
+
+#map calpuff area source
+
+map_avg_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(0)_odor_8760hr_conc.grd',
+                                lng=12.09286,
+                                lat=45.86557,
+                                'CALPUFF<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+# reassignment
+map_avg_ca_max<-max_raster
+
+map_p98_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(176)_odor_1hr_conc.grd',
+                                lng=12.09286,
+                                lat=45.86557,
+                                'CALPUFF<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+
+map_p98_ca_max<-max_raster
+
+map_p99_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(88)_odor_1hr_conc.grd',
+                                lng=12.09286,
+                                lat=45.86557,
+                                'CALPUFF<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+
+map_p99_ca_max<-max_raster
+
+map_max_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(1)_odor_1hr_conc.grd',
+                                lng=12.09286,
+                                lat=45.86557,
+                                'CALPUFF<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+
+map_max_ca_max<-max_raster
+
+
+```
+
+
+Di seguito sono presentate le statistiche e le relative mappe di concentrazione orarie relative alla media di periodo (annuale), al 98° ed al 99° percentile, ed infine al valore massimo.
+
+
+statistica |valore max dominio |
+:---------:|:-----------------:|
+AVG        |`r map_avg_ca_max` |
+P98        |`r map_p98_ca_max` |
+P99        |`r map_p99_ca_max` |
+MAX        |`r map_max_ca_max` |
+
+*Nota*: la valutazione delle concentrazione media annuale di odore non ha alcun senso dal punto di vista ambientale e del relativo impatto ma serve solo per una verifica del grado di convergenza delle stime prodotte dai differenti modelli a confronto sul 'lungo periodo'; rispetto a questo specifico parametro di valutazione si astrae quindi dagli aspetti relativi alla valutazione di impatto odorigeno e si si rientra nella logica più ampia della valutazione media di periodo di un generico inquinante (trattato in forma di gas). 
+
+
+Nelle mappe che seguono (interattive e sincronizzate)  sono riportate per ogni statistica (media periodo, P98, P99, max) il valore massimo di dominio ed il centroide del punto di emissione (inoltre, nel menu a sinista è possibile visualizzare un 'controur plot' delle relative concentrazioni ambientali stimate, cambiare il layer di visualizzazione di base, misurare la distanza tra due punti nella mappa).
+
+***
+
+```{r map_calpuff, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(leafsync)
+
+sync(list(map_avg_ca, map_p98_ca, map_p99_ca, map_max_ca),
+     ncol = 1)
+
+```
+
+***
+
+### - Sintesi per punti
+
+- i massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena ricadono sempre nelle immediate vicinanze del punto di emissione (ubicato a circa 50 metri dal 'centroide' della sorgente);
+
+- i massimi spaziali di dominio stimati per le statistiche relative a 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena sono molto simili in termini assoluti (cfr. tabella precedente);
+
+- l'impatto odorigeno rende conto di valori di concentrazione odorigena molto significativi (>10 uoE/m3) entro 200-250 m circa dal punto di emissione ('centroide' della sorgente);
+
+- oltre i 250 m di distanza dal punto di emissione ('centroide' della sorgente) i valori di concentrazione stimati dal modello diminuiscono molto rapidamente, da circa 5-10 uoE/m3 fino a raggiungere valori poco significativi o del tutto trascurabili (<< 1 uo/m3);
+
+
+# - AERMOD
+
+Presentazione dei risultati di stima nell'approssimazine della sorgente di emissione rispettivamente modellizzata come *areale* e *volumetrica*.
+
+Come risulterà evidente, significative differenze sono state riscontrate in funzione del tipo di sorgente considerata (areale vs. volumetrica) in funzione delle assunzioni di calcolo e degli algoritmi specifici utilizzati dal modello.
+
+
+## - Configurazione di base
+
+
+- approccio 'no obs'
+
+- estrazione CALMET su punto sorgente  
+
+- CALMET interpolazione e 'correzione' per uso del suolo ed orografia delle variabili meteo (temp, ws, wd, prec, srad, rhu, tcc, press) da 'punti LAMI'
+
+
+- dominio calcolo 5 km * 5 km (centrato sul punto sorgente)
+
+- parametri superficiali (landuse 1 km):
+  - albedo = 0.16
+  - bowen ratio = 0.84
+  - roughness length = 1.00
+
+
+
+```{r function_aermod, message=FALSE, warning=FALSE, include=FALSE}
+
+# function to plot aermod map
+
+leaflet_aermod_map<-function(input_filename,
+                          rows_to_skip,
+                          lng_source, 
+                          lat_source,
+                          name_of_map_layer)  {
+  
+  library(magrittr)
+  
+  plt<-readr::read_table2(input_filename, col_names=FALSE, skip=rows_to_skip) %>%
+    dplyr::select(x=1, y=2, z=3)
+  
+  # coordinates to define a spatial point data frame
+  sp::coordinates(plt)<- ~x+y
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  # set it as a grid
+  sp::gridded(plt)<-TRUE
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  # out coordinates
+  epsg_out<-'+init=epsg:4326'
+  # set new crs
+  crs_new<-sp::CRS(epsg_out)
+  
+  # re-project raster
+  pltr<- raster::projectRaster(pltr, crs=crs_new)
+  
+  # max raster, pay attention SUPERASSIGNMENT
+  max_raster<<-round(max(raster::values(pltr), na.rm=TRUE), 0)
+  
+  # find max value position in raster
+  idx <- raster::which.max(pltr)
+  pos_max <- raster::xyFromCell(pltr, idx)
+  
+  # here change accordingly how to set
+  # the bins of the contour lines
+  
+  # set the user defined bins
+  #my_bins= c(1,3,5)
+  # create contourlines form raster
+  #cl_r<-raster::rasterToContour(pltr, levels=my_bins)
+  
+  # or pretty bins
+  cl_r<-raster::rasterToContour(pltr)
+  
+  ## reorder the factor levels
+  cl_r@data$level<-factor(cl_r@data$level,
+                          as.character(
+                            sort(as.numeric(levels(cl_r@data$level))
+                            )
+                          )
+                          )
+  
+  #here define labels for the contour lines
+  lab_contour<-as.character(cl_r@data$level)
+  
+  # reproject contour lines from original crs to wgs84
+  cl_r<-sp::spTransform(cl_r, crs_new)
+  
+  # leaflet
+  # define palette for map
+  pal <- leaflet::colorNumeric(palette = 'RdYlBu',
+                               domain = raster::values(pltr),
+                               na.color = "#00000000",
+                               alpha = TRUE,
+                               reverse =TRUE)
+  
+  map_leaflet<-leaflet::leaflet() %>%
+    
+    leaflet::addTiles(group='osm') %>%
+    
+    leaflet::setView(lng=lng_source, lat= lat_source, zoom = 14)%>%
+    
+    leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron, group = 'carto_db')%>%
+    
+    leaflet::addProviderTiles(leaflet::providers$Esri.WorldImagery, group = 'esri_wi') %>%
+    
+    leaflet::addCircleMarkers(lng = lng_source,
+                              lat = lat_source,
+                              radius=3,
+                              label='sorgente emissione',
+                              #popup='emi',
+                              color='gray',
+                              weight = 2,
+                              #opacity= 0.5,
+                              fillColor = 'transparent',
+                              fillOpacity=1,
+                              group='sorgente')%>%
+
+    leaflet::addRasterImage(x=pltr, 
+                   colors = pal, 
+                   opacity = 0.3,
+                   group='raster') %>%
+    
+    leaflet::addLegend(pal = pal, 
+              values = raster::values(pltr),
+              opacity = 0.3,
+              title = name_of_map_layer,
+              #labFormat = leaflet::labelFormat(prefix = "(", suffix = "]", between = ", ", digits=1),
+              group = 'raster'
+              )%>%
+    
+    leaflet::addLabelOnlyMarkers(lng=pos_max[1],
+                        lat=pos_max[2],
+                        #label=round(max(raster::values(pltr), na.rm=TRUE), 0),
+                        label = max_raster,
+                        labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                                    textOnly = TRUE,
+                                                    opacity = 0.5,
+                                                    riseOnHover= TRUE))%>%
+    
+    leaflet::addPolylines(data=cl_r,
+                 color='gray', 
+                 weight = 1,
+                 label = lab_contour, 
+                 labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                            textOnly = TRUE, 
+                                            opacity = 0.5,
+                                            riseOnHover= TRUE),
+                 group='contour')%>%
+    
+    leaflet::addMeasure(position = "topleft", primaryLengthUnit = "meters", primaryAreaUnit = "sqmeters",)%>%
+    
+    leafem::addMouseCoordinates()%>%
+    
+    leaflet::addLayersControl(
+            baseGroups = c('carto_db', 'osm', 'esri_wi'),
+            overlayGroups = c('sorgente','raster', 'contour'),
+            position = 'topleft'
+            )%>%
+    
+    leaflet::hideGroup(group='contour')
+  
+  map_leaflet
+}
+
+# map aermod area source
+map_avg_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_AVE.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+
+# reassignment
+map_avg_aa_max<-max_raster
+
+map_p98_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_176_P98.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+
+map_p98_aa_max<-max_raster
+
+map_p99_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_88_P99.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+
+map_p99_aa_max<-max_raster
+
+map_max_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_1_MAX.PLT',
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+
+map_max_aa_max<-max_raster
+
+# map aermod volume source
+map_avg_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_AVE.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+
+map_avg_av_max<-max_raster
+
+map_p98_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_176_P98.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+
+map_p98_av_max<-max_raster
+
+map_p99_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_88_P99.PLT', 
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+
+map_p99_av_max<-max_raster
+
+map_max_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_1_MAX.PLT',
+                         24,
+                         lng=12.09286,
+                         lat=45.86557,
+                         'AERMOD - odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+
+map_max_av_max<-max_raster
+
+```
+
+## - Stima AERMOD come sorgente 'areale'
+
+La sorgente di emissione viene approssimata come di tipo areale con una dimensione verticale iniziale (sigma) del plume posta pari a zero (Szinit = 0)  al fine di garantire, per quanto è possibile, un sufficiente grado di confrontabilità con le impostazioni degli altri runs modellistici.
+
+from AERMOD User Guide (p. 3-89) 
+
+>The optional Szinit parameter may be used to specify an initial vertical dimension to the area source plume, similar to the use of the Szinit parameter for volume sources. This parameter may be important when the area source algorithm is used to model mechanically generated emission sources, such as mobile sources. In these cases, the emissions may be turbulently mixed near the source by the process that is generating the emissions, and therefore occupy some initial depth. For more passive area source emissions, such as evaporation or wind erosion, the Szinit parameter may be omitted, which is equivalent to using an initial sigma-z of zero. 
+
+
+Di seguito sono presentate le statistiche e le relative mappe di concentrazione orarie relative alla media di periodo (annuale), al 98° ed al 99° percentile, ed infine al valore massimo.
+
+statistica |valore max dominio |
+:---------:|:-----------------:|
+AVG        |`r map_avg_aa_max` |
+P98        |`r map_p98_aa_max` |
+P99        |`r map_p99_aa_max` |
+MAX        |`r map_max_aa_max` |
+
+*Nota*: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
+
+
+Da considerare con attenzione che la modellizzazione in AERMOD come sorgente areale comporta delle conseguenze significative nei valori di stima (come riportato nel manuale - cfr. nota segeunte )
+
+
+from: AERMOD Implementation Guide (p. 25)
+
+> Because of issues related to excessive run times and technical issues with model
+formulation, the approach that AERMOD uses to address plume meander has not been
+implemented for area sources. As a result, concentration predictions for area sources may be
+overestimated under very light wind conditions (i.e., u << 1.0 m/s).  
+[ ... ]
+During such conditions time-averaged plumes tend to spread primarily as a result of low frequency eddy translation rather than eddy diffusion.  
+[ ... ]
+In order to avoid overestimates for area sources during light wind conditions, it is
+recommended that, where possible, a volume source approximation be used to model area
+sources. This approach can be applied with confidence for situations in which the receptors are displaced from the source. However, for applications where receptors are located either directly adjacent to, or inside the area source, AERMOD’s area source algorithm will need to be used. For these circumstances, caution should be exercised if excessive concentrations are predicted during extremely light wind conditions. On a case-by-case basis, the reviewing authority should decide whether such predictions are unrealistic. One possible remedy would be to treat such hourly predictions as missing data.
+
+
+Rispetto alla stima prodotta con l'approssimazione di sorgente 'areale' è stato verificato che i 50 valori di più alti sono stati verificati in corrispondenza di regime di vento molto debole (< 0.4 m/s), in buon accordo con quanto riportato nelle specifiche del manuale AERMOD. 
+
+Segue presentazione delle mappe interattive stima AERMOD sorgente 'areale'.
+
+***
+
+```{r plot_aermod_area, echo=FALSE, message=FALSE, warning=FALSE}
+
+sync(list(map_avg_aa, map_p98_aa, map_p99_aa, map_max_aa),
+     ncol = 1)
+
+```
+
+***
+
+### - sintesi per punti
+
+- valgono le considerazioni già viste in precedenza sull'ubicazione dei massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena (ricadenti sempre a circa 50 metri dal 'centroide' della sorgente);
+
+- i massimi spaziali di dominio stimati per le statistiche relative a 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena evidenziano valori molto elevati la cui spiegazione trova un significativo accordo con quanto indicato sulle specifiche tecniche dell'algoritmo di calcolo AERMOD (cfr. tabella e nota precedente); i 50 valori più elevati di stima delle medie orarie (P98, P99, MAX) si verificano sempre in concomitanza a condizioni di vento molto debole (< 0.3 m/s); 
+
+- i valori stimati da AERMOD nella configurazione 'sorgente areale' risultano significativamente più elevati dei corrispondenti valori stimati da CALPUFF (per le motivazioni sopra ricordate);
+
+
+
+## - Stima AERMOD come sorgente 'volumetrica'
+
+In questa sezione sono presentati i risultati di stima nell'approssimazione della sorgente emissiva di tipo volumetrico (da confrontare con i precendenti risultati per sorgente di tipo areale) in cui i parametri iniziali di sorgente sono stati posti pari a zero (Syinit e Szinit = 0) al fine di garantire, per quanto è possibile, un sufficiente grado di confrontabilità con le impostazioni degli altri runs modellistici.
+
+
+Di seguito sono presentate le mappe statistiche e le relative mappe di concentrazione orarie relative alla media di periodo (annuale), al 98° ed al 99° percentile, ed infine al valore massimo.
+
+statistica |valore max dominio |
+:---------:|:-----------------:|
+AVG        |`r map_avg_av_max` |
+P98        |`r map_p98_av_max` |
+P99        |`r map_p99_av_max` |
+MAX        |`r map_max_av_max` |
+
+*Nota*: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
+
+
+Segue presentazione delle mappe interattive stima AERMOD sorgente 'volumetrica'.
+
+***
+
+```{r, map_aermod_volume, echo=FALSE, message=FALSE, warning=FALSE}
+
+sync(list(map_avg_av, map_p98_av, map_p99_av, map_max_av),
+     ncol = 1)
+
+```
+
+***
+
+### - Sintesi per punti
+
+
+- valgono le considerazioni già viste in precedenza sull'ubicazione dei massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena (ricadenti sempre a circa 50 metri dal 'centroide' della sorgente);
+
+- i valori stimati da AERMOD nella configurazione 'sorgente volumentrica' risultano sostanzialmente congruenti con i valori stimati da CALPUFF (che utilizza un algoritmo di calcolo - virtual point - con un approccio paragonabile a quello utilizzato da AERMOD in configurazione sorgente 'volumetrica');
+
+- nella configurazione come sorgente 'volumetrica' non si vcerificano gli elevati picchi di concentrazione caratteristici della configurazione 'volumetrica': il differente algoritmo di calcolo sembra quindi essere il fattore determinante nella sensitività dei valori di stima;
+
+
+# - LAPMOD
+
+Presentazione dei risultati di stima nell'approssimazine della sorgente di emissione di tipo 'areale'.
+
+## - Configurazione di base
+
+- input meteo CALMET
+
+- dominio calcolo 5 km * 5 km (centrato su sorgente)
+
+- cella di campionamento: 50 m
+
+- CCA (Concentration Calculation Algorithm): classical LAPMOD method
+
+- number of particles emitted each 60 seconds = 60
+
+- peak to mean modeling LPEAK = F, costant rate = 2.3
+
+- sigma z iniziale = 0 (per analogia a quanto impostato negli altri run modellistici)
+
+- velocità iniziale di uscita 0.1 m/s (assegnazione di un valore 'basso'- ?? - nell'ipotesi di simulare correttamente una sorgente di tipo evaporativo)
+
+
+## - Stima LAPMOD come sorgente 'areale'
+
+In questa sezione sono riportati i risultati di stima nell'approssimazione della sorgente emissiva di tipo areale (da confrontare con i precendenti risultati per sorgente di tipo areale e volumetrico) in cui i parametri iniziali di sorgente sono stati posti pari a zero (Syinit e Szinit = 0) al fine di garantire per quanto è possibile un sufficiente grado di confrontabilità con le impostazioni degli altri runs modellistici.
+
+
+```{r function_lapmod, message=FALSE, warning=FALSE, include=FALSE}
+
+# function to plot lapmod map
+
+leaflet_plot_lapmod<- function (input_filename,
+                                lng_source, 
+                                lat_source,
+                                name_of_map_layer){
+        
+        # string WGS 84 / UTM zone 32N cartesian
+        epsg_in<-'+init=epsg:32632'
+        
+        # read ascii grid
+        egrd<-sp::read.asciigrid(input_filename, proj4string = sp::CRS(epsg_in))
+        
+        # set it as a grid
+        sp::gridded(egrd)<-TRUE
+        
+        # convert to a raster
+        pltr <- raster::raster(egrd)
+        
+        # out coordinates
+        epsg_out<-'+init=epsg:4326'
+        # set new crs
+        crs_new<-sp::CRS(epsg_out)
+        
+        # re-project raster
+        pltr<- raster::projectRaster(pltr, crs=crs_new)
+        
+        # max raster, pay attention SUPERASSIGNMENT
+        max_raster<<-round(max(raster::values(pltr), na.rm=TRUE), 0)
+        
+        # find max value position in raster
+        idx <- raster::which.max(pltr)
+        pos_max <- raster::xyFromCell(pltr, idx)
+        
+        # here change accordingly how to set
+        # the bins of the contour lines
+        
+        # set the user defined bins
+        #my_bins= c(1,3,5)
+        # create contourlines form raster
+        #cl_r<-raster::rasterToContour(pltr, levels=my_bins)
+        
+        # or pretty bins
+        cl_r<-raster::rasterToContour(pltr)
+        
+        ## reorder the factor levels
+        cl_r@data$level<-factor(cl_r@data$level,
+                                as.character(
+                                        sort(as.numeric(levels(cl_r@data$level)
+                                                        )
+                                             )
+                                )
+        )
+                                
+        
+        #here define labels for the contour lines
+        lab_contour<-as.character(cl_r@data$level)
+        
+        # reproject contour lines from original crs to wgs84
+        cl_r<-sp::spTransform(cl_r, crs_new)
+        
+        library(magrittr)
+        
+        # leaflet
+        # define palette for map
+        pal <- leaflet::colorNumeric(palette = 'RdYlBu',
+                                     domain = raster::values(pltr),
+                                     na.color = "#00000000",
+                                     alpha = TRUE,
+                                     reverse =TRUE)
+        
+        map_leaflet<-leaflet::leaflet() %>%
+                
+          leaflet::addTiles(group='osm') %>%
+          
+          leaflet::setView(lng=lng_source, lat= lat_source, zoom = 14)%>%
+                
+          leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron, group = 'carto_db')%>%
+                
+          leaflet::addProviderTiles(leaflet::providers$Esri.WorldImagery, group = 'esri_wi') %>%
+                
+          leaflet::addCircleMarkers(lng = lng_source,
+                                          lat = lat_source,
+                                          radius=3,
+                                          label='sorgente emissione',
+                                          #popup='emi',
+                                          color='gray',
+                                          weight = 2,
+                                          #opacity= 0.5,
+                                          fillColor = 'transparent',
+                                          fillOpacity=1,
+                                          group='sorgente')%>%
+                
+          leaflet::addRasterImage(x=pltr, 
+                                        colors = pal, 
+                                        opacity = 0.3,
+                                        group='raster') %>%
+                
+          leaflet::addLegend(pal = pal, 
+                                   values = raster::values(pltr),
+                                   opacity = 0.3,
+                                   title = name_of_map_layer,
+                                   #labFormat = leaflet::labelFormat(prefix = "(", suffix = "]", between = ", ", digits=1),
+                                   group = 'raster'
+                )%>%
+                
+          leaflet::addLabelOnlyMarkers(lng=pos_max[1],
+                                             lat=pos_max[2],
+                                             #label=round(max(raster::values(pltr), na.rm=TRUE), 0),
+                                             label = max_raster,
+                                             labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                                                                  textOnly = TRUE,
+                                                                                  opacity = 0.5,
+                                                                                  riseOnHover= TRUE))%>%
+                
+          leaflet::addPolylines(data=cl_r,
+                                      color='gray', 
+                                      weight = 1,
+                                      label = lab_contour, 
+                                      labelOptions = leaflet::labelOptions(permanent = TRUE,
+                                                                           textOnly = TRUE, 
+                                                                           opacity = 0.5,
+                                                                           riseOnHover= TRUE),
+                                      group='contour')%>%
+          leaflet::addMeasure(position = "topleft", primaryLengthUnit = "meters", primaryAreaUnit = "sqmeters",)%>%
+                leafem::addMouseCoordinates()%>%
+                leaflet::addLayersControl(
+                        baseGroups = c('carto_db', 'osm', 'esri_wi'),
+                        overlayGroups = c('sorgente','raster', 'contour'),
+                        position = 'topleft'
+                )%>%
+          
+          leaflet::hideGroup(group='contour')
+        
+        
+        map_leaflet
+        
+}
+
+#map lapmod area
+
+map_avg_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/average_period_conc.grd',
+                                  lng=12.09286,
+                                  lat=45.86557,
+                                  'LAPMOD<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+
+# reassignment
+map_avg_la_max<-max_raster
+
+
+map_p98_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/p98_1h_conc.grd',
+                                  lng=12.09286,
+                                  lat=45.86557,
+                                  'LAPMOD<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+
+map_p98_la_max<-max_raster
+
+
+map_p99_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/p99_1h_conc.grd',
+                                  lng=12.09286,
+                                  lat=45.86557,
+                                  'LAPMOD<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+
+map_p99_la_max<-max_raster
+
+
+map_max_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/max_1h_conc.grd',
+                                  lng=12.09286,
+                                  lat=45.86557,
+                                  'LAPMOD<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+
+map_max_la_max<-max_raster
+
+
+```
+
+Di seguito sono presentate le statistiche e le relative mappe di concentrazione orarie relative alla media di periodo (annuale), al 98° ed al 99° percentile, ed infine al valore massimo.
+
+statistica |valore max dominio |
+:---------:|:-----------------:|
+AVG        |`r map_avg_la_max` |
+P98        |`r map_p98_la_max` |
+P99        |`r map_p99_la_max` |
+MAX        |`r map_max_la_max` |
+
+
+**NOTA**: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
+
+
+Segue presentazione delle mappe interattive stima LAPMOD ('sorgente 'areale').
+
+***
+
+```{r map_lapmod_area, echo=FALSE, message=FALSE, warning=FALSE}
+
+sync(list(map_avg_la, map_p98_la, map_p99_la, map_max_la),
+     ncol = 1)
+
+```
+
+***
+
+### - Sintesi per punti
+
+<span style="color: red;">[questa parte è da riscrivere....]</span>
+
+- valgono le considerazioni già viste in precedenza sull'ubicazione dei massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena (ricadenti sempre a circa 50 metri dal 'centroide' della sorgente);
+
+
+- i valori stimati da LAPMOD (sorgente areale) sono ......;
+
+
+# - Conclusioni
+
+Nella tabella successiva viene riportato un confronto dei valori massimi spaziali di domino delle statistiche relative alle concentrazioni medie orarie espresse in unità odorigene (uo/m3) per: 
+
+- media di periodo (AVG);
+- 98° percentile (P98);
+- 99° percentile (P99);
+- valore massimo (MAX);
+
+
+statistica |CALPUFF (areale)    |AERMOD (areale)     |AERMOD (volumetrico)|LAPMOD (areale)     |
+:---------:|:------------------:|:------------------:|:------------------:|:------------------:|
+AVG        |`r map_avg_ca_max`  |`r map_avg_aa_max`  |`r map_avg_av_max  `|`r map_avg_la_max`  |
+P98        |`r map_p98_ca_max`  |`r map_p98_aa_max`  |`r map_p98_av_max`  |`r map_p98_la_max`  |
+P99        |`r map_p99_ca_max`  |`r map_p99_aa_max`  |`r map_p99_av_max`  |`r map_p99_la_max`  |
+MAX        |`r map_max_ca_max`  |`r map_max_aa_max`  |`r map_max_av_max`  |`r map_max_la_max`  |
+
+
+Sinteticamente per punti rispetto anche a quanto evidenziato in precedenza:  
+
+- i massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena ricadono sempre nelle immediate vicinanze del punto di emissione (ubicato a circa 50 metri dal 'centroide' della sorgente);
+
+- oltre i 250 m di distanza dal punto di emissione ('centroide' della sorgente) i valori di concentrazione stimati dal modello diminuiscono molto rapidamentefino a raggiungere valori poco significativi o del tutto trascurabili (entro n raggio di poche centinaia di metri);
+
+- xxxxxxxxxxx
+- xxxxxxxxxxxxx
+- xxxxxxxxxxxxxxxxxxxxx
+
+
+# - Ulteriori sviluppi e valutazioni
+
+- utilizzo del modello LAPMOD finalizzato allo studio di dispersione degli inquinanti odorigeni  in relazione alla possibilità di applicazione di Peak to Mean Ratio (PMR) variabile; la tipica applicazione PMR prevede un fattore moltiplicativo costante (tipicamente 2.3 che ha dei limiti di carattere teorico significativi)

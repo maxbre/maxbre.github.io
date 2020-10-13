@@ -1,0 +1,521 @@
+---
+title: "Appunti a margine di un esercizio modellistico:<br>CALPUFF vs. AERMOD vs. LAPMOD"
+subtitle: "Il caso studio di una sorgente odorigena areale di tipo passivo"
+author: "Massimo Bressan - ARPAV, DAPTV SMV"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+    html_document:
+          theme: yeti
+          highlight: tango
+          toc: true
+          toc_float: true
+          number_sections: true
+          df_print: kable
+---
+
+# - Introduzione ed obiettivi
+\
+
+Considerato le intrinseche differenze tra approcci modellistici basati su approcci di valutazione sostanzialmente differenti si propone un confronto in termini operativi dei risultati di stima tra:
+
+- CALPUFF, ver. 5.8.5 (EPA approved), modello gaussiano a puff, tridimensionale, non stazionario;
+- AERMOD,  ver. 19191 (EPA approved), modello gaussiano a pennacchio di tipo evoluto, stazionario;
+- LAPMOD,  ver. 20200629, modello lagrangiano a particelle, tridimensionale, non stazionario
+
+Dal punto di vista della pratica operativa (cioè di utilizzo e confronto tra output modellistici) gli obiettivi sono sinteticamente riassumibili nella:
+
+- verifica del grado di convergenza delle stime in funzione dei molteplici parametri di set-up dei runs modellistici cioè la definizione di alcune indicazioni operative per l'utilizzo dei differenti mdelli (analisi di sensitività rispetto ai parametri di input);
+
+
+
+#  - La sorgente
+\
+
+L'insediamento industriale, ubicato nel Comune di Moriago della Battaglia (TV), svolge attività di macellazione di carni bovine con autorizzazione AIA. La sorgente odorigena di tipo areale passivo è rappresentata dalle varie vasche e sezioni di depurazione e trattamento fanghi dell’impianto di
+depurazione aziendale.
+
+Le emissioni odorigene si producono a livello delle seguenti sezioni di depurazione:
+
+- sezioni di ingresso con equalizzazione del refluo;
+- sezione fanghi attivi con nitrificazione ed ossidazione del refluo;
+- ispessimento e disidratazione dei fanghi/digestato con stoccaggio in concimaia.
+
+Sono presenti le seguenti tipologie di sorgente odorigena:
+
+- V1: vasca di equalizzazione
+- V2A: vasca di ossidazione primaria
+- V2B: vasca di ossidazione primaria
+- V3A: vasca di ossidazione secondaria
+- V3B: vasca di ossidazione secondaria
+- V4: concimaia
+
+in  riferimento ai risultati di un'indagine olfattometrica che ha registrato quanto segue:
+
+sorgente |area tot (m2)  |SOER (ou/s/m2)|OER (ou/s) |
+:-------:|:-------------:|:------------:|:---------:|
+V1       |64             |113           |7232.0     |
+V2A      |216            |5.3           |1144.8     |
+V2B      |84             |5.3           |445.2      |
+V3A      |144            |144           |100.8      |
+V3B      |144            |144           |100.8      |
+V4       |280            |280           |1092.0     |
+
+I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi in termini equivalenti rispettivamente a quelli delle sorgenti V2A e V3B.
+
+
+# - CALPUFF
+
+Per primi i risultati della stima CALPUFF perchè rappresenta il riferimento base in termini di input meteo da cui derivano tutte le successive stime, sia con AERMOD che con LAPMOD.
+
+## - configurazione base run CALPUFF
+  
+- approccio 'no obs', intervallo temporale 1 anno (2019) 
+\
+- COSMO-LAMI 7
+  - velocità e direzione vento, temperatura, umidità relativa
+  - passo griglia: 5 * 5 (7 km)
+  - dominio: 35 km * 35 km  
+\
+- CALMET (v. 5.8.5, EPA approved)
+  - orografia e uso suolo: DTM 250 m
+  - griglia regolare: 51 * 51, 250 m
+  - dimensione dominio: 12.75 km * 12.75 km  
+\
+- CALPUFF (v. 5.8.5, EPA approved)
+  - sorgente areale
+  - dominio calcolo 5 km * 5 km (centrato su sorgente)
+  - cella di campionamento: 50 m, nesting factor MESHDN = 5
+  - coeff. disp. da variabili micro-meteo, MDISP = 2
+  - no reazioni chimiche, no deposizione secca e umida
+  - puffs 'da seguire' - to track -, NPFDEB = 10
+  - min vv per 'non calma': 0.5 m/s
+\
+
+## - caratterizzazione meteo
+\
+
+### - rosa dei venti
+
+- stratificazione per mese
+
+```{r windorse_month, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(lubridate)
+library(magrittr)
+
+# read headings, i.e. col names
+col_names <- read_table('./prtmet.dat', skip= 1, n_max = 0)%>% names()%>% tolower()
+
+# read data, skip row and specify col names
+
+# pay attention here to read_table2 which is very like read.table
+# read_table2 allows for any number of whitespaces, read_table not
+# it is more strict, each line must be the same length, 
+# and each field is in the same position in every line. 
+# It first finds empty columns and then parses like a fixed width file.
+met<-read_table2('./prtmet.dat', col_names= col_names, skip=4)
+
+# create and format date column
+#met$date<-as.POSIXct(strptime(paste0(met$year_1,'-',met$month_1,'-',met$day_1, ' ', met$hour_1),'%Y-%m-%d %H'))
+
+# the same with lubridate
+met$date<-ymd_h(paste0(met$year_1,'-',met$month_1,'-',met$day_1, ' ', met$hour_1))
+
+#delete last row (april)
+met<-met[-nrow(met),]
+
+library(openair)
+
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         #c(0,0.5,2,4,max(met$ws)),
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='month')
+
+```
+
+- stratificazione daylight - nighttime
+
+```{r windrose_day_night, echo=FALSE, message=FALSE, warning=FALSE}
+
+#windrose daylight nighttime, pay attention in defining lon and latitude
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         #c(0,0.5,2,4,max(met$ws)),
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         type='daylight',
+         latitude=45.86,
+         longitude=12.09
+         )
+         
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+#stat for wind calm
+met %>% 
+  group_by(month=factor(format(date, '%m'))) %>%
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+            )
+
+
+
+#stat for wind calm
+met %>% 
+  filter(ws<0.5)%>%
+  group_by(month=factor(format(date, '%m'))) %>%
+  summarise(n=n(),
+            mean=mean(ws), 
+            sd=sd(ws),
+            min=min(ws),
+            max=max(ws),
+            median=median(ws)
+            )
+
+
+myfac<-cut(met$ws,
+           #c(seq(0, 6, 0.5), max(met$ws)),
+           c(0, 0.5, 1, 2, 3, 6, max(met$ws)),
+           labels=c('< 0.5','[ 0.5, 1 )','[ 1, 2 )','[ 2, 3 )','[ 3, 6 )','>= 6'),
+           include.lowest=TRUE, right=FALSE)
+
+#frequency distribution of wind classes
+wsfd<-met %>%
+    mutate(recs_all=n())%>%
+    group_by(class=myfac) %>%
+    summarise(recs=n(),
+              perc=recs/first(recs_all)*100)
+
+library(knitr)
+
+kable(wsfd, digit=1)
+
+
+ggplot(wsfd, aes(x=class, y=recs))+
+  #geom_bar(stat = 'identity')+ #
+  geom_col()+ # it takes data as is
+  geom_text(aes(label=recs), vjust=-0.3, size=3.5)
+
+ggplot(wsfd, aes(x=class, y=perc, fill=class))+
+  geom_col()+
+  geom_text(aes(label=round(perc,1)), vjust=-0.3, size=3.5)+
+  ylim(0,100)+
+  #scale_y_continuous('%', limits=c(0,100))+
+  labs(title='distribuzione di frequenza classi velocità vento', 
+       y='frequenza %',
+       x='classi',
+       fill = "m/s")
+
+
+ggplot(met, aes(x=factor(format(date, '%H')), y=mix.hgt)) +
+  geom_point(alpha=0.3)+
+  #geom_boxplot()+
+  #geom_smooth(aes(group=1))+
+  stat_summary(aes(group=1), # dummy group all points
+               fun='mean', colour='red', size=0.75, geom='line')+
+  facet_grid(~factor(format(date, '%m-%y')))+
+  xlab('ora')+
+  ylab('Hmix [m]')+
+  ylim(0,2500)+
+  scale_x_discrete(breaks=c('00','08','16'))
+
+```
+
+
+## - sorgente areale: media periodo, P98, P99, max
+\
+
+**NOTA**: la valutazione delle concentrazione media annuale di odore non ha alcun senso dal punto di vista ambientale e del relativo impatto ma serve solo per una verifica del grado di convergenza delle stime prodotte dai differenti modelli a confronto sul 'lungo periodo'; rispetto a questo specifico parametro di valutazione si astrae quindi dagli aspetti relativi alla valutazione di impatto odorigeno e si si rientra nella logica più ampia della valutazione media di periodo di un generico inquinante (trattato in forma di gas). 
+
+
+
+```{r function_calpuff, include=FALSE}
+
+plot_calpuff_map<-function(input_filename,
+                           name_of_map_layer){
+  
+  # by first strip the dot from coordinates headings from the original esri grid files produced by calpuff/calpost
+  # in order to set coordinates in meters (and not in km as per calpuff style)
+  
+  l<-readLines(input_filename)
+  l[3:4]<-gsub('\\.', '', l[3:4]) #gsub('[.]', '', l[3:4])
+  
+  #fname<-paste0(strsplit(input_filename,'\\.grd$'),'_meters', '.grd')
+  fext<-tools::file_ext(input_filename)
+  fpath<-tools::file_path_sans_ext(input_filename)
+  
+  #compose filename with new unit measures
+  fname_new<-paste0(fpath,'_coord_meters.', fext)
+  writeLines(l, fname_new)
+  
+  #read grd file
+  plt<-rgdal::readGDAL(fname_new)
+  
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  
+  # set it as a grid
+  #sp::gridded(plt)<-TRUE
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  map_r<-mapview::mapview(pltr,
+                          #here define the palette
+                          col.regions = grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(8, 'RdYlBu'))),
+                          #at = my_bins,
+                          na.color ='transparent',
+                          alpha.region= 0.5,
+                          legend.opacity=0.5,
+                          #query.digits=1,
+                          query.position = 'bottomright',
+                          #query.prefix = NULL,
+                          layer.name = name_of_map_layer,
+                          map.types = c('CartoDB.Positron','OpenStreetMap','Esri.WorldImagery')
+                          )
+  
+  map_r
+  
+  }
+
+map_avg<-plot_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(0)_odor_8760hr_conc.grd', 
+                          'CALPUFF - odore [uoE*m-3]<br>avg period, PMR = 2.3')
+
+map_p98<-plot_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(176)_odor_1hr_conc.grd', 
+                          'CALPUFF - odore [uoE*m-3]<br>P98 1h, PMR = 2.3')
+
+map_p99<-plot_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(88)_odor_1hr_conc.grd', 
+                          'CALPUFF - odore [uoE*m-3]<br>P99 1h, PMR = 2.3')
+
+map_max<-plot_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(1)_odor_1hr_conc.grd', 
+                          'CALPUFF - odore [uoE*m-3]<br>max 1h, PMR = 2.3')
+
+```
+
+
+
+```{r map_calpuff, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(leafsync)
+
+sync(list(map_avg, map_p98, map_p99, map_max), ncol = 1)
+
+```
+
+
+
+# - AERMOD
+
+## - configurazione base run AERMOD
+
+- approccio 'no obs'
+
+- CALMET interpolazione e 'correzione' per uso suolo ed orografia variabili meteo da 'punti LAMI': temp, ws, wd, prec, srad, rhu, tcc, press
+
+- estrazione CALMET su punto sorgente 
+
+- dominio calcolo 5 km * km (centrato su punto sorgente)
+
+- parametri superficiali (landuse 1 km):
+  - albedo = 0.16
+  - bowen ratio = 0.84
+  - roughness length = 1.00
+
+
+\
+
+```{r, function_aermod, include=FALSE}
+
+plot_aermod_map<-function(input_filename,
+                          rows_to_skip, 
+                          name_of_map_layer)  {
+  
+  library(magrittr)
+  
+  plt<-readr::read_table2(input_filename, col_names=FALSE, skip=rows_to_skip) %>%
+    dplyr::select(x=1, y=2, z=3)
+  
+  # coordinates to define a spatial point data frame
+  sp::coordinates(plt)<- ~x+y
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  # set it as a grid
+  sp::gridded(plt)<-TRUE
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  
+  
+  # define the binning
+  #my_bins<-c(0, 1, 2, 3, 4, 5, 10, 100, round(max(raster::values(pltr)),0))
+  #my_bins<-pretty(range(raster::values(pltr)))
+  
+  
+  map_r<-mapview::mapview(pltr,
+                          #here define the palette
+                          col.regions = grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(8, 'RdYlBu'))),
+                          #at = my_bins,
+                          na.color ='transparent',
+                          alpha.region= 0.5,
+                          legend.opacity=0.5,
+                          #query.digits=1,
+                          query.position = 'bottomright',
+                          #query.prefix = NULL,
+                          layer.name = name_of_map_layer,
+                          map.types = c('CartoDB.Positron','OpenStreetMap','Esri.WorldImagery')
+  )
+  
+  map_r
+
+}
+
+
+```
+
+## - sorgente areale: media periodo, P98, P99, max
+\
+
+```{r, map_aermod_area, echo=FALSE, message=FALSE, warning=FALSE}
+
+map_avg<-plot_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_AVE.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>avg period, PMR = 2.3')
+
+map_p98<-plot_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_176_P98.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>P98 1h, PMR = 2.3')
+
+map_p99<-plot_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_88_P99.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>P99 1h, PMR = 2.3')
+
+map_max<-plot_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_1_MAX.PLT',
+                         24,
+                         'AERMOD - odore [uoE*m-3]<br>max 1h, PMR = 2.3')
+
+
+sync(list(map_avg, map_p98, map_p99, map_max),
+     ncol = 1)
+
+```
+
+
+## - sorgente volumetrica: media periodo, P98, P99, max
+\
+
+```{r, map_aermod_volume, echo=FALSE, message=FALSE, warning=FALSE}
+
+map_avg<-plot_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_AVE.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>avg period, PMR = 2.3')
+
+map_p98<-plot_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_176_P98.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>P98 1h, PMR = 2.3')
+
+map_p99<-plot_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_88_P99.PLT', 
+                         24, 
+                         'AERMOD - odore [uoE*m-3]<br>P99 1h, PMR = 2.3')
+
+map_max<-plot_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_1_MAX.PLT',
+                         24,
+                         'AERMOD - odore [uoE*m-3]<br>max 1h, PMR = 2.3')
+
+sync(list(map_avg, map_p98, map_p99, map_max), ncol = 1)
+
+```
+
+
+
+
+
+# - LAPMOD
+
+## - configurazione base run LAPMOD
+\
+
+## - sorgente areale: media periodo, P98, P99, max
+\
+
+```{r include=FALSE}
+
+plot_lapost_esri_grid <- function (input_filename,
+                                   name_map_layer){
+        
+        # string WGS 84 / UTM zone 32N cartesian
+        epsg_in<-'+init=epsg:32632'
+        
+        # read ascii grid
+        egrd<-sp::read.asciigrid(input_filename, proj4string = sp::CRS(epsg_in))
+        
+        # set it as a grid
+        sp::gridded(egrd)<-TRUE
+        
+        # convert to a raster
+        pltr <- raster::raster(egrd)
+        
+        map_r<-mapview::mapview(pltr,
+                         col.regions=grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(8, 'RdYlBu'))),
+                         na.color="transparent",
+                         alpha.regions=0.5,
+                         legend.opacity=0.5,
+                         #query.digits=1,
+                         query.position = 'bottomright',
+                         layer.name= name_map_layer,
+                         map.types = c('CartoDB.Positron','OpenStreetMap','Esri.WorldImagery')
+                         )
+        
+        map_r
+        
+}
+
+map_avg<-plot_lapost_esri_grid('./results/lapmod_area_sources_szinit_0/average_period_conc.grd', 
+                      'LAPMOD - odore [uoE*m-3]<br>avg period, PMR = 2.3')
+
+map_p98<-plot_lapost_esri_grid('./results/lapmod_area_sources_szinit_0/p98_1h_conc.grd',
+                               'LAPMOD - odore [uoE*m-3]<br>P98 1h, PMR = 2.3')
+
+map_p99<-plot_lapost_esri_grid('./results/lapmod_area_sources_szinit_0/p99_1h_conc.grd',
+                               'LAPMOD - odore [uoE*m-3]<br>P99 1h, PMR = 2.3')
+
+map_max<-plot_lapost_esri_grid('./results/lapmod_area_sources_szinit_0/max_1h_conc.grd',
+                      'LAPMOD - odore [uoE*m-3]<br>max 1h, PMR = 2.3')
+
+```
+
+
+```{r map_lapmod, echo=FALSE, message=FALSE, warning=FALSE}
+
+sync(list(map_avg, map_p98, map_p99, map_max), ncol = 1)
+
+```
+
+
+# - Conclusioni
+\
+
+# - Ulteriori sviluppi
+
+- utilizzo del modello LAPMOD finalizzato allo studio di dispersione degli inquinanti odorigeni  in relazione alla possibilità di applicazione di Peak to Mean Ratio (PMR) variabile; la tipica applicazione PMR prevede un fattore moltiplicativo costante (tipicamente 2.3 che ha dei limiti di carattere teorico significativi)
