@@ -17,7 +17,7 @@ output:
 # - Introduzione ed obiettivi
 
 
-Considerate le sostanziali differenze tra sistemi modellistici basati su approcci di calcolo molto differenti si propone di seguito un confronto in termini operativi dei risultati di stima prodotti da:
+Considerate le sostanziali differenze tra sistemi modellistici basati su approcci di calcolo molto diversi si propone di seguito un confronto in termini operativi dei risultati di stima prodotti da:
 
 - CALPUFF, ver. 5.8.5 (EPA approved), a puff, tridimensionale, non stazionario;
 - AERMOD,  ver. 19191 (EPA approved), gaussiano a pennacchio di tipo evoluto, stazionario;
@@ -37,7 +37,7 @@ E' d'altro canto evidente che tutti questi aspetti hanno una significativa rilev
 
 L'insediamento industriale, ubicato nel Comune di Moriago della Battaglia (TV), svolge attività di macellazione di carni bovine con autorizzazione AIA. 
 
-La sorgente odorigena di tipo passivo è rappresentata dalle varie vasche e sezioni di depurazione e trattamento fanghi dell’impianto di depurazione aziendale.
+La sorgente odorigena di tipo passivo è rappresentata dalle vasche e sezioni di depurazione e trattamento fanghi dell’impianto aziendale.
 
 Le emissioni odorigene sono prodotte dalle sezioni impiantistiche di:
 
@@ -56,14 +56,14 @@ Nell'impianto industriale sono state individuate le seguenti tipologie di sorgen
 
 che, in  riferimento ai risultati di un'indagine olfattometrica, hanno registrato quanto segue:
 
-sorgente |area tot (m2)  |SOER (ou/s/m2)|OER (ou/s) |
-:-------:|:-------------:|:------------:|:---------:|
-V1       |64             |113           |7232.0     |
-V2A      |216            |5.3           |1144.8     |
-V2B      |84             |5.3           |445.2      |
-V3A      |144            |144           |100.8      |
-V3B      |144            |144           |100.8      |
-V4       |280            |280           |1092.0     |
+sorgente |area tot [m2]  |SOER [ouE/(m2 s)]|OER  [ouE/s] |
+:-------:|:-------------:|:---------------:|:--------------:|
+V1       |64             |113              |7232.0          |
+V2A      |216            |5.3              |1144.8          |
+V2B      |84             |5.3              |445.2           |
+V3A      |144            |144              |100.8           |
+V3B      |144            |144              |100.8           |
+V4       |280            |280              |1092.0          |
 
 I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispetto a quelli misurati presso le sorgenti V2A e V3B.
 
@@ -384,28 +384,28 @@ leaflet_calpuff_map<-function(input_filename,
 map_avg_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(0)_odor_8760hr_conc.grd',
                                 lng=12.09286,
                                 lat=45.86557,
-                                'CALPUFF<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+                                'CALPUFF<br>odore [uoE/m3]<br>avg period<br>PMR = 2.3')
 # reassignment
 map_avg_ca_max<-max_raster
 
 map_p98_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(176)_odor_1hr_conc.grd',
                                 lng=12.09286,
                                 lat=45.86557,
-                                'CALPUFF<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+                                'CALPUFF<br>odore [uoE/m3]<br>P98 1h<br>PMR = 2.3')
 
 map_p98_ca_max<-max_raster
 
 map_p99_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(88)_odor_1hr_conc.grd',
                                 lng=12.09286,
                                 lat=45.86557,
-                                'CALPUFF<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+                                'CALPUFF<br>odore [uoE/m3]<br>P99 1h<br>PMR = 2.3')
 
 map_p99_ca_max<-max_raster
 
 map_max_ca<-leaflet_calpuff_map('./results/calpuff_area_sources_szinit_0/rank(1)_odor_1hr_conc.grd',
                                 lng=12.09286,
                                 lat=45.86557,
-                                'CALPUFF<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+                                'CALPUFF<br>odore [uoE/m3]<br>max 1h<br>PMR = 2.3')
 
 map_max_ca_max<-max_raster
 
@@ -623,7 +623,7 @@ map_avg_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIO
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>avg period<br>PMR = 2.3')
 
 # reassignment
 map_avg_aa_max<-max_raster
@@ -632,7 +632,7 @@ map_p98_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIO
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>P98 1h<br>PMR = 2.3')
 
 map_p98_aa_max<-max_raster
 
@@ -640,7 +640,7 @@ map_p99_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIO
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>P99 1h<br>PMR = 2.3')
 
 map_p99_aa_max<-max_raster
 
@@ -648,7 +648,7 @@ map_max_aa<-leaflet_aermod_map('./results/aermod_area_sources_szinit_0/PLT_PERIO
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>max 1h<br>PMR = 2.3')
 
 map_max_aa_max<-max_raster
 
@@ -657,7 +657,7 @@ map_avg_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>avg period<br>PMR = 2.3')
 
 map_avg_av_max<-max_raster
 
@@ -665,7 +665,7 @@ map_p98_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>P98 1h<br>PMR = 2.3')
 
 map_p98_av_max<-max_raster
 
@@ -673,7 +673,7 @@ map_p99_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>P99 1h<br>PMR = 2.3')
 
 map_p99_av_max<-max_raster
 
@@ -681,7 +681,7 @@ map_max_av<-leaflet_aermod_map('./results/aermod_volume_sources_szinit_0_syinit_
                          24,
                          lng=12.09286,
                          lat=45.86557,
-                         'AERMOD<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+                         'AERMOD<br>odore [uoE/m3]<br>max 1h<br>PMR = 2.3')
 
 map_max_av_max<-max_raster
 
@@ -705,7 +705,7 @@ P98        |`r map_p98_aa_max` |
 P99        |`r map_p99_aa_max` |
 MAX        |`r map_max_aa_max` |
 
-*Nota*: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni stimate di odore.
+*Nota*: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
 
 
 Da considerare con attenzione che la modellizzazione in AERMOD come sorgente areale comporta possibili conseguenze significative nei valori di stima (come riportato nel manuale - cfr. nota segeunte )
@@ -966,7 +966,7 @@ leaflet_plot_lapmod<- function (input_filename,
 map_avg_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/average_period_conc.grd',
                                   lng=12.09286,
                                   lat=45.86557,
-                                  'LAPMOD<br>odore [uoE*m-3]<br>avg period<br>PMR = 2.3')
+                                  'LAPMOD<br>odore [uoE/m3]<br>avg period<br>PMR = 2.3')
 
 # reassignment
 map_avg_la_max<-max_raster
@@ -975,7 +975,7 @@ map_avg_la_max<-max_raster
 map_p98_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/p98_1h_conc.grd',
                                   lng=12.09286,
                                   lat=45.86557,
-                                  'LAPMOD<br>odore [uoE*m-3]<br>P98 1h<br>PMR = 2.3')
+                                  'LAPMOD<br>odore [uoE/m3]<br>P98 1h<br>PMR = 2.3')
 
 map_p98_la_max<-max_raster
 
@@ -983,7 +983,7 @@ map_p98_la_max<-max_raster
 map_p99_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/p99_1h_conc.grd',
                                   lng=12.09286,
                                   lat=45.86557,
-                                  'LAPMOD<br>odore [uoE*m-3]<br>P99 1h<br>PMR = 2.3')
+                                  'LAPMOD<br>odore [uoE/m3]<br>P99 1h<br>PMR = 2.3')
 
 map_p99_la_max<-max_raster
 
@@ -991,7 +991,7 @@ map_p99_la_max<-max_raster
 map_max_la<-leaflet_plot_lapmod('./results/lapmod_area_sources_szinit_0/max_1h_conc.grd',
                                   lng=12.09286,
                                   lat=45.86557,
-                                  'LAPMOD<br>odore [uoE*m-3]<br>max 1h<br>PMR = 2.3')
+                                  'LAPMOD<br>odore [uoE/m3]<br>max 1h<br>PMR = 2.3')
 
 map_max_la_max<-max_raster
 
@@ -1011,7 +1011,7 @@ MAX        |`r map_max_la_max` |
 **NOTA**: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
 
 
-Segue presentazione delle mappe interattive stima LAPMOD ('sorgente 'areale').
+Segue presentazione delle mappe interattive per la stima LAPMOD ('sorgente 'areale').
 
 ***
 
