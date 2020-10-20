@@ -61,11 +61,11 @@ sorgente |area tot [m2]  |SOER [ouE/(m2 s)]|OER  [ouE/s] |
 V1       |64             |113              |7232.0          |
 V2A      |216            |5.3              |1144.8          |
 V2B      |84             |5.3              |445.2           |
-V3A      |144            |144              |100.8           |
-V3B      |144            |144              |100.8           |
-V4       |280            |280              |1092.0          |
+V3A      |144            |0.7              |100.8           |
+V3B      |144            |0.7              |100.8           |
+V4       |280            |3.9              |1092.0          |
 
-I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispetto a quelli misurati presso le sorgenti V2A e V3B.
+I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispetto a quelli misurati presso le sorgenti V2A e V3A.
 
 >nota: il presente esercizio modellistico è riferito ad un layout impiantistico 'superato' che non trova effettivo riscontro nella configurazione industriale in esercizio e, quindi, i risultati modellistici di seguito proposti non hanno alcun valore in termini di una valutazione dell'attuale impatto ambientale della sorgente emissiva considerata.
 
