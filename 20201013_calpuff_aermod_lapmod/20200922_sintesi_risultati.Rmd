@@ -65,7 +65,9 @@ V3A      |144            |0.7              |100.8           |
 V3B      |144            |0.7              |100.8           |
 V4       |280            |3.9              |1092.0          |
 
-I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispetto a quelli misurati presso le sorgenti V2A e V3A.
+I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattributi (assegnazione esperta) in termini equivalenti rispetto a quelli misurati presso le sorgenti V2A e V3A. 
+
+Da rilevare che sorgenti emissive con portata di odore (OER) inferiori a 500 ouE/s sono tipicamente considerate poco significative e sono state incluse nella presente valutazione solo per completezza di informazione. 
 
 >nota: il presente esercizio modellistico è riferito ad un layout impiantistico 'superato' che non trova effettivo riscontro nella configurazione industriale in esercizio e, quindi, i risultati modellistici di seguito proposti non hanno alcun valore in termini di una valutazione dell'attuale impatto ambientale della sorgente emissiva considerata.
 
