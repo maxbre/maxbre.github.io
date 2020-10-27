@@ -21,7 +21,7 @@ Considerate le sostanziali differenze tra sistemi modellistici basati su approcc
 
 - CALPUFF, ver. 5.8.5 (EPA approved), a puff, tridimensionale, non stazionario;
 - AERMOD,  ver. 19191 (EPA approved), gaussiano a pennacchio di tipo evoluto, stazionario;
-- LAPMOD,  ver. 20200629, lagrangiano a particelle, tridimensionale.
+- LAPMOD,  ver. 20200629, lagrangiano a particelle, tridimensionale, non stazionario.
 
 Dal punto di vista della pratica operativa (cioè di utilizzo e confronto di differenti output modellistici) l'obiettivo principale del presente documento è sinteticamente riassumibile in:
 
@@ -69,7 +69,7 @@ I ratei di emissione specifici (SOER) per le sorgenti V2B e V3B sono stati aattr
 
 Da rilevare che sorgenti emissive con portata di odore (OER) inferiori a 500 ouE/s sono tipicamente considerate poco significative e sono state incluse nella presente valutazione solo per completezza di informazione. 
 
->nota: il presente esercizio modellistico è riferito ad un layout impiantistico 'superato' che non trova effettivo riscontro nella configurazione industriale in esercizio e, quindi, i risultati modellistici di seguito proposti non hanno alcun valore in termini di una valutazione dell'attuale impatto ambientale della sorgente emissiva considerata.
+>Il presente esercizio modellistico è riferito ad un layout impiantistico 'superato' che non trova effettivo riscontro nella configurazione industriale in esercizio e, quindi, i risultati modellistici di seguito proposti non hanno alcun valore in termini di una valutazione dell'attuale impatto ambientale della sorgente emissiva considerata.
 
 
 # - CALPUFF
@@ -710,7 +710,7 @@ MAX        |`r map_max_aa_max` |
 *Nota*: vale quanto già detto in precedenza per il (non) significato ambientale del valore medio annuale delle concentrazioni di odore.
 
 
-Da considerare con attenzione che la modellizzazione in AERMOD come sorgente areale comporta possibili conseguenze significative nei valori di stima (come riportato nel manuale - cfr. nota segeunte )
+Da considerare con attenzione che la modellizzazione in AERMOD come sorgente areale comporta possibili conseguenze significative nei valori di stima (come riportato nel manuale - cfr. nota segeunte)
 
 
 from: AERMOD Implementation Guide (p. 25)
@@ -813,8 +813,6 @@ Presentazione dei risultati di stima LAPMOD nell'approssimazione di sorgente 'ar
 - peak to mean modeling LPEAK = F, rateo costante = 2.3
 
 - sigma z iniziale = 0 (per analogia a quanto impostato negli altri run modellistici)
-
-- velocità iniziale di uscita 0.1 m/s (assegnazione di un valore 'basso'- !? - nell'ipotesi di simulare correttamente una sorgente di tipo 'passivo')
 
 
 ## - Stima LAPMOD come sorgente 'areale'
@@ -1029,7 +1027,7 @@ sync(list(map_avg_la, map_p98_la, map_p99_la, map_max_la),
 ### - Sintesi per punti
 
 
-Considerati i differenti approcci modellistici,focalizzando l'attenzione essenzialmente sul risultato numerico di stima si rileva che:
+Considerati i differenti approcci modellistici, focalizzando l'attenzione essenzialmente sul risultato numerico di stima si rileva che:
 
 - valgono le considerazioni già viste in precedenza sull'ubicazione dei massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena (ricadenti sempre a circa 50 metri dal 'centroide' della sorgente);
 
@@ -1055,18 +1053,62 @@ P99        |`r map_p99_ca_max`  |`r map_p99_aa_max`  |`r map_p99_av_max`  |`r ma
 MAX        |`r map_max_ca_max`  |`r map_max_aa_max`  |`r map_max_av_max`  |`r map_max_la_max`  |
 
 
-Sinteticamente per punti rispetto a quanto già evidenziato in precedenza:  
 
-- i massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena ricadono sempre nelle immediate vicinanze del punto di emissione (ubicato a circa 50 metri dal 'centroide' della sorgente);
+Nel grafico successivo viene proposto un confronto delle concentrazioni stimate presso alcuni recettori discreti posizionati a distanze crescenti dal centroide del punto di emissione (50 m, 100 m, 300 m, 500 m) lungo le direzioni corrispondenti ai punti cardinali N, S, E, W.
 
-- oltre i 250 m di distanza dal punto di emissione ('centroide' della sorgente) i valori di concentrazione stimati dal modello diminuiscono molto rapidamente fino a raggiungere valori poco significativi o del tutto trascurabili (i valori decrescono molto rapidamente entro un raggio di poche centinaia di metri);
+Il confronto dei valori stimati lungo i 4 transetti individuati dagli assi cardinali (N, S, E, W) è riferito alle principali statistiche (avg, p98, p99, max) prodotte dai differenti approcci modellistici nelle varie configurazioni (aermod_area, aermod_volume, calpuff_area, lapmod_area) utilizzate nel presente caso studio .
 
-- è da valutare con attenzione la significatività delle stime dei valori massimi registrati nel 'campo vicino', cioè a breve distanza dalla sorgente (tipcamente entro 50-100 m) in funzione del tipo di modello utilizzato e dell'approssimazione di sorgente adottata (areale vs. volumetrica)
+```{r figure_transect, echo=FALSE, fig.height=6, fig.width=8, fig.retina=3, message=FALSE, warning=FALSE}
 
-- i risultati di stima ottenuti con i differenti modelli a confronto sembrano sostanzialmente coerenti ad eccezione di alcune configurazioni che utilizzano algortimi di stima che hanno l'effetto di produrre risultati significativamente differenti (i più alti nel caso di AERMOD sorgente areale);
+d<-read_csv('./results/discrete_recptors.csv')
 
-- la configurazione adottata per AERMOD al fine di caratterizzare il tipo di sorgente (areale vs. volumetrica) sembra essere un fattore deteriminante nella sensitività dei risultati ottenuti.
+#discrete receptors in long format
+dl<-d%>%
+  pivot_longer(-c('id', 'id_lab','x', 'y', 'model'), names_to='stat', values_to='valore')
 
+#change the order
+dl$stat<-factor(dl$stat, levels=c('avg', 'p98', 'p99', 'max'))
+
+#create new variables
+dl<-dl%>%
+  mutate(dist=str_remove(id_lab, 'm_.'),
+         dir=factor(str_sub(id_lab, start=-1), levels = c('N', 'S', 'E', 'W')))
+
+dl%>%
+  ggplot(mapping = aes(x=reorder(dist, id), y=valore, group=model))+
+  geom_line(aes(colour=model), linetype='solid', size=0.5)+
+  geom_point(aes(colour=model), shape = 21, size=1.5)+
+  scale_x_discrete(name='distanza recettore da centroide sorgente')+
+  ylab('[uoE/m3]')+
+  facet_grid(stat~dir, scales = 'free')
+
+
+
+```
+
+Dal grafico che riproduce i valori di stima lungo i 'transetti' su cui sono stati posizionati a distanze crescenti i recettori discreti risulta che:
+
+- le direzioni lungo cui si registrano le stime di concentrazione odorigena più elevate sono rappresentate dagli assi cardinali S e W e quindi coninvolgono in prevalenza il dominio di calcolo che ricade nel IV quadrante;
+
+- lungo gli assi S e W si nota una rapida diminuzione delle concentrazioni già a partire da 50-100 m di distanza dal centroide del punto di emissione;
+
+- la configurazione modellistica AERMOD con caratterizzazione di sorgente 'areale' riproduce i valori di stima più elevati per i percentili 'alti': tale tendenza risulta particolarmente evidente passando da P98 a P100 (MAX); invece, per i valori medi di periodo (AVG) si notano valori di stima maggiori (anche se di poco) per la configurazione modellistica AERMOD con caratterizzazione di sorgente 'volumetrica'; 
+
+- i valori di stima prodotti dalle configurazioni modellistiche LAPMOD e CALPUFF con caratterizzazione di sorgente areale e AERMOD con caratterizzazione di sorgente 'volumetrica' sono risultati sostanzialmente 'allineati' su valori comparabili: tale tendenza risulta  particolarmente evidente per quanto riguarda i percentili alti (P98, P99, MAX) e per distanze superiori a 100 m dal centroide della sorgente di emissione.
+
+Concludendo, sinteticamente per punti rispetto a quanto già evidenziato:  
+
+- i massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena ricadono sempre nelle immediate vicinanze del punto di emissione (ubicato a circa 50-100 metri dal 'centroide' della sorgente);
+
+- oltre i 300 m di distanza dal punto di emissione ('centroide' della sorgente) i valori di concentrazione stimati dal modello diminuiscono molto rapidamente fino a raggiungere valori poco significativi o del tutto trascurabili (i valori decrescono molto rapidamente entro un raggio di poche centinaia di metri);
+
+- è da valutare con attenzione la significatività delle stime dei valori massimi registrati nel 'campo vicino', cioè a breve distanza dalla sorgente (tipcamente entro 50-100 m) in funzione del tipo di modello utilizzato e dell'approssimazione di sorgente adottata (areale vs. volumetrica);
+
+- i risultati di stima ottenuti con i differenti modelli a confronto sembrano sostanzialmente coerenti ad eccezione di alcune configurazioni che utilizzano algortimi di stima che hanno l'effetto di produrre risultati significativamente differenti (i più alti nel caso di AERMOD con caratterizzazione di sorgente areale);
+
+- la configurazione adottata per AERMOD al fine di caratterizzare il tipo di sorgente (areale vs. volumetrica) sembra essere un fattore deteriminante (critico) nella sensitività dei risultati ottenuti;
+
+>Dal punto di vista metodologico c'è da considerare che per le sorgenti volumetriche si introduce il concetto di "exclusion zone" che corrisponde ad un'area di raggio pari a metri 2.15*[SigmaY+1] e che rappresenta il dominio di calcolo all'interno della quale tutte le concentrazioni sono forzate a zero dal modello. Nelle simulazioni qui presentate è stato imposto SigmaY=0 e conseguentemente la "exclusion zone" è risultata di raggio pari ad 1, e quindi senza alcun significativo effetto sui risultati di stima. Tipicamente SigmaY viene stimata come [ampiezza sorgente]/4.3, e SigmaZ come [altezza sorgente]/4.3; in altri casi, quando la sorgente è posizionata al suolo, al denominatore si utilizza il valore 2.15. E' quindi importante verificare che la "exclusion zone" non alteri in modo significativo i risultati di stima magari escludendo aree del dominio di calcolo che sono immediatamente a ridosso del perimetro dell'impianto in cui è inserita la sorgente da modellizzare (cfr. [report EPA 2012]( https://www3.epa.gov/scram001/reports/Haul_Road_Workgroup-Final_Report_Package-20120302.pdf)).
 
 # - Ulteriori valutazioni
 
@@ -1082,15 +1124,10 @@ Traccia di un possibile piano di lavoro futuro:
 
   - algoritmo di calcolo delle concentrazioni (CCA - Concentration Calculation Algorithm): gasussian kernel vs. uniform kernel vs. parabolic kernel vs. kernel smoother;  
   
-  - algoritmo di calcolo del 'plume rise': Janike and Janike vs. Webster and Thomson;
-  
-  - 'entrainment' del 'plume rise': tipo di parametrizzazione e relativi coefficienti (ove applicabili);
-  
-  - numero di particelle emesse nell'unità di tempo (NPART);
+  -  postprocessore LAPCON che effettua il calcolo delle concentrazioni tramite il metodo del conteggio delle particellein funzione del numero di particelle emesse nell'unità di tempo (NPART);
   
   - numero di campionamenti delle concentrazioni tra due output temporali consecutivi (NSAM) e tipo di campionamento (SAMTYPE - valore medio vs. massimo);
 
   - caratterizzazione 'micro-meteo' alternativa tramite il preprocessore LAMPET che utilizza 'input files AERMET' ('SFC' surface + 'PFL' profile);
   
-
 - runs LAPMOD e CALPUFF in configurazione sorgente 'volumetrica' e relativa analisi di sensitività dei risultati (è da valutare l'effettiva significatività ed utilità pratica di queste due ulteriori stime modellistiche per il caso studio in esame).
