@@ -1035,7 +1035,7 @@ Considerati i differenti approcci modellistici, focalizzando l'attenzione essenz
 - i valori stimati da LAPMOD (nella configurazione sorgente areale) per le statistiche  relative a P98, P99 appaiono sostanzialmente confrontabili con i valori di stima per CALPUFF 8sorgente areale) e AERMOD (sorgente volumetrica); i valori di stima realtivi al valore massimo assoluto (MAX) risultano invece sensibilmente più alti e paragonabili a quelli di AERMOD nella configurazione sorgente areale.
 
 
-# - Alcune conclusioni operative
+# - Valutazione comparata dei risultati
 
 Nella tabella successiva viene riproposto il confronto dei valori massimi spaziali di domino delle statistiche relative alle concentrazioni medie orarie espresse in unità odorigene (uo/m3) per: 
 
@@ -1096,7 +1096,622 @@ Dal grafico che riproduce i valori di stima lungo i 'transetti' su cui sono stat
 
 - i valori di stima prodotti dalle configurazioni modellistiche LAPMOD e CALPUFF con caratterizzazione di sorgente areale e AERMOD con caratterizzazione di sorgente 'volumetrica' sono risultati sostanzialmente 'allineati' su valori comparabili: tale tendenza risulta  particolarmente evidente per quanto riguarda i percentili alti (P98, P99, MAX) e per distanze superiori a 100 m dal centroide della sorgente di emissione.
 
-Concludendo, sinteticamente per punti rispetto a quanto già evidenziato:  
+## - Distanza di separazione
+
+Con l'obiettivo di confrontare tramite una "metrica comune" i risultati di run modellistici, che spesso risultano difficilmente comparabili, sia nel tempo che nello spazio, viene di seguito proposto il calcolo della "distanza di separazione", cioè la distanza che individua le isoplete di concentrazione ambientale fissate da un predeterminato livello soglia ad un specifica probabilità (nel caso specifico, il 98° percentile delle concentrazioni ambientali pari ai livelli di 1, 3, 5 uoE/m3).
+
+
+```{r sepration_distance, message=FALSE, warning=FALSE, include=FALSE}
+
+# here define a function for aermod distance contour lines
+
+distance_contour_aermod<- function (input_filename,
+                                    rows_to_skip,
+                                    lng_source,
+                                    lat_source,
+                                    degree_step){
+        
+        library(magrittr)
+        
+        plt<-readr::read_table2(input_filename, col_names=FALSE,
+                                skip=rows_to_skip) %>%
+             dplyr::select(x=1, y=2, z=3)
+        
+        # coordinates to define a spatial point data frame
+        sp::coordinates(plt)<- ~x+y
+        # string WGS 84 / UTM zone 32N cartesian
+        epsg_in<-'+init=epsg:32632'
+        # set original coordinates system
+        sp::proj4string(plt) <- sp::CRS(epsg_in)
+        # set it as a grid
+        sp::gridded(plt)<-TRUE
+        # convert to a raster
+        pltr <- raster::raster(plt)
+        
+        # out coordinates
+        epsg_out<-'+init=epsg:4326'
+        
+        # re-project raster to new crs
+        pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+        
+        # create contourlines form raster
+        cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+        
+        # reorder the factor levels
+        cl_r@data$level<-factor(cl_r@data$level,
+                                as.character(sort(as.numeric(levels(cl_r@data$level)))))
+        
+        # transform contour lines to sf feature
+        cl_sf<-sf::st_as_sf(cl_r)
+        
+        # get coordinates of contour lines verteces
+        cl_coord<-sf::st_coordinates(cl_sf)
+        
+        # define coordinates of the origin point 
+        # and create simple feature with appropriate crs
+        
+        pt <- sf::st_sfc(sf::st_point(c(lng_source, lat_source)), crs = 4326)
+        
+        # get the max of minimum distances from the origin point to the line
+        dist_min<-max(sf::st_distance(cl_sf, pt))
+        
+        # create vector of bearing angles of predefined amplitude as degree_step
+        b_angles<-seq(0, 360-degree_step, degree_step) 
+        
+        # define results final container
+        results_final<-data.frame(level=numeric(), bearing=numeric(),
+                                  distance=numeric())
+        
+        for(j in 1:nrow(cl_sf)){
+                
+                results_pars<-data.frame(level=numeric(), bearing=numeric(),
+                                         distance=numeric())
+                
+                for(i in 1:length(b_angles)){
+                        
+                        results_pars[i,"level"]<-as.numeric(levels(cl_sf$level)[j])
+                        #results_pars[i,1]<-cl_sf$level[j]
+                        #results_pars[i,"level"]<-cl_sf[j,"level"]
+                        
+                        
+                        results_pars[i,"bearing"]<-b_angles[i]
+                        #results_pars[i,2]<-b_angles[i]
+                        
+                        # calculate destination point coordinates with bearing angle i
+                        # at fixed safe distance (i.e. 100 times the minimum distance)
+                        # so that to avoid null intersection in next step calculation
+                        pt_dest<-geosphere::destPoint(p=c(lng_source, lat_source),
+                                                      b=b_angles[i], d=dist_min*100)
+                        
+                        # define linestring from origin to destination
+                        b_ls<-sf::st_sfc(sf::st_linestring(rbind(c(lng_source,
+                                                                   lat_source),
+                                                                 pt_dest)), crs=4326)
+                        
+                        #results_pars[i,"level"]<-cl_sf$level[j]
+                        
+                        # get the intersection point between two features
+                        pt_int<-sf::st_intersection(cl_sf[j,], b_ls)
+                        
+                        # get the distance
+                        d<-sf::st_distance(pt, pt_int)
+                        
+                        results_pars[i,"distance"]<-d
+                        #results_pars[i,3]<-d
+                        
+                }
+                
+                results_final<-rbind(results_final, results_pars)
+                
+        
+                
+        }
+        
+        
+        #output_df<<-results_final
+        results_final
+}
+
+# aermod area
+
+input_filename<-'./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_176_P98.PLT'
+rows_to_skip<-24
+lng_source<-12.09286
+lat_source<-45.86557
+degree_step<-5
+
+aermod_area_df<-distance_contour_aermod(input_filename,
+                                   rows_to_skip,
+                                   lng_source,
+                                   lat_source,
+                                   degree_step)
+
+model_name<-'aermod_area'
+
+aermod_area_df<-aermod_area_df%>%
+                      mutate(model= model_name)
+    
+
+
+#aermod volume
+input_filename<-'results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_176_P98.PLT'
+
+aermod_volume_df<-distance_contour_aermod(input_filename,
+                                   rows_to_skip,
+                                   lng_source,
+                                   lat_source,
+                                   degree_step)
+model_name<-'aermod_volume'
+
+aermod_volume_df<-aermod_volume_df%>%
+                      mutate(model= model_name)
+  
+
+# here define a function for calpuff distance contour lines
+
+distance_contour_calpuff<-function(input_filename,
+                                   lng_source,
+                                   lat_source,
+                                   degree_step){
+        
+        l<-readLines(input_filename)
+        l[3:4]<-gsub('\\.', '', l[3:4]) #gsub('[.]', '', l[3:4])
+        
+        #fname<-paste0(strsplit(input_filename,'\\.grd$'),'_meters', '.grd')
+        fext<-tools::file_ext(input_filename)
+        fpath<-tools::file_path_sans_ext(input_filename)
+        
+        #compose filename with new unit measures
+        fname_new<-paste0(fpath,'_coord_meters.', fext)
+        writeLines(l, fname_new)
+        
+        #read grd file
+        plt<-rgdal::readGDAL(fname_new)
+        
+        # string WGS 84 / UTM zone 32N cartesian
+        epsg_in<-'+init=epsg:32632'
+        
+        # set original coordinates system
+        sp::proj4string(plt) <- sp::CRS(epsg_in)
+        
+        # set it as a grid
+        sp::gridded(plt)<-TRUE
+        
+        # convert to a raster
+        pltr <- raster::raster(plt)
+        
+        # out coordinates
+        epsg_out<-'+init=epsg:4326'
+        
+        # re-project raster to new crs
+        pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+        
+        # create contourlines form raster
+        cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+        
+        # reorder the factor levels
+        cl_r@data$level<-factor(cl_r@data$level,
+                                as.character(sort(as.numeric(levels(cl_r@data$level)))))
+        
+        # transform contour lines to sf feature
+        cl_sf<-sf::st_as_sf(cl_r)
+        
+        # get coordinates of contour lines verteces
+        cl_coord<-sf::st_coordinates(cl_sf)
+        
+        # define coordinates of the origin point 
+        # and create simple feature with appropriate crs
+        
+        pt <- sf::st_sfc(sf::st_point(c(lng_source, lat_source)), crs = 4326)
+        
+        # get the max of minimum distances from the origin point to the line
+        dist_min<-max(sf::st_distance(cl_sf, pt))
+        
+        # create vector of bearing angles of predefined amplitude as degree_step
+        b_angles<-seq(0, 360-degree_step, degree_step) 
+        
+        # define results final container
+        results_final<-data.frame(level=numeric(), bearing=numeric(), distance=numeric())
+        
+        for(j in 1:nrow(cl_sf)){
+                
+                results_pars<-data.frame(level=numeric(), bearing=numeric(), distance=numeric())
+                
+                for(i in 1:length(b_angles)){
+                        
+                        results_pars[i,"level"]<-as.numeric(levels(cl_sf$level)[j])
+                        #results_pars[i,1]<-cl_sf$level[j]
+                        #results_pars[i,"level"]<-cl_sf[j,"level"]
+                        
+                        
+                        results_pars[i,"bearing"]<-b_angles[i]
+                        #results_pars[i,2]<-b_angles[i]
+                        
+                        # calculate destination point coordinates with bearing angle i
+                        # at fixed safe distance (i.e. 100 times the minimum distance)
+                        # so that to avoid null intersection in next step calculation
+                        pt_dest<-geosphere::destPoint(p=c(lng_source, lat_source),
+                                                      b=b_angles[i],
+                                                      d=dist_min*100)
+                        
+                        # define linestring from origin to destination
+                        b_ls<-sf::st_sfc(sf::st_linestring(rbind(c(lng_source, lat_source),
+                                                                 pt_dest)), crs=4326)
+                        
+                        #results_pars[i,"level"]<-cl_sf$level[j]
+                        
+                        # get the intersection point between two features
+                        pt_int<-sf::st_intersection(cl_sf[j,], b_ls)
+                        
+                        # get the distance
+                        d<-sf::st_distance(pt, pt_int)
+                        
+                        results_pars[i,"distance"]<-d
+                        #results_pars[i,3]<-d
+                        
+                }
+                
+                results_final<-rbind(results_final, results_pars)
+                
+        
+                
+        }
+        
+        
+        #output_df<<-results_final
+        results_final
+}
+
+
+input_filename<-'./results/calpuff_area_sources_szinit_0/rank(176)_odor_1hr_conc.grd'
+
+calpuff_area_df<-distance_contour_calpuff(input_filename,
+                                    lng_source,
+                                    lat_source,
+                                    degree_step)
+
+model_name<-'calpuff_area'
+
+calpuff_area_df<-calpuff_area_df%>%
+                      mutate(model= model_name)
+ 
+
+# here define a function for lapmod distance contour lines
+
+distance_contour_lapmod<- function (input_filename,
+                                    lng_source,
+                                    lat_source,
+                                    degree_step){
+        
+        # string WGS 84 / UTM zone 32N cartesian
+        epsg_in<-'+init=epsg:32632'
+        
+        # read ascii grid
+        egrd<-sp::read.asciigrid(input_filename, proj4string = sp::CRS(epsg_in))
+        
+        # set it as a grid
+        sp::gridded(egrd)<-TRUE
+        
+        # convert to a raster
+        pltr <- raster::raster(egrd)
+        
+        # out coordinates
+        epsg_out<-'+init=epsg:4326'
+        
+        # re-project raster to new crs
+        pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+        
+        # create contourlines form raster
+        cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+        
+        # reorder the factor levels
+        cl_r@data$level<-factor(cl_r@data$level,
+                                as.character(sort(as.numeric(levels(cl_r@data$level)))))
+        
+        # transform contour lines to sf feature
+        cl_sf<-sf::st_as_sf(cl_r)
+        
+        # get coordinates of contour lines verteces
+        cl_coord<-sf::st_coordinates(cl_sf)
+        
+        # define coordinates of the origin point 
+        # and create simple feature with appropriate crs
+        
+        pt <- sf::st_sfc(sf::st_point(c(lng_source, lat_source)), crs = 4326)
+        
+        # get the max of minimum distances from the origin point to the line
+        dist_min<-max(sf::st_distance(cl_sf, pt))
+        
+        # create vector of bearing angles of predefined amplitude as degree_step
+        b_angles<-seq(0, 360-degree_step, degree_step) 
+        
+        # define results final container
+        results_final<-data.frame(level=numeric(), bearing=numeric(), distance=numeric())
+        
+        for(j in 1:nrow(cl_sf)){
+                
+                results_pars<-data.frame(level=numeric(), bearing=numeric(), distance=numeric())
+                
+                for(i in 1:length(b_angles)){
+                        
+                        results_pars[i,"level"]<-as.numeric(levels(cl_sf$level)[j])
+                        #results_pars[i,1]<-cl_sf$level[j]
+                        #results_pars[i,"level"]<-cl_sf[j,"level"]
+                        
+                        
+                        results_pars[i,"bearing"]<-b_angles[i]
+                        #results_pars[i,2]<-b_angles[i]
+                        
+                        # calculate destination point coordinates with bearing angle i
+                        # at fixed safe distance (i.e. 100 times the minimum distance)
+                        # so that to avoid null intersection in next step calculation
+                        pt_dest<-geosphere::destPoint(p=c(lng_source, lat_source), b=b_angles[i],
+                                                      d=dist_min*100)
+                        
+                        # define linestring from origin to destination
+                        b_ls<-sf::st_sfc(sf::st_linestring(rbind(c(lng_source, lat_source),
+                                                                 pt_dest)), crs=4326)
+                        
+                        #results_pars[i,"level"]<-cl_sf$level[j]
+                        
+                        # get the intersection point between two features
+                        pt_int<-sf::st_intersection(cl_sf[j,], b_ls)
+                        
+                        # get the distance
+                        d<-sf::st_distance(pt, pt_int)
+                        
+                        results_pars[i,"distance"]<-d
+                        #results_pars[i,3]<-d
+                        
+                }
+                
+                results_final<-rbind(results_final, results_pars)
+                
+        
+                
+        }
+        
+        
+        #output_df<<-results_final
+        results_final
+}
+
+
+input_filename<-'./results/lapmod_area_sources_szinit_0/p98_1h_conc.grd'
+
+lapmod_area_df<-distance_contour_lapmod(input_filename,
+                        lng_source,
+                        lat_source,
+                        degree_step)
+
+
+model_name<-'lapmod_area'
+
+lapmod_area_df<-lapmod_area_df%>%
+                      mutate(model= model_name)
+
+# bind dfs all together now!
+distance_bearing_df<-bind_rows(aermod_area_df,
+                               aermod_volume_df,
+                               calpuff_area_df,
+                               lapmod_area_df,
+                               .id = "id")
+
+
+
+```
+
+Il grafico seguente rappresenta la distanza stimata da ciascuna configurazione modellistica tra il punto di sorgente (centroide) e i punti individuati lungo le isoplete che delimitano le concentrazioni di 1, 3, 5 uoE/m3 relative al 98° percentile orario calcolata ad una prefissata 
+coordinata orizzontale (azimut) rispetto al Nord (bearing angle), con un passo di 5 gradi di ampiezza (da 0 a 360).
+
+```{r chart_distance, echo=FALSE, message=FALSE, warning=FALSE}
+
+ggplot(data=distance_bearing_df, aes(x=bearing, y=distance, color=model))+
+  geom_line()+
+  #geom_smooth()+
+  scale_x_continuous(name='azimut [gradi angolari N]', breaks=seq(0,360, 90))+
+  scale_y_continuous(name='distanza separazione [m]', breaks=seq(0, 2000, 250))+
+  facet_grid(cols=vars(factor(level)))
+
+
+```
+
+Sulla base del grafico si può notare che la tendenza ricorrente, osservabile per tutti i livelli di concentrazione considerati (isoplete 1, 3, 5 uoE/m3 del 98° percentile delle medie orarie), è che CALPUFF tende a stimare distanze significativamente maggiori rispetto ad AERMOD e ancora di più rispetto a LAPMOD. 
+
+Sembra quindi emergere, in termini più generali, la spiccata attitudine di CALPUFF quale modello di "mesoscala", la significativa differenza nei risultati di AERMOD in funzione dell'algoritmo utilizzato per la caratterizzazione della sorgente (area vs. volume) e, per finire, la caratteristica tendenza di LAPMOD a "lavorare su distanze più brevi", con una maggiore propensione per la valutazione nel "campo vicino".
+
+```{r mapview_maps, message=FALSE, warning=FALSE, include=FALSE}
+
+contour_aermod_mapview<- function (input_filename,
+                                   rows_to_skip,
+                                   my_layer_name
+                                   ){
+  
+  library(magrittr)
+  
+  plt<-readr::read_table2(input_filename, col_names=FALSE, skip=rows_to_skip) %>%
+    dplyr::select(x=1, y=2, z=3)
+  
+  # coordinates to define a spatial point data frame
+  sp::coordinates(plt)<- ~x+y
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  # set it as a grid
+  sp::gridded(plt)<-TRUE
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  # out coordinates
+  epsg_out<-'+init=epsg:4326'
+  
+  # re-project raster to new crs
+  pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+  
+  # create contourlines form raster
+  cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+  
+  # reorder the factor levels
+  cl_r@data$level<-factor(cl_r@data$level,
+                          as.character(sort(as.numeric(levels(cl_r@data$level)))))
+  
+  mapview::mapview(cl_r, layer.name=my_layer_name)
+  
+}
+
+
+# aermod volume
+input_filename<-'./results/aermod_volume_sources_szinit_0_syinit_0/PLT_PERIOD_ALL_176_P98.PLT'
+rows_to_skip<-24
+my_layer_name<-'aermod_volume<br>P98 uoE/m3'
+
+map_aermod_volume<-contour_aermod_mapview(input_filename, rows_to_skip, my_layer_name)
+
+# aermod area
+input_filename<-'./results/aermod_area_sources_szinit_0/PLT_PERIOD_ALL_176_P98.PLT'
+rows_to_skip<-24
+my_layer_name<-'aermod_area<br>P98 uoE/m3'
+
+map_aermod_area<-contour_aermod_mapview(input_filename, rows_to_skip, my_layer_name)
+
+
+############
+
+
+contour_calpuff_mapview<- function (input_filename,
+                                    my_layer_name
+                                    ){
+  
+  l<-readLines(input_filename)
+  l[3:4]<-gsub('\\.', '', l[3:4]) #gsub('[.]', '', l[3:4])
+  
+  #fname<-paste0(strsplit(input_filename,'\\.grd$'),'_meters', '.grd')
+  fext<-tools::file_ext(input_filename)
+  fpath<-tools::file_path_sans_ext(input_filename)
+  
+  #compose filename with new unit measures
+  fname_new<-paste0(fpath,'_coord_meters.', fext)
+  writeLines(l, fname_new)
+  
+  #read grd file
+  plt<-rgdal::readGDAL(fname_new)
+  
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  
+  # set original coordinates system
+  sp::proj4string(plt) <- sp::CRS(epsg_in)
+  
+  # set it as a grid
+  sp::gridded(plt)<-TRUE
+  
+  # convert to a raster
+  pltr <- raster::raster(plt)
+  
+  # out coordinates
+  epsg_out<-'+init=epsg:4326'
+  
+  # re-project raster to new crs
+  pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+  
+  # create contourlines form raster
+  cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+  
+  # reorder the factor levels
+  cl_r@data$level<-factor(cl_r@data$level,
+                          as.character(sort(as.numeric(levels(cl_r@data$level)))))
+  
+  mapview::mapview(cl_r, layer.name=my_layer_name)
+  
+}
+
+input_filename<-'./results/calpuff_area_sources_szinit_0/rank(176)_odor_1hr_conc.grd'
+my_layer_name<-'calpuff_area<br>P98 uoE/m3'
+
+
+map_calpuff_area<-contour_calpuff_mapview(input_filename, my_layer_name)
+
+
+###########
+
+
+contour_lapmod_mapview<- function (input_filename,
+                                    my_layer_name
+                                    ){
+
+  # string WGS 84 / UTM zone 32N cartesian
+  epsg_in<-'+init=epsg:32632'
+  
+  # read ascii grid
+  egrd<-sp::read.asciigrid(input_filename, proj4string = sp::CRS(epsg_in))
+  
+  # set it as a grid
+  sp::gridded(egrd)<-TRUE
+  
+  # convert to a raster
+  pltr <- raster::raster(egrd)
+  
+  # out coordinates
+  epsg_out<-'+init=epsg:4326'
+  
+  # re-project raster to new crs
+  pltr<- raster::projectRaster(pltr, crs=sp::CRS(epsg_out))
+  
+  # create contourlines form raster
+  cl_r<-raster::rasterToContour(pltr, levels=c(1,3,5))
+  
+  # reorder the factor levels
+  cl_r@data$level<-factor(cl_r@data$level,
+                          as.character(sort(as.numeric(levels(cl_r@data$level)))))
+  
+  mapview::mapview(cl_r, layer.name=my_layer_name)
+  
+}
+
+input_filename<-'./results/lapmod_area_sources_szinit_0/p98_1h_conc.grd'
+my_layer_name<-'lapmod_area<br>P98 uoE/m3'
+
+
+map_lapmod_area<-contour_lapmod_mapview(input_filename, my_layer_name)
+
+```
+
+E' comunque evidente che la 'forma' delle isoplete risulta significativamente condizionata dalla direzione e velocità del vento che viene rappresentata nel grafico seguente riferito al punto corrispondente al centro del dominio di calcolo.
+
+```{r windrose, echo=FALSE, warning=FALSE}
+windRose(met, 
+         paddle=FALSE, 
+         cols='jet', 
+         ws.int=0.5, 
+         breaks=5,
+         #c(0,0.5,2,4,max(met$ws)),
+         angle=22.5,
+         key.position = 'right', 
+         annotate =FALSE, 
+         grid.line = 10)
+```
+
+\
+Il senso autentico di tali considerazioni emerge molto più chiaramente dalla valutazione comparata delle mappe interattive di seguito riportate.
+
+\
+```{r sync_maps, echo=FALSE, message=FALSE, warning=FALSE}
+
+leafsync::sync(map_calpuff_area, map_aermod_area, map_aermod_volume, map_lapmod_area)
+
+```
+
+
+  \
+
+Le mappe sincronizzate riportano per ciascun run modellistico (CALPUFF area vs AERMOD area vs. AERMOD volume vs. LAPMOD area) le isoplete (isolinee) corrispondenti ai valori di 1, 3, 5 uoE/m3 relativamente al 98° percentile delle medie orarie (su base annuale).
+
+Considerata una specifica mappa e fissato un punto preciso lungo una isopleta che individua una specifica concentrazione relativa ad una predeterminata configurazione modellistica, si evidenzia il corripondente valore di distanza (e di concentrazione) stimato nello stesso punto delle altre mappe, cioè il corripondente valore stimato dalle altre configurazioni modellistiche.
+
+# - Alcune conclusioni operative
+
+Concludendo, sinteticamente per punti:  
 
 - i massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena ricadono sempre nelle immediate vicinanze del punto di emissione (ubicato a circa 50-100 metri dal 'centroide' della sorgente);
 
