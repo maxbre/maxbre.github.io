@@ -1027,7 +1027,7 @@ sync(list(map_avg_la, map_p98_la, map_p99_la, map_max_la),
 ### - Sintesi per punti
 
 
-Considerati i differenti approcci modellistici, focalizzando l'attenzione essenzialmente sul risultato numerico di stima si rileva che:
+Considerati i differenti approcci modellistici, focalizzando l'attenzione essenzialmente sul risultato numerico di stima, si rileva che:
 
 - valgono le considerazioni già viste in precedenza sull'ubicazione dei massimi spaziali di dominio per le statistiche relative a media di periodo (AVG), 98° percentile (P98), 99° percentile (P99) e massimo orario (MAX) di concentrazione odorigena (ricadenti sempre a circa 50 metri dal 'centroide' della sorgente);
 
@@ -1054,9 +1054,9 @@ MAX        |`r map_max_ca_max`  |`r map_max_aa_max`  |`r map_max_av_max`  |`r ma
 
 
 
-Nel grafico successivo viene proposto un confronto delle concentrazioni stimate presso alcuni recettori discreti posizionati a distanze crescenti dal centroide del punto di emissione (50 m, 100 m, 300 m, 500 m) lungo le direzioni corrispondenti ai punti cardinali N, S, E, W.
+Nel grafico successivo viene rappresentato un confronto delle concentrazioni stimate presso alcuni recettori discreti posizionati a distanze crescenti dal centroide del punto di emissione (50 m, 100 m, 300 m, 500 m) lungo le direzioni corrispondenti ai punti cardinali N, S, E, W.
 
-Il confronto dei valori stimati lungo i 4 transetti individuati dagli assi cardinali (N, S, E, W) è riferito alle principali statistiche (avg, p98, p99, max) prodotte dai differenti approcci modellistici nelle varie configurazioni (aermod_area, aermod_volume, calpuff_area, lapmod_area) utilizzate nel presente caso studio .
+Il confronto dei valori stimati lungo i 4 'transetti' individuati lungo gli assi cardinali (N, S, E, W) è riferito alle principali statistiche (avg, p98, p99, max) prodotte dai differenti approcci modellistici nelle varie configurazioni utilizzate nel presente caso studio (CALPUFF area vs AERMOD area vs. AERMOD volume vs. LAPMOD area).
 
 ```{r figure_transect, echo=FALSE, fig.height=6, fig.width=8, fig.retina=3, message=FALSE, warning=FALSE}
 
@@ -1086,7 +1086,7 @@ dl%>%
 
 ```
 
-Dal grafico che riproduce i valori di stima lungo i 'transetti' su cui sono stati posizionati a distanze crescenti i recettori discreti risulta che:
+Dal grafico che riproduce i valori di stima lungo i 'transetti' di recettori discreti posti a distanze crescenti risulta che:
 
 - le direzioni lungo cui si registrano le stime di concentrazione odorigena più elevate sono rappresentate dagli assi cardinali S e W e quindi coninvolgono in prevalenza il dominio di calcolo che ricade nel IV quadrante;
 
@@ -1098,7 +1098,7 @@ Dal grafico che riproduce i valori di stima lungo i 'transetti' su cui sono stat
 
 ## - Distanza di separazione
 
-Con l'obiettivo di confrontare tramite una "metrica comune" i risultati di run modellistici, che spesso risultano difficilmente comparabili, sia nel tempo che nello spazio, viene di seguito proposto il calcolo della "distanza di separazione", cioè la distanza che individua le isoplete di concentrazione ambientale fissate da un predeterminato livello soglia ad un specifica probabilità (nel caso specifico, il 98° percentile delle concentrazioni ambientali pari ai livelli di 1, 3, 5 uoE/m3).
+Con l'obiettivo di confrontare tramite una 'metrica comune' i risultati di run modellistici che spesso risultano difficilmente comparabili, sia nel tempo che nello spazio, viene di seguito proposto il calcolo della 'distanza di separazione', cioè la misura della distanza fisica che individua i punti delle isoplete di concentrazione ambientale fissate ad un predeterminato livello soglia per una specifica probabilità (98° percentile delle concentrazioni ambientali pari ai livelli di 1, 3, 5 uoE/m3).
 
 
 ```{r sepration_distance, message=FALSE, warning=FALSE, include=FALSE}
@@ -1501,8 +1501,7 @@ distance_bearing_df<-bind_rows(aermod_area_df,
 
 ```
 
-Il grafico seguente rappresenta la distanza stimata da ciascuna configurazione modellistica tra il punto di sorgente (centroide) e i punti individuati lungo le isoplete che delimitano le concentrazioni di 1, 3, 5 uoE/m3 relative al 98° percentile orario calcolata ad una prefissata 
-coordinata orizzontale (azimut) rispetto al Nord (bearing angle), con un passo di 5 gradi di ampiezza (da 0 a 360).
+Il grafico rappresenta per ciascuna configurazione modellistica la distanza misurata tra il punto di sorgente (centroide) e i punti lungo le isoplete che individuano le concentrazioni di 1, 3, 5 uoE/m3 relative al 98° percentile orario, calcolata ad una prefissata coordinata orizzontale angolare (azimut) rispetto al Nord (bearing angle) con un passo di 5 gradi di ampiezza (da 0 a 360).
 
 ```{r chart_distance, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -1518,7 +1517,7 @@ ggplot(data=distance_bearing_df, aes(x=bearing, y=distance, color=model))+
 
 Sulla base del grafico si può notare che la tendenza ricorrente, osservabile per tutti i livelli di concentrazione considerati (isoplete 1, 3, 5 uoE/m3 del 98° percentile delle medie orarie), è che CALPUFF tende a stimare distanze significativamente maggiori rispetto ad AERMOD e ancora di più rispetto a LAPMOD. 
 
-Sembra quindi emergere, in termini più generali, la spiccata attitudine di CALPUFF quale modello di "mesoscala", la significativa differenza nei risultati di AERMOD in funzione dell'algoritmo utilizzato per la caratterizzazione della sorgente (area vs. volume) e, per finire, la caratteristica tendenza di LAPMOD a "lavorare su distanze più brevi", con una maggiore propensione per la valutazione nel "campo vicino".
+Sembra quindi emergere, in termini più generali, la spiccata attitudine di CALPUFF quale modello a 'mesoscala', la significativa differenza nei risultati di AERMOD in funzione dell'algoritmo utilizzato per la caratterizzazione della sorgente (area vs. volume) e, per finire, la caratteristica tendenza di LAPMOD a 'lavorare su distanze più brevi', con una maggiore propensione per la valutazione nel 'campo vicino'.
 
 ```{r mapview_maps, message=FALSE, warning=FALSE, include=FALSE}
 
@@ -1677,7 +1676,7 @@ map_lapmod_area<-contour_lapmod_mapview(input_filename, my_layer_name)
 
 ```
 
-E' comunque evidente che la 'forma' delle isoplete risulta significativamente condizionata dalla direzione e velocità del vento che viene rappresentata nel grafico seguente riferito al punto corrispondente al centro del dominio di calcolo.
+E' comunque evidente che la 'forma' delle isoplete risulta significativamente condizionata dalla direzione e velocità del vento che viene rappresentata come rosa del vento realtiva al punto corrispondente al centro del dominio di calcolo.
 
 ```{r windrose, echo=FALSE, warning=FALSE}
 windRose(met, 
@@ -1719,11 +1718,14 @@ Concludendo, sinteticamente per punti:
 
 - è da valutare con attenzione la significatività delle stime dei valori massimi registrati nel 'campo vicino', cioè a breve distanza dalla sorgente (tipcamente entro 50-100 m) in funzione del tipo di modello utilizzato e dell'approssimazione di sorgente adottata (areale vs. volumetrica);
 
-- i risultati di stima ottenuti con i differenti modelli a confronto sembrano sostanzialmente coerenti ad eccezione di alcune configurazioni che utilizzano algortimi di stima che hanno l'effetto di produrre risultati significativamente differenti (i più alti nel caso di AERMOD con caratterizzazione di sorgente areale);
+- i risultati di stima ottenuti con i differenti modelli a confronto sembrano sostanzialmente coerenti fatta la rilevante eccezione di alcune configurazioni che utilizzano algortimi di stima che hanno l'effetto di produrre risultati molto differenti (i più alti in valore assoluto nel caso di AERMOD con caratterizzazione di sorgente areale);
+
+- la valutazione della distanza di separazione permette di comparare in modo efficace i risultati prodotti da differenti configurazioni modellistiche individuando in modo preciso l'estensione areeale del dominio di calcolo soggetto al maggiore impatto.
 
 - la configurazione adottata per AERMOD al fine di caratterizzare il tipo di sorgente (areale vs. volumetrica) sembra essere un fattore deteriminante (critico) nella sensitività dei risultati ottenuti;
 
->Dal punto di vista metodologico c'è da considerare che per le sorgenti volumetriche si introduce il concetto di "exclusion zone" che corrisponde ad un'area di raggio pari a metri 2.15*[SigmaY+1] e che rappresenta il dominio di calcolo all'interno della quale tutte le concentrazioni sono forzate a zero dal modello. Nelle simulazioni qui presentate è stato imposto SigmaY=0 e conseguentemente la "exclusion zone" è risultata di raggio pari ad 1, e quindi senza alcun significativo effetto sui risultati di stima. Tipicamente SigmaY viene stimata come [ampiezza sorgente]/4.3, e SigmaZ come [altezza sorgente]/4.3; in altri casi, quando la sorgente è posizionata al suolo, al denominatore si utilizza il valore 2.15. E' quindi importante verificare che la "exclusion zone" non alteri in modo significativo i risultati di stima magari escludendo aree del dominio di calcolo che sono immediatamente a ridosso del perimetro dell'impianto in cui è inserita la sorgente da modellizzare (cfr. [report EPA 2012]( https://www3.epa.gov/scram001/reports/Haul_Road_Workgroup-Final_Report_Package-20120302.pdf)).
+>Dal punto di vista metodologico c'è da considerare che per le sorgenti volumetriche si introduce il concetto di "exclusion zone" che corrisponde ad un'area di raggio pari a metri 2.15*[SigmaY+1] e che rappresenta il dominio di calcolo all'interno della quale tutte le concentrazioni sono forzate a zero dal modello. Nelle simulazioni qui presentate è stato imposto SigmaY=0 e conseguentemente la "exclusion zone" è risultata di raggio pari ad 1, e quindi senza alcun significativo effetto sui risultati di stima. Tipicamente SigmaY viene stimata come [ampiezza sorgente]/4.3, e SigmaZ come [altezza sorgente]/4.3; in altri casi, quando la sorgente è posizionata al suolo, al denominatore si utilizza il valore 2.15. E' quindi importante verificare che la "exclusion zone" non alteri in modo significativo i risultati di stima escludendo aree del dominio di calcolo che sono immediatamente a ridosso del perimetro dell'impianto in cui è inserita la sorgente da modellizzare (cfr. [report EPA 2012]( https://www3.epa.gov/scram001/reports/Haul_Road_Workgroup-Final_Report_Package-20120302.pdf)).
+
 
 # - Ulteriori valutazioni
 
