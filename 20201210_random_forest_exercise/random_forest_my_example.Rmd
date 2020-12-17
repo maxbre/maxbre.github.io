@@ -184,7 +184,7 @@ In via speditiva è sufficiente analizzare l'ultima riga della matrice grafica d
 
 C'è da precisare in modo chiaro che questo tipo di valutazione serve solo per avere un ritorno immediato sul possibile grado di legame tra la variabile 'target' e le variabili predittive (covariate), senza per questo voler implicare alcun grado di parentela o capacità di intepretazione del risultato che otterremo dall'approccio 'RF' (rispetto al quale non vi è effettivamente alcun punto in comune).
 
-Sarà però istruttivo verificare a posteriori se la selezione delle variabili più importanti utilizzate dal modello predittivo 'RF' è in qualche modo sovrapponibile (anche se in via del tutto casuale) con il risultato dell'analisi di correlazione. Ricordiamo, ancora una volta, che il modello predittivo risultatnte dalla crescita di una 'foresta' ('RF') non ha alcuna possibile interpretazione di tipo 'causa-effetto' essendo un processo esclusivamente di tipo stocastico (casuale).
+Sarà istruttivo verificare a posteriori se la selezione delle variabili più importanti utilizzate dal modello predittivo 'RF' è in qualche modo sovrapponibile (anche se in via del tutto casuale) con il risultato dell'analisi di correlazione. Ricordiamo, ancora una volta, che il modello predittivo risultatnte dalla crescita di una 'foresta' ('RF') non ha alcuna possibile interpretazione di tipo 'causa-effetto' essendo un processo esclusivamente di tipo stocastico (casuale).
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -401,7 +401,7 @@ rpart.plot(tr_train_p)
 
 ```
 
-La previsione sul dataset di testing con l'utilizzo dell'albero potato ha restituito un errore pari a quanto riportato sotto con il parametro MSE.
+La previsione sul dataset testing con l'utilizzo dell'albero potato ha restituito un errore pari a quanto riportato sotto con il parametro MSE.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -432,7 +432,7 @@ set.seed(123456)
 # using default parameters, among others:
 # ntree = 500, n. of trees to grow
 # mtry = p/3 = 13/3 = 4 n. of variables randomly sampled at each split
-train_rf <- randomForest(medv ~ ., boston_train)
+train_rf <- randomForest(medv ~ ., boston_train, importance=TRUE)
 
 train_rf
 
@@ -469,7 +469,7 @@ Sulla base dei risultati ottenuti il modello 'RF' sembra funzionamre molto bene 
 
 E' stato ottenuto un valore di MSE pari a circa `r round(mse_t, 1)` che è significativamente inferiore a quanto stimato con i modelli regressivi ad albero di tipo classico cresciuti con i pacchetti 'tree' e 'rpart' (cfr. MSE alberi di regressione 'classici').
 
-Con il modello Random Fprest circa `r sprintf("%.1f %%", round(evar_t*100,1))` della variabilità riferibile al target 'mdev' risulta speigata dall'utilizzo casuale delle 13 variabili covariate  selezionate (4 variabili per ogni nodo) per crescere la foresta predittiva (costituita complessivamnte da 500 alberi).
+Con il modello 'RF' circa `r sprintf("%.1f %%", round(evar_t*100,1))` della variabilità riferibile al target 'mdev' risulta speigata dall'utilizzo casuale delle 13 variabili covariate  selezionate (4 variabili per ogni nodo) per crescere la foresta predittiva (costituita complessivamnte da 500 alberi).
 
 Nel grafico seguente viene riprodotto l'errore complessivo dell'algoritmo 'RF' in funzione del numero di alberi che sono stati 'cresciuti' nella foresta casuale. 
 
@@ -496,9 +496,9 @@ sqrt(train_rf$mse[which.min(train_rf$mse)])
 
 ```
 
-Che conferma in altri termini la valutazione già fatta 'a vista' sul grafico precedente.
+Che conferma in altri termini, più rigorosi, la valutazione già fatta 'a vista' sul grafico precedente.
 
-Tra i parametri restituiti dal modello l'importanza delle variabili predittive assume particolare rilevanza: Random Forest è quindi un metodo per avere un ritorno informativo sull'importanza relativa delle variabili predittive e quindi sulla possibilità di una loro selezione ex post.
+Tra i parametri restituiti dal modello l'importanza delle variabili predittive assume particolare rilevanza: 'RF' è quindi un metodo per avere un ritorno informativo sull'importanza relativa delle variabili predittive e quindi sulla possibilità di una loro selezione 'ex post'.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -511,20 +511,103 @@ var_imp
 
 ```
 
-Analogamente, un modo efficace per analizzare l'importanza delle variabili è rappresentato dall'utilizzo della funzione dedicata varImpPlot() che riproduce il grafico seguente.
+Analogamente, un modo efficace per analizzare l'importanza delle variabili è rappresentato dall'utilizzo della funzione dedicata varImpPlot() o della funzione vip() nell'omonimo pacchetto 'vip', che riproduce il grafico seguente.
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 
-# plot variable importance
-varImpPlot(train_rf)
+library(vip)           # for variable importance plots
+
+# check for any eventual conflicts with dplyr
+# variable importance plot (compare to randomForest::varImpPlot(train_rf))
+vip(train_rf, geom='point', horiz= FALSE)
 
 ```
 
-Dal grafico si deduce che le variabili 'lstat' e 'rm' assumono una importanza significativamente maggiore rispetto a tutte le altre variabili predittive.
+Dal grafico si deduce che le due variabili predittive 'lstat' e 'rm' assumono un'importanza significativamente maggiore rispetto a tutte le altre.
+
+Le variabili predittive con maggiore importanza sono i principali 'drivers' delle stime ed i loro valori hanno un impatto significativo sulla bontà della predizione. Al contrario, le variabili con minore importanza sono quelle che possono essere 'escluse' dal modello predittivo senza sacrificare accuratezza e precisione di stima.
+
+Nel modello 'RF' ci sono due metriche differenti per valutare l'importanza delle variabili predittive:
+
+1 - la diminuzione nell'accuratezza della stima quando una specifica variabile viene esclusa dal calcolo ('permutation importance');
+
+2 - la diminuzione dell'indice di impurità quando una variabile viene utilizzata per dividere un nodo dell'albero ('Gini importance').
+
+tratto dal manuale on-line: ?randomForest::importance()
+
+    The first measure is computed from permuting OOB data: For each tree, the prediction error on the out-of-bag portion of the data is recorded (error rate for classification, MSE for regression). Then the same is done after permuting each predictor variable.
+    The difference between the two are then averaged over all trees, and normalized by the standard deviation of the differences. 
+    If the standard deviation of the differences is equal to 0 for a variable, the division is not done (but the average is almost always equal to 0 in that case).
+    The second measure is the total decrease in node impurities from splitting on the variable, averaged over all trees. For classification, the node impurity is measured by the Gini index. For regression, it is measured by residual sum of squares.
+
+Ogni albero ha il proprio dataset campionario di crescita ed il corrispondente dataset campionario 'out-of-bag' che viene messo da parte e non viene stato utilizzato per l'addestramento del modello ma viene 'riservato' (OOB dataset) per il calcolo dell'importanza di ogni singola variabile. 
+
+Per prima cosa viene misurata l'accuratezza di previsione nel campione 'out-of-bag' e successivamente i valori corrispndenti alla variabile in esame, sempre nel campione out-of-bag, sono 'rimescolati casualmente' (randomly shuffled) mantenedo tutte le altre inalterate. Successivamente, viene misurata la diminuzione nell'accuratezza di previsione nei dati rimescolati. Viene quindi calcolata la media di decremento nell'accuratezza di previsione su tutti gli alberi e questa misura viene poi ripartita per classi discrete di output finale (variabile target). 
+
+Intuitivamente, il 'rimescolamento casuale' dei valori della variabile 'out-of-bag' comporta che la variabile in media assume un valore previsionale sostanzialmente nullo (o comunque non significativo). L'importanza della variabile è quindi una misura di quanto rimuovendo una specifica variabile predittiva dal modello in esame si determina una dimnuzione dell'accuratezza di stima (e viceversa, quanto includendola se ne aumenta l'accuratezza). Da notare che se una variabile ha un potere predittivo molto limitato, il rimescolamento potrebbe comportare, almeno in linea teorica, anche un'eventuale aumento dell'accuratezza e questo potrebbe portare al calcolo di un piccolo valore negativo di importanza della variabile, che però viene restituito in termini pari a zero.
+
+Riassumendo, l'approccio di calcolo sopra descritto può essere sintetizzato nei seguenti passaggi:
+
+- addestramento su datset training e calcolo della prestazione del modello (in termini di: accuratezza, R^2, indice di Gini o in termini generali di qualsiasi metrica di importanza) su dataset di validazione (OOB sample nel caso di RF);
+
+- rimescolamento casuale dei valori di una variabile del dataset di validazione (OOB sample) e passaggio del 'nuovo dataset rimescolato' al modello al fine di ottenere una nuova previsione e calcolare la metrica di valutazione (per confronto successivo);
+
+- calcolo dell'importanza di una variabile che si ottiene per differena tra la misura di prestazione del modello addestrato sul dataset di base (trainin dataset) e la previsione sul dataset 'rimescolato casualmente' (OOB sample dataset);
+
+- ripetizione dell'ultimo passaggio per tutte le variabili presenti nel dataset.
+
+Per maggiori dettagli ed una discussione approfondita di questi aspetti si rimanda al libro:
+'An introduction to statistical learning with applications in R', G. James, D. Witten, T. Hastie, R. Tibshirani, 2013. springer [7ma ristampa riveduta e corretta al 2017]( http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf)
+
+
+## Partial dependence plot
+
+I modelli non parametrici di tipo complesso (come ad esempio 'RF', oltre a neural networks e svm) hanno avuto molto sviluppo nell'ambito della modellistica predittiva specialmente per i casi in cui è necessario affrontare problemi con dataset molto grandi che non aderiscono strettamente alle assunzioni imposte dalle tecniche statistiche 'classiche' (ad esempio, regressione lineare semplice o multipla che assume linearità, omoschedasticità e normalità). L'interpretazione di questi modelli complessi, spesso molto potenti, è però difficle così come risulta sfidante la spiegazione e la resa dei risultati in termini di operatività.
+
+'Partial dependence plot' offre una soluzione 'semplice' per aiutare a visualizzare le relazioni parziali tra variabile 'target' (stimata) e le variabili predittive (covariate).
+In sintesi, si tratta di un rendering grafico che permette di 'leggere' in modo più chiaro la relazione tra valori stimati e variabili considerate nell'analisi.
+
+Il grafico 'partial dependence plot' mostra l'effetto marginale di una o due variabili predittive sul valore stimato da un modello di machine learning (Friedman, 2001). 
+Il grafico permette di evidenziare il tipo di relazione esistente (lineare o complessa) tra una variabile 'target' e una (o massimo due) variabili predittive.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+library(pdp)
+# 
+plstat <- train_rf %>%  
+  partial(pred.var = 'lstat') %>%
+  autoplot() +
+  geom_smooth(se=FALSE)+
+  ggtitle('lstat, partial dependece plot')+
+  labs(x='lstat', y=expression(f(lstat)))
+
+prm <- train_rf %>%  
+  partial(pred.var = 'rm') %>%
+  autoplot() +
+  geom_smooth(se=FALSE)+
+  ggtitle('rm, partial dependece plot')+
+  labs(x='rm', y=expression(f(rm)))
+
+# arrange plots
+grid.arrange(plstat, prm, ncol = 2)  
+
+```
+
+Quando nel grafico 'partial dependence plot' vengono considerate contemporaneamente due dimensioni (cioè due variabili predittive), la rappresentazione del tipo 'convex hull' cioè l'inviluppo convesso (che il più piccolo insieme convesso che contiene tutti i punti dati), definisce una regione dello 'spazio predittivo' su cui il modello è stato effettivamente addestrato. In questo modo, nel grafico viene rappresentata solo la parte di regione dello spazio che corrisponde alla variabilità effettiva delle due covariate in esame: al di fuori di questo spazio si tratta di un'estrapolazione che porta ad una intepretazione errata e fuorviante.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+p_lstat_rm <- partial(train_rf, pred.var = c("lstat", "rm"), plot = TRUE, chull = TRUE)
+
+p_lstat_rm
+
+```
+
 
 # Previsione 'out-of-the-box'
 
-L'utilizzo dei parametri di default di Random Forest restituisce una performance significativa che si misura in termini di MSE con il valore sotto riportato (ancora una volta significativamente inferiore a quello dei modelli di regressione ad albero di tipo 'classico').
+L'utilizzo dei parametri di default 'RF' restituisce una performance significativa che si misura in termini di MSE con il valore sotto riportato (ancora una volta significativamente inferiore a quello dei modelli di regressione ad albero di tipo 'classico').
 
 ```{r}
 
@@ -643,7 +726,7 @@ Con mtry=13 si specifica di utilizzare tutti i 13 predittori del dataset 'Boston
 
 Per quanto evidenziato in precedenza ci aspettiamo una performance del modello inferiore misurata in termini di MSE e OOB error.
 
-Ripetiamo le precedenti con Random Foreste "à la" Bagging, imponendo questa nuova parametrizzazione per verificarne direttamente gli effetti.
+Ripetiamo le precedenti con 'RF' impostato "à la" Bagging, imponendo questa nuova parametrizzazione per verificarne direttamente gli effetti.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -676,7 +759,7 @@ bg_mse
 
 ## Parametro "mtry"
 
-Se interessati alla regolazione fine (fine tuning) del paramentro mtry possiamo utilizzare la funzione dedicata tuneRF() del pacchetto Random Forest.
+Se interessati alla regolazione fine (fine tuning) del paramentro mtry possiamo utilizzare la funzione dedicata tuneRF() del pacchetto 'RF'.
 
 La funzione compie una ricerca 'euristica' a partire da un valore di mtry iniziale e passo definito dall'utente per arrestarsi al punto in cui l'errore out-of-bag smette di ridursi (secondo una percentuale definita dall'utente).
 
@@ -717,7 +800,7 @@ Dal calcolo si nota che il valore ottimale della ricerca di mtry è pari a 5 con
 
 Con l'obiettivo di produrre una ricerca di ottimizzazione su una serie di parametri c'è la necessità di creare dapprima una griglia di combinazioni (prodotto cartesiano) dei parametri, che sarà successivamente 'passata' ad un 'ciclo for' per il calcolo e l'immagazzinamento dei risultati ottenuti.
 
-Costruiamo la griglia cartesiana di parametri da sottoporre al modello Random Forest.
+Costruiamo la griglia cartesiana di parametri da sottoporre al modello 'RF'.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -799,7 +882,7 @@ Dal confronto dei risultati ottenuti si deduce che la parametrizzazione di defau
 
 # Conclusioni
 
-Random Forest è un algoritmo che spesso mostra una elevata accuratezza di previsione già con i parametri di default (out-of-the box). In aggiunta alla relativa semplicità di regolazione fine ed alla non necessità di alcun pre-processamento dei dati di input rappresenta di fatto una delle prime possibili opzioni per 'aggredire' un problema predittivo e per la successiva 'messa al banco di prova' rispetto alla scelta del modello previsionale.
+'RF' è un algoritmo che spesso mostra una elevata accuratezza di previsione già con i parametri di default (out-of-the box). In aggiunta alla relativa semplicità di regolazione fine ed alla non necessità di alcun pre-processamento dei dati di input rappresenta di fatto una delle prime possibili opzioni per 'aggredire' un problema predittivo e per la successiva 'messa al banco di prova' rispetto alla scelta del modello previsionale.
 
 In estrema sintesi, riassumiamo vantaggi e svantaggi dell'approccio 'RF'.
 
