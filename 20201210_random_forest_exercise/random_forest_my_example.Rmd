@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduzione
 
-Random Forest ('RF') è un algoritmo proposto da L. Breiman (University of California, Berkeley) che costruisce un modello predittivo rappresentato dall'aggregazione ('mediazione') dei risultati di una collezione di alberi (foresta). 
+Random Forest ('RF') è un algoritmo, proposto da L. Breiman (University of California, Berkeley), che costruisce un modello predittivo rappresentato dall'aggregazione ('mediazione') dei risultati di una collezione di alberi (foresta). 
 
 L'algoritmo è capce di affrontare sia compiti di classificazione che di regressione superando alcune limitazioni tipiche dell'analoga tecnica di 'Bagging' (bootstrap aggregating regression trees). 
 
@@ -32,11 +32,11 @@ Rispetto alla tecnica di 'Bagging', 'RF' introduce un ulteriore elemento di casu
 
 L'algorimo di 'RF' ha acquisito negli anni recenti molta popolarità per le sue caratteristiche di ottime performance predittive 'out-of-the-box', cioè senza la necessità di dover ricorrere ad un ecessivo lavoro di parametrizzazione. 
 
-Rispetto ai 'classici' metodi di regressione ad albero (regression trees) che risentono di problemi dovuti alla generazione di alberi tra loro 'correlati', 'RF' utilizza una tecnica di ulteriore 'iniezione' di casualità nel processo di generazione/crescita degli alberi del modello. 
+Rispetto ai 'classici' metodi di regressione ad albero (regression trees) che risentono di problemi dovuti alla generazione di alberi tra loro 'correlati', 'RF' utilizza una tecnica di ulteriore 'iniezione' di casualità nel processo di generazione/crescita degli alberi del modello/foresta. 
 
 Questa caratteristica è ottenuta implementando due tecniche specifiche:
 
-- 'bootstrap': analogamente alla tecnica prevista nell'algoritmo 'Bagging', ogni albero è 'cresciuto' su un sotto-campione casuale di osservazioni del datset (con l'effetto di 'crescere' alberi tra loro de-correlati);
+- 'bootstrap sampling': analogamente alla tecnica prevista nell'algoritmo 'Bagging', ogni albero è 'cresciuto' su un sotto-campione casuale di osservazioni del datset (con l'effetto di 'crescere' alberi tra loro de-correlati);
 
 - 'split-variable randomization': ogni volta che viene affrontato un nodo (split) dell'albero, la ricerca della variabile di ripartizione per lo specifico nodo in esame è limitata ad un subset di variabili (m) rispetto al totale delle variabili predittive (p) che sono presenti nel dataset. Per il caso limite in in cui m = p, 'RF' rientra nei presupposti della tecnica di 'Bagging'. Intuitivamente, la riduzione di m produrrà una riduzione della correlazione tra coppie di alberi e quindi ridurrà la varianza della media (stima finale). 
 
@@ -124,7 +124,7 @@ da cui si deduce che circa il 36.8% del dataset di training risulta non campiona
 nb: il calcolo del limite implica una serie di passaggi di sostituzione e di derivazione che per brevità non sono qui presentati; un simpatico video esplicativo dei principali passaggi matematici è disponibile [qui](https://www.youtube.com/watch?v=z-w_W_VJbIY).
 
 
-# Dataset 'Boston housing'
+# Il dataset 'Boston housing'
 
 Il dataset è derivato dalle infomrazioni raccolte da 'U.S. Census Service' e contiene osservazioni relative a 506 abitazioni nell'area di Boston descritte attraverso 14 variabili caratteristiche. Fu originariamente pubblicato da:
 
@@ -152,7 +152,7 @@ Elenco delle variabili presenti nel dataset:
 Per maggiori informazioni, anche sui 'limiti e difetti' di questo dataset ormai datato si rimanda al [seguente sito](https://towardsdatascience.com/things-you-didnt-know-about-the-boston-housing-dataset-2e87a6f960e8), ed in seconda battuta anche a [questo sito](https://nowosad.github.io/spData/reference/boston.html) per il datset 'corretto' rispetto ad alcune variazioni successive che, per brevità e semplicità, nell'esercizio qui presentato non sono state considerate.
 
 
-# Obiettivi
+# Obiettivi dell'esercizio
 
 L'obiettivo del presente esercizio è costruire tramite la tecnica 'RF' un modello predittivo di tipo regressivo del valore mediano delle case occupate nell'area di Boston (variabile risposta 'mdev') sulla base delle 13 variabili esplicative (covariate) sopra elencate.
 
@@ -205,8 +205,6 @@ library(tidyverse)
 
 Boston %>%
   pivot_longer(!medv, names_to = "variable", values_to = "value")%>%
-  # leaving out some categorical variabile
-  #filter(variable != "chas" & variable != 'rad') %>%
   ggplot(aes(x = value, y = medv)) +
   geom_point() +
   stat_smooth() +
@@ -221,10 +219,6 @@ Dividiamo il dataset originario in due subset distinti: "training", per addestra
 Utilizziamo alcune funzioni dedicate tratte dal pacchetto 'rsample'. Il 70% delle osservazioni (train dataset) viene riservato per l'addestramento mentre il restante 30% (test dataset) per la previsione e verifica dei risultati.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-
-# here some preliminary data tweaking
-#Boston$chas <- factor(Boston$chas, levels = 0:1, labels = c("no", "yes"))
-#Boston$rad <- factor(Boston$rad, ordered = TRUE)
 
 library(rsample)
 
@@ -262,7 +256,7 @@ dim(boston_test2)
 
 Da notare che i dataset risultanti dai differenti approcci di 'splitting' pur avendo  uguale dimensionalità non saranno mai perfettamente identici (perchè si tratta di un campionamento di tipo casuale).
 
-# Intermezzo: cos'è un albero di regressione?
+# Intermezzo: che cos'è un albero di regressione?
 
 Gli alberi di regressione 'classici', nella loro implementazione di base, ripartiscono il dataset in vari sotto-gruppi (rami) più piccoli. Per ciascuno di questi sotto-gruppi adattano (fitting) un 'modello descrittivo semplice' che corrisponde ad un valore costante all'interno del gruppo.
 
@@ -415,7 +409,7 @@ tr_mse
 
 ```
 
-# Addestramento
+# Addestramento della foresta
 
 Segue il processo di addestramento del modello 'RF' sulla base del dataset 'training'.
 Cosiderato quanto già detto riguardo il campionamento casuale sia delle osservazioni che delle variabili esplicative si attende un gradi di correlazione tra gli alberi significativamente ridotto rispetto alle altre tecniche (sia di regressione ad albero 'classica' che di tipo 'bagging').
@@ -505,7 +499,7 @@ Tra i parametri restituiti dal modello l'importanza delle variabili predittive a
 # show table of variable importance
 var_imp<-importance(train_rf)
 
-var_imp<-as.matrix(var_imp[order(var_imp[,1], decreasing = TRUE),])
+var_imp<-var_imp[order(var_imp[,1], decreasing = TRUE),]
 
 var_imp
 
@@ -605,7 +599,7 @@ p_lstat_rm
 ```
 
 
-# Previsione 'out-of-the-box'
+# Previsione 'out-of-the-box' della foresta 
 
 L'utilizzo dei parametri di default 'RF' restituisce una performance significativa che si misura in termini di MSE con il valore sotto riportato (ancora una volta significativamente inferiore a quello dei modelli di regressione ad albero di tipo 'classico').
 
@@ -644,7 +638,7 @@ ggplot(data = boston_all, mapping = aes(x=fit, y=medv)) +
 ```
 
 
-# Regolazione fine
+# Regolazione fine della foresta
 
 Elenco dei parametri caratteristici per il 'fine-tunining' del modello predittivo 'RF':
 
@@ -720,9 +714,9 @@ La linea rossa individua le stime dell'errore OOB, mentre la linea azzurra quell
 
 ## Foresta "à la" Bagging
 
-Bagging è un caso speciale di foresta casuale quando viene imposto  m=p. La funzione randomForest() può quindi essere utilizzata per costruire un modello 'bagging' (impostando mtry = p).
+'Bagging' è un caso speciale di 'RF' quando viene imposto  m = p. La funzione randomForest() può quindi essere utilizzata per costruire un modello 'bagging' (impostando mtry = p).
 
-Con mtry=13 si specifica di utilizzare tutti i 13 predittori del dataset 'Boston housing' ad ogni nodo degli alberi (contrariamente al caso della foresta casuale che imposta per default un numero di variabili mtry= p/3 - per il caso di regressione).
+Con mtry = 13 si specifica di utilizzare tutti i 13 predittori del dataset 'Boston housing' ad ogni nodo degli alberi (contrariamente al caso della foresta casuale che imposta per default un numero di variabili mtry= p/3 - per il caso di regressione).
 
 Per quanto evidenziato in precedenza ci aspettiamo una performance del modello inferiore misurata in termini di MSE e OOB error.
 
@@ -861,7 +855,7 @@ Da notare che nel codice sopra riportato è stato 'deposto' il seme per la gener
 Tale accorgimento garantisce soprattutto la possibilità di campionare sempre le stesse identiche osservazioni da sottoporre all'analisi di ciascuna delle 48 configurazioni modellistiche considerate. Solo in questo modo si rendono effettivamente comparabili i risultati di stima delle configurazioni modellistiche che altrimenti sarebbero necessariamente non 'congruenti', considerata la natura tipicamente casuale del modello 'RF'.
 
 
-# Parametrizzazione finale
+# Parametrizzazione finale della foresta
 
 Come risultato finale dell'analisi di sensitività dei parametri caratteristici dell'algoritmo 'RF' Forest siamo in grado di individuare il modello predittivo 'migliore'.
 
