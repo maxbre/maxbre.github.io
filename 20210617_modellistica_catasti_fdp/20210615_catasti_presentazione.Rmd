@@ -100,7 +100,7 @@ background-size: contain
 
 # altezza di rimescolamento: astrazioni!
 
-.white[***2011-01-18 hh 11:00, vista da Pianezze (~1000 m slm), M.te Cesen, TV***]
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen, TV***]
 
 ---
 # AERMOD vs. CALPUFF: assunzioni!
