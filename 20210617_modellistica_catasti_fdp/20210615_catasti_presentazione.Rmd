@@ -58,7 +58,7 @@ background-size: 5%
 
 - i modelli, anche quelli più complessi e sofisticati, non prescindono mai dall'utilizzo di misure (anch'esse dei modelli della realtà!)
 
-#### dal reale al modello attraverso .red[semplificazioni, astrazioni, assunzioni]
+#### dal reale al modello per .red[semplificazioni, astrazioni, assunzioni]
 
 
 ```{r}
