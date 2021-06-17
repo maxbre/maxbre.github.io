@@ -1,0 +1,97 @@
+** marchi industriale - mira (ve)
+
+** NO ECHO
+
+CO STARTING
+
+   TITLEONE  marchi industriale - mira (ve)
+**   MODELOPT DFAULT
+   MODELOPT  CONC FLAT SCREEN
+   AVERTIME  1
+   POLLUTID  SO2
+   RUNORNOT  RUN
+** EVENTFIL  EVENT.INP
+   ERRORFIL  ERRORS.OUT
+   
+CO FINISHED
+ 
+
+SO STARTING
+
+** default to meters if omitted
+**   ELEVUNIT METERS
+
+** location of sources
+**           SrcID         Srctyp       Xs           Ys
+**           -----         ------       ---------    ----------
+   LOCATION  C3            POINT        743912.00     5038930.00
+
+**   LOCATION  C1            POINT        743878.00    5038977.00
+**   LOCATION  C3            POINT        743912.00    5038930.00
+**   LOCATION  C11           POINT        743950.00    5038896.00
+
+** Parameters  id    QS(g/s)   stackhgt(m)  temp (K)  vel (m/s)  diameter (m)
+**            ---    ---------  --------     --------  ---------  ------- 
+   SRCPARAM    C3  2.23  20.0  308.0  11.5  0.80
+
+**   SRCPARAM   C1  670.0  10.5   299.0   9.7  0.15
+**   SRCPARAM   C3  350.0  20.0   292.0  11.5  0.80
+**   SRCPARAM  C11   15.0  14.0   282.0   4.0  0.19
+
+** unit conversion factors for emissions to concentrations
+** emissions: gram per second 
+** concentrations: micrograms per second
+   EMISUNIT   1.0E6   g/s   ug/m3
+
+** this is for overriding the default
+** to be used in case of odour modeling
+**   EMISUNIT   2.3   ouE/s   ouE/m3
+
+   SRCGROUP  ALL
+
+SO FINISHED
+
+
+RE STARTING
+
+   ELEVUNIT METERS
+
+**              Xcoord      Ycoord
+**              ------      ------
+   DISCCART     743807.70   5039083.20
+   DISCCART     743814.50   5038895.90
+   DISCCART     743843.70   5038596.10
+
+   GRIDCART CAR1 STA
+
+**                      Xinit  Xnum  Xdelta  Yinit    Ynum  Ydelta
+**                      -----  ----  ------  -----    ----  ------
+
+            CAR1 XYINC 742966  40    50      5037923  40     50
+
+   GRIDCART CAR1 END
+
+
+RE FINISHED
+
+ME STARTING
+
+   SURFFILE  ./AERMET.SFC 
+   PROFFILE  ./AERMET.PFL
+   SURFDATA  9999  2020  cosmo 
+   UAIRDATA  16144  2020  SPietroDiCapofiume
+   PROFBASE  0.0  METERS
+   
+ME FINISHED
+
+OU STARTING
+
+   RECTABLE 1 1 88 176
+
+   PLOTFILE 1 ALL 1 PLT_PERIOD_ALL_1_MAX.PLT
+   PLOTFILE 1 ALL 88 PLT_PERIOD_ALL_88_P99.PLT
+   PLOTFILE 1 ALL 176 PLT_PERIOD_ALL_176_P98.PLT
+**   PLOTFILE PERIOD ALL PLT_PERIOD_ALL_AVE.PLT
+
+OU FINISHED
+
