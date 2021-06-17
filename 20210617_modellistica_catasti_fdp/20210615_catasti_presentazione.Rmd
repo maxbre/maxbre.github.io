@@ -1,6 +1,6 @@
 ---
 title: "Modellistica di dispersione degli inquinanti atmosferici a scala locale"
-subtitle: "Un caso applicativo di utilizzo delle informazioni in 'castati fdp'<br/>"
+subtitle: "Un caso applicativo di utilizzo delle informazioni in 'catasti fdp'<br/>"
 author: "<br/>Massimo Bressan"
 institute: "UQA - Unità organizzativa Qualità dell'Aria"
 date: "<br/> updated: `r Sys.Date()`"
