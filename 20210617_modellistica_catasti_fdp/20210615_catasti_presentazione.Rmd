@@ -89,7 +89,7 @@ background-image: url(./img/montello_altimetria.png)
 background-position: bottom
 background-size: contain
 
-# atimetria Montello (TV): semplificazioni!
+# altimetria Montello (TV): semplificazioni!
 
 ---
 class: center, bottom
