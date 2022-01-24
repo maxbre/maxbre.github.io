@@ -2,7 +2,7 @@
 title: "Random Forest"
 subtitle: "Appunti su esercizio con dataset 'Boston housing'"
 author: "Massimo Bressan - ARPAV, DAPTV SMV"
-date: "[last compiled on: `r format(Sys.time(), '%Y-%m-%d')`]"
+date: "[last recompiled on: `r format(Sys.time(), '%Y-%m-%d')`]"
  
 output:
   html_document:
@@ -22,23 +22,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduzione
 
-Random Forest ('RF') è un algoritmo, proposto da L. Breiman (University of California, Berkeley), che costruisce un modello predittivo rappresentato dall'aggregazione ('mediazione') dei risultati di una collezione di alberi (foresta). 
+Random Forest ('RF') è un algoritmo, proposto da L. Breiman (University of California, Berkeley), che costruisce un modello predittivo rappresentato dall'aggregazione ('mediazione') dei risultati di una collezione di 'alberi', cioè quella che viene definita una 'foresta' nel linguaggio tecnico del metodo. 
 
 L'algoritmo è capce di affrontare sia compiti di classificazione che di regressione superando alcune limitazioni tipiche dell'analoga tecnica di 'Bagging' (bootstrap aggregating regression trees). 
 
-Per i probelmi di tipo regressivo si adatta molte volte lo stesso albero di regressione su un numero di campioni bootstrap (bags) del dataset  di training e si calcola la media dei risultati ottenuti. Invece, per i problemi di cassificazione si adatta un “comitato” di alberi ognuno dei quali "esprime un voto" per la classe in esame.
+Per i probelmi di tipo regressivo si adatta molte volte lo stesso albero di regressione su un numero di campioni bootstrap ('bags') del dataset  di training e si calcola la media dei risultati ottenuti. Invece, per i problemi di cassificazione si adatta un 'comitato' di alberi ognuno dei quali 'esprime un voto' per la classe in esame.
 
-Rispetto alla tecnica di 'Bagging', 'RF' introduce un ulteriore elemento di casualità nell'algortimo che contribuisce a ridurre significativamente i successivi problemi di overfitting: infatti, viene proposto l'utilizzo di una selezione casuale (subset) delle variabili predittive utilizzate in ciascun nodo dell'albero ('RF' coincide con Bagging quando il numero di variabili predittive utilizzate nel modello è pari al numero totale di variabili esplicative, cioè in ogni nodo dell'albero sono utilizzate tutte le covariate presenti nel dataset).
+Rispetto alla tecnica di 'Bagging', 'RF' introduce un ulteriore elemento di casualità nell'algortimo che contribuisce a ridurre significativamente i successivi problemi di 'overfitting' (tipici degli 'alberi di classificazione' di tipo classico): infatti, viene proposto l'utilizzo di una selezione casuale ('subset') delle variabili predittive utilizzate in ciascun nodo dell'albero ('RF' coincide con 'Bagging' quando il numero di variabili predittive utilizzate nel modello è pari al numero totale di variabili esplicative, cioè quando in ogni nodo dell'albero sono utilizzate tutte le covariate presenti nel dataset).
 
 L'algorimo di 'RF' ha acquisito negli anni recenti molta popolarità per le sue caratteristiche di ottime performance predittive 'out-of-the-box', cioè senza la necessità di dover ricorrere ad un ecessivo lavoro di parametrizzazione. 
 
-Rispetto ai 'classici' metodi di regressione ad albero (regression trees) che risentono di problemi dovuti alla generazione di alberi tra loro 'correlati', 'RF' utilizza una tecnica di ulteriore 'iniezione' di casualità nel processo di generazione/crescita degli alberi del modello/foresta. 
+Rispetto ai 'classici' metodi di regressione ad albero ('regression trees') che risentono di problemi dovuti alla generazione di alberi tra loro 'correlati', 'RF' utilizza una tecnica di ulteriore 'iniezione' di casualità nel processo di generazione/crescita degli alberi del modello/foresta. 
 
 Questa caratteristica è ottenuta implementando due tecniche specifiche:
 
 - 'bootstrap sampling': analogamente alla tecnica prevista nell'algoritmo 'Bagging', ogni albero è 'cresciuto' su un sotto-campione casuale di osservazioni del datset (con l'effetto di 'crescere' alberi tra loro de-correlati);
 
-- 'split-variable randomization': ogni volta che viene affrontato un nodo (split) dell'albero, la ricerca della variabile di ripartizione per lo specifico nodo in esame è limitata ad un subset di variabili (m) rispetto al totale delle variabili predittive (p) che sono presenti nel dataset. Per il caso limite in in cui m = p, 'RF' rientra nei presupposti della tecnica di 'Bagging'. Intuitivamente, la riduzione di m produrrà una riduzione della correlazione tra coppie di alberi e quindi ridurrà la varianza della media (stima finale). 
+- 'split-variable randomization': ogni volta che viene affrontato un nodo ('split') dell'albero, la ricerca della variabile di ripartizione per lo specifico nodo in esame è limitata ad un subset di variabili (m) rispetto al totale delle variabili predittive (p) che sono presenti nel dataset. Per il caso limite in in cui m = p, 'RF' rientra nei presupposti della tecnica di 'Bagging'. Intuitivamente, la riduzione di m produrrà una riduzione della correlazione tra coppie di alberi e quindi ridurrà la varianza della media (stima finale). 
 
 Considerato che l'algoritmo 'RF' seleziona casualmente un sottocampione (bootstrap sample) per l'addestramento del modello e una selezione casuale delle variabili predittive da utilizzare ad ogni 'split', si ottiene il risultato di generare un set di alberi differenti che risultano tra loro meno correlati di quanto avviene nell'algoritmo di 'Bagging', con il risultato finale di un aumento significativo delle capacità predittive del modello. 
 
@@ -58,7 +58,7 @@ L'algoritmo di un modello regressivo 'RF' può essere descritto in termini gener
 12. | end
 
 
-In sintesi, rispetto a quanto sopra riportato in modo schematico, ogni singolo caso (osservazione) presente nel dataset è passato attraverso ('drop down') tutti gli alberi della foresta ciascuno dei quali produce una previsione individuale: la previsione finale della 'foresta' è rappresentata dalla 'media' delle previsioni dei singoli alberi di regressione.
+In sintesi, rispetto a quanto sopra riportato in modo molto schematico, ogni singolo caso (osservazione) presente nel dataset è passato attraverso ('drop down') tutti gli alberi della foresta ciascuno dei quali produce una previsione individuale: la previsione finale della 'foresta' è rappresentata dalla 'media' delle previsioni dei singoli alberi di regressione.
 
 'RF' è un algoritmo che dal punto di vista dell'inquadramento sistematico nell'ambito della classificazione dei modelli statistici può essere deinito come una tecnica di *machine learning* di tipo *ensemble supervised*.
 
@@ -75,7 +75,7 @@ Per avere una presentazione più completa e rigorosa si rimanda al classico  [li
 
 - Hastie, T., Tibshirani, R., and Friedman, J., The Elements of Statistical Learning, 2nd edition, Springer, 2009.
 
-Sinteticamente (e solo superficialmente) rispetto agli obiettivi di questo esercizio.
+Sinteticamente rispetto agli obiettivi specifici di questo esercizio si può affermare quanto segue.
 
 Il termine *machine learning* ('apprendimento automatico') intende un campo molto variegato di attività legate all'intelligenza artificale che può essere sinteticamente riassunto nei 4 seguenti passaggi logici:
 
@@ -89,37 +89,37 @@ Il termine *machine learning* ('apprendimento automatico') intende un campo molt
 
 Il termine *supervised learning* si applica ad un dataset con una variabile 'risposta' (label), che può essere sia di tipo 'categorico' (per risolvere un problema di tipo classificatorio) che 'continuo' (per risolvere un problema di tipo regressivo): l'algoritmo di apprende (viene istruito) in riferimento alla variabile 'risposta' contro le variabili predittive (covariate)
 
-Il termine *ensemble learning* presuppone l'utilizzo di più algortimi per ottenere delle performance predittive migliori rispetto a quelle ottenibili con un singolo algoritmo (due is meglio che one!). Da qui si apre poi il problema di risolvere la dimensione dell'insieme degli algoritmi e di definre un efficiente ed efficace criterio di aggregazione/mediazione predittiva.
+Il termine *ensemble learning* presuppone l'utilizzo di più algortimi per ottenere delle performance predittive migliori rispetto a quelle ottenibili con un singolo algoritmo. Da qui si apre poi il problema di risolvere la dimensione dell'insieme degli algoritmi e di definre un efficiente ed efficace criterio di aggregazione/mediazione predittiva.
 
-Nel caso specifico, l'esercizio qui considerato rientra sempre nel caso generale di un *esamble learning* perchè:
+Nello specifico, l'esercizio qui considerato rientra sempre nel caso generale di un *esamble learning* perchè:
 
 - viene utilizzato un unico tipo di modello (gli alberi di regressione);
-- ...MA...
+- ...MA... (è importante!)
 - gli alberi di regressione sono addestrati ogni volta su un differente subset di dati (bagging) e successivamente aggregati in un unico modello (la media).
 
-Nella figura seguente una mia schematizzazione del procedura di 'bootstap aggegating' (Bagging) e conseguente 'ensamble modeling'.
+Nella figura seguente viene riprodotta una mia semplice schematizzazione della procedura di 'bootstap aggegating' (Bagging) e conseguente 'ensamble modeling'.
 \
 
 ![my_simple_bagging_scheme](./bagging.jpg)
 
 
-Per chiudere questa parte, un breve approfondimento su 'out-of-bag error' (OOB error).
+Per chiudere questa prima parte, un breve approfondimento su 'out-of-bag error' (OOB error).
 
-Nell'algoritmo 'RF' il dataset di trainnig vine campionato in modo casuale con ripetizione (o estrazione bernoulliana), generando così tanti piccoli subset, noti come 'bootstrap samples' che vengono poi 'passati' al modello RF per il training.
+Nell'algoritmo 'RF' il dataset di trainnig vine campionato in modo casuale con ripetizione (o estrazione bernoulliana), generando così tanti piccoli 'subset', noti come 'bootstrap samples' che vengono poi 'passati' al modello 'RF' per il training.
 I campioni 'fuori sacco', OOB samples, sono le osservazioni *non utilizzate* per l'addestramento del modello. Nel caso ideale (numero di osservazioni infinto) circa il 36.8% dei dati costruisce il set OOB.
 
-Si può dimostrare che, se esistono N righe da campionare allora la probabilità di *non campionare* una specifica riga del dataset in una estrazione casuale è pari a:
+Si può dimostrare che, se esistono N righe da campionare, la probabilità di *non campionare* una specifica riga del dataset in una estrazione casuale è pari a:
 
 $$ \frac {N-1}{N}$$
 
-Utilizzando la tecnica di campionamento casuale con ripetizione (il campione estratto viene sempre rimesso dentro il dataset iniziale), la probabilità di *non campionare* un numero di righe (records) pari a N è uguale a:
+Utilizzando la tecnica di campionamento casuale *con ripetizione* (il campione estratto viene sempre rimesso dentro il dataset iniziale), la probabilità di *non campionare* un numero di righe (records) pari a N è uguale a:
 
 $$ \left(\frac {N-1}{N}\right)^n $$
 
 nel caso limite con N tendente ad infinito:
 
 $$\displaystyle \lim_{n \to \infty}  \left(1 - \frac {1}{N}\right)^n = e^{-1} = 0.3679$$
-da cui si deduce che circa il 36.8% del dataset di training risulta non campionato e quindi risulta 'disponibile' come campione OOB (fuori sacco) su cui effettuare la 'validazione' del modello RF.
+da cui si deduce che circa il 36.8% del dataset di training risulta non campionato e quindi è 'disponibile' come campione OOB (fuori sacco) su cui effettuare la 'validazione' del modello RF.
 
 nb: il calcolo del limite implica una serie di passaggi di sostituzione e di derivazione che per brevità non sono qui presentati; un simpatico video esplicativo dei principali passaggi matematici è disponibile [qui](https://www.youtube.com/watch?v=z-w_W_VJbIY).
 
@@ -130,7 +130,7 @@ Il dataset è derivato dalle infomrazioni raccolte da 'U.S. Census Service' e co
 
 - Harrison, D. and Rubinfeld, D.L. `Hedonic prices and the demand for clean air', J. Environ. Economics & Management, vol.5, 81-102, 1978. 
 
-L'ipotesti dello studio originario aveva l'obiettivo di verificare e misurare l'attitudine della popolazione residente a pagare di più per vivere in una casa in un ambiente meno inquinato attraverso la vautazione del 'prezzo edonico' (valore monetario che la popolazione assegna a fattori non specificatamente inerenti la proprietà ma piuttosto ad una serie di elementi 'esterni').
+L'ipotesti dello studio originario aveva l'obiettivo di verificare e misurare l'attitudine della popolazione residente a pagare più denaro per vivere in una casa in un ambiente meno inquinato attraverso la vautazione del 'prezzo edonico' (valore monetario che la popolazione assegna a fattori non specificatamente inerenti la proprietà ma piuttosto ad una serie di elementi 'esterni').
 
 Elenco delle variabili presenti nel dataset:
 
@@ -154,16 +154,16 @@ Per maggiori informazioni, anche sui 'limiti e difetti' di questo dataset ormai 
 
 # Obiettivi dell'esercizio
 
-L'obiettivo del presente esercizio è costruire tramite la tecnica 'RF' un modello predittivo di tipo regressivo del valore mediano delle case occupate nell'area di Boston (variabile risposta 'mdev') sulla base delle 13 variabili esplicative (covariate) sopra elencate.
+L'obiettivo del presente esercizio è costruire tramite la tecnica 'RF' un modello predittivo di tipo *regressivo* del valore mediano delle case occupate nell'area di Boston (variabile risposta 'mdev') sulla base delle 13 variabili esplicative (covariate) sopra elencate.
 
-Sarà interessante notare che, sulla base dei risultati del modello predittivo 'RF', la variabile esplicativa ('covariata') che più direttamente ci si aspetterebbe poter essere 'naturalmente correlata' al valore mediano delle abitazioni (sempre restando nell'approccio valutativo originale dell'articolo sopra descritto) in realtà non compare come mai come una delle variabili a maggiore contenuto esplicativo. E questo aspetto rende conto del carattere eminentemente 'stocastico' dell'approccio 'RF' e della difficoltà (impossibilità, di fatto!) nel fornire un'interpretazione 'causale' dei risultati ottenuti.
+<!-- Sarà interessante notare che, sulla base dei risultati del modello predittivo 'RF', la variabile esplicativa ('covariata') che più direttamente ci si aspetterebbe poter essere 'naturalmente correlata' al valore mediano delle abitazioni (sempre restando nell'approccio valutativo originale dell'articolo sopra descritto) in realtà non compare mai come una delle variabili a maggiore contenuto esplicativo. E questo aspetto rende conto del carattere eminentemente 'stocastico' dell'approccio 'RF' e della difficoltà (impossibilità, di fatto!) nel fornire un'interpretazione 'causale' dei risultati ottenuti. -->
 
 
 # Analisi esplorativa
 
-Carichiamo il dataset 'Boston housing', e diamo uno squardo preliminare alla dimensionalità ed alle principali statistiche di tipo descrittivo.
+Carichiamo il dataset 'Boston housing', e diamo uno sguardo preliminare alla dimensionalità ed alle principali statistiche di tipo descrittivo.
 
-La variabile 'target' è 'mdev' (valore mediano delle case occupate espresso in k$) mentre le restanti variabili sono le 'covariate' (variabili esplicative) che saranno utilizzate nel modello predittivo.
+*La variabile 'target' è 'mdev' (valore mediano delle case occupate espresso in k$) mentre le restanti variabili rappresentano le 'covariate' (variabili esplicative) che saranno utilizzate nel modello predittivo.*
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -182,7 +182,7 @@ Viene di seguito proposta una rappresentazione grafica relativa alla matrice di 
 
 In via speditiva è sufficiente analizzare l'ultima riga della matrice grafica di correlazione (i colori differenti indicano il segno della correlazione: positivo - blu - oppure negativo - rosso -) per notare subito che le variabili maggiormente correlate al 'target' (mdev) sono: 'lstat', 'rm', 'ptratio', etc.
 
-C'è da precisare in modo chiaro che questo tipo di valutazione serve solo per avere un ritorno immediato sul possibile grado di legame tra la variabile 'target' e le variabili predittive (covariate), senza per questo voler implicare alcun grado di parentela o capacità di intepretazione del risultato che otterremo dall'approccio 'RF' (rispetto al quale non vi è effettivamente alcun punto in comune).
+*C'è da precisare in modo chiaro che questo tipo di valutazione serve solo per avere un ritorno immediato sul possibile grado di legame tra la variabile 'target' e le variabili predittive (covariate), senza per questo voler implicare alcun grado di parentela o capacità di intepretazione del risultato che otterremo dall'approccio 'RF' (rispetto al quale non vi è effettivamente alcun punto in comune).*
 
 Sarà istruttivo verificare a posteriori se la selezione delle variabili più importanti utilizzate dal modello predittivo 'RF' è in qualche modo sovrapponibile (anche se in via del tutto casuale) con il risultato dell'analisi di correlazione. Ricordiamo, ancora una volta, che il modello predittivo risultatnte dalla crescita di una 'foresta' ('RF') non ha alcuna possibile interpretazione di tipo 'causa-effetto' essendo un processo esclusivamente di tipo stocastico (casuale).
 
@@ -254,30 +254,30 @@ dim(boston_test2)
 
 ```
 
-Da notare che i dataset risultanti dai differenti approcci di 'splitting' pur avendo  uguale dimensionalità non saranno mai perfettamente identici (perchè si tratta di un campionamento di tipo casuale).
+Da notare che i dataset risultanti dai differenti approcci di 'splitting' pur avendo  uguale dimensionalità non saranno mai perfettamente identici proprio perchè si tratta di un campionamento di tipo casuale.
 
 # Intermezzo: che cos'è un albero di regressione?
 
 Gli alberi di regressione 'classici', nella loro implementazione di base, ripartiscono il dataset in vari sotto-gruppi (rami) più piccoli. Per ciascuno di questi sotto-gruppi adattano (fitting) un 'modello descrittivo semplice' che corrisponde ad un valore costante all'interno del gruppo.
 
 Un singolo albero di regressione tende però ad essere 'instabile' e quindi fornire una previsione con accuratezza e precisione limitata. 
-La possibilità di crescere alberi su differenti campioni 'bootstapping' appartenenti allo stesso dataset e successivamente aggregare i risultati dei vari alberi secondo la tecnica di 'bagging' permette di rendere il modello regressivo molto più potente e performante: questo tipo di approccio rappresenta la base fondamentale per il modello 'RF' (oltre  rappresentare il riferimento per altri tipi di modelli regressivi quali, ad esempio, 'gradient boosting machines' - caso qui non trattato).
+La possibilità di crescere alberi su differenti campioni 'bootstapping' appartenenti allo stesso dataset e successivamente aggregare i risultati dei vari alberi secondo la tecnica di 'bagging' permette di rendere il modello regressivo molto più potente e performante: questo tipo di approccio rappresenta la base fondamentale per il modello 'RF' (oltre a  rappresentare il riferimento per altri tipi di modelli regressivi quali, ad esempio, 'gradient boosting machines' - caso qui non trattato).
 
-Ci sono molti appprocci per costruire gli alberi di regressione 'classici' ma uno dei più 'consolidati e noti' è il 'classification and regression tree' (CART). sviluppato da Breiman et al. (1984). 
+Ci sono molti appprocci per costruire gli alberi di regressione 'classici' ma uno dei più 'consolidati e noti' è il 'classification and regression tree' (CART), sviluppato da Breiman et al. (1984). 
 
 Gli alberi di regressione ripartiscono il dataset in modo ricorsivo in sottogruppi più piccoli e fittano un valore costante per ciascuna osservazione nel sottogruppo di appartenenza. 
 
-La ripartizione è attuata tramite una divisione binaria sulla base di differenti variabili predittive: il valore costante di predizione all'interno di ciascun gruppo è la media dei valori della variabile risposta stimata per tutte le osservazioni che rientrano in uno specifico sottogruppo.
+La ripartizione è attuata tramite una divisione binaria sulla base di differenti variabili predittive: *il valore costante di predizione all'interno di ciascun gruppo è la media dei valori della variabile risposta stimata per tutte le osservazioni che rientrano in uno specifico sottogruppo.*
 
 Il modello di regressione inizia il calcolo sull'intero dataset (radice) e, sulla base della 'ricerca' effettuata su ogni singola osservazione (valore) e per ogni singola variabile predittiva, lo divide in due rami figli (R1 e R2) rispetto ad un valore costante di 'split', in modo tale da minimizzare la somma complessiva dei quadrati degli scostamenti (errori).
 
 $$min \left[SSE = \sum_{i \in R_1} (y_i-c_1)^2+\sum_{i \in R_2} (y_i-c_2)^2\right]$$
-Considerato un determinato nodo (cioè livello di approfondimento) dell'albero e individuato lo 'split' migliore sulla base del criterio di minimizzazione dell'errore sopra descritto,  l'algoritmo di calcolo ripartisce il dataset in due rami e reitera il processo di ripartizionre in modo ricorsivo sui due rami risultanti e su tutti i successivi.
-Il processo viene reiterato fino al punto in cui viene verificato un 'criterio di arresto', precedentemente definito, sulla base di un parametro caratteritico che varia a seconda del tipo di modello utilizzato. 
+Considerato un determinato nodo (cioè un livello di approfondimento) dell'albero e individuato lo 'split' migliore sulla base del criterio di minimizzazione dell'errore sopra descritto,  l'algoritmo di calcolo ripartisce il dataset in due rami e reitera il processo di ripartizionre in modo ricorsivo sui due rami risultanti e su tutti i successivi.
+Il processo viene reiterato fino al punto in cui viene verificato un *criterio di arresto*, precedentemente definito, sulla base di un parametro caratteritico che varia a seconda del tipo di modello utilizzato. 
 
-Il risultato di un albero di regressione 'classico' è tipicamente un 'albero' molto profondo e complesso che riesce a descrivere molto bene il 'training' dataset ma inevitabilmente produce un 'overfitting' (sovradattamento) che porta ad una performance del modello molto limitata sul testing dataset (non precedentemente 'visitato'). Per ovviare a queste limitazioni si introduce così la necessità di 'potare' (prune) i rami dell'abero predittivo secondo un qualche criterio di scelta ( differente a seconda del modello modello considerato).
+Il risultato di un albero di regressione 'classico' è tipicamente un 'albero' molto profondo e complesso che riesce a descrivere molto bene il 'training' dataset ma inevitabilmente produce un 'overfitting' (`sovradattamento`) che porta ad una performance del modello molto limitata sul testing dataset (non precedentemente 'visitato'). Per ovviare a queste limitazioni si introduce così la necessità di 'potare' (prune) i rami dell'abero predittivo secondo un qualche criterio di scelta (differente a seconda del modello modello considerato).
 
-Per disporre di una metrica di giudizio 'obiettivo' rispetto alle performance dei modelli verrà utilizzata la media dei quadrati degli errori (scostamenti valore osservazione vs. valore modello), che viene sinteticamente definita come MSE (Mean Squared Error) secondo la formula di seguito riportata:
+Per disporre di una metrica di giudizio 'obiettivo' rispetto alle performance dei modelli verrà utilizzata la media dei quadrati degli errori (scostamenti valore osservazione vs. valore modello), che viene sinteticamente definita come *MSE (Mean Squared Error)* secondo la formula di seguito riportata:
 
 $$MSE = \frac {1}{n} \sum_{i=1}^n (y_i - \hat y_i)^2$$
 
@@ -305,7 +305,7 @@ summary(t_train)
 
 ```
 
-La potatura dell'albero cresciuto con l'algoritmo "tree" è stata effettuata attraverso una convadida incroiata c(10-fold cross-validation") che ha permesso di ridurre i nodi terminali a 4 (evidente sulla base dell'analisi del grafico che mostra una significativa riduzione della devianza senza che via sia la necessità di incrementare la complessità del modello).
+La potatura dell'albero cresciuto con l'algoritmo "tree" è stata effettuata attraverso una convadida incrociata ('10-fold cross-validation') che ha permesso di ridurre i nodi terminali a 4 (evidente sulla base dell'analisi del grafico che mostra una significativa riduzione della devianza senza che si registi la necessità di incrementare la complessità del modello).
 
 Per un approfondimento dei concetti di validazione incrociata si rimanda ai seguenti riferimenti di 'primo livello':
 
@@ -353,7 +353,7 @@ t_mse
 
 ## Libreria "rpart"
 
-Carichiamo ed utilizzaimo il pacchetto di R "rpart" per 'crescere' un albero regressivo di tipo 'classico'.
+Carichiamo ed utilizzaimo il pacchetto di R 'rpart' per 'crescere' un albero regressivo di tipo 'classico'.
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -371,11 +371,11 @@ rpart.plot(tr_train)
 
 ```
 
-La potatura dell'albero cresciuto con l'algoritmo 'rpart' fino ai 4 nodi terminali sotto rappresentati è stata effettuata sulla base di una metrica definita “complexity parameter”.
+La potatura dell'albero cresciuto con l'algoritmo 'rpart' fino ai 4 nodi terminali sotto rappresentati è stata effettuata sulla base di una metrica definita 'complexity parameter'.
 
-Per la definizione della metrica *cp* cfr. [manuale rpart](https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf).
+Per la definizione completa della metrica *cp* cfr. [manuale rpart](https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf).
 
-Sintetica definizione *cp*, tratta dal manuale (p.24):
+Segue una sintetica definizione  della metrica *cp*, tratta dal manuale (p.24):
 
 - "if any split does not increase the overall R2 of the model by at least cp (where R2 is the usual linear-models definition) then that split is decreed to be, a priori, not worth pursuing. The program does not split said branch any further, and saves considerable computational effort."
 
@@ -412,9 +412,10 @@ tr_mse
 # Addestramento della foresta
 
 Segue il processo di addestramento del modello 'RF' sulla base del dataset 'training'.
-Cosiderato quanto già detto riguardo il campionamento casuale sia delle osservazioni che delle variabili esplicative si attende un gradi di correlazione tra gli alberi significativamente ridotto rispetto alle altre tecniche (sia di regressione ad albero 'classica' che di tipo 'bagging').
 
-Ricordiamo che il criterio di ripartizione dei rami (nodi) per la crescita degli alberi nella foresta generata dall'algoritmo regressivo 'RF' consiste per ciascun nodo nella scelta della combinazione di variabili predittive (mtry) che minimizzano il valore SSE (cioè la somma dei quadrati delle differenze tra ciascuna osservazione e la media del gruppo di appartenenza).
+Considerato quanto già detto riguardo il campionamento casuale sia delle osservazioni che delle variabili esplicative si attende un grado di correlazione tra gli alberi significativamente ridotto rispetto alle altre tecniche (sia di regressione ad albero 'classica' che di tipo 'bagging').
+
+Ricordiamo che il criterio di ripartizione dei rami (nodi) per la crescita degli alberi nella foresta generata dall'algoritmo regressivo 'RF' consiste, per ciascun nodo, nella scelta della combinazione di variabili predittive ('mtry') che minimizzano il valore 'SSE' (cioè la somma dei quadrati delle differenze tra ciascuna osservazione e la media del gruppo di appartenenza).
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -441,9 +442,9 @@ Prima richiamiamo il concetto 'classico' di varianza spiegata:
 
 $$R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat y_i)^2}{\sum_{i=1}^n (y_i - \overline{y})^2}$$
 
-cioè il rapporto tra la varianza dei residui (numeratore) e la varianza della variabile stimata (denominatore), sottratto ad 1 (espresso in percentuale).
+cioè *il rapporto tra la varianza dei residui (numeratore) e la varianza della variabile stimata (denominatore), sottratto ad 1 (espresso in percentuale)*.
 
-E poi ripercorriamo i calcoli dell'output modellistico sopra riportati: 
+E poi ripercorriamo 'manualmente' i calcoli dell'output modellistico sopra riportati: 
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -459,11 +460,11 @@ evar_t
 
 ```
 
-Sulla base dei risultati ottenuti il modello 'RF' sembra funzionamre molto bene (e per certi aspetti inaspettamente bene, considerato che si tratta di un algoritmo di tipo casuale, cioè che non presuppune alcun tipo di interpretazione funzionale tra variabili predittive e la variabile risposta).
+Sulla base dei risultati ottenuti il modello 'RF' sembra funzionamre molto bene e per certi aspetti inaspettamente bene, considerato che si tratta di un algoritmo di tipo casuale (cioè un modello che non presuppune alcun tipo di interpretazione funzionale tra variabili predittive e la variabile risposta).
 
 E' stato ottenuto un valore di MSE pari a circa `r round(mse_t, 1)` che è significativamente inferiore a quanto stimato con i modelli regressivi ad albero di tipo classico cresciuti con i pacchetti 'tree' e 'rpart' (cfr. MSE alberi di regressione 'classici').
 
-Con il modello 'RF' circa `r sprintf("%.1f %%", round(evar_t*100,1))` della variabilità riferibile al target 'mdev' risulta speigata dall'utilizzo casuale delle 13 variabili covariate  selezionate (4 variabili per ogni nodo) per crescere la foresta predittiva (costituita complessivamnte da 500 alberi).
+Con il modello 'RF' circa `r sprintf("%.1f %%", round(evar_t*100,1))` della variabilità riferibile al target 'mdev' risulta spiegata dall'utilizzo casuale delle 13 variabili covariate (4 variabili per ogni nodo) per crescere la foresta predittiva (costituita complessivamente da 500 alberi).
 
 Nel grafico seguente viene riprodotto l'errore complessivo dell'algoritmo 'RF' in funzione del numero di alberi che sono stati 'cresciuti' nella foresta casuale. 
 
@@ -490,9 +491,9 @@ sqrt(train_rf$mse[which.min(train_rf$mse)])
 
 ```
 
-Che conferma in altri termini, più rigorosi, la valutazione già fatta 'a vista' sul grafico precedente.
+Risultato che conferma in altri termini, questa volta più rigorosi, la valutazione già fatta 'a vista' sul grafico precedente.
 
-Tra i parametri restituiti dal modello l'importanza delle variabili predittive assume particolare rilevanza: 'RF' è quindi un metodo per avere un ritorno informativo sull'importanza relativa delle variabili predittive e quindi sulla possibilità di una loro selezione 'ex post'.
+Tra i parametri restituiti dal modello l'importanza delle variabili predittive assume particolare rilevanza: 'RF' è anche un metodo per avere un ritorno informativo sull'importanza relativa delle variabili predittive e quindi sulla possibilità di una loro selezione 'ex post'.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -534,7 +535,7 @@ tratto dal manuale on-line: ?randomForest::importance()
     If the standard deviation of the differences is equal to 0 for a variable, the division is not done (but the average is almost always equal to 0 in that case).
     The second measure is the total decrease in node impurities from splitting on the variable, averaged over all trees. For classification, the node impurity is measured by the Gini index. For regression, it is measured by residual sum of squares.
 
-Ogni albero ha il proprio dataset campionario di crescita ed il corrispondente dataset campionario 'out-of-bag' che viene messo da parte e non viene stato utilizzato per l'addestramento del modello ma viene 'riservato' (OOB dataset) per il calcolo dell'importanza di ogni singola variabile. 
+*Ogni albero ha il proprio dataset campionario di crescita ed il corrispondente dataset campionario 'out-of-bag' che viene messo da parte e non viene stato utilizzato per l'addestramento del modello ma viene 'riservato' (OOB dataset) per il calcolo dell'importanza di ogni singola variabile.* 
 
 Per prima cosa viene misurata l'accuratezza di previsione nel campione 'out-of-bag' e successivamente i valori corrispndenti alla variabile in esame, sempre nel campione out-of-bag, sono 'rimescolati casualmente' (randomly shuffled) mantenedo tutte le altre inalterate. Successivamente, viene misurata la diminuzione nell'accuratezza di previsione nei dati rimescolati. Viene quindi calcolata la media di decremento nell'accuratezza di previsione su tutti gli alberi e questa misura viene poi ripartita per classi discrete di output finale (variabile target). 
 
@@ -556,7 +557,7 @@ Per maggiori dettagli ed una discussione approfondita di questi aspetti si riman
 
 ## Partial dependence plot
 
-I modelli non parametrici di tipo complesso (come ad esempio 'RF', oltre a neural networks e svm) hanno avuto molto sviluppo nell'ambito della modellistica predittiva specialmente per i casi in cui è necessario affrontare problemi con dataset molto grandi che non aderiscono strettamente alle assunzioni imposte dalle tecniche statistiche 'classiche' (ad esempio, regressione lineare semplice o multipla che assume linearità, omoschedasticità e normalità). L'interpretazione di questi modelli complessi, spesso molto potenti, è però difficle così come risulta sfidante la spiegazione e la resa dei risultati in termini di operatività.
+I modelli non parametrici di tipo complesso (come ad esempio 'RF', oltre a neural networks e svm) hanno avuto molto sviluppo nell'ambito della modellistica predittiva specialmente per i casi in cui è necessario affrontare problemi con dataset molto grandi che non aderiscono strettamente alle assunzioni imposte dalle tecniche statistiche 'classiche' (ad esempio, regressione lineare semplice o multipla che assume indipendenza, linearità, omoschedasticità e normalità). L'interpretazione di questi modelli complessi, spesso molto potenti, è però difficle (impossibile) così come risulta sfidante la spiegazione e la resa dei risultati in termini di operatività.
 
 'Partial dependence plot' offre una soluzione 'semplice' per aiutare a visualizzare le relazioni parziali tra variabile 'target' (stimata) e le variabili predittive (covariate).
 In sintesi, si tratta di un rendering grafico che permette di 'leggere' in modo più chiaro la relazione tra valori stimati e variabili considerate nell'analisi.
@@ -587,7 +588,7 @@ grid.arrange(plstat, prm, ncol = 2)
 
 ```
 
-Quando nel grafico 'partial dependence plot' vengono considerate contemporaneamente due dimensioni (cioè due variabili predittive), la rappresentazione del tipo 'convex hull' cioè l'inviluppo convesso (che il più piccolo insieme convesso che contiene tutti i punti dati), definisce una regione dello 'spazio predittivo' su cui il modello è stato effettivamente addestrato. In questo modo, nel grafico viene rappresentata solo la parte di regione dello spazio che corrisponde alla variabilità effettiva delle due covariate in esame: al di fuori di questo spazio si tratta di un'estrapolazione che porta ad una intepretazione errata e fuorviante.
+Quando nel grafico 'partial dependence plot' vengono considerate contemporaneamente due dimensioni (cioè due variabili predittive), la rappresentazione del tipo 'convex hull', cioè l'inviluppo convesso (che il più piccolo insieme convesso che contiene tutti i punti dati), definisce una regione dello 'spazio predittivo' su cui il modello è stato effettivamente addestrato. In questo modo, nel grafico viene rappresentata solo la parte di regione dello 'spazio' che corrisponde alla variabilità effettiva delle due covariate in esame: al di fuori di questo 'spazio' si delinea una regione di estrapolazione che presuppone un'intepretazione errata e fuorviante.
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -601,7 +602,7 @@ p_lstat_rm
 
 # Previsione 'out-of-the-box' della foresta 
 
-L'utilizzo dei parametri di default 'RF' restituisce una performance significativa che si misura in termini di MSE con il valore sotto riportato (ancora una volta significativamente inferiore a quello dei modelli di regressione ad albero di tipo 'classico').
+L'utilizzo dei parametri di default 'RF' restituisce una performance significativa che si misura in termini di MSE secondo il valore numerico sotto riportato (ancora una volta significativamente inferiore a quello dei modelli di regressione ad albero di tipo 'classico').
 
 ```{r}
 
@@ -614,7 +615,7 @@ rf_mse
 
 ```
 
-Possiamo ora produrre un grafico dei valori osservati vs. stimati da modello, sia per il dataset training che per 'testing'.
+Riproduciamo ora un grafico dei valori osservati vs. stimati da modello, sia per il dataset training che per 'testing'.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -652,15 +653,15 @@ Elenco dei parametri caratteristici per il 'fine-tunining' del modello predittiv
 
 - 'maxnodes': numero massimo di nodi terminali; è un altro parametro che controlla la complessità dell'albero: più nodi equivale ad alberi più profondi e complessi, viceversa meno nodi ha come effetto di produrre alberi più radi (con le conseguenze sopra accennate in termini di prestazione del modello).
 
-Analogamente a quanto avviene per 'Bagging', un beneficio che è la 'naturale conseguenza' del processo di campionamento di tipo casuale (the bootstrap resampling) delle osservazioni da sottoportre al modello, è la possibilità di definire un set di osservazioni out-of-bag (letteralmente 'fuori sacco', cioè non selezionate per il modello) che permette di avere a disposizione un campione che fornisce (in via preventiva) una ragionevole stima  dell'errore relativo al dataset di testing, cioè in ultima analisi una stima dell'atteso errore di testing.
+Analogamente a quanto avviene per 'Bagging', un beneficio tipico del modello 'RF', che è la 'naturale conseguenza' del processo di campionamento di tipo casuale (the bootstrap resampling) delle osservazioni da sottoportre al modello, riguarda la possibilità di definire un set di osservazioni out-of-bag (letteralmente 'fuori sacco', cioè non selezionate per il modello) che permette di avere a disposizione un campione che fornisce (in via preventiva) una ragionevole stima  dell'errore relativo al dataset di testing, cioè in ultima analisi una stima dell'atteso errore di testing.
 
-Si tratta della possibilità di definire un 'validation test' di default  connaturato all'approccio modellistico (built-in), senza la necessità di ripartire ulteriormente il trainig test e quindi 'sacrificare' osservazioni del dataset per la validazione dei risultati.
+Si tratta della possibilità di definire un 'validation test' di default strettamente connaturato all'approccio modellistico (built-in), senza la necessità di ripartire ulteriormente il trainig test e quindi 'sacrificare' osservazioni del dataset per la validazione dei risultati.
 
 Questa caratteristica permette di individuare in modo più efficace il numero di alberi richiesti per stabilizzare l'errore di stima. E' in ogni caso evidente che bisogna attendersi necessariamente una differenza tra errore OOB ed errore di testing.
 
-L'algorimo 'RF' permette di utilizzare un 'validation set' per misurare l'accuratezza della previsione nel caso in cui non siamo intenzionati ad utilizzare per tale fine i campioni 'fuori sacco' (OOB samples) ma vogliamo fornire unospecifico dataset di validazione.
+L'algorimo 'RF' permette di utilizzare un 'validation set' per misurare l'accuratezza della previsione nel caso in cui non siamo intenzionati ad utilizzare per tale fine i campioni 'fuori sacco' (OOB samples) ma vogliamo fornire uno specifico dataset di validazione.
 
-Per fare questo procediamo dividendo ulteriormente il training dataset per creare un 'validation' dataset (con funzione del tutto analoga a OOB). Successivamente attraverso questo nuovo dataset forniamo i parametri 'xtest' and 'ytest' alla funzione RandomForest().
+Per raggiungere questo obiettivo procediamo dividendo ulteriormente il 'training dataset' al fine di creare un 'validation dataset' (con funzione del tutto analoga a quella di OOB dataset). Successivamente attraverso questo nuovo dataset forniamo i parametri 'xtest' and 'ytest' alla funzione RandomForest().
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -707,20 +708,20 @@ tibble(
 
 ```
 
-Dal grafico si deduce che l'errore OOB è un ottimo predittore dell'errore atteso per il dataset testing, almeno in termini di tendenza e relativa scelta delle pricipali parametrizzazioni di modello.
+Dal grafico si deduce che l'errore OOB è un ottimo predittore dell'errore atteso per il dataset testing, almeno in termini di tendenza e relativa scelta delle principali parametrizzazioni di modello.
 
-La linea rossa individua le stime dell'errore OOB, mentre la linea azzurra quelle dell'errore calcolato sul dataset di test (validazione). Le curve sembrano tra loro ben correlate; sia l'errore di test (utilizzato qui in termini di validazione del modello) che l'errore OOB tendono a minimizzarsi già a partire da un numero di alberi della foresta pari a 100.
+La linea rossa individua le stime dell'errore OOB, mentre la linea azzurra quelle dell'errore calcolato sul dataset di test (validazione). Le curve sembrano tra loro ben correlate: sia l'errore di test (utilizzato qui in termini di validazione del modello) che l'errore OOB tendono a minimizzarsi già a partire da un numero di alberi della foresta pari a 100.
 
 
 ## Foresta "à la" Bagging
 
 'Bagging' è un caso speciale di 'RF' quando viene imposto  m = p. La funzione randomForest() può quindi essere utilizzata per costruire un modello 'bagging' (impostando mtry = p).
 
-Con mtry = 13 si specifica di utilizzare tutti i 13 predittori del dataset 'Boston housing' ad ogni nodo degli alberi (contrariamente al caso della foresta casuale che imposta per default un numero di variabili mtry= p/3 - per il caso di regressione).
+nel nostro esempio, con mtry = 13 si specifica di utilizzare tutti i 13 predittori del dataset 'Boston housing' ad ogni nodo degli alberi (contrariamente al caso della foresta casuale che imposta per default un numero di variabili mtry= p/3 - per il caso di regressione).
 
-Per quanto evidenziato in precedenza ci aspettiamo una performance del modello inferiore misurata in termini di MSE e OOB error.
+Per quanto evidenziato in precedenza ci aspettiamo una performance del modello inferiore, misurata in termini di MSE e OOB error.
 
-Ripetiamo le precedenti con 'RF' impostato "à la" Bagging, imponendo questa nuova parametrizzazione per verificarne direttamente gli effetti.
+Ripetiamo i passaggi precedenti con 'RF' impostato "à la" Bagging, imponendo questa nuova parametrizzazione per verificarne direttamente gli effetti.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -753,9 +754,9 @@ bg_mse
 
 ## Parametro "mtry"
 
-Se interessati alla regolazione fine (fine tuning) del paramentro mtry possiamo utilizzare la funzione dedicata tuneRF() del pacchetto 'RF'.
+Se interessati alla regolazione fine ('fine tuning') del paramentro mtry possiamo utilizzare la funzione dedicata tuneRF() del pacchetto 'RF'.
 
-La funzione compie una ricerca 'euristica' a partire da un valore di mtry iniziale e passo definito dall'utente per arrestarsi al punto in cui l'errore out-of-bag smette di ridursi (secondo una percentuale definita dall'utente).
+La funzione compie una ricerca 'euristica' a partire da un valore di mtry iniziale e con un passo definito dall'utente per arrestarsi al punto in cui l'errore out-of-bag smette di ridursi (secondo una percentuale definita dall'utente).
 
 Per esempio, nel codice sotto riportato: la ricerca inizia dal valore mtry=5 con passo 2 fino al momento in cui OOB smettte di migliorare con una soglia prefissata al 5%.
 
@@ -787,7 +788,7 @@ m2
 
 ```
 
-Dal calcolo si nota che il valore ottimale della ricerca di mtry è pari a 5 con un valore dell'errore OOB molto vicino a quellp stimato con la parametrizzazione di default (out-of-the-box, mtry=4).
+Dal calcolo si nota che il valore ottimale della ricerca di mtry è pari a 5 con un valore dell'errore OOB molto vicino a quello stimato con la parametrizzazione di default (out-of-the-box, mtry=4).
 
 
 ## Parametri "mtry" & "sampsize" & "nodesize"
@@ -821,7 +822,7 @@ cioè,  `r nrow(hyper_grid)` configurazioni modellistiche che variano in modo 'c
 
 Da notare che per ciascuna combinazione di parametri vengono cresciuti sempre 500 alberi, considerato che dalle precedenti valutazioni sono risultati ampiamente sufficienti per assicurare stabilità dell'errore di stima.
 
-Per questo scopo utilizziamo una nuova libreria (ranger) più efficiente in termini di tempi di computazionali.
+Per questo scopo utilizziamo una nuova libreria ('ranger') più efficiente in termini di tempi di computazionali.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -850,16 +851,16 @@ for(i in 1:nrow(hyper_grid)) {
 
 ```
 
-Da notare che nel codice sopra riportato è stato 'deposto' il seme per la generazione di un numero pseudo-casuale che assicura consistenza e riproducibilità ai risultati.
+Da notare che nel codice sopra riportato è stato inizialmente 'deposto' il seme per la generazione di un numero pseudo-casuale che assicura consistenza e riproducibilità ai risultati.
 
-Tale accorgimento garantisce soprattutto la possibilità di campionare sempre le stesse identiche osservazioni da sottoporre all'analisi di ciascuna delle 48 configurazioni modellistiche considerate. Solo in questo modo si rendono effettivamente comparabili i risultati di stima delle configurazioni modellistiche che altrimenti sarebbero necessariamente non 'congruenti', considerata la natura tipicamente casuale del modello 'RF'.
+*Tale accorgimento garantisce la possibilità di campionare sempre le stesse identiche osservazioni da sottoporre all'analisi di ciascuna delle 48 configurazioni modellistiche considerate. Solo in questo modo si rendono effettivamente comparabili i risultati di stima delle configurazioni modellistiche che altrimenti sarebbero necessariamente non 'congruenti', considerata la natura tipicamente casuale del modello 'RF'.*
 
 
 # Parametrizzazione finale della foresta
 
-Come risultato finale dell'analisi di sensitività dei parametri caratteristici dell'algoritmo 'RF' Forest siamo in grado di individuare il modello predittivo 'migliore'.
+Come risultato finale dell'analisi di sensitività dei parametri caratteristici dell'algoritmo 'RF' siamo in grado di individuare il modello predittivo 'migliore'.
 
-Nella tabella sotto riportata vengono presentate le prime 10 confiurazioni modellistiche per "mtry", "sampsize" e "nodesize", misurate attraverso la metrica OOB_MSE. 
+Nella tabella sotto riportata vengono presentate le prime 10 configurazioni modellistiche per 'mtry', 'sampsize' e 'nodesize', misurate attraverso la metrica 'OOB_MSE'. 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -871,12 +872,12 @@ hyper_grid %>%
 
 ```
 
-Dal confronto dei risultati ottenuti si deduce che la parametrizzazione di default ('out-of-the-box'), garantisce prestazioni complessive, misurate in termini di OOB MSE, che non sono molto differenti da quelle ottenute con gli assetti modellistici considerati come 'migliori' (e basati sulla regolazione fine dei parametri sopra considerati).
+Dal confronto dei risultati ottenuti si deduce che la parametrizzazione 'RF' di default ('out-of-the-box'), garantisce prestazioni complessive, misurate in termini di OOB MSE, che non sono molto differenti da quelle ottenute con gli assetti modellistici considerati come 'migliori' (e basati sulla regolazione fine dei parametri sopra considerati).
 
 
 # Conclusioni
 
-'RF' è un algoritmo che spesso mostra una elevata accuratezza di previsione già con i parametri di default (out-of-the box). In aggiunta alla relativa semplicità di regolazione fine ed alla non necessità di alcun pre-processamento dei dati di input rappresenta di fatto una delle prime possibili opzioni per 'aggredire' un problema predittivo e per la successiva 'messa al banco di prova' rispetto alla scelta del modello previsionale.
+'RF' è un algoritmo che mostra un'elevata accuratezza di previsione già con i parametri di default ('out-of-the box'). In aggiunta alla relativa semplicità di regolazione fine ed alla non necessità di alcun pre-processamento dei dati di input rappresenta di fatto una delle prime possibili opzioni per 'aggredire' un problema predittivo e per la successiva 'messa al banco di prova' rispetto alla scelta del modello previsionale.
 
 In estrema sintesi, riassumiamo vantaggi e svantaggi dell'approccio 'RF'.
 
