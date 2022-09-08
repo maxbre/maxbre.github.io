@@ -1,8 +1,8 @@
 ---
 title: "Il 'progetto Cadmio' nell'isola di Murano - Venezia"
 subtitle: "Qualità dell'aria e modellistica atmosferica<br/>"
-author: "<br/>M. Vesco <sup>#</sup>, R. Bassan <sup>##</sup>, G. Marson <sup>##</sup>, C. Zemello <sup>#</sup>, M. Bressan <sup>##</sup><br/>"
-institute: "</br>ARPAV: <sup>#</sup> DAPVE, <sup>##</sup> DRQA"
+author: "<br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, C. Zemello<sup>#</sup>, M. Bressan<sup>##</sup><br/>"
+institute: "</br>ARPAV: <sup>#</sup>DAPVE, <sup>##</sup>DRQA"
 date: "<br/> updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -74,7 +74,7 @@ leaflet() %>%
 
 ---
 
-##  Murano, Fondamenta Colleoni c/o SM Foscolo
+##  Murano, Fondamenta Colleoni c/o Scuola Foscolo
 #### campionatore PM10: prelievo 24h, portata 38.33 l/min (2.3 m3/h)
 
 .pull-left[![](./img_pres/fondamenta_colleoni4.jpg)]
@@ -92,14 +92,17 @@ tab_2021<- hm %>%
   filter(stazione == "foscolo",
          data >= "2021-01-01")%>%
   group_by(stazione)%>%
-  summarise(As=mean(As),
-            Cd=mean(Cd),
-            Ni=mean(Ni),
-            Pb=mean(Pb))
+  summarise(As=format(round(mean(As),1), nsmall=1),
+            Cd=format(round(mean(Cd),1), nsmall=1),
+            Ni=format(round(mean(Ni),1), nsmall=1),
+            Pb=format(round(mean(Pb),1), nsmall=1)
+            )
 
-knitr::kable(tab_2021[2:4], format = "html", caption = "c/o SM Foscolo", digits=1, align = 'c')
+knitr::kable(tab_2021[2:5], format = "html", caption = "c/o Scuola Foscolo", digits=1, align = 'c')
 
 ```
+<br/>
+
 #### Valori limite metalli, ex DLgs. 155/2010
 
 - As:   6.0 [ng/m3]
@@ -110,6 +113,7 @@ knitr::kable(tab_2021[2:4], format = "html", caption = "c/o SM Foscolo", digits=
 
 - Pb: 500.0  [ng/m3]
 
+<br/>
 #### le concentrazioni medie annuali di Cadmio rappresentano una significativa criticità ambientale nell'isola di Murano
 
 ---
@@ -159,6 +163,8 @@ hm %>%
   annotate(geom="text", x=ymd("2020-02-10"), y=2000, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=2000, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
   annotation_logticks(sides="l")+
+  geom_hline(yintercept = 0.1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.08, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -166,7 +172,7 @@ hm %>%
 ```
 
 ---
-### Asenico, medie 24h 2016-2021, Murano Foscolo
+### Arsenico, medie 24h 2016-2021, Murano Foscolo
 
 ```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
 
@@ -186,6 +192,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=10, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=10, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -212,6 +220,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=150, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=150, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -238,6 +248,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=45, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=45, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -264,6 +276,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=45, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=45, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -291,8 +305,10 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=900, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=900, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
-  theme_bw()+
+    theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
 
 
@@ -316,8 +332,11 @@ background-size: 5%
 
 - i modelli, anche quelli più complessi e sofisticati, non prescindono mai dall'utilizzo di misure (che sono anch'esse dei modelli semplificati della realtà!)
 
+<br/>
+
 #### dal reale al modello per .red[semplificazioni, astrazioni, assunzioni]
 
+<br/>
 
 ```{r}
 
@@ -334,6 +353,8 @@ knitr::include_graphics('./img_pres/plume_real_vs_model.png')
 ---
 
 ## Perchè usare un sistema modellistico?
+
+<br/>
 
 ### ... non posso misurare!
 
@@ -363,6 +384,8 @@ knitr::include_graphics('./img_pres/flow_chart_modellistica_qa.png')
 
 #### periodo simulazione settembre - dicembre 2017
 
+<br/>
+
 #### nuovo run con dati storici su una singola sorgente 'rappresentativa'
 
 - [stima AVG](./img_pres/20220904_cd_avg_periodo.html)
@@ -374,6 +397,8 @@ knitr::include_graphics('./img_pres/flow_chart_modellistica_qa.png')
 ---
 ## Obiettivi progettuali modellistica atmosferica
 
+<br/>
+
 ***Obiettivo generale 1, obiettivo specifico 3***
 
 ***'analisi di sensitività' delle stime storiche rispetto a differenti sistemi modellistici: CALPUFF vs. LAMPMOD***
@@ -381,6 +406,8 @@ knitr::include_graphics('./img_pres/flow_chart_modellistica_qa.png')
 risponde alla domanda:
 
 "le stime storiche (CALPUFF) sono congruenti rispetto a quelle prodotte con un nuovo e più evoluto sistema modellistico di tipo lagrangiano a particelle (LAPMOD)?"
+
+<br/>
 
 ***Obiettivo generale 2, obiettivo specifico 3***
 
