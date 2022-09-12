@@ -163,8 +163,8 @@ hm %>%
   annotate(geom="text", x=ymd("2020-02-10"), y=2000, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=2000, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
   annotation_logticks(sides="l")+
-  geom_hline(yintercept = 0.1, linetype="dashed", color = "green", size=0.5)+
-  annotate(geom="text", x=ymd("2016-10-01"), y=0.08, label="LQ", colour="green", size=3.5)+
+  geom_hline(yintercept = 0.2, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.15, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -192,8 +192,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=10, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=10, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
-  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
-  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2017-03-01"), y=0.85, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -220,8 +220,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=150, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=150, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
-  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
-  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-12-01"), y=0.85, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
@@ -276,8 +276,8 @@ hm %>%
   geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
   annotate(geom="text", x=ymd("2020-02-10"), y=45, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
   annotate(geom="text", x=ymd("2020-05-10"), y=45, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
-  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
-  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.85, label="LQ", colour="green", size=3.5)+
   #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90))
