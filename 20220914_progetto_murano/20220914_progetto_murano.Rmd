@@ -1,8 +1,8 @@
 ---
 title: "Il 'progetto Cadmio' nell'isola di Murano - Venezia"
 subtitle: "Qualità dell'aria e modellistica atmosferica<br/>"
-author: "<br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, C. Zemello<sup>#</sup>, M. Bressan<sup>##</sup><br/>"
-institute: "</br>ARPAV: <sup>#</sup>DAPVE, <sup>##</sup>DRQA"
+author: "<br/>M. Vesco<sup>(#)</sup>, R. Bassan<sup>(##)</sup>, G. Marson<sup>(##)</sup>, C. Zemello<sup>(#)</sup>, M. Bressan<sup>(##)</sup><br/>"
+institute: "</br>ARPAV: <sup>(#)</sup>DAPVE, <sup>(##)</sup>DQA"
 date: "<br/> updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -114,7 +114,7 @@ knitr::kable(tab_2021[2:5], format = "html", caption = "c/o Scuola Foscolo", dig
 - Pb: 500.0  [ng/m3]
 
 <br/>
-#### le concentrazioni medie annuali di Cadmio rappresentano una significativa criticità ambientale nell'isola di Murano
+.red[tra gli inquinanti normati le concentrazioni medie annuali di Cadmio rappresentano una significativa criticità ambientale]
 
 ---
 
@@ -132,7 +132,7 @@ hm %>%
   ggplot(mapping=aes(x = anno, y = Cd)) +
   geom_jitter(width = 0.2, alpha=0.2)+
   geom_boxplot() +
-  stat_summary(fun = "mean", color="red", shape=15)+
+  stat_summary(fun = "mean", color="red", shape=18, size=1)+
   coord_trans(y="log10")+
   scale_y_continuous(breaks = trans_breaks("log10", function(x) 10^x),
                      labels = trans_format("log10", math_format(10^.x)),
@@ -326,7 +326,7 @@ background-image: url(./css/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 ---
-### Che cos'è un modello?
+## Che cos'è un modello?
 
 - è una rappresentazione semplificata della realtà (necessariamente!)
 
@@ -346,9 +346,9 @@ knitr::include_graphics('./img_pres/plume_real_vs_model.png')
 
 ```
 
-.footnote[
+.footnote[.small[
 ...e "tanto peggio per i fatti (se non si accordano con la teoria)", attribuita a Hegel
-]
+]]
 
 ---
 
@@ -372,7 +372,7 @@ knitr::include_graphics('./img_pres/plume_real_vs_model.png')
 
 ---
 
-# Flow chart modellistica amtosferica 
+## Flow chart modellistica amtosferica 
 
 ```{r eval=TRUE, echo=FALSE, fig.align='center', out.height=500, out.width=550}
 
@@ -380,13 +380,15 @@ knitr::include_graphics('./img_pres/flow_chart_modellistica_qa.png')
 
 ```
 ---
-### CALMET/CALPUFF
+## Stime CALMET/CALPUFF
+
+<br/>
 
 #### periodo simulazione settembre - dicembre 2017
 
 <br/>
 
-#### nuovo run con dati storici su una singola sorgente 'rappresentativa'
+#### run con dati storici su una singola sorgente 'rappresentativa'
 
 - [stima AVG](./img_pres/20220904_cd_avg_periodo.html)
 
