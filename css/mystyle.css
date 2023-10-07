@@ -14,7 +14,7 @@ body {
 
 bodydraft {
     font-size: 11pt;
-    font-family: Arial, monospace;
+    font-family: Courier New, Courier, monospace;
     font-weight: normal;
     font-style: italic;
     color: gray;
@@ -161,8 +161,9 @@ del {
   }
 /* anchors */
 a[href] {
-    color: blue;
-    text-decoration: underline;
+    color: green;
+    background-color: none;
+    text-decoration: none;
    }
 /* hr top and bottom*/
 hrtb {
@@ -177,7 +178,7 @@ hrtb {
 }
 toptext {
     font-size: 10pt;
-    font-family: Lucida Console;
+    font-family: Courier New, Courier, monospace;
     font-weight: bold;
     font-style: italic;
     color: green;
@@ -188,7 +189,7 @@ toptext {
    }
 bottomtext {
        font-size: 10pt;
-       font-family: Lucida Console;
+       font-family: Courier New, Courier, monospace;
        font-weight: normal;
        font-style: italic;
        color: green;
