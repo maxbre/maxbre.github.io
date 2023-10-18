@@ -1,0 +1,148 @@
+# Conclusioni {-}
+
+Le conclusioni sono presentate in ordine ai seguenti elementi di valutazione ed obiettivi progettuali:
+
+- valutazione dello stato di qualità dell'aria rilevato dalla stazione di monitoraggio ubicata presso la scuola 'Ugo Foscolo', in Fondamenta Colleoni, ed attiva in modo continuativo a partire dalla seconda metà del 2016;
+
+- simulazione modellistica di dispersione atmosferica degli inquinanti emessi, nel periodo da settembre a dicembre 2017, dai 25 forni fusori delle vetrerie artistiche presenti sull'isola di Murano autorizzate all'impiego di composti del Cadmio *(Cd)* come colorante della pasta vetrosa;
+
+- realizzazione di una serie di analisi delle emissioni presso un impianto pilota, in funzione nell'aprile 2023, per la sperimentazione di differenti tecniche di introduzione di coloranti a base di Cadmio *(Cd)* nella produzione del vetro e valutazione degli effetti ambientali tramite simulazione modellistica di dispersione degli inquinanti atmosferici.
+
+#### Valutazione dello stato di qualità dell'aria
+
+La verifica di conformità normativa, prevista dal DLgs. 155/2010 per lo stato di qualità dell'aria in relazione alle concentrazioni ambientali di Cadmio (*Cd*), ha evidenziato una significativa  e consolidata criticità che, a partire dal 2017, ha rilevato presso il sito 'Ugo Foscolo', in Fondamenta Colleoni, medie annuali sistematicamente superiori al valore obiettivo di 5 \ngmc. 
+
+La specificità dei valori ambientali di Cadmio (*Cd*) rilevati nell'isola di Murano rispetto a quelli del corrispondente sito di fondo insulare presso 'Sacca Fisola' (Giudecca, Venezia), ubicato a circa 4 km di distanza in direzione Sud-Ovest, rende conto di un significativo contributo a carattere locale che deve necessariamente essere ricondotto all'impatto ambientale dell'attività delle vetrerie artistiche.
+
+La valutazione della serie storica delle medie giornaliere, rilevate in modo continuativo dalla seconda metà del 2016 presso il sito 'Foscolo', evidenzia un andamento tipicamente altalenante delle concentrazioni ambientali di Cadmio (*Cd*), da mettere in relazione con le emissioni a ciclo discontinuo prodotte dalle vetrerie artistiche presenti nell'isola di Murano. L'analisi della serie storica evidenzia in modo inequivocabile come nei vari momenti di sospensione o di interruzione dell'attività delle vetrerie, i livelli ambientali di Cadmio (*Cd*) siano drasticamente contenuti su valori molto bassi, spesso inferiori o prossimi al limite di quantificazione analitico.
+
+La tendenza dell'ultimo sessennio di monitoraggio (2017-2022) evidenzia una significativa diminuzione delle concentrazioni ambientali che, a partire dal 2020, è verosimilmente attribuibile all'effetto del *'lockdown'* ed alle conseguenze della generale contrazione delle attività produttive e commerciali. 
+Nel 2021 si assiste, invece, ad un nuovo significativo innalzamento delle concentrazioni ambientali, mentre nel 2022 si verifica un altrettanto significativo ribasso, da imputare agli effetti dovuti alla congiuntura economico-finanziaria e politica che ha determinato, tra l'altro, molte difficoltà negli approvvigionamenti di materie prime ed energia.  
+
+
+#### Analisi di sensitività stime CALPUFF vs. LAPMOD
+
+L'analisi di sensitività dei risultati relativi al periodo settembre - dicembre 2017 ha evidenziato, per entrambi i sistemi modellistici (CALPUFF vs. LAPMOD), stime molto inferiori rispetto alle misure ambientali, portando a concludere che una significativa quota delle emissioni di Cadmio (*Cd*) rimane, al momento, indeterminata. 
+
+La differenza tra misure ambientali e stime modellistiche è riconducibile all'incompleta caratterizzazione delle emissioni utilizzate in ingresso al sistema modellistico, sia in termini di numero di sorgenti attive (vetrerie) che per quantità di inquinanti emessi (profilo emissivo).
+
+Pur considerando tutti possibili limiti dell’approccio modellistico, si rileva una una sostanziale sottostima delle *emissioni* di Cadmio (*Cd*), cioè dei dati in ingresso al sistema modellistico, che non dipendono dall’algoritmo di calcolo utilizzato o dalla parametrizzazione della simulazione, ma dalla non completa e/o non corretta quantificazione del contributo emissivo delle sorgenti (vetrerie) presenti nell'isola.
+
+E' stato effettuato uno studio modellistico comparato sia con il sistema CALPUFF sia con quello LAPMOD per cercare di riprodurre le elevate concentrazioni osservate a partire dalla georeferenziazione dei camini dei forni fusori e dal profilo di attività delle sorgenti emissive, ottenuto a partire dalle informazioni rese disponibili dal sistema di 'telecontrollo'.
+
+Lo scenario emissivo, sia per le stime con il sistema modellistico CALPUFF che per LAPMOD, è stato definito in riferimento alle emissioni di tipo *convogliato*, che avvengono nella fase di fusione, e non tratta le emissioni dovute ad eventuale apertura dei camini by-pass, o le emissioni diffuse dagli ambienti di lavoro e dalle varie linee di lavorazione del vetro, non direttamente afferenti al processo di fusione.
+L'approccio di valutazione utilizzato è comunque di tipo *cautelativo*, perché per ciascuna sorgente emissiva sono stati utilizzati i valori di portata degli effluenti e di concentrazione dell'inquinante riferiti ai *'massimi autorizzati'*. 
+
+Considerate tutte le possibili limitazioni dei modelli, o gli eventuali problemi dovuti ad una non completa rappresentatività della meteorologia (per altro da escludere con quasi certezza), la differenza tra stime e misure può solo essere spiegata attraverso una notevole sottostima delle emissioni (utilizzate in ingresso al modello).
+
+Limitandoci al solo confronto delle medie di periodo, che tipicamente rappresentano la statistica più robusta, si osserva che per i tre recettori discreti il rapporto tra valori ambientali misurati e quelli stimati da entrambi i modelli vale, a seconda dei casi, da circa 100 a circa 400. Detto in altri termini, al fine di riprodurre i valori ambientali misurati, le stime modellistiche presso i singoli recettori discreti devono essere moltiplicate per un fattore 'correttivo' pari al valore del rapporto sopra indicato.
+
+La ‘chiusura di stima’ rispetto a tutte le sorgenti di emissione presenti nell’isola di Murano (forni fusori delle vetrerie) ed alla quantificazione del relativo contributo allo stato di qualità dell’aria deve necessariamente considerare anche l’evoluzione del tessuto produttivo intercorso negli ultimi anni di attività.
+
+La possibilità di colmare questo *'deficit informativo'* attraverso lo sviluppo di una nuova attività progettuale che dovrà partire innanzitutto dal censimento delle vetrerie attive e dall’attualizzazione dei fattori di emissione per il Cadmio (*Cd*), rappresenta la base  necessaria per costruire un efficace *sistema di supporto alle decisioni* per la programmazione e la gestione operativa della qualità dell’aria nell’isola di Murano.
+
+#### Sperimentazione 'Effetre' e simulazioni LAPMOD
+ 
+La realizzazione di una serie di analisi di laboratorio delle emissioni a camino prodotte dall’impianto pilota di tipo sperimentale, installato presso la vetreria artistica *Effetre srl*, ubicata a Murano in Fondamenta San Giovanni dei Battuti, e le relative simulazioni modellistiche di scenario di dispersione degli inquinanti atmosferici hanno evidenziato una serie di considerazioni con valenza sia di tipo 'operativo', a fini della produzione artistica del vetro, che 'programmatico', per la gestione dello stato di qualità dell'aria. 
+
+La valutazione modellistica di dispersione degli inquinanti atmosferici in varie condizioni di regime operativo d'impianto ed in funzione delle differenti miscele di alimentazione dei composti del *Cadmio (Cd)* è stata riassunta in quattro alternativi *scenari emissivi*. 
+
+Nello *scenario 1*, rappresentativo di vetrerie che non sono obbligate all’impiego di sistemi di filtrazione, il rateo emissivo è il più elevato misurato *a monte* per un forno alimentato a *cotisso*; il camino di emissione ha un'altezza di 6 m e con terminale verticale. 
+
+Nello *scenario 2*, rappresentativo di vetrerie obbligate all’impiego di sistemi di filtrazione, il reteo emissivo è il più elevato misurato *a valle* per un forno alimentato a *solfuro di Cadmio (CdS)* (miscela in polvere); il camino di emissione è alto 6 m e con terminale verticale.
+
+Lo *scenario 3* costituisce il *caso reale* sperimentato presso l'impianto 'Effetre'; il rateo emissivo è rappresentativo di vetrerie obbligate ad installare sistemi di abbattimento, cioè il rateo più elevato misurato *a valle* per un forno alimentato con *solfuro di Cadmio (CdS)*); il camino è posto alla quota di 6 m, con *terminale orizzontale*.
+
+Lo *scenario 4* è identico allo scenario 2, ma con un camino di altezza doppia (12 m); rappresenta l'ipotesi di diluizione degli inquinanti al suolo per innalzamento della quota di emissione.
+
+La valutazione della sperimentazione costruita sui quattro scenari emissivi sopra delineati è stata predisposta per la verifica degli effetti sulle concentrazioni ambientali di Cadmio (*Cd*) al suolo:
+
+- prodotti dal sistema di filtrazione (abbattimento emissioni), attraverso il confronto dei risultati dello *scenario 1 vs. scenario 2*;
+
+- dovuti all'orientazione del terminale del camino (direzione emissioni), attraverso il confronto dei risultati dello *scenario 2 vs. scenario 3*;
+
+- conseguenti al raddoppio di altezza del camino (diluizione emissioni), attraverso il confronto dei risultati *scenario 2 vs. scenario 4*. 
+
+Le simulazioni modellistiche con i dati alle emissioni monitorati nel corso della sperimentazione presso l'impianto pilota *'Effetre'* hanno evidenziato per i differenti *contrasti di scenario* le seguenti conclusioni principali:
+
+- l'impiego di sistemi di filtrazione è di fondamentale importanza poiché, a parità di tutti gli altri parametri, i valori di concentrazione stimati al suolo dal sistema modellistico si riducono di decine di volte; d'altro canto, la possibilità di installare adeguati sistemi di filtrazione deve essere valutata, oltre che dal punto di vista economico, anche in funzione delle condizioni specifiche dei locali produttivi (con spazi molto spesso limitati), che nel contesto dell'isola di Murano potrebbe risultare un fattore limitante o quanto meno di significativo impedimento operativo;
+
+- a parità di rateo emissivo e di quota di emissione, i valori di concentrazione stimati al suolo sono risultati minori per il caso del camino con sbocco verticale rispetto a quello orizzontale; 
+
+- a parità di rateo emissivo e di diametro del camino di emissione, i valori di concentrazione al suolo sono risultati notevolmente inferiori per un camino alto il doppio (12 m) rispetto allo scenario di riferimento (6 m); tenuto presente il contesto urbanistico ed architettonico dell'isola Murano questo tipo di soluzione (abbattimento per diluizione), anche in questo caso, potrebbe non essere sempre facilmente realizzabile.
+
+<!--
+Il sistema di abbattimento delle emissione rappresenta un presidio fondamentale per garantire una efficace riduzione dei livelli di concentrazione ambientale di Cadmio (*Cd*), sia nel caso di utilizzo di  *'cotisso'*, sia di *'miscela minerale tradizionale'*.
+L'installazione di adeguati sistemi di abbattimento delle emissioni, il dimensionamento e l'orientazione dei camini degli effluenti prodotti dalle vetrerie artistiche presenti nell'isola di Murano deve essere valutata rispetto ad una molteplicità di criteri: economici, gestionali ed operativi, e di compatibilità architettonica ed urbanistica.
+
+-->
+
+<!--
+
+***..... EFFETTI SANITARI 
+eventualmente citare solo le evidenze generiche ben supportate da letteratura ---------------***
+
+WHO AQG 1987 @who_aq:1987
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+***..... da rivedere traduzione, this is just a quick and dirt translation for memory purpose ---------------***
+
+p. 201
+
+La media annuale nelle aree rurali è tipicamente compresa nel range  1-5 \ngmc, nelle aree urbane 5-15 \ngmc, nelle aree industrializzate 15-50 \ngmc
+Concentrazioni più elevate sono state misurate nelle vicinanze di industrie di processamento dei metalli, concentrazioni medie settimanali di 300 \ngmc soo state registrate, così come valori a breve termine di 5-11 ug/m3.
+Una revisione dei valori ambientali per gli stati membri della comunità europea sono compresi nell'intervallo 0.1-1 \ngmc per le aree remote, 1-50 \ngmc per le aree urbane e 1-100 \ngmc per quelle industriali
+
+p. 203
+
+Effetti respiratori acuti (polomoniti chimiche) si possono registrare per concentrazioni di fumi di cadmio superiori a 1 mg/m3
+Effetti respiratori cronici sono attesi per esposizioni occupazionali di 20 ug/m3 per circa 20 anni
+Nelle esposizioni a lungo termine a bassi livelli di concentrazione il rene è considerato come organo critico 
+p. 205
+
+Un eccesso di casi di tumore al polmone è stato verificato in numerosi studi su lavoratori esposti al cadmio anche se nella maggior parte degli studi questo eccesso non è risultato significativo, anche se uno studio specifico su lavoratori espoti ai fumi di cadmio e polveri ha evidenziato un significativo eccesso 
+
+Le concentrazioni ambientali di cadmio nelle aree rurali dell'europa sono dell'ordine di pochi \ngmc (tipicamente < 5 \ngmc); nelle aree urbane i valori variano tra 5 e 50 \ngmc, ma nella maggior parte dei casi non sono superiori a 20 \ngmc.
+
+
+p. 207
+An increase in existing levels should not be permitted.
+
+
+WHO AQG 2000, second edition @who_aq:2000
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+***..... da rivedere traduzione, this is a quick and dirt translation just made for a reminder ---------------***
+
+
+p. 136
+
+Non è possibile portate a termine un'analisi dose risposta per le concentrazioni atmosferiche di cadmio basata esclusivamente su dati "generici" di tipo epidemiologico nella popolazione a casusa degli effetti confondenti per l'esposizione attraverso la catena alimentare e per il fumo da tabacco
+
+p. 137
+IARC ha classificato il cadmio ed i suoi composti nel Gruppo 1, cioè trai composti carcinogeni per l'uomo avendo concluso che ci sono sufficiente evidenze che il cadmio produca il cancro al polmone in soggetti umani ed animali esposti per inalazione 
+A causa delle identificate e controverse influenze dovute alla concomitante esposizione all'arsenico negli studi epidemiologici non è possibile individuare in modo affidabile un fattore per l'eccesso di rischio di insorgenza di cancro al polmone
+Il cadmio, sia assorbito per inalazione o tramite la catena alimentare (cibo contaminato) può dare origine a varie alterazioni renali 
+Adottando il valore più basso di stima del rischio di insorgenza di disfunzioni renali o cancro al polmone nei lavoratori del settore industriale esposti al cadmio atmosferico è di 100 µg/(m3 anno) per una esposizione di 8h. Estrapolazioni per l'intero ciclo di vita rende conto di un valore ammissibile di circa 300 \ngmc.
+I livelli di cadmio nell'aria della maggior parte delle aree urbane o industriali sono circa 1/50 di questo valore
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+IARC monographs @iarc_58_cd:1993, @iarc_100_cd:2012
+
+Environmental Health Criteria IPCS  International Programme on Chemical Safety @ipcs_cd:1992, @ipcs_cd_env:1992
+
+Cadmio esercita effetti tossici nel rene, apparato scheletrico e nel sistema respiratorio ed è classificato come carcinogeno per l'uomo
+
+L'esposizione dell'uomo avviene principalmente per consumo di cibo contaminato, inalazione attiva e passiva di fumo da tabacco, inalazione diretta per i lavoratori del settore industriale dei metalli non ferrosi
+
+Il rene è l'organo target critico. Il cadmio si accumula principalmente nei reni e questo accumulo a lungo termine determina disfunzioni dei tubuli renali
+
+Alta esposizione per inalazione agli ossisi di di cadmio determina polmoniti acute 
+Esposizione occupazionale a lungo termine ad alti livelli di concentrazione è associata al cancro al polmone caratterizza da patologie connesse alla cronica ostruzione delle vie aeere 
+C'è sufficiente evidenza che l'esposizione occupazionale a lungo termine ai fumi del cadmio contribuisca allo sviluppo del del cancro al polmone
+Ci sono limitate evidenze che che il cadmio possa causare il cancro ai reni ed alla prostata IARC (International Agency for Research on Cancer) ha classificato il cadmio ed i suoi composti come cancerogeni per l'uomo (Gruppo 1), implicando che c'è sufficiente evidenza per stabilire la carcenogenicità nell'uomo.
+
+-->
+

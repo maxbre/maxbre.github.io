@@ -1,0 +1,8 @@
+book_filename: "report_arpav"
+chapter_name: "Capitolo "
+download: [
+    ["report_arpav.pdf", "PDF"],
+    ["report_arpav.epub", "EPUB"],
+    ["report_arpav.docx", "Word"]
+  ]
+delete_merged_file: true

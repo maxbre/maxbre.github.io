@@ -1,0 +1,114 @@
+# Il Progetto Cadmio{#obj-prog}
+
+Il progetto dal titolo: *'Opportunità di elevare i livelli di sicurezza per la salute e per l'ambiente attraverso le misure di gestione del rischio previste dal regolamento REACH per i composti del Cadmio impiegati nella produzione del vetro artistico come coloranti della massa vetrosa'*, nel seguito del presente rapporto sinteticamente indicato con la dicitura *Progetto Cadmio*, ha l'obiettivo di valutare la problematica ambientale dei livelli di inquinamento atmosferico (outdoor) connessi all'impiego del Cadmio (*Cd*) come additivo colorante per la produzione del vetro artistico nell'isola di Murano (Venezia).
+
+Nei successivi paragrafi viene fornita una breve descrizione dell'attività progettuale (paragrafo \@ref(inquadr-prog)), una descrizione del contesto produttivo ed ambientale delle vetrerie che operano nell'isola di Murano (paragrafo \@ref(inquadr-prod-amb)), un inquadramento tecnico-normativo relativo all'autorizzazione all'esercizio delle vetrerie artistiche con particolare riferimento ai limiti alle emissioni atmosferiche (paragrafo \@ref(inquadr-norm)), ed infine una sintetica descrizione dei risultati delle precedenti valutazioni modellistiche di dispersione degli inquinanti emessi dalle vetrerie (paragrafo \@ref(prec-val-mod)). 
+
+Infine, nel paragrafo \@ref(obj-arpav) sono presentati gli obiettivi specifici di progetto assegnati ad ARPAV che sono stati realizzati con il coinvolgimento interno di differenti strutture tecniche ed organizzative.
+
+## Inquadramento generale {#inquadr-prog}
+
+L'accordo di progetto, siglato ex art. 15, L. 241/1990 @l_241:1990 tra ULSS 3 Serenissima e Ministero della Salute, quale Autorità Competente in ambito REACH @reach:2006 e CLP @clp:2008, prevede la realizzazione di specifiche linee di attività per differenti partners, tra cui: ARPA Veneto, Ordine dei Chimici e Fisici di Venezia, Città Metropolitana di Venezia e Punto Confindustria di Venezia.
+
+ARPAV è stato individuata come partner progettuale per l'esecuzione delle analisi chimiche degli effluenti emessi a camino e per le valutazioni ambientali relative alla definizione del sistema modellistico più adeguato per la stima di dispersione degli inquinanti atmosferici prodotti dall'attività delle vetrerie artistiche presenti sull'isola di Murano che impiegano nel proprio processo produttivo composti specifici derivati dal Cadmio (*Cd*). 
+
+## Inquadramento produttivo ed ambientale {#inquadr-prod-amb}
+
+La produzione del vetro artistico nell'isola di Murano è caratterizzata da una lavorazione a carattere prevalentemente artigianale, a ciclo discontinuo, strutturata in due fasi principali: la fusione della miscela vetrificabile e la successiva lavorazione della pasta vetrosa.
+
+Nella prima fase, la lavorazione inizia con la pesatura e la miscelazione delle materie prime che vengono infornate all'interno di crogioli, tramite un sistema automatico nelle aziende di dimensioni più grandi e manualmente dagli operatori delle realtà produttive più piccole, a carattere essenzialmente di tipo artigianale. 
+
+Nella seconda fase, la fusione della miscela vetrificabile avviene nell'arco temporale di circa 8 ore (generalmente dalle ore 17.00 alle 01.00 del giorno successivo), per un numero variabile di giorni alla settimana (massimo 5) e di ripetizioni mensili (dell'ordine di circa 8-10 volte per le aziende di piccole dimensioni). La fase della fusione è caratterizzata dalle emissioni più elevate ed avviene a temperature di circa 1400 °C, a cui segue un ciclo di raffreddamento della pasta vetrosa, generalmente durante il periodo notturno (dalle ore 01.00 alle ore 06.00 circa), per permettere di raggiungere la temperatura di lavorazione di circa 1050 °C.
+
+La particolarità della fusione con ciclo discontinuo determina che le emissioni registrino nell'arco della 'giornata lavorativa tipo' dei picchi di concentrazione in un intervallo di circa 8 ore nel periodo notturno (cioè tipicamente nel periodo a più ridotta dispersione atmosferica e quindi maggiormente critico per lo stato di qualità dell'aria).
+
+Un  significativo numero di aziende utilizza direttamente del vetro già fuso (*cotisso*), che non necessita dell'impiego e della lavorazione diretta di materie prime minerali, consentendo così la realizzazione di un ciclo di fusione a temperature più basse, necessarie per portare il vetro nello stato di viscosità utile per essere lavorato a mano.
+
+La necessità di tutela ambientale dell'isola di Murano non è facilmente coniugabile con il particolare assetto urbanistico, paesaggistico e dei vincoli imposti al patrimonio artistico ed architettonico. Da sempre sono state evidenziate le difficoltà sia di tipo tecnico che normativo di implementare misure di mitigazione secondarie,  quali gli impianti di filtrazione e di trattamento dei fumi emessi, in spazi fisici che sono necessariamente limitati e collocati in un contesto urbano molto particolare.
+
+I composti del Cadmio (*Cd*) vengono impiegati essenzialmente come additivi coloranti per la produzione di vetro artistico dal tipico colore rosso, arancio e giallo. 
+
+A partire dal 2009 il Dipartimento Provinciale ARPAV di Venezia ha avviato a Murano un'attività di monitoraggio della qualità dell'aria, dapprima con campagne periodiche discontinue e negli anni successivi (dal 2016), in modo continuativo, i cui esiti sono stati regolarmente trasmessi agli enti interessati e le relative relazioni rese disponibili al pubblico tramite il sito internet dell'Agenzia. 
+
+L'attività di monitoraggio ha evidenziato criticità ambientali riguardanti le concentrazioni in atmosfera di Arsenico (*As*) e Cadmio (*Cd*), talvolta accompagnate anche da livelli non trascurabili di Piombo (*Pb*), cioè per gli inquinanti atmosferici che sono tipicamente riconducibili alle attività produttive del vetro artistico.
+
+## Inquadramento normativo {#inquadr-norm}
+
+Il DLgs. 152/2006 @dlgs_152:2006, in materia di "impianti ed attività in deroga" (ex art. 272, comma 2), stabilisce che l'autorità competente può adottare apposite Autorizzazioni di Carattere Generale (*ACG*) per specifiche categorie di stabilimenti appositamente individuate in relazione al tipo ed alla modalità di produzione. 
+
+La Città Metropolitana di Venezia su delega della Regione Veneto (ex LR 71/1995) ha adottato nel 2015 (Determina n. 2165) uno schema di *ACG* per le attività di produzione del vetro artistico in cui sono specificati: i valori limite per le varie fasi di lavorazione del vetro (fusione, composizione, trattamento all'iride, lucidatura e tempera), i requisiti tecnici e le prescrizioni particolari sugli impianti di abbattimento, le frequenze e le modalità di esecuzione dei controlli alle emissioni e la trasmissione dei risultati analitici. 
+
+Per il Cadmio (*Cd*) durante la fase di fusione del vetro è stato stabilito un valore limite alle emissioni di 0.1 \mgNmc.
+
+Le disposizioni normative dei commi 2 e 3 dell'art. 272  del DLgs. 152/2006, che stabiliscono la possibilità di aderire ad una *ACG*, non si applicano nel caso in cui siano utilizzate, nei cicli produttivi da cui  originano le emissioni, le sostanze o le miscele con indicazioni di pericolo  o quelle classificate estremamente preoccupanti, ai sensi della normativa europea *REACH* @reach:2006 e CLP  @clp:2008. 
+
+L'art. 271 comma 7-bis del Dlgs. 152/2006 stabilisce che *“le emissioni delle sostanze classificate come cancerogene o tossiche per la riproduzione o mutagene (H340, H350, H360) e delle sostanze di tossicità particolarmente elevata debbano essere limitate nella maggior misura possibile dal punto di vista tecnico e dell'esercizio. Dette sostanze e quelle classificate estremamente preoccupanti dal regolamento (CE) n. 1907/2006, del Parlamento europeo e del Consiglio del 18 dicembre 2006, concernente la registrazione, la valutazione, l'autorizzazione e la restrizione delle sostanze chimiche (REACH) devono essere sostituite non appena tecnicamente ed economicamente possibile nei cicli produttivi da cui originano emissioni delle sostanze stesse”*.
+
+Nel caso di uno o più impianti o attività ricompresi in autorizzazioni a carattere generale (*ACG*) che utilizzino sostanze “pericolose o estremamente preoccupanti”, il gestore dovrà presentare (entro il 28/08/2023, cioè entro tre anni dalla data di entrata in vigore del DLgs. 102/2020 che ha modificato il Dlgs. 152/2006) una domanda di autorizzazione “ordinaria”, ai sensi dell'articolo 269 (del DLgs. 152/2006). In caso di mancata presentazione lo stabilimento si considera in esercizio senza autorizzazione e perciò soggetto alle sanzioni previste dall’art. 279, comma 1, del DLgs. 152/2006 (http://politicheambientali.cittametropolitana.ve.it/documenti/emissioni-sostanze-cancerogene-o-tossiche)
+
+Le sostanze suscettibili di avere effetti gravi sulla salute umana e sull'ambiente possono essere incluse fra le sostanze estremamente preoccupanti (*SVHC*). Si tratta di sostanze cancerogene, mutagene o tossiche per la riproduzione, nonché di sostanze con caratteristiche persistenti e bioaccumulabili.
+Dopo che una sostanza è stata ufficialmente riconosciuta nell'*UE* come estremamente preoccupante, viene inclusa nell'elenco di sostanze candidate (che indica anche ai consumatori e all'industria le sostanze chimiche annoverate fra quelle estremamente preoccupanti). 
+
+Le sostanze presenti nell'elenco di sostanze candidate possono successivamente confluire nell'elenco delle sostanze soggette ad autorizzazione e questo comporta che, dopo una certa data, non è consentito alle aziende di immettere la sostanza pericolosa sul mercato, né di utilizzarla, a meno che non siano state espressamente autorizzate a farlo (ai sensi del regolamento *REACH*). Uno dei principali obiettivi dell'autorizzazione *REACH* consiste nell'eliminazione graduale delle sostanze estremamente preoccupanti.
+
+L'ECHA (*European Chemical Agency*) ha incluso il Cadmio (decisione ED/69/2013, ED/121/2013) tra le sostanze estremamente preoccupanti (*SVHC*), cioè suscettibili di avere effetti gravi sulla salute umana e sull'ambiente (https://echa.europa.eu/documents/10162/a048359b-de39-4b7e-8602-51272a55aeae).
+
+Il Cadmio (\Cd) è infatti considerato, secondo i criteri *REACH* definiti negli articoli 57(a) e 57(f), un composto per cui vi sono consolidate evidenze scientifiche di: 
+
+- effetti negativi a carico degli organi 'bersaglio' reni ed apparato scheletrico;
+
+- capacità di bioaccumulo che determina una continua esposizione interna ed il manifestarsi di possibili effetti irreversibili una volta raggiunti livelli critici di concentrazione all'interno del corpo;
+
+- effetti negativi in una significativa parte della popolazione ai livelli di esposizione dovuti all'attività antropica;
+
+- incertezze nella definizione di un livello di esposizione accettabile;
+
+- alti costi sociali in termini di spese mediche, riduzione dell'aspettativa e della qualità della vita.
+
+
+## Sintesi delle precedenti valutazioni {#prec-val-mod}
+
+Parallelamente alle attività di monitoraggio sullo stato di qualità dell'aria, ARPAV negli anni precedenti ha eseguito anche una serie di valutazioni modellistiche con lo scopo di fornire una quantificazione obiettiva del contributo delle vetrerie artistiche sullo stato di qualità dell'aria  rilevato dai sistemi di monitoraggio installati nell'isola di Murano.
+
+Le valutazioni modellistiche riportate nella documentazione tecnica prodotta da ARPAV, dapprima nel 2014 @arpav-vetro:2014 e, successivamente con ulteriore approfondimento nel 2019 @arpav-vetro:2019, hanno evidenziato sinteticamente per punti quanto segue:
+
+- la stima modellistica effettuata nel 2014, riferita a 76 camini di emissione, presenti per la quasi totalità nell'isola di Murano ed in misura minore nell'isola di Venezia, afferenti ad altrettanti forni fusori di vetrerie artistiche attive all'epoca della valutazione, è risultata significativamente sottostimata rispetto alle corrispondenti misurazioni ambientali, con particolare riferimento alle concentrazioni del Cadmio (*Cd*);
+
+- la stima modellistica più recente, effettuata nel 2019 sui dati emissivi del 2017, riferita alle 25 vetrerie artistiche operanti nell'isola di Murano e ad un'unica vetreria nell'isola di Venezia, che all'epoca della valutazione erano autorizzate alla fusione di miscele contenenti Cadmio (*Cd*), ha evidenziato, ancora una volta, la significativa sottostima (in termini di ordini di grandezza) rispetto ai livelli di concentrazione misurati dal monitoraggio ambientale.
+
+La differenza tra misure ambientali e stime modellistiche è riconducibile all'incompleta caratterizzazione delle emissioni in ingresso al sistema modellistico, sia in termini di numero di sorgenti attive (vetrerie) che per quantità di inquinanti emessi (profilo emissivo). 
+
+Considerati i risultati delle precedenti valutazioni, si rileva che la componente di errore più importante e significativa è indubitabilmente da ricercare nella non appropriata e/o incompleta caratterizzazione delle sorgenti di emissione.
+
+Esiste quindi un *deficit informativo* che può essere ricondotto essenzialmente ai seguenti fattori determinanti:
+
+- significativa sottostima dei valori emissivi a camino utilizzati nelle simulazioni (cioè non completa rappresentatività delle emissioni in termini quantitativi);
+
+- ridotta rappresentatività dei punti di emissione censiti e monitorati con il sistema di telecontrollo rispetto al complesso delle sorgenti emissive effettivamente in esercizio nell'isola;
+
+- qualità e quantità delle emissioni in condizioni di esercizio 'non a regime' e per eventuale apertura dei *by-pass*;
+
+- quantità delle emissioni di tipo diffuso non correttamente o non completamente convogliate a camino e, quindi, non rilevate dal sistema di telecontrollo e conseguentemente non considerate nella stime modellistiche.
+
+Prima ancora di procedere ad un'eventuale attualizzazione dei profili emissivi ed una caratterizzazione *ex novo*, il più possibile completa, di tutte le sorgenti di emissione rappresentate dai forni fusori delle vetrerie artistiche operanti nell'isola di Murano, attività che dovrebbe necessariamente essere rivista considerando in primo luogo i forti mutamenti intercorsi nel quadro socio-economico e produttivo degli ultimi anni, è di fondamentale importanza verificare, rispetto alle stime già prodotte nel 2019 (su dati emissivi del 2017), la possibilità di individuare lo strumento modellistico più adatto per caratterizzare in modo efficace e completo la dispersione degli inquinanti emessi in aria ambiente. 
+
+Il principale obiettivo progettuale ARPAV è quindi specificamente riferibile alla possibilità di costruire una base metodologica robusta per essere impiegata in eventuali successive valutazioni attraverso la preliminare verifica delle stime già prodotte con un differente sistema modellistico (LAPMOD), alternativo rispetto a quello utilizzato per le stime del 2019, e ancor prima del 2014 (CALPUFF). 
+
+
+## Obiettivi progettuali {#obj-arpav}
+
+Il *Progetto Cadmio* prevede la realizzazione di due distinte linee di attività  ARPAV, riferibili rispettivamente a:
+
+- *obiettivo generale 1 (OG-1), obiettivo specifico 3 (OS-3)*: simulazione modellistica di dispersione degli inquinanti atmosferici emessi dai forni fusori delle vetrerie presenti nell'isola di Murano;
+      
+- *obiettivo generale 2 (OG-2), obiettivo specifico 3 (OS-3)*: determinazione analitica delle emissioni presso un impianto pilota di tipo sperimentale e simulazione modellistica di dispersione degli inquinanti atmosferici in funzione dell'utilizzo di differenti tecniche di introduzione dei coloranti nel processo produttivo del vetro.
+
+\par
+L'obiettivo *OG-1, OS-3* prevede il confronto tra i risultati delle simulazioni modellistiche  sui dati 'storici' del periodo di riferimento da settembre a dicembre 2017, eseguite con due alternativi sistemi di calcolo: CALPUFF e LAPMOD. 
+
+Lo scopo principale è produrre un'analisi di sensitività dei risultati di stima delle concentrazioni ambientali di Cadmio (*Cd*) in funzione dell'utilizzo di due alternativi modelli di simulazione che si basano su presupposti ed approcci di calcolo differenti.
+
+L'obiettivo *OG-2, OS-3* riguarda la realizzazione di una serie di attività analitiche delle emissioni e di simulazione modellistica delle ricadute prodotte dall'impianto pilota di tipo sperimentale installato presso la vetreria artistica 'Effetre srl' di Murano. 
+
+Lo scopo principale è produrre un'analisi modellistica di scenario che valuta il differente impatto ambientale dell'attività di una vetreria 'tipo' in funzione  delle condizioni di regime operativo d'impianto, quali la presenza di sistemi di abbattimento e l'utilizzo di differenti tecniche di utilizzo dei coloranti nella miscela di alimentazione al forno. 
+

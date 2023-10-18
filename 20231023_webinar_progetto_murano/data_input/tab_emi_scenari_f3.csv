@@ -1,0 +1,5 @@
+#,tipologia alimentazione,rateo emissivo,sbocco camino,altezza camino (m),caso tipo
+1,cotisso opaco,misura a monte,verticale,6,no obbligo sistemi filtrazione
+2,CdS,misura a valle,verticale,6,obbligo sistemi filtrazione
+3,CdS,misura a valle,orizzontale,6,sperimentazione ‘Effetre’
+4,CdS,misura a valle,verticale,12,diluizione per innalzamento

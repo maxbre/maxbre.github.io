@@ -1,0 +1,23 @@
+n,simulazione,caratteristiche,input
+1,meteo,tipologia dati *,solo osservazioni stazioni
+2,meteo,uso del suolo,CORINE 125 m
+3,meteo,altimetria,DTM Regione Veneto 
+4,meteo,dominio temporale,01/09/17 – 31/12/17
+5,meteo,tipologia griglia,regolare
+6,meteo,n. celle domino,16 * 20
+7,meteo,dimensione celle (m),500
+8,meteo,dimensione dominio (km),8 * 10
+9,meteo,n. livelli verticali **,10
+10,meteo,coordinate geo vertice SW dominio,757000; 5035000
+11,inquinanti,building down wash,no
+12,inquinanti,plume rise,si
+13,inquinanti,deposizione secca,no
+14,inquinanti,deposizione umida,no
+15,inquinanti,reazioni chimiche,no
+16,inquinanti,calcolo coefficienti dispersione ,variabili micrometeo continue
+17,inquinanti,dominio temporale,01/09/17 – 31/12/17
+18,inquinanti,tipologia griglia,regolare
+19,inquinanti,n. celle dominio,80 * 80
+20,inquinanti,dimensione celle (m),50
+21,inquinanti,dimensione dominio (km),4 * 4
+22,inquinanti,coordinate geo vertice SW dominio,764500; 5041000 

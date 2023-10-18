@@ -1,0 +1,296 @@
+```{r setup-qa, include=FALSE, cache.extra = tools::md5sum("./data_input/input_murano_metalli.csv")}
+
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(
+	fig.retina = 3,
+	fig.align = 'center',
+	message = FALSE,
+	warning = FALSE,
+	comment = NA)
+
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(kableExtra)
+library(leaflet)
+library(leafem)
+```
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/02_read_qa_data_hm_foscolo.R')
+# read an external script and then use the code defined by some label chunks 
+```
+
+```{r, read-hm-foscolo, message=FALSE, warning=FALSE, include=FALSE}
+# read chunk 
+```
+
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/02_read_qa_data_pm10_foscolo.R')
+# read an external script and then use the code defined by some label chunks 
+```
+
+```{r, read-pm10-foscolo, message=FALSE, warning=FALSE, include=FALSE}
+# read chunk 
+```
+
+# Lo stato di qualità dell'aria {#state-qa}
+
+Nel presente Capitolo viene fornito un inquadramento generale sullo stato di qualità dell'aria nell'isola di Murano, con particolare riferimento alle concentrazioni ambientali di PM10 e Metalli rilevate nel punto 'storico' di monitoraggio ubicato presso la scuola 'Ugo Foscolo', in Fondamenta Colleoni. 
+
+Ove possibile è stato proposto anche un confronto con i corrispondenti dati di qualità dell'aria misurati negli stessi periodi presso la stazione fissa della rete ARPAV di 'Sacca Fisola' (Venezia), classificata di fondo urbano-insulare.
+
+Saranno dapprima presentati e discussi i risultati dei più recenti dati di monitoraggio in relazione ai parametri normativi previsti dal DLgs. 155/2010 @dlgs_155:2010 e, successivamente, verrà fornita una valutazione di 'lungo periodo' attraverso l'analisi della serie storica rilevata in modo continuativo a partire da metà del 2016 presso il sito 'Foscolo'.
+
+Come risulterà evidente da quanto riportato nel paragrafo \@ref(qa-ts) relativo all'analisi della serie storica, le concentrazioni ambientali di Cadmio (*Cd*) rappresentano uno stato di criticità fortemente consolidato nel tempo e, nell'ambito del territorio del Veneto, pressoché esclusivo dell'isola di Murano @arpav-qa-regione:2023.
+
+## I siti di monitoraggio
+
+In Figura \@ref(fig:map-sampl) viene riprodotta una mappa tematica con l'indicazione dei siti di monitoraggio della qualità dell'aria ubicati rispettivamente presso:
+
+- la scuola 'U. Foscolo', in Fondamenta Colleoni nell'isola di Murano,  che rappresenta un punto di misura che può essere classificato come di 'fondo urbano' (nella mappa il sito è indicato con un punto di colore 'rosso');
+
+- la stazione di 'Sacca Fisola', presso l'isola della Giudecca a Venezia, che fa parte della rete regionale ARPAV  dei siti di fondo urbano (in mappa indicata con un punto di colore 'blu').
+
+I due siti di monitoraggio, che nel resto del presente rapporto saranno individuati con le sintetiche diciture 'Foscolo' e 'Sacca Fisola', sono stati utilizzati per il confronto delle rispettive concentrazioni ambientali di *PM10* e di Cadmio (*Cd*). 
+
+Le valutazioni comparate, riferite a livelli di concentrazione degli inquinanti atmosferici misurati presso siti vicini, ubicati nell'ambito di un contesto ambientale comparabile, permettono di trarre possibili conclusioni sull'entità e la qualità degli effetti ambientali delle relative fonti di pressione presenti sul territorio.
+
+```{r map-sampl, file="./rscript_source/02_map_sampl_points_qa.R", fig.align="center", fig.cap="Punti di monitoraggio della qualità dell'aria presso Foscolo (in rosso) e Sacca Fisola (in blu).", fig.scap="Punti di monitoraggio della qualità dell'aria.", message=FALSE, warning=FALSE, echo=FALSE, out.width='100%'}
+# source a file for a leaflet map of the sampling point Foscolo
+```
+
+Il sito di monitoraggio 'Foscolo' (rappresentato nelle foto in Figura \@ref(fig:img-sampl)) è inserito in un contesto di tipo residenziale con caratteristiche di fondo urbano, strettamente contiguo ad un'area industriale-artigianale specificamente dedicata alla produzione del vetro artistico.
+
+Tale sito, a meno di lievi spostamenti resi necessari nel corso degli anni per adeguarsi alle necessità di manutenzione dell'adiacente edificio scolastico, è rimasto sostanzialmente immutato ed egualmente rappresentativo del medesimo contesto ambientale ed urbanistico.
+
+Per il monitoraggio ambientale presso il sito 'Foscolo' è stato utilizzato un campionatore PM10 sequenziale con una portata nominale di 38.33 l/min, testa di prelievo con geometria *CEN* posta a circa 2 metri dal suolo, cicli di monitoraggio di 24h ed arricchimento su supporti filtranti in fibra di quarzo, con diametro di 47 mm.
+
+Per quanto attiene ai dettagli metodologici relativi alle fasi di campionamento e di successiva analisi chimica degli inquinati, alla caratterizzazione meteorologica ed ai risultati della valutazione delle concentrazioni ambientali di PM10 rilevate presso il sito 'Foscolo' si rimanda al testo delle più recenti Relazione Tecnica ARPAV, pubblicate nel 2022 @arpav-qa:2022 e nel 2023 @arpav-qa-murano:2023.
+
+Infine, si precisa che, in riferimento al trattamento statistico dei dati di qualità dell'aria, i valori di concentrazione inferiori al limite di quantificazione (LQ), specifici per ciascun inquinante, sono stati sostituiti con un valore pari a metà del limite, secondo lo *'standard'*  adottato da ARPAV per il calcolo degli indicatori previsti dalla normativa.
+
+```{r img-sampl, fig.cap="Allestimento campionatore PM10 c/o scuola Foscolo, F.ta Colleoni.", fig.subcap=c('vista frontale', 'vista laterale'), fig.scap="Campionatore PM10 presso il sito Foscolo.", echo=FALSE, out.width='50%', out.heigth='60%', fig.align="center"}
+
+include_graphics("./figure/sampl_fosc_fronte.jpg")
+include_graphics("./figure/sampl_fosc_lato.jpg")
+
+```
+
+
+## I livelli ambientali degli inquinanti atmosferici
+
+```{r, tab-hm-foscolo-2017, message=FALSE, warning=FALSE, include=FALSE}
+# read chunk 
+```
+
+In questo paragrafo sono riferiti in dettaglio i risultati relativi al monitoraggio ambientale dei Metalli, in particolare il Cadmio (*Cd*), che rappresenta la principale criticità ambientale oggetto di valutazione nell'ambito del presente progetto. 
+
+A partire da metà del 2016 sono stati effettuati campionamenti sistematici delle concentrazioni ambientali di *PM10* su cui è stata effettuata anche la determinazione analitica delle concentrazioni di Metalli, tra cui: Arsenico (*As*), Cadmio (*Cd*), Nichel (*Ni*) e Piombo (*Pb*), che rappresentano gli 'standard' di riferimento per la valutazione dello stato dell'ambiente atmosferico previsto dalla normativa di settore (ex DLgs. 155/2010) @dlgs_155:2010. 
+Al fine di fornire una valutazione ed inquadramento immediato sullo stato di qualità dell'aria presente nell'isola di Murano, in Tabella \@ref(tab:tab-metals-2017) sono riportati i valori *medi annuali* di concentrazione in aria ambiente di Metalli *(As, Cd, Ni, Pb)*, rilevati a partire dal 2017 presso il sito 'Foscolo', che sono da confrontare con i valori obiettivo (VO) e valori limite (VL) previsti dalla normativa di settore (ex DLgs. 155/2010) @dlgs_155:2010. 
+
+
+```{r tab-metals-2017, echo=FALSE, results="asis"}
+
+knitr::kable(tab_2017[2:7], 
+             col.names = linebreak(c("anno", "n","As\nVO = 6", "Cd\nVO = 5", "Ni\nVO = 20", "Pb\nVL = 500"), align="c"),
+             caption = "Concentrazioni medie annuali di Metalli monitorate presso sito Foscolo dal 2017 al 2022.",
+             caption.short ="Concentrazioni di Metalli presso sito Foscolo.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             linesep = "", # this is  to avoid \addlinespace every 5 rows when booktabs is specified as TRUE
+             escape = FALSE, # this is to allow the special character \n
+             align = "c",
+             format = "latex",
+             digits=c(0,0,1,1,1,0))%>%
+  kableExtra::column_spec(4, color = "red")%>%
+  #kableExtra::add_header_above(c(" " = 2, "Metalli [ng/m3]" = 4)) %>%
+  kableExtra::add_header_above(c(" " = 2, "$Metalli~[~ng~m^{-3}~]$" = 4), escape = FALSE) %>% 
+  kableExtra::footnote(general = c("n = numero campioni analizzati", 
+                                   "VO = valore obiettivo (ex DLgs 155/2010)", 
+                                   "VL = valore limite (ex DLgs 155/2010)")) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+  
+```
+
+\par
+
+I valori ambientali rilevati a partire dal mese di luglio 2016 non permettono di effettuare un adeguato confronto con i limiti normativi annuali, considerata l'insufficiente numerosità e la ridotta rappresentatività statistica per cui sono stati omessi dalla valutazione annuale, riportata in Tabella \@ref(tab:tab-metals-2017). I corrispondenti valori ambientali saranno comunque considerati nella valutazione di lungo periodo relativa all'analisi della serie storica riportata nel successivo paragrafo \@ref(qa-ts).
+
+Da precisare che per il Piombo (*Pb*) il valore limite (VL) di riferimento previsto dalla normativa è normalmente espresso in [\ugmc], mentre nella Tabella \@ref(tab:tab-metals-2017) viene riportato il corrispondente valore in [\ngmc] al fine di un più agevole confronto con i livelli di concentrazione degli altri Metalli (inoltre, anche per questa specifica motivazione i valori di concentrazione di *Pb* sono riportati senza l'utilizzo di cifre decimali significative).  
+Per l'Arsenico (*As*) si segnala che il valore di concentrazione riportato in Tabella \@ref(tab:tab-metals-2017), relativamente all'anno 2022, è risultato inferiore al limite di quantificazione analitica, pari a 1.0 \ngmc.
+
+In Tabella \@ref(tab:tab-metals-2017) sono, inoltre, riportati per ciascun anno di monitoraggio anche il numero di campioni analizzati che rende conto in modo indiretto della robustezza statistica del valori ambientali rilevati e discussi nel presente rapporto.
+
+Come risulta evidente dai dati riportati in Tabella \@ref(tab:tab-metals-2017), il Cadmio (*Cd*) rappresenta una significativa criticità ambientale nell'isola di Murano considerato che presso il sito 'Foscolo' la media annuale dal 2017 è risultata sistematicamente superiore, anche in termini molto significativi, rispetto al corrispondente valore obiettivo (VO = 5 \ngmc) per anno civile, come stabilito dal DLgs. 155/2010.
+
+Valutando l'andamento dell'ultimo sessennio (2017-2022) si nota una significativa diminuzione delle concentrazioni ambientali a partire dal 2020 che è molto verosimilmente attribuibile all'effetto indiretto del *'lockdown'* ed alla conseguente generale contrazione delle attività produttive e commerciali.
+
+Nel 2021 si assiste, invece, ad un nuovo significativo ed elevato innalzamento delle concentrazioni ambientali, mentre nel 2022 si verifica un altrettanto significativo ribasso probabilmente da imputare agli effetti dovuti alla congiuntura economico-finanziaria e politica che ha determinato, tra l'altro, anche pesanti difficoltà negli approvvigionamenti di materie prime ed energia.  
+
+### Analisi della serie storica {#qa-ts}
+
+In questo paragrafo sono presentati in dettaglio i dati della serie storica dei metalli monitorati in modo continuativo dalla metà del 2016 presso il sito 'Foscolo'. 
+
+Inoltre, per il *PM10* ed il Cadmio (*Cd*), viene proposto un confronto 'boxplot' dei valori rilevati nel periodo di monitoraggio da gennaio 2017 a dicembre 2022 (serie annuali complete), tra i siti 'Foscolo' e 'Sacca Fisola' (che ricordiamo essere una  stazione fissa della rete regionale ARPAV di qualità dell'aria classificata come fondo urbano, di tipo insulare). 
+
+Il grafico 'boxplot', chiamato anche diagramma a scatola e baffi ('box and whiskers') o 'boxplot di Tukey', fornisce una sintetica rappresentazione statistica della distribuzione dei dati ed è costruita sui seguenti elementi caratteristici:
+
+- la linea centrale della scatola rappresenta la mediana (50° percentile);
+
+- la parte inferiore e superiore della scatola individuano il 25° e il 75° percentile (detti anche quartile inferiore e superiore);
+
+- l'altezza della scatola è determinata dalla differenza tra i due quartili e viene indicata come intervallo interquartile (IQR);
+
+- l'intaccatura ('notch') della scatola indica l'intervallo di confidenza della mediana secondo il metodo di tipo 'grafico-speditivo' basato sul valore della mediana +/- IQR/radq(n) @chambers:1983 @boxplot-variations:1978; secondo tale metodo quando l'intaccatura di due scatole adiacenti non si sovrappone si può affermare che esiste una forte evidenza statistica, con un limite di confidenza al 95%, che le mediane differiscono in modo significativo; 
+
+- le due linee verticali che si estendono per 1,5 volte l'IQR sia per la parte superiore che per quella inferiore della scatola sono chiamate 'baffi' ('whiskers') e forniscono una misura della  variazione 'attesa' dei dati;
+
+- i dati rappresentati come punti che ricadono sopra o sotto il termine dei 'baffi' sono definiti come 'outliers' e rappresentano i valori più 'estremi' rispetto alla 'normale' variazione attesa.
+
+Nei vari 'boxplot' riportati nelle pagine successive è stata, inoltre, aggiunta per completezza di informazione rispetto agli indici di tendenza centrale già descritti anche l'indicazione del valore medio della distribuzione dei dati, che è stato riprodotto graficamente con il simbolo *'asterisco'* di colore rosso. Nei grafici 'boxplot' sono stati, inoltre, aggiunti anche tutti i punti relativi alle singole osservazioni per fornire una indicazione quantitativa della relativa numerosità campionaria e quindi per permettere una maggiore confrontabilità dei dati analizzati. 
+
+Come sarà evidente da quanto riportato nei paragrafi successivi, l'obiettivo principale della presente trattazione è mettere in evidenza ed oggettivare sulla base dei dati di monitoraggio come, a fronte di una sostanziale comparabilità dei valori ambientali di *PM10* tra i due siti in esame ('Foscolo' vs. 'Sacca Fisola'), sia possibile riscontrare una fortissima e marcata differenza nelle concentrazioni di Metalli, ed in particolare del Cadmio (*Cd*), che rende conto della specificità ambientale pressoché unica che si registra nell'isola di Murano. 
+
+#### Polveri fini (*PM10*)
+
+Nel 'boxplot' in Figura \@ref(fig:pm10-boxplot) sono riportati i livelli di concentrazione di *PM10* monitorati nel periodo 2017-2022 presso i siti 'Foscolo' (Murano) e 'Sacca Fisola' (Venezia).
+
+Dal grafico si nota come gli indici di tendenza centrale (mediana, media e percentili) dei livelli ambientali di *PM10* siano sostanzialmente confrontabili nel tempo e tra i due siti considerati. 
+
+Si rileva, inoltre, che le concentrazioni medie annuali di *PM10* risultano sempre conformi al valore limite annuale di 40 \ugmc, pur non escludendo un significativo numero di superamenti del valore limite giornaliero di 50 \ugmc (ammesso per non più di 35 volte/anno), come previsto dalla normativa di settore (ex DLgs. 155/2010) @dlgs_155:2010.
+
+Per maggiori dettagli sulle concentrazioni ambientali di *PM10* si rimanda al testo della Relazioni Tecniche ARPAV pubblicate nel 2022 e 2023 @arpav-qa:2022, @arpav-qa-murano:2023.
+
+```{r, pm10-boxplot, fig.align="center", fig.cap="PM10. Boxplot dal 2017-2022: Foscolo vs. Sacca Fisola.", fig.scap="PM10. Boxplot.", echo=FALSE, out.width='100%'}
+# read chunk
+```
+
+#### Cadmio (*Cd*)
+
+Nel 'boxplot' in Figura \@ref(fig:cd-boxplot) sono riportati i livelli di concentrazione di Cadmio (*Cd*) monitorati nel periodo 2017-2022 presso i siti 'Foscolo' (Murano) e 'Sacca Fisola' (Venezia).
+
+Come evidente dal grafico, le concentrazioni annuali di Cadmio (*Cd*) monitorate presso il sito 'Foscolo' sono risultate nel tempo sistematicamente superiori a quelle del sito 'Sacca Fisola', sia nei valori 'di tendenza centrale' (media e mediana), che nel primo (25° percentile) e nel terzo quartile (75° percentile), e soprattutto nei percentili 'alti' con differenze molto rilevanti, anche di alcuni ordini di grandezza. Da notare che nel grafico \@ref(fig:cd-boxplot) la scala delle ordinate è di tipo logaritmico.
+
+```{r, cd-boxplot, fig.align="center", fig.cap="Cadmio (Cd). Boxplot 2017-2022, medie 24h: Foscolo vs. Sacca Fisola.", fig.scap="Cadmio (Cd). Boxplot.", echo=FALSE, out.width='100%'}
+# read chunk
+```
+
+Rispetto alla verifica di conformità prevista dalla normativa di settore (DLgs. 155/2010), si rileva una forte e consolidata criticità che dal 2017 ha visto i valori ambientali di Cadmio (*Cd*) sistematicamente superiori al valore obiettivo di 5 \ngmc, nonché significativamente superiori a quelli rilevati negli stessi periodi di monitoraggio presso la stazione di fondo urbano insulare di 'Sacca Fisola' (Venezia). 
+
+Per maggiori informazioni si rimanda a quanto riportato in dettaglio nelle relazioni ARPAV 2022 e 2023 @arpav-qa:2022, @arpav-qa-murano:2023. 
+
+La specificità dei valori ambientali di Cadmio (*Cd*) rilevati nell'isola di Murano rispetto a quelli del corrispondente sito di fondo insulare presso 'Sacca Fisola', ubicato a circa 4 km di distanza lineare in direzione Sud-Ovest, evidentemente rende conto di un significativo contributo a carattere locale che deve necessariamente essere ricondotto all'impatto ambientale dell'attività delle vetrerie artistiche.
+
+Nel grafico in Figura \@ref(fig:cd-ts24h), sono rappresentate con dei punti connessi da una linea spezzata le concentrazioni medie di 24h di Cadmio (*Cd*) monitorate in modo continuativo da luglio 2016 presso il sito 'Foscolo'. 
+
+```{r, cd-ts24h, fig.align="center", fig.cap="Cadmio (Cd). Serie storica medie 24h periodo 2016-2022, Foscolo.", fig.scap="Cadmio (Cd). Serie storica.", echo=FALSE, out.width='100%'}
+# read chunk 
+```
+
+I grafici rappresentano l'andamento temporale delle concentrazioni medie 24h con una curva di tendenza (*'smoothing'*) che ha l'obiettivo di individuare le variazioni dei livelli ambientali in relazione al periodo considerato.
+
+La  curva di tendenza sovraimposta ai dati puntuali (segnata in colore blu con relativi limiti di confidenza),  basata su una regressione di tipo non parametrico 'LOESS' @cleveland:1992, indica in modo chiaro la variazione stagionale delle concentrazioni 'mediane' che appaiono fortemente dipendenti dai cicli periodici ('stagionali') di produzione e lavorazione del vetro artistico. 
+
+Come evidente dal grafico, i livelli di Cadmio (*Cd*) in atmosfera nell'isola di Murano sono caratterizzati dai seguenti elementi di valutazione principali:
+
+- un numero significativo di osservazioni con valori di concentrazione media giornaliera (24h) molto alti ('spikes'), con livelli spesso superiori alle centinaia di \ngmc, per raggiungere in alcuni casi valori estremi di migliaia di \ngmc;
+
+- un altrettanto significativo numero di osservazioni inferiori al limite di quantificazione (LQ), con livelli inferiori alla soglia di 0.2 \ngmc;
+
+- una ciclicità molto marcata  e ben evidente dei livelli ambientali, da ricollegare ai regimi produttivi delle vetrerie (periodi di fermo attività e chiusura feriale vs. periodo di massima attività).
+
+Analizzando nel dettaglio il grafico risulta molto chiaro che i valori più alti sono sistematicamente registrati nel periodo di massima attività delle vetrerie (da marzo a luglio) mentre nei mesi di chiusura e di riduzione dell'attività (agosto-settembre), o di fermo produzione (dicembre-gennaio), si registra una significativa diminuzione, sia nei singoli valori di concentrazione (medie 24h), che nel valore mediano di tendenza centrale della serie storica (curva di *'smoothing'*). 
+
+Rilevante appare poi l'effetto del periodo di 'lockdown' che, considerando il solo intervallo temporale di limitazioni più 'strette', da marzo a giugno 2020, ha determinato una significativa riduzione dei livelli di inquinanti in aria ambiente evidenziando, ancora una volta, la marcata e diretta correlazione con l'attività di fusione delle vetrerie. 
+
+Nel grafico la retta orizzontale, tratteggiata in colore verde, indica il valore di concentrazione corrispondente al limite di quantificazione (LQ), e permette di apprezzare come i livelli ambientali misurati siano caratterizzati da un considerevole numero di osservazioni del tutto trascurabili (ancora una volta questo effetto è risultato particolarmente evidente durante il 'lockdown' e nel corso delle periodiche chiusure estive e di fermo attività). 
+
+Nel grafico 'boxplot' riportato in Figura \@ref(fig:cd-boxplot-month-type) sono messe a confronto le concentrazioni atmosferiche di Cadmio (*Cd*), stratificate per 'mese tipo' relative al quinquennio di riferimento 2017-2022,  monitorate rispettivamente presso i siti di 'Sacca Fisola' (Venezia, in colore 'azzurro') e di 'Foscolo' (Murano, in colore 'rosso').  
+
+Dal grafico si nota, in particolare per il sito 'Foscolo', una significativa 'controtendenza' nell'andamento delle concentrazioni di Cadmio (*Cd*) rispetto a quella 'tipica' degli inquinanti 'stagionali' che, invece, risulta abbastanza ben esemplificata dai corrispondenti valori registrati presso il sito 'Sacca Fisola'. 
+
+A causa degli effetti meteo-climatici e del profilo emissivo delle sorgenti, i valori ambientali più elevati degli inquinanti atmosferici (tra i quali in primo luogo il *PM10* e, quindi, almeno in parte, i Metalli) si manifestano 'usualmente' nel corso del periodo 'invernale' (soprattutto nei mesi di dicembre, gennaio e febbraio), mentre si osserva una marcata flessione dei livelli ambientali già a partire dal periodo 'primaverile' (marzo-aprile), per poi ridursi drasticamente nel corso dei mesi 'estivi' (in modo più evidente a partire da giugno-luglio). 
+
+Come risulta dal 'boxplot' riprodotto in Figura \@ref(fig:cd-boxplot-month-type), presso il sito 'Foscolo' si nota rispetto a 'Sacca Fisola' che le concentrazioni di Cadmio (*Cd*)  tendono ad aumentare nel periodo da marzo a luglio per poi scendere bruscamente nel mese di agosto e riprendere a salire da settembre fino a novembre, per stabilizzarsi poi nel mese di dicembre.
+
+L'assenza o la non marcata presenza di questo andamento particolare presso il sito di 'Sacca Fisola' depone per una caratteristica tipicamente 'locale e sito specifica' del profilo delle concentrazioni ambientali di Cadmio (*Cd*) misurate presso il sito 'Foscolo' che sono, invece, necessariamente da correlare in modo significativo all'attività emissiva delle vetrerie artistiche presenti nell'isola di Murano. 
+
+```{r, cd-boxplot-month-type, fig.align="center", fig.cap="Cadmio (Cd). Boxplot mese tipo 2017-2022: Foscolo vs. Sacca Fisola.", fig.scap="Cadmio (Cd). Boxplot mese tipo.",echo=FALSE, out.width='100%'}
+# read chunk
+```
+
+
+#### Arsenico (*As*)
+
+I composti dell'Arsenico (*As*) derivano dall'utilizzo di affinanti o di coloranti per la produzione del vetro opaco, ad esempio nella forma del *Triossido di Arsenico*, $\mathrm{(As_2O_3)}$.
+Al fine di eliminare tali composti dalle miscele minerali utilizzate per la produzione del vetro artistico, nel 2011 è stato realizzato un progetto di ricerca sostenuto da finanziamenti pubblici (Ministero dello Sviluppo Economico, Ministero dell'Ambiente e Ministero della Salute) e affidato alla Stazione Sperimentale del Vetro. 
+
+Il progetto, concluso nel maggio 2012, ha individuato come possibili sostituti all'impiego di composti dell'Arsenico (*As*) nella produzione del vetro artistico, il Diossido di Cerio $\mathrm{(CeO_2)}$ e la loppa di altoforno, anche se queste due alternative non hanno comunque avuto molto successo da un punto di vista dell'applicazione pratica. 
+
+Le concentrazioni ambientali di Arsenico (*As*) rappresentate in Figura \@ref(fig:as-ts24h), evidenziano nel tempo un progressivo calo che è da ricollegare al divieto di utilizzo (in vigore da maggio 2015) dei 'composti arseniati' previsto dal Regolamento REACH @reach:2006.
+
+Come evidente dal grafico non mancano, tuttavia, osservazioni ambientali caratterizzate da livelli di concentrazione di Arsenico (*As*) tutt'altro che trascurabili. 
+
+Da rilevare, inoltre, l'elevatissimo numero di campioni con concentrazione inferiore al limite di quantificazione (LQ), corrispondente a 1 \ngmc ed indicato nel grafico con una linea di colore verde, in Figura \@ref(fig:as-ts24h).  
+
+Anche per l'Arsenico (*As*), similmente a quanto già visto in precedenza per il Cadmio (*Cd*), si evidenzia la forte correlazione dei valori ambientali con il ciclo produttivo tipicamente discontinuo della lavorazione del vetro artistico.  
+
+Per l'Arsenico (*As*), rispetto alla verifica di conformità prevista dal DLgs. 155/2010, non si rilevano sostanziali criticità, con valori medi annuali che dal 2017 sono risultati sempre inferiori al valore obiettivo di 6 \ngmc. Tuttavia, nell'isola di Murano presso il sito 'Foscolo' si rilevano valori significativamente superiori a quelli registrati negli stessi periodi di monitoraggio presso la stazione di fondo urbano insulare di 'Sacca Fisola' (Venezia). 
+
+Per maggiori informazioni si rimanda a quanto riportato in dettaglio nella relazioni ARPAV 2022 e 2023 @arpav-qa:2022, @arpav-qa-murano:2023. 
+
+```{r, as-ts24h, fig.align="center", fig.cap="Arsenico (As). Medie 24h periodo 2016-2022, Foscolo.", fig.scap="Arsenico (As). Serie storica.", echo=FALSE, out.width='100%'}
+# read chunk 
+```
+
+#### Antimonio (*Sb*)
+
+In generale la sostituzione dei composti dell'Arsenico (*As*) come affinante del vetro viene effettuata con risultati accettabili mediante l'utilizzo di composti dell'Antimonio (*Sb*) che è caratterizzato da una minore tendenza ad evaporare dal bagno di vetro.
+
+Anche per quanto riguarda l'andamento delle concentrazioni ambientali di Antimonio (*Sb*), rappresentate nel grafico riprodotto in Figura \@ref(fig:sb-ts24h), si riscontrano gli elementi tipici di valutazione che sono già stati individuati in precedenza e sono riassumibili in una forte correlazione e dipendenza dei livelli ambientali misurati presso il sito 'Foscolo' in funzione del ciclo produttivo del vetro.
+
+Ricordiamo che l'Antimonio (*Sb*) è un Metallo non previsto dalla normativa sulla qualità dell'aria ambiente per cui non esistono corrispondenti valori limite di tipo cogente.
+
+```{r, sb-ts24h, fig.align="center", fig.cap="Antimonio (Sb). Medie 24h perido 2016-2022, Foscolo.", fig.scap="Antimonio (Sb). Serie storica.", echo=FALSE, out.width='100%'}
+# read chunk 
+```
+
+Altri composti metallici, ad esempio quelli a base di Cromo (*Cr*), Nichel (*Ni*) e Piombo (*Pb*), sono utilizzati per particolari tipologie di vetro e per conferire colorazioni caratteristiche al prodotto finito. Vengono impiegati in quantità variabili a seconda dei differenti effetti cromatici desiderati ed alcuni di questi composti sono caratterizzati, nelle particolari condizioni di utilizzo, da volatilità piuttosto elevate.
+
+#### Cromo (*Cr*)
+
+Il Cromo (*Cr*), la cui serie storica dal 2016 monitorata presso il sito 'Foscolo' è rappresentata in Figura \@ref(fig:cr-ts24h), riproduce l'andamento tipico già visto per gli altri Metalli. 
+
+Si notano alcuni livelli di concentrazione molto elevati, molto probabilmente da ricondurre all'effetto dell'attività delle vetrerie, alternati a livelli significativamente più bassi, che rappresentano un segnale evidente del carattere tipicamente 'discontinuo' delle possibili fonti di emissione. 
+
+Il Cromo (*Cr*) è un parametro non normato a livello di qualità dell'aria per cui non esistono limiti di riferimento di tipo cogente.
+
+```{r, cr-ts24h, fig.align="center", fig.cap="Cromo (Cr). Medie 24h perido 2016-2022, Foscolo.", echo=FALSE, fig.scap="Cromo (Cr). Serie storica.", out.width='100%'}
+# read chunk 
+```
+
+#### Nichel (*Ni*)
+
+Il Nichel (*Ni*), la cui serie storica rilevata presso il sito 'Foscolo' dal 2016 è rappresentata in Figura \@ref(fig:ni-ts24h), non evidenzia l'andamento altalenante tipico degli altri Metalli ma presenta livelli medi di concentrazione che, tranne poche eccezioni, sono sempre inferiori al valore obiettivo previsto dalla normativa (20 \ngmc). 
+
+Rispetto alla verifica di conformità prevista dal DLgs. 155/2010 non si rilevano sostanziali criticità, con valori medi annuali che dal 2017 sono risultati sempre significativamente inferiori al valore obiettivo di 20 \ngmc e comparabili con i valori ambientali  rilevati negli stessi periodi di monitoraggio presso la stazione di fondo urbano insulare presso 'Sacca Fisola' (Venezia). Per maggiori informazioni si rimanda a quanto riportato in dettaglio nelle più recenti relazioni ARPAV 2022 e 2023 @arpav-qa:2022, @arpav-qa-murano:2023. 
+
+```{r, ni-ts24h, fig.align="center", fig.cap="Nichel (Ni). Medie 24h perido 2016-2022, Foscolo.", fig.scap="Nichel (Ni). Serie storica.", echo=FALSE, out.width='100%'}
+# read chunk 
+```
+
+#### Piombo (*Pb*)
+
+Il Piombo (*Pb*), rappresentato in Figura \@ref(fig:pb-ts24h), evidenzia il trend tipico dei Metalli strettamente correlati alla produzione del artistica del vetro, con elevati valori di concentrazione alternati a valori significativamente più bassi.
+
+Tuttavia, i livelli ambientali medi annuali non presentano mai significative criticità in relazione al rispetto del valore limite previsto dalla normativa (500 \ngmc, ex DLgs. 155/2010), anche se la serie storica registrata dal 2017 risulta assestata su livelli di concentrazione ambientale tendenzialmente superiori a quanto registrato presso il corrispondente sito di 'Sacca Fisola' @arpav-qa:2022, @arpav-qa-murano:2023. 
+
+```{r, pb-ts24h, fig.align="center", fig.cap="Piombo (Pb). Medie 24h perido 2016-2022, Foscolo.", fig.scap="Piombo (Pb). Serie storica.", echo=FALSE, out.width='100%'}
+# read chunk 
+```
+
+

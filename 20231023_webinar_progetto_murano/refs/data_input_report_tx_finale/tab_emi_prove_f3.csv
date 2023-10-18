@@ -1,0 +1,7 @@
+data,materiale in ingresso al forno, monte - flusso massa [mg/s], valle flusso massa [mg/s]
+11/04/23,minerale base per cristallo trasparente,0.002,0.0001
+12/04/23,cotisso rosso trasparente,0.108,0.0001
+13/04/23,cotisso rosso opaco,0.229,0.0001
+17/04/23,minerale base e ampolle con CdS in polvere,1.853,0.0002
+18/04/23,miscela minerale base e CdS in polvere ,18.965,0.0075
+19/04/23,miscela minerale base e CdS(Se) in polvere,12.407,0.0006

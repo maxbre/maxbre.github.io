@@ -1,0 +1,188 @@
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'` 
+
+```{r appendix, include=FALSE}
+
+# pay attention here this is a selection of the table
+sources_appendix <- readr::read_csv('./data_input/lista_25_vetrerie.csv')
+
+# pay attention here this is a selection of the table
+calpuff_lapmod_appendix <- readr::read_csv('./data_input/calpuff_lapmod.csv') %>% 
+  dplyr::select(-1)
+
+# parameters caso base
+lapmod_setup_base <- readr::read_csv('./data_input/lapmod_setup_parametri_caso_base.csv')
+
+```
+
+# Configurazioni modellistiche {#AA-model-conf}
+
+In questa Appendice sono riportati i principali parametri di configurazione modellistica utilizzati per le stime presentate in dettaglio nel Capitolo \@ref(model-qa).
+
+Le versioni dei software modellistici utilizzati nella presente valutazione sono:
+
+- CALPUFF v. 5.8.5 (US EPA approved);
+
+- LAPMOD v. 20220517.
+
+
+## Parametri di sorgente
+
+In Tabella \@ref(tab:sources-appendix) sono elencate le principali parametrizzazioni relative alle sorgenti emissive. 
+
+Come riferito in dettaglio nel paragrafo \@ref(model-emi-sources) si tratta delle 25 vetrerie artistiche, autorizzate all'utilizzo di composti del Cadmio (*Cd*), ed attive durante la ricognizione 'storica' risalente al periodo di simulazione settembre-dicembre 2017.
+
+
+```{r sources-appendix, echo=FALSE, results="asis"}
+
+# how to remove space after every five lines
+# https://stackoverflow.com/questions/49015578/space-after-every-five-rows-in-kable-output-with-booktabs-option-in-r-markdown
+
+sources_appendix %>%
+  #dplyr::select(c(1:2,4:5:7,15:16,8:9)) %>% 
+  dplyr::select(c(1:7,15:16,8:9)) %>% 
+  knitr::kable(., 
+             col.names = c("Id.", "Abb.", "Nome", "X $[m]$","Y $[m]$" ,"H $[m]$","d $[m]$", "T $[^{\\circ} C]$", "v $[m~s^{-1}]$", "Q $[mg~s^{-1}]$","A $[h]$"),
+             caption = "Parametri di sorgente delle 25 vetrerie attive nel periodo di simulazione modellistica (set-dic 2017).",
+             caption.short ="Parametri di sorgente.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = c("l", "c", "l","c", "c", "r", "r", "r", "r", "r", "r"),
+             format = "latex",
+             escape = FALSE
+             ) %>% 
+  footnote(general = c("X $[m]$, Y $[m]$: coordinate camino (EPSG 32632, WGS 84 / UTM zona 32N);",
+                       "H $[m]$: altezza camino;",
+                       "d $[m]$: diametro camino;",
+                       "T [°C]: temperatura fumi;",
+                       "v $[m~s^{-1}]$: velocità uscita fumi;",
+                       "Q $[mg~s^{-1}]$: flusso di massa inquinante;",
+                       "A $[h]$: ore di attività della sorgente nel periodo 01/09/2017 - 31/12/2017;"), escape =FALSE) %>% 
+  kableExtra::kable_styling(latex_options = "scale_down")
+
+
+```
+
+\newpage
+
+## Parametri di calcolo
+
+In Tabella \@ref(tab:calpuff-lapmod-appendix) sono elencate le principali parametrizzazioni di calcolo comuni ai due sistemi modellistici (CALPUFF e LAPMOD) utilizzati nel presente studio. 
+
+```{r calpuff-lapmod-appendix, echo=FALSE, results="asis"}
+# https://stackoverflow.com/questions/61385461/kableextra-adding-linebreaks-in-columns-with-long-nonwhitespace-strings
+
+knitr::kable(calpuff_lapmod_appendix,
+             caption = "Parametri di calcolo CALMET, CALPUFF, LAPMOD.",
+             caption.short ="Parametri di calcolo.",
+             longtable = FALSE,
+             booktabs = TRUE,
+             format = "latex") %>%
+  collapse_rows(columns = 1, valign = "middle") %>% 
+  footnote(general = c("* Numero stazioni meteo: 39 surface, 3 upper air, 5 over water, 29 precipitation.", "** Livelli verticali [m]: 0, 20, 60, 120, 200, 300, 500, 750, 1000, 2000, 3000."))
+ 
+  #kableExtra::kable_styling(latex_options = "HOLD_position") # this is a more powerful option, it corresponds in latex to [H]
+
+
+```
+
+\par
+
+Al fine di garantire massima completezza di informazione e ripercorribilità delle stime, in Tabella \@ref(tab:lapmod-setup-base-appendix) sono indicate le principali parametrizzazioni relative alla configurazione modellistica LAPMOD utilizzata per la stima nel 'caso base'.
+
+Per le valutazioni relative allo scenario di valutazione 'cautelativo', riferito in dettaglio nel paragrafo \@ref(scen-caut), è stata utilizzata la stessa configurazione del 'caso base', con le seguenti variazioni:
+
+- una tipologia di sorgente emissiva che annulla il *plume rise*, cioè l'innalzamento del pennacchio per effetto termico e meccanico (temperatura e velocità di uscita dei fumi); nel  modello  LAPMOD significa definire delle sorgenti di *tipo 1* nel file delle emissioni (e non più di *tipo 6*, come nel caso base);
+
+- una arbitraria riduzione della quota di emissione a 0.5 m sopra il livello del suolo, con l'obiettivo di mimare un 'abbassamento virtuale' del camino che dovrebbe rendere conto in modo indiretto del possibile effetto *building downwash* (si ricorda che allo stato attuale LAPMOD non è ancora in grado di simulare l'effetto scia degli edifici circostanti ad un camino di emissione).
+
+```{r lapmod-setup-base-appendix, echo=FALSE, results="asis"}
+
+knitr::kable(lapmod_setup_base,
+             caption = "Dettaglio parametri setup modellistico LAPMOD.",
+             caption.short ="Dettaglio parametri LAPMOD.",
+             longtable = FALSE,
+             booktabs = TRUE,
+             format = "latex") %>%
+  #kableExtra::kable_styling(latex_options = "hold_position") 
+  kableExtra::kable_styling(latex_options = "HOLD_position") # this is a more powerful option, it corresponds in latex to [H]
+
+```
+
+Nel seguito si riporta una breve descrizione dei parametri di configurazione LAPMOD:
+
+- ITDMRD: intervallo di lettura del dato meteorologico (CALMET) in secondi;
+
+- ITDMIRD: numero di interpolazioni temporali delle variabili meteorologiche tra letture successiva dei dati in ingresso (CALMET);
+
+- LNOW: variabile logica (true/false) che indica di sopprimere le *componenti verticali* (w) del campo di vento (CALMET); 
+
+- NPART: numero di particelle computazionali per  minuto emesse da ogni singola sorgente;
+
+- IPRTYPE: algoritmo di *plume rise* (innalzamento del pennacchio); il valore 2 corrisponde all'utilizzo dell'algoritmo di Webster e Thomson (2002) @wt_plume:2002;
+
+- IENTR: tipo di *entrainment* da utilizzare quando, per descrivere il *plume rise*, viene scelto l'algoritmo di Janicke e Janicke @janicke_plume:2001; indicazione non necessaria per l'algoritmo di *plume rise* utilizzato nella presente configurazione di LAPMOD;
+
+- A1, A2, A3 CD:  parametri caratteristici dell'algoritmo di *plume rise* di Webster e Thomson (2002) @wt_plume:2002 
+
+- LSTD: variabile logica (true/false) che attiva l'algoritmo di *stack tip downwash*; utilizzata solo per le sorgenti di tipo 6 (puntuali con galleggiamento);
+
+- LPPP: variabile logica (true/false) che attiva l'algoritmo di *parziale penetrazione del plume*; utilizzata solo per le sorgenti di tipo 6 (puntuali con galleggiamento);
+
+- LPIT: variabile logica (true/false) che attiva l'algoritmo dei *livelli di turbolenza interna del plume*; utilizzata solo per le sorgenti di tipo 6 (puntuali con galleggiamento);
+
+- C0: *'costante di Kolmogorov'* utilizzata nel termine di dissipazione della turbolenza atmosferica (influisce sul moto turbolento delle particelle);
+
+- NSAM: numero di campionamenti da effettuare all'interno dell'intervallo di output modellistico per determinare il valore di concentrazione degli inquinanti;
+
+- SAMTYPE: indica la statistica da applicare ai record di campionamento; il valore 1 indica il valore medio dei campionamenti (NSAM);
+
+- CCA: algoritmo adottato per il calcolo della concentrazione degli inquinanti; con il valore 1 viene utilizzato un 'kernel' di tipo gaussiano;
+
+- SIGNUM: fattore moltiplicativo della *sigma orizzontale (SIGMA_H) e verticale (SIGMA_Z)* della particella computazionale.
+
+Per maggiori dettagli sul significato e l'interpretazione fisica dei parametri di configurazione modellistica LAPMOD si rimanda a quanto riportato nel testo del manuale d'utente (https://www.enviroware.it/lapmod/).
+
+
+# Rapporti di prova {#AB-report-emi}
+
+In Appendice sono allegati i rapporti di prova delle analisi alle emissioni relativi alla sperimentazione presso l'impianto pilota 'Effetre'. 
+
+I dati delle misurazioni nelle differenti condizioni operative d'impianto sono stati utilizzati per le simulazioni modellistiche LAPMOD di dispersione degli inquinanti atmosferici presentate nel Capitolo \@ref(model-qa), al paragrafo \@ref(pilot-study). 
+
+<!-- 
+this is the command for importing a single page pdf as graphics
+
+\begin{center} 
+\includegraphics[scale=0.75, page=1]{./data_input/report/example.pdf}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.75, page=2]{./data_input/report/example.pdf}
+\end{center}
+-->
+
+<!-- 
+remember that this package has been added to the preamble of template.tex
+\usepackage{pdfpages}
+-->
+
+<!-- 
+this is the command to import all pdf pages of a given file 
+
+\begin{center} 
+\includepdf[pages=-, scale=0.95]{./data_input/report/example.pdf}
+\end{center}
+-->
+
+<!--
+\colorbox{yellow}{... pay attention here, read the source file ...}
+
+\colorbox{red}{@@@@@ uncomment next code lines @@@@@}
+
+-->
+
+\begin{center} 
+\includepdf[pages=-, scale=0.95]{./data_input/report_emi_f3/RdP.pdf}
+\end{center}

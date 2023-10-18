@@ -1,0 +1,1478 @@
+```{r setup-model, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE, 
+  fig.retina = 3,
+	fig.align = 'center')
+library(kableExtra)
+```
+
+<!--
+see also template.tex
+% my eventual addtion to superseed default \flushbottom
+%The \raggedbottom declaration makes all pages the height of the text on that page
+% No extra vertical space is added
+% just comment out next line to use the default \flushbottom
+% \raggedbottom can be used in any part of the document and it affects the later pages
+-->
+
+# Le simulazioni modellistiche {#model-qa}
+
+Il 'Progetto Cadmio' prevede l'implementazione di un sistema modellistico di tipo lagrangiano a particelle, tridimensionale, non stazionario (LAPMOD), applicato al caso studio delle 25 vetrerie artistiche attive nell'isola di Murano nel periodo di simulazione da settembre a dicembre 2017, cioè nel periodo per cui sono disponibili le contemporanee misure di qualità dell'aria monitorate presso due siti di monitoraggio, ulteriori rispetto al sito storico 'Foscolo' ubicato in Fondamenta Colleoni. 
+
+Tutti i siti di monitoraggio della qualità dell'aria ubicati presso specifici punti dell'isola di Murano, qui sinteticamente denominati 'Foscolo', 'Serenella' e 'Marco', saranno descritti con maggiore dettaglio nei paragrafi successivi del presente Capitolo, mentre i risultati della simulazione modellistica con LAPMOD saranno confrontati con quelli ottenuti dall'utilizzo del sistema CALPUFF, a *'puff'* tridimensionale non stazionario, che sono già stati in parte presentati e discussi in una relazione ARPAV del 2019 @arpav-vetro:2019, a cui si rimanda direttamente per ulteriori dettagli tecnici.
+
+Per quanto riguarda, invece, la presentazione ed il commento dei dati di qualità dell'aria monitorati presso i tre siti ('Foscolo', 'Marco', 'Serenella'), definiti come 'recettori discreti' ed utilizzati per il confronto con i risultati delle simulazioni modellistiche relative al periodo di riferimento da settembre a dicembre 2017, si rimanda ai contenuti del paragrafo \@ref(model-disc-rec).
+
+I livelli ambientali di Cadmio (*Cd*) monitorati presso i tre punti dell'isola di Murano sono stati confrontati con gli output dei sistemi di calcolo CALPUFF e LAPMOD per una verifica del livello di congruenza tra misure ambientali e stime modellistiche. 
+
+L'obiettivo *(OG-1, OS-3)* della presente valutazione è di produrre un'analisi di sensitività dei risultati utilizzando di differenti sistemi di calcolo (LAPMOD vs. CALPUFF) che si basano su alternative assunzioni di stima, al fine di individuare la configurazione modellistica più adatta per descrivere il caso studio delle vetrerie presenti nell'isola di Murano che utilizzano i composti del Cadmio (*Cd*) come colorante nella produzione del vetro artistico. 
+
+Lo scopo principale delle simulazioni è di individuare, dunque, la parametrizzazione modellistica più adeguata per descrivere l'impatto atmosferico delle vetrerie e, se possibile, produrre un'affidabile e robusta quantificazione del contributo delle sorgenti di emissione (*'source apportionment'*). 
+
+Questo tipo di valutazione rappresenta, infatti, il presupposto fondamentale per un possibile sviluppo delle attività post-progettuali relative alla 'chiusura di stima' rispetto a tutte le sorgenti di emissione presenti nell'isola di Murano (forni fusori delle vetrerie) ed alla quantificazione del relativo contributo rispetto allo stato di qualità dell'aria, facendo riferimento sia ai dati storici del 2017, e quindi alle fonti di emissione che all'epoca operavano nell'isola, sia ad un'eventuale nuova esigenza conoscitiva che prevede, però, la necessaria attualizzazione dell'inventario delle fonti di emissione rispetto all'evoluzione del tessuto produttivo intercorso negli ultimi anni di attività. 
+
+In riferimento all'obiettivo specifico *(OG-2, OS-3)* la valutazione modellistica, effettuata nel 2023 con l'utilizzo del sistema modellistico LAPMOD, considera il caso studio di un singolo forno fusorio di tipo sperimentale ('pilota'), allestito e messo in opera presso la ditta 'Effetre Murano srl'. 
+
+Lo scopo principale di questa linea di attività progettuale è di stimare gli effetti ambientali conseguenti a differenti profili di attività, modalità di gestione ed alimentazione del forno, nonché di implementazione di differenti tecnologie e presidi di abbattimento delle emissioni. 
+
+Il possibile ritorno di tipo pratico-operativo della stima modellistica focalizzata su una singola sorgente di emissione (cioè l'impianto pilota 'Effetre' di tipo sperimentale) è la possibilità di definire una serie di 'valutazioni di scenario' che permettano una quantificazione dell'entità della possibile riduzione delle concentrazioni ambientali di inquinanti in funzione di differenti modalità di 'gestione operativa e di processo e di *'gestione ambientale'* nella produzione artistica del vetro nell'isola di Murano.
+
+## Breve descrizione dei sistemi di calcolo {#model-qa-description}
+
+Nel presente paragrafo viene riportata una sintetica descrizione delle principali caratteristiche tecniche e dei fondamenti teorici dei due sistemi modellistici (CALPUFF e LAPMOD) utilizzati nelle valutazioni di dispersione degli inquinanti atmosferici. 
+
+### CALPUFF
+
+Il sistema modellistico CALPUFF è stato sviluppato da Sigma Research Corporation, ora parte di Earth Tech. Inc., con il contributo di California Air Resources Board (CARB). 
+Per tutte le simulazioni qui presentate è stata utilizzata la versione 5.8.5, raccomandata da US-EPA come *'regulatory model'* @calmet_manual:2000, @calpuff_manual:2001 @epa_guidelines:2005.
+
+Il sistema modellistico è costituito da tre processori concatenati:
+
+- CALMET, il processore meteorologico che per 'interpolazione' ricostruisce nel dominio di calcolo il campo tridimensionale di vento e di temperatura, e di tutte le altre variabili micro-meteorologiche;
+
+- CALPUFF, il processore che simula il trasporto e la dispersione degli inquinanti emessi dalle sorgenti all'interno del campo di vento generato da CALMET;
+
+- CALPOST, il post-processore che permette l'estrazione e l'analisi statistica dei dati di output (concentrazione degli inquinanti) prodotti da CALPUFF.
+
+CALMET è un processore meteorologico diagnostico in grado di riprodurre campi tridimensionali di vento e temperatura unitamente a campi bidimensionali dei principali parametri descrittivi della turbolenza atmosferica. Il processore è adatto per simulare il campo di vento su domini caratterizzati da orografia complessa e da diverse tipologie di uso del suolo.
+CALMET è dotato, inoltre, di un modulo micro-meteorologico per la determinazione della turbolenza di tipo termico e meccanico che caratterizza gli strati inferiori dell'atmosfera (*Planetary Boundary Layer, PBL*).
+
+CALPUFF è un modello di dispersione ibrido, multi-strato e non stazionario, in grado di simulare il trasporto, la dispersione, la trasformazione e la deposizione degli inquinanti in condizioni meteorologiche variabili nello spazio e nel tempo. 
+CALPUFF contiene diversi algoritmi, che consentono di tener conto di vari fattori, quali:
+
+- l’effetto scia indotto dagli edifici circostanti (*'building downwash'*) e/o dal camino di emissione (*'stack-tip downwash'*);
+
+- la variazione verticale (*'shear'*) del vento;
+
+- la deposizione secca ed umida degli inquinanti;
+
+- le trasformazioni chimiche degli inquinanti che avvengono in atmosfera (secondo degli schemi semplificati);
+
+- l'effetto dovuto alla presenza di orografia complessa e/o di zone costiere.
+
+In riferimento alle simulazioni per zone costiere, CALPUFF tiene conto dei fenomeni di brezza e modella in modo efficace il cosiddetto '*Thermal Internal Boundary Layer (TIBL)*' che determina la ricaduta al suolo degli inquinanti emessi da sorgenti prossime alla linea di costa.
+
+
+### LAPMOD
+
+Il sistema modellistico LAPMOD @bel_lapmod:2012 @bel_lapmod:2017 @bel_lapmod:2018, proprietà di *Enviroware srl*, (Concorezzo MB, Italia), consiste nei seguenti moduli di calcolo:
+
+- il pre-processore delle emissioni LAPEMI;
+
+- il pre-processore meteorologico LAPMET;
+
+- il processore di dispersione degli inquinanti atmosferici LAPMOD;
+
+- il post-processore delle concentrazioni (LAPOST).
+
+Per tutte le simulazioni è stata utilizzata l'ultima versione del codice *(20220517)*, liberamente disponibile al seguente indirizzo web: (https://www.enviroware.it/lapmod/download.html). 
+
+
+LAPMOD è un modello lagrangiano a particelle, tridimensionale e non stazionario, adatto a simulare la dispersione in atmosfera su terreno complesso di sostanze emesse in fase gassosa e/o aerosol. Oltre alla dispersione degli inquinanti convenzionali, LAPMOD è in grado di simulare anche la dispersione in atmosfera di sostanze odorigene e radioattive. 
+
+Le 'particelle virtuali' utilizzate per il calcolo sono spostate nell'atmosfera per effetto del vento (avvezione) e della turbolenza atmosferica (dispersione). Ciascuna 'particella virtuale' trasporta una frazione della massa di inquinante emessa dalla sorgente e in ogni instante della simulazione è possibile calcolare la concentrazione e la deposizione in corrispondenza dei recettori (discreti o di griglia), considerando la loro posizione e le loro masse. Il movimento delle 'particelle virtuali' può essere tracciato per studiarne il flusso atmosferico.
+
+LAPMOD è completamente accoppiato con il processore meteorologico CALMET in grado di fornire tutte le informazioni necessarie riguardanti la velocità e la direzione del vento ed i parametri micro-meteorologici di turbolenza atmosferica necessari per la simulazione modellistica di dispersione degli inquinanti.
+
+LAPMOD costituisce un sistema modellistico completo dotato anche di un pre-processore meteorologico (LAPMET) che permette di utilizzare in input i files meteorologici di superficie e di profilo nel formato del modello EPA AERMOD. 
+I files prodotti dalle simulazioni possono essere elaborati dal post-processore LAPOST per il calcolo delle statistiche di interesse e, nel caso degli odori, per la maggior parte dei parametri *FIDOL (Frequency, Intensity, Duration, Offensiveness, Location)*, cioè Frequenza, Intensità, Durata, Offensività, Posizione.
+
+LAPMOD simula il rilascio emissivo con un rateo variabile arbitrario per varie tipologie di sorgenti: puntuali (galleggianti e non), lineari, circolari, volumetriche (parallelepipedi, sfere), areali (di forma arbitraria).
+
+LAPMOD è in grado di calcolare su periodi predefiniti dall'utente la concentrazione media e la concentrazione integrata degli inquinanti, oltre ai campi di deposizione secca e umida.
+
+## Stime modellistiche per i dati storici {#history-study}
+
+In questo paragrafo vengono presentati i dati in ingresso ai modelli ed i risultati prodotti dalle stime effettuate con CALPUFF e LAPMOD sui dati storici relativi al periodo di simulazione da settembre a dicembre 2017.
+
+La parametrizzazione di CALPUFF è stata predisposta utilizzando tutti i valori di *default* con la sola eccezione relativa a *'MDISP'* (metodo di calcolo dei coefficienti di dispersione) che, secondo quanto raccomandato in Barclay and Scire (2011) @cpuf_guide:2011, è stato impostato con valore pari a 2 (rispetto al valore di *default* uguale a 3).
+Secondo tale parametrizzazione, di tipo più evoluto e moderno, è stato imposto al modello CALPUFF di effettuare il calcolo dei coefficienti di dispersione del pennacchio (*sigma v, sigma w*) tramite l'utilizzo delle variabili interne di tipo micro-metereologico (*ustar, wstar, L, etc.*) rispetto, invece, all'utilizzo 'classico' dei coefficienti derivati dalle classi di stabilità di Pasquill-Gifford-Turner (PGT).
+
+La parametrizzazione ottimale di LAPMOD è stata definita a seguito di un'approfondita analisi di sensibilità dei risultati che, tramite la diretta consulenza tecnica della ditta *Enviroware srl*, proprietaria del codice sorgente, ha visto la realizzazione di circa 60 differenti simulazioni di tipo 'esplorativo' @enviroware:2023.
+Per maggiori dettagli sulla parametrizzazione finale di LAPMOD, si rimanda a quanto riportato in Appendice \@ref(AA-model-conf) del presente rapporto, al paragrafo [Parametri di calcolo].
+
+### Le sorgenti di emissione {#model-emi-sources}
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_input_sources_vetrerie.R')
+```
+
+```{r, input-25vetr, cache=FALSE, include=FALSE}
+# read all data input in above file to be later recalled within different chunks
+```
+
+Nella mappa tematica in Figura \@ref(fig:map-25vetr) viene rappresentata l'ubicazione delle 25 vetrerie artistiche autorizzate all'impiego di composti del Cadmio *(Cd)* che risultavano attive nel 2017 nell'isola di Murano e che sono state considerate nel presente studio modellistico. 
+
+L'elenco delle vetrerie e le informazioni relative alle caratteristiche tecniche dei relativi punti di emissione sono state raccolte grazie al supporto tecnico della Città Metropolitana di Venezia, Unità Operativa Tutela dell'Atmosfera (per maggiori dettagli su questi aspetti si rimanda al report ARPAV del 2019 @arpav-vetro:2019). 
+
+Nella mappa l'ubicazione di ciascuna vetreria è individuata tramite un codice identificativo composto da tre lettere che specifica il nome della ditta riportato nella successiva Tabella \@ref(tab:tab-vetr).
+Si rimanda direttamente alla Tabella \@ref(tab:tab-vetr) per i dettagli tecnici relativi alle caratteristiche emissive specifiche di ciascun punto emissivo (che con maggiore dettaglio sono elencati  anche in Tabella \@ref(tab:sources-appendix), riportata in Appendice \@ref(AA-model-conf)). 
+
+Come evidente dalla mappa si può apprezzare l'elevata 'densità' dei punti di emissione che risultano distribuiti in un ambito territoriale molto ravvicinato. Infatti, tutte le vetrerie oggetto di valutazione nel presente studio risultano ubicate in un raggio di distanza inferiore o prossimo ad 1 km dal centro dell'isola di Murano. 
+
+```{r, map-25vetr, echo=FALSE, fig.align="center", fig.cap="Ubicazione delle 25 vetrerie attive nell'isola di Murano nel periodo di simulazione (set-dic 2017).", fig.scap="Ubicazione vetrerie.", fig.width=12, fig.height=14, message=FALSE, warning=FALSE, out.width='100%'}
+
+# read chuck
+
+```
+
+In Tabella \@ref(tab:tab-vetr) sono riportati i codici identificativi ed i flussi emissivi delle 25 vetrerie artistiche attive nell'isola di Murano nel 2017 e che, all'epoca dello studio, risultavano autorizzate all'impiego di composti del Cadmio (*Cd*) nella miscela minerale inserita nel forno fusorio. 
+
+Per maggiori dettagli sui parametri geometrici e fisici delle singole sorgenti emissive che sono stati utilizzati nei file di input delle simulazioni modellistiche si rimanda alla Tabella \@ref(tab:sources-appendix) riportata nell'Appendice \@ref(AA-model-conf), ai paragrafi: "[Configurazioni modellistiche]" e "[Parametri di sorgente]".
+
+
+```{r tab-vetr, echo=FALSE, results="asis"}
+
+knitr::kable(vetr25[,c(1:3, 6,7,8)], 
+             col.names = c("Id", "Abb.", "Nome", "Q [mg/s]","A [h]", "E [kg]"),
+             caption = "Codici identificativi e flussi emissivi stimati per le  25 vetrerie attive nell'isola di Murano nel periodo di simulazione (set-dic 2017).",
+             caption.short ="Codici identificativi e caratteristiche emissive vetrerie.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = c("l", "c", "l", "c", "c", "c"),
+             format = "latex",
+             #digits=c(1,1,1,0)
+             ) %>% 
+  footnote(general = c("Q [mg/s]: flusso di massa inquinante;",
+                       "A [h]: ore di attività sorgente di emissione nel periodo 01/09/2017 - 31/12/2017;",
+                       "E [kg]: totale emissioni totali nel periodo 01/09/2017 - 31/12/2017;"))
+
+```
+
+### I recettori discreti {#model-disc-rec}
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_input_monitor_qa_points.R')
+```
+
+```{r, input-monitor-qa-points, cache=FALSE, include=FALSE}
+# read all data input in above file to be later recalled within different chunks
+```
+
+Nel periodo di valutazione considerato (settembre - dicembre 2017), le misure di concentrazione ambientale di Cadmio (*Cd*) sono state effettuate da ARPAV (a cura del Dipartimento Provinciale di Venezia) presso tre recettori discreti, cioè tre punti di monitoraggio della qualità dell'aria, ubicati rispettivamente presso:
+
+- la scuola 'Ugo Foscolo' in Fondamenta Colleoni,
+
+- Sacca Serenella (a Ovest dell'isola di Murano), 
+
+- Calle Marco da Muran. 
+
+La strumentazione di monitoraggio è stata posizionata nei tre siti in accordo con il Comune di Venezia, la Città Metropolitana di Venezia e l’ULSS 3 Serenissima.
+Nel seguito del presente report i tre recettori discreti, cioè i tre punti di monitoraggio della qualità dell'aria, saranno sinteticamente individuati con le diciture: 'Foscolo' (Fondamenta Colleoni), 'Marco' (Calle Marco da Muran) e 'Serenella' (Sacca Serenella).
+
+In Figura \@ref(fig:map-3siti-qa) è rappresentata l'ubicazione geografica dei tre recettori discreti corrispondenti ai tre punti di monitoraggio della qualità dell'aria che sono stati appositamente allestiti nell'isola di Murano nel periodo da settembre a dicembre 2017.
+
+```{r, map-3siti-qa, echo=FALSE, fig.align="center", fig.cap="I tre recettori discreti che corrispondono ai punti di monitoraggio della qualità dell'aria nel periodo di simulazione (set-dic 2017).", fig.scap="Recettori discreti.", fig.height=10, fig.width=12, message=FALSE, warning=FALSE, out.width='100%'}
+# read chunk
+```
+
+### Caratterizzazione meteorologica {#model-met}
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_input_prtmet.R')
+```
+
+```{r, input-prtmet, cache=FALSE, include=FALSE}
+# read all data input in above file to be later recalled within different chunks
+```
+
+Le variabili meteorologiche sono state calcolate con CALMET per il periodo di simulazione da settembre a  dicembre 2017 su un'area (dominio di simulazione) delle dimensioni di 8 km  x 10 km, centrato sull'isola di Murano, con una risoluzione di griglia (x,y) pari a 500 m di lato.
+
+Le stazioni meteo al suolo utilizzate nella simulazione CALMET fanno parte della configurazione modellistica ottimizzata su scala regionale e sono costituite principalmente dalle rete ARPAV gestita dal Centro Meteorologico di Teolo (con palo meteo a 10 m), a cui sono state aggiunte: la stazione n. 5 dell'Ente Zona Industriale (EZI) di Porto Marghera e la  stazione meteo ubicata sulla piattaforma al largo del Comune di Venezia necessaria per una più completa descrizione modellistica dell'interfaccia 'terra-mare'.
+
+Per maggiori dettagli si rimanda a quanto riportato nel report ARPAV del 2019 @arpav-vetro:2019 e nel presente rapporto in Appendice  \@ref(AA-model-conf) ([Configurazioni modellistiche]), rispettivamente nei paragrafi: "[Parametri di sorgente]" e "[Parametri di calcolo]".
+
+Nel seguito sono presentati alcuni grafici delle principali variabili meteorologiche e dispersive dell'atmosfera relative all'estrazione nel punto corrispondente al centro del dominio di calcolo CALMET di coordinate X = 762230 m, Y = 5039163 m  (EPSG 32632, WGS 84 / UTM zona 32N), che coincide approssimativamente con il *'centro'* dell'isola di Murano.
+
+#### Vento
+
+Nella Tabella \@ref(tab:tab-wind) sono riportate le principali statistiche descrittive (min, media, mediana, max, quartili inferiori e superiori) della velocità scalare del vento stratificate per mese relativo al periodo di simulazione, da settembre a dicembre 2017.
+
+La velocità mensile media più elevata è risultata di 2.9 \mps a settembre mentre la velocità mensile più alta è stata registrata a novembre con un valore pari a 12.7 \mps. Le velocità mensili mediane, fatta la sola eccezione per settembre (2.8 \mps), sono risultate sempre inferiori a 2 \mps. 
+
+
+```{r tab-wind, echo=FALSE, results="asis"}
+
+#stat for wind by month
+met %>% 
+  filter(month(date)>8) %>% 
+  group_by(month=factor(format(date, '%m-%Y'))) %>%
+  #group_by(month=month(date, label=TRUE)) %>%
+  summarise(n=n(),
+            min=min(ws),
+            p25=quantile(ws, 0.25),
+            mean=mean(ws), 
+            median=median(ws),
+            p75=quantile(ws, 0.75),
+            max=max(ws))%>%
+  knitr::kable(col.names = c("mese", "n", "min", "25° perc.","media","mediana","75° perc.", "max"),
+             caption = "Statistiche descrittive della velocità scalare del vento $[m~s^{-1}]$ stratificate per mese nel periodo di simulazione (set-dic 2017).",
+             caption.short = "Statistiche descrittive velocità del vento.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             digits=c(0,0,1,1,1,1,1,1))
+
+```
+
+\par
+
+Nella successiva Figura \@ref(fig:wind-rose) sono riprodotte le rose dei venti stratificate per mese (da settembre a dicembre 2017) in relazione al punto di estrazione ubicato al centro del dominio di calcolo di CALMET. 
+
+La direzione prevalente di provenienza dei venti risulta dal settore N, fatta eccezione per il mese di settembre in cui è da NNE. Il mese con velocità del vento più intensa e direzione di provenienza NE è novembre.
+
+```{r, wind-rose, echo=FALSE, fig.align="center", fig.cap="Rosa dei venti stratificata per mese nel periodo di simulazione (set-dic 2017).", fig.scap="Rosa dei venti per mese", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+
+# wind-rose chunk
+
+```
+
+In Figura \@ref(fig:wind-rose-day-night) viene rappresentata la stratificazione delle rose dei venti relative al punto corrispondente al centro del dominio di calcolo per il periodo diurno e notturno, sempre in riferimento all'intervallo temporale di simulazione da settembre a dicembre 2017. 
+
+Anche in questo caso si nota la netta prevalenza dei venti di provenienza dai settori N e NNE e, nel caso del periodo diurno, un sensibile incremento delle frequenze dei venti con direzione di provenienza da SSE ('brezza di mare'). 
+Ancora una volta i venti di maggiore intensità provengono dal settore NE ('intrusioni di bora').
+
+```{r, wind-rose-day-night, echo=FALSE, fig.align="center", fig.cap="Rosa dei venti stratificata per periodo diurno vs. notturno nel periodo di simulazione (set-dic 2017).", fig.scap="Rosa dei venti dì e notte.", fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+
+# wind-rose chunk
+
+```
+
+Infine, nel grafico in Figura \@ref(fig:wind-barplot) viene rappresentata la frequenza di distribuzione delle classi di intensità del vento, sempre relative al punto del centro di domino di calcolo CALMET. Si nota che le intensità prevalenti sono distribuite nelle tre classi 'centrali', comprese tra 1 e 6 \mps, mentre l'entità complessiva delle calme di vento, qui definite con velocità < 0.5 \mps, ammonta a circa il 3% delle registrazioni complessive. 
+
+La frequenza complessiva delle classi di intensità del vento inferiori a 1 \mps rende conto di circa il 10% del totale dei casi registrati nel periodo di simulazione.
+
+```{r, wind-barplot, echo=FALSE, fig.align="center", fig.cap="Frequenza percentuale delle classi velocità del vento $[m~s^{-1}]$ nel periodo di simulazione (set-dic 2017).", fig.scap="Classi di velocità del vento.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+#### Temperatura
+
+In Figura \@ref(fig:temp-line-year-month) è rappresentato il profilo annuale delle temperature nel punto di estrazione corrispondente al centro del dominio di calcolo, stratificato per orario del giorno tipo e per mese.
+Dal grafico si nota come il giorno tipo mensile (linea continua rossa), come ampiamente atteso, tende a posizionarsi su valori significativamente decrescenti nel periodo di simulazione da settembre a dicembre.
+
+La distribuzione media mensile delle temperature è rappresentata anche in forma di grafico 'boxplot' (Figura \@ref(fig:temp-boxplot-year-month)) in cui è reso ancora più evidente l'andamento del profilo temporale relativo a primo quartile (25° percentile), mediana (50° percentile), terzo quartile (75° percentile), valori massimi e minimi. Nel grafico è stato aggiunto anche il valore della media (asterisco di colore rosso), per delineare con maggiore chiarezza l'andamento generale delle temperature nel corso del 2017, ed in particolare il trend nettamente decrescente all'interno del periodo di simulazione considerato (da settembre a dicembre).
+
+```{r, temp-line-year-month, echo=FALSE, fig.align="center", fig.cap="Temperatura. Distribuzione annuale con profilo giorno tipo stratificato per mese del 2017.", fig.scap="Temperatura. Profilo annuale.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+
+```{r, temp-boxplot-year-month, echo=FALSE, fig.align="center", fig.cap="Temperatura. Boxplot mensile nel 2017.", fig.scap="Temperatura. Boxplot mensili.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+
+#### Precipitazioni
+
+In Figura \@ref(fig:prec-year-month) è rappresentata la precipitazione totale mensile nel 2017 per i dati estratti da CALMET. 
+
+La precipitazione totale annuale è pari a circa 673 mm, mentre la precipitazione totale relativa al solo periodo di simulazione, da settembre a dicembre 2017, ammonta a circa 325 mm, cioè un valore corrispondente a circa la metà del totale annuo di precipitazioni.
+
+Per quanto riguarda la distribuzione mensile delle precipitazioni, dal grafico risulta evidente che il valore massimo assoluto è stato registrato nel mese di settembre, con circa 174 mm, mentre il valore minimo assoluto nel mese di marzo, con circa 8 mm. Rispetto al periodo di simulazione considerato il mese più piovoso coincide con il mese più piovoso in assoluto (settembre), mentre quello meno piovoso è ottobre, con circa 13 mm di precipitazioni.
+
+```{r, prec-year-month, echo=FALSE, fig.align="center", fig.cap="Precipitazioni totali mensili nel 2017.", fig.scap="Precipitazioni totali mensili.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+#### Altezza di rimescolamento
+
+L'altezza di rimescolamento può essere sinteticamente definita come l'altezza dello strato dell'atmosfera più prossimo alla superficie terrestre all'interno della quale un inquinante viene disperso verticalmente per turbolenza sia di tipo meccanico che convettivo. Il valore dell'altezza di rimescolamento è il parametro che influenza direttamente la concentrazione degli inquinanti atmosferici immessi nell'atmosfera in prossimità della superficie terrestre (corrispondente ai primi 2-3 km di altezza).
+
+La distribuzione mensile (variazione stagionale) dell'altezza di rimescolamento nel punto di estrazione corrispondente al centro del dominio di calcolo CALMET è rappresentata in Figura \@ref(fig:hmix-year). 
+
+Nel grafico viene indicato con una linea rossa l'andamento del profilo medio giornaliero 'tipo' per il mese di riferimento che evidenzia, come ampiamente atteso, valori mediamente più elevati nei tipici mesi 'caldi', a maggior irraggiamento solare (da maggio ad agosto), ed una netta e significativa tendenza alla diminuzione a partire dal mese di settembre, creando, in questo modo, condizioni meno favorevoli alla dispersione (e quindi più favorevoli al ristagno) degli inquinanti atmosferici emessi a livello del suolo.
+
+La distribuzione oraria (variazione notte-dì) dell'altezza di rimescolamento per il giorno tipo relativo al solo periodo di simulazione, da settembre a dicembre 2017, è rappresentata in dettaglio in Figura \@ref(fig:hmix-day-set-dic). Dal grafico si evidenzia chiaramente come i valori minimi di altezza di rimescolamento si verificano nel periodo notturno (tipicamente caratterizzato da condizioni di stabilità atmosferica) mentre questi crescono significativamente nel corso del periodo diurno in funzione dell'aumento della quantità di radiazione solare incidente. 
+
+```{r, hmix-year, echo=FALSE, fig.align="center", fig.cap="Altezza di rimescolamento. Distribuzione mensile nel 2017.", fig.scap="Altezza di rimescolamento. Distribuzione mensile.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+```{r, hmix-day-set-dic, echo=FALSE, fig.align="center", fig.cap="Altezza di rimescolamento. Giorno tipo nel periodo di simulazione (set-dic 2017).", fig.scap="Altezza di rimescolamento. Giorno tipo.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+#### Classi di stabilità 
+
+La classe di stabilità atmosferica è un indice sintetico dello stato dell'atmosfera che ha l'obiettivo di fornire una classificazione delle configurazioni meteorologiche prevalenti che influenzano la dispersione degli inquinanti nella porzione più bassa, a diretto contatto con la superficie terreste.
+
+Lo schema di Pasquill-Gifford-Turner (PGT) prevede complessivamente 6 classi di stabilità, indicate dalla lettera *A* alla *F*.
+Le prime tre categorie, le *classi A, B e C*, rappresentano complessivamente condizioni 'favorevoli' alla dispersione degli inquinanti. La classe *A* rappresenta situazioni molto convettive con turbolenza  di origine principalmente termica, la classe *C* condizioni convettive, con prevalente turbolenza di origine meccanica, mentre la classe *B* è indicativa di una situazione 'intermedia' alle due precedenti.
+
+La classe *D* rappresenta tipicamente condizioni (stabili o convettive) prossime alle condizioni adiabatiche (cioè condizioni tipicamente 'neutre'). 
+Le due classi *E* ed *F* sono rappresentative rispettivamente di condizioni stabili notturne con vento
+abbastanza elevato e cielo poco nuvoloso o cielo sereno e velocità del vento relativamente bassa (cioè condizioni complessivamente meno favorevoli alla dispersione degli inquinanti atmosferici).
+
+La distribuzione delle classi di stabilità atmosferica di Pasquill-Gifford-Turner (PGT) nel periodo
+da settembre a dicembre 2017 è rappresentata nel grafico a barre in Figura \@ref(fig:pg-year-month-set-dic). 
+La classe più frequente è risultata la *F* corrispondente a condizioni molto stabili, con oltre 36% delle ore totali. Al contrario, la classe *A*, corrispondente a condizioni estremamente instabili, è risultata presente per circa 0.1% delle cadenze orarie: si evidenzia, infatti, che solo 3 ore nell'intero periodo di simulazione hanno registrato condizioni molto favorevoli per la dispersione degli inquinanti.
+
+Da precisare che le classi di Pasquill Gifford Turner (PGT) sono state qui presentate esclusivamente a scopo descrittivo per fornire una caratterizzazione sintetica ed immediata delle condizioni prevalenti di dispersione degli inquinanti nel periodo di simulazione e non sono state effettivamente utilizzate come parametro di calcolo per la stima di dispersione degli inquinanti atmosferici (per questo scopo è stata preferita la parametrizzazione continua con variabili micro-meteorologiche).
+
+```{r, pg-year-month-set-dic, echo=FALSE, fig.align="center", fig.cap="Classi di stabilità (PGT). Distribuzione mensile nel periodo di simulazione (set-dic 2017).", fig.scap="Classi di stabilità (PGT). Distribuzione mensile.", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+### Scenario di valutazione {#scen-base}
+
+Lo scenario di valutazione utilizzato sia per le stime con il sistema modellistico CALPUFF che per LAPMOD è stato definito in riferimento alle emissioni di tipo convogliato che avvengono solo nella fase di fusione e non tratta le emissioni dovute ad eventuale apertura dei camini by-pass o emissioni diffuse dagli ambienti di lavoro e dalle varie linee di lavorazione del vetro non direttamente afferenti al processo di fusione.
+
+L'approccio di valutazione utilizzato è comunque di tipo *cautelativo*, considerato che per ciascuna sorgente emissiva sono stati utilizzati i valori di portata degli effluenti e di concentrazione dell'inquinante Cadmio (*Cd*) riferiti ai valori *massimi autorizzati*. Si ricorda, a tal proposito, che per il Cadmio (*Cd*) il valore di concentrazione massimo autorizzato per tutte le vetrerie che sono attive nell'isola di Murano corrisponde a 0.1 \mgNmc, riferito ad una percentuale di Ossigeno del 13%.
+
+Le ore effettive di attività dei forni fusori, e quindi di emissione a camino delle 25 vetrerie considerate nel presente studio modellistico, sono state ricavate dalle post-elaborazioni delle registrazioni originarie delle temperature di fusione dei forni censiti dal sistema di *'telecontrollo'* gestito dalla Città Metropolitana di Venezia. La velocità degli effluenti è stata ricavata dai valori di portata e dal diametro nominale dei camini o dai dati di archivio presenti in rapporti di prova dei controlli ispettivi e degli autocontrolli aziendali. Analogamente per quanto riguarda le temperature dei fumi. Per maggiori dettagli su tutti questi aspetti metodologici si rimanda al report ARPAV del 2019 @arpav-vetro:2019.
+
+Nella presente stima modellistica il Cadmio (*Cd*) è stato trattato come un generico inquinante *'inerte'*, che non subisce alcuna trasformazione di tipo chimico-fisico nelle fasi di vita successive al suo rilascio in atmosfera. Con l'obiettivo di fornire una valutazione il più possibile *cautelativa* non è stata inoltre considerata alcuna forma di deposizione secca o umida degli inquinanti emessi a camino delle vetrerie.
+
+### Confronto stime CALPUFF e LAPMOD vs. misure {#stime-cpf-lap}
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_output_modeling.R')
+```
+
+```{r, read-data-output, message=FALSE, warning=FALSE, include=FALSE}
+# read chunk ## ---- read-data-output ----
+```
+
+```{r, summary-cpf-lap-mis, message=FALSE, warning=FALSE, include=FALSE}
+# read chunk 
+```
+
+In questo paragrafo sono riportate le statistiche descrittive delle stime presso i recettori discreti e le mappe di concentrazione di Cadmio (*Cd*) nel dominio di calcolo prodotte con le simulazioni CALPUFF e LAPMOD. 
+In particolare, viene proposto un confronto sia rispetto ai valori ambientali misurati che rispetto al grado di convergenza delle stime prodotte dai due alternativi sistemi modellistici.
+
+La Tabella \@ref(tab:tab-cpf-lap-mis) riepiloga le principali statistiche descrittive per le concentrazioni ambientali di Cadmio (*Cd*) presso i tre recettori discreti ('Foscolo', 'Marco', 'Serenella') mettendo a confronto le misure ambientali ed i risultati delle stime modellistiche prodotte sia con CALPUFF che con LAPMOD.
+
+
+```{r tab-cpf-lap-mis, echo=FALSE, results="asis"}
+
+summary_cpf_lap_mis %>%
+  knitr::kable(col.names = c("recettore", "stima", "n", "min", "25° perc.", "media", "mediana", "75° perc.", "98° perc.", "max"),
+               caption = "Statistiche descrittive. Misure vs. LAPMOD vs. CALPUFF. I valori di concentrazione ai recettori espressi in $[ng~m^{-3}]$.",
+               caption.short = "Misure vs. LAPMOD vs. CALPUFF.",
+               longtable=FALSE,
+               booktabs=TRUE,
+               align = "c",
+               format = "latex",
+               digits=c(0,0,0,1,1,1,1,1,1,1),
+               linesep="") %>%
+  kableExtra::collapse_rows(columns = 1, valign = "middle") %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+```
+
+```{r ratio-model-measure, message=FALSE, warning=FALSE, include=FALSE}
+
+# read discrete receptors
+# cpf_lap_mis <- read_csv('./data_input/recettori_calpuff_lapmod_misure.csv')
+# see previous chunks read-data-output 
+
+#### foscolo
+
+avg_foscolo <- cpf_lap_mis %>%
+  filter(recettore=='foscolo') %>% 
+  group_by(recettore, stima) %>%
+  summarise(avg=round(mean(valore, na.rm=TRUE),1), .groups = 'drop') 
+
+r_fos_cpf <- round(avg_foscolo %>% filter(stima=='misura') %>% pull() / avg_foscolo %>% filter(stima=='calpuff') %>% pull(),0)
+
+r_fos_lap <- round(avg_foscolo %>% filter(stima=='misura') %>% pull() /avg_foscolo %>% filter(stima=='lapmod') %>% pull(),0)
+
+#### marco
+
+avg_marco <- cpf_lap_mis %>%
+  filter(recettore=='marco') %>% 
+  group_by(recettore, stima) %>%
+  summarise(avg=round(mean(valore, na.rm=TRUE),1), .groups = 'drop') 
+
+r_mar_cpf <-round(avg_marco %>% filter(stima=='misura') %>% pull() / avg_marco %>% filter(stima=='calpuff') %>% pull(),0)
+
+r_mar_lap <- round(avg_marco %>% filter(stima=='misura') %>% pull() /avg_marco %>% filter(stima=='lapmod') %>% pull(),0)
+
+
+#### serenella
+
+avg_serenella <- cpf_lap_mis %>%
+  filter(recettore=='serenella') %>% 
+  group_by(recettore, stima) %>%
+  summarise(avg=round(mean(valore, na.rm=TRUE),1), .groups = 'drop') 
+
+r_ser_cpf <- round(avg_serenella %>% filter(stima=='misura') %>% pull() / avg_serenella %>% filter(stima=='calpuff') %>% pull(),0)
+
+r_ser_lap <- round(avg_serenella %>% filter(stima=='misura') %>% pull() /avg_serenella %>% filter(stima=='lapmod') %>% pull(),0)
+
+```
+
+\par
+
+Dalla Tabella si osserva chiaramente che i valori misurati sono molto maggiori per alcune statistiche, quantificabili in termini di ordini di grandezza, rispetto a quelli stimati da entrambi i modelli di calcolo (sia per CALPUFF che per LAPMOD).
+
+Ad esempio, focalizzando l'attenzione sulla media, che tipicamente rappresenta la statistica più robusta, il rapporto tra valori ambientali misurati e quelli stimati da modello vale:
+
+- in Foscolo, circa `r r_fos_cpf` per CALPUFF e circa `r r_fos_lap` per LAPMOD; 
+
+- in Marco, circa `r r_mar_cpf` per CALPUFF e circa `r r_mar_lap` per LAPMOD; 
+
+- in Serenella, circa `r r_ser_cpf` per CALPUFF e circa `r r_ser_lap` per LAPMOD.
+
+Detto in altri termini, al fine di riprodurre i valori ambientali misurati, le stime modellistiche presso i singoli recettori devono essere moltiplicate per un fattore 'correttivo' pari ad un valore del rapporto sopra indicato.
+
+Escludendo, quindi, possibili errori nell'utilizzo dei modelli di dispersione, una simile discrepanza indica necessariamente una forte sottostima dei valori emissivi di Cadmio (*Cd*) che caratterizza quindi i dati di input al modello relativi alle sorgenti considerate nella simulazione.
+Si osserva, inoltre, per tutte le principali statistiche descrittive, fatta la sola parziale eccezione per i valori massimi che tipicamente risultano molto meno stabili, l'ottimo grado di *'convergenza'* delle stime prodotte da CALPUFF e da LAPMOD presso tutti i tre recettori discreti ('Foscolo', 'Marco', 'Serenella').
+
+In Figura \@ref(fig:fig-rec-facetgrid) sono riprodotte in forma di grafici lineari le serie temporali delle concentrazioni medie giornaliere di Cadmio (*Cd*) presso i tre recettori discreti ('Foscolo', 'Marco',  'Serenella'), ottenute da misure ambientali e stime modellistiche con CALPUFF e LAPMOD. 
+
+Da notare che, al fine di rendere più evidente e leggibile l'andamento di ciascuna serie temporale, la scala delle ordinate è stata impostata con un differente intervallo degli estremi inferiore e superiore nonché un diverso passo di risoluzione. Per questo motivo, la lettura del grafico deve essere esclusivamente intesa per evidenziare il significativo scarto tra valori delle misure ambientali e quelli delle stime modellistiche (che sono da ricondurre alle motivazioni già sopra evidenziate).   
+
+```{r, fig-rec-facetgrid, echo=FALSE, fig.align="center", fig.cap="Confronto tra stime modellistiche e misure  presso i recettori discreti.", fig.scap="Misure e stime presso i recettori discreti.", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+
+# read chunck
+
+```
+
+Le Figure \@ref(fig:fos-cpuf-lap), \@ref(fig:mar-cpuf-lap) e \@ref(fig:ser-cpuf-lap) mostrano rispettivamente per i tre recettori discreti 'Foscolo', 'Marco' e 'Serenella' il dettaglio del confronto tra misure ambientali e stime modellistiche prodotte con CALPUFF e LAPMOD. 
+
+Ancora una volta, per una corretta lettura ed interpretazione dei dati è necessario porre particolare attenzione al fatto che si tratta di un grafico lineare con un doppio asse delle ordinate: quello a sinistra è riferito alle misure ambientali mentre quello a destra, opportunamente scalato di un fattore 1000, è riferito alle stime modellistiche. 
+
+Il grafico mette in evidenza la modulazione temporale, che in alcuni punti appare abbastanza 'in fase' tra stime e misure, in particolare per alcuni picchi di concentrazione ma anche il notevole e significativo scarto quantitativo tra misure ambientali e stime modellistiche presso i tre recettori considerati.
+
+```{r, fos-cpuf-lap, echo=FALSE, fig.align="center", fig.cap="Recettore 'Foscolo'. Confronto stime modellistiche vs. misure ambientali.", fig.scap="Stime vs. misure presso recettore Foscolo.", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+# read chunck
+```
+
+```{r, mar-cpuf-lap, echo=FALSE, fig.align="center", fig.cap="Recettore 'Marco'. Confronto stime modellistiche vs. misure ambientali.", fig.scap="Stime vs. misure presso recettore Marco.", message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+# read chunk
+```
+
+```{r, ser-cpuf-lap, echo=FALSE, fig.align="center", fig.cap="Recettore 'Serenella'. Confronto stime modellistiche vs. misure ambientali.", fig.scap="Stime vs. misure presso recettore Serenella.", message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+# read chunk
+```
+
+\par
+
+La Figura \@ref(fig:ggplot-map-grid-calpuff-avg) e la  Figura \@ref(fig:ggplot-map-grid-lapmod-avg) mostrano la mappa di concentrazione media di Cadmio (*Cd*) per il periodo di simulazione considerato (da settembre a dicembre 2017), stimata rispettivamente da CALPUFF e LAPMOD. 
+
+Le mappe evidenziano, ancora una volta, valori di concentrazione generalmente molto bassi in tutto il dominio di calcolo con alcuni *'spot'* di concentrazione più elevati ubicati in prossimità di alcune sorgenti. Tali valori elevati, che risultano spesso confinati entro lo spazio di una o due celle di calcolo (di lato 50 m), risultano comunque ampiamente inferiori, di almeno due ordini di grandezza, rispetto alle misure ambientali (per un confronto numerico si rimanda ai valori riportati in Tabella \@ref(tab:tab-cpf-lap-mis), nella colonna 'media').
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_map_model_output.R')
+```
+
+```{r, read-map-grid-output, cache=FALSE, include=FALSE}
+# read all data grid and shapefile in above file to be later plot within different chunks
+```
+
+```{r, ggplot-map-grid-calpuff-avg, echo=FALSE, fig.align="center", fig.cap="CALPUFF. Mappa concentrazione media nel periodo di simulazione (set-dic 2017).", fig.scap="CALPUFF. Mappa concentrazione media.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-map-grid-lapmod-avg, echo=FALSE, fig.align="center", fig.cap="LAPMOD. Mappa concentrazione media nel periodo di simulazione (set-dic 2017).", fig.scap="LAPMOD. Mappa concentrazione media.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+Per una più efficace visualizzazione e confronto dei risultati modellistici ottenuti con CALPUFF e LAPMOD nella Figura \@ref(fig:ggplot-contour-cpf-lap-avg) sono riportate la mappatura delle isolinee di concentrazione media di Cadmio (*Cd*) per il periodo di simulazione considerato. 
+Nelle mappe sono anche indicate le posizioni dei 3 recettori (punti in colore rosso), le 25 sorgenti emissive (croci in colore rosso) rappresentate dai camini delle vetrerie ed il valore dei massimi spaziali di dominio (indicato con *'max'* nel testo del titolo del riquadro relativo al corrispondente sistema modellistico).
+
+La mappa delle concentrazioni medie per il periodo considerato si estende verso Sud come prevedibile sulla base della direzione del vento prevalente (già mostrata in precedenza con la rosa dei venti, cfr. Figura \@ref(fig:wind-rose) e Figura \@ref(fig:wind-rose-day-night)). 
+
+Per CALPUFF, l’isolinea corripondente a 0.2 \ngmc si estende fino a lambire la coordinata Y = 5037250 m, mentre l’isolinea 0.1 \ngmc si estende fino a poco oltre la coordinata Y = 5036750 m.
+
+Analogamente per LAPMOD le isolinee si estendono verso Sud, ma ad una distanza inferiore. Considerando, ad esempio, il livello 0.1 \ngmc si nota che esso termina circa 750 m prima rispetto a CALPUFF. 
+
+In generale, per LAPMOD si notano picchi più pronunciati attorno alla sorgente, con isolinee (non indicate nel grafico per maggiore facilità di lettura) che si 'chiudono' entro 1 o 2 celle della grigia di calcolo (impostata con un passo di 50 m).
+
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_contour_model_output_avg_period.R')
+```
+
+```{r, read-data-input-grid-avg, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+```{r ggplot-contour-cpf-lap-avg, echo=FALSE, fig.align="center", fig.cap="CALPUFF vs. LAPMOD. Isolinee di concentrazione media $[ng~m^{-3}]$ del Cadmio (Cd) nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.width=6, fig.scap="CALPUFF vs. LAPMOD. Isolinee concentrazione media.", message=FALSE}
+
+# read chunk
+
+```
+
+In Figura \@ref(fig:ggplot-contour-cpf-lap-max-24h)  ed in Figura \@ref(fig:ggplot-contour-cpf-lap-p98-24h)
+sono presentate rispettivamente le mappe:
+
+- del valore massimo delle concentrazioni medie 24h;
+
+- del 98° percentile delle concentrazioni medie 24h (ottenuto estraendo il secondo valore più alto delle medie 24h, considerato che il totale dei giorni di simulazione nel periodo da settembre a dicembre 2017 è pari a 123).
+
+
+<!--
+you can choose among these options
+\smallskip, \medskip, \bigskip, \vspace{1cm}
+-->
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_contour_model_output_max_24h.R')
+```
+
+```{r, read-data-input-grid-max-24h, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+```{r ggplot-contour-cpf-lap-max-24h, echo=FALSE, fig.align="center", fig.cap="CALPUFF vs. LAPMOD. Isolinee di concentrazione massima medie 24h $[ng~m^{-3}]$ del Cadmio (Cd) nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.scap="CALPUFF vs. LAPMOD. Isolinee concentrazione max 24h.", fig.width=6, message=FALSE}
+
+# read chunk
+
+```
+
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_contour_model_output_p98_24h.R')
+```
+
+```{r, read-data-input-grid-p98-24h, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+```{r ggplot-contour-cpf-lap-p98-24h, echo=FALSE, fig.align="center", fig.cap="CALPUFF vs. LAPMOD. Isolinee di concentrazione al 98° percentile delle medie 24h $[ng~m^{-3}]$ del Cadmio (Cd) nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.scap="CALPUFF vs. LAPMOD. Isolinee concentrazione 98° percentile 24h.", fig.width=6, message=FALSE}
+
+# read chunk
+
+```
+
+### Uno scenario di valutazione altamente cautelativo {#scen-caut}
+
+Come evidenziato nei paragrafi precedenti le stime modellistiche, sia di CALPUFF che di LAPMOD, sono risultate centinaia di volte inferiori ai valori ambientali misurati. 
+
+Considerate tutte le possibili limitazioni dei modelli o gli eventuali problemi di non completa rappresentatività della meteorologia, una tale differenza può  essere spiegata solo attraverso una notevole sottostima delle emissioni (utilizzate in ingresso al modello).
+
+In questo paragrafo vengono esposti i risultati di una ulteriore simulazione modellistica effettuata con il sistema LAPMOD e riferita ad uno *scenario* di valutazione ipotetico *altamente  cautelativo*, qui definito nel tentativo di *'avvicinare'* il più possibile i valori stimati alle misure.
+
+Lo scenario di valutazione utilizzato nella presente simulazione considera sia l'effetto del *building downwash* che di annullamento del *plume rise*. 
+
+Si tratta di uno scenario di valutazione solo in parte realistico, definito con l'obiettivo di valutare se è possibile *'compensare'* il notevole scarto tra i valori delle misure ambientali e delle stime modellistiche con una parametrizzazione *altamente cautelativa'* del modello LAPMOD. 
+
+L'utilità di predisporre un simile scenario di valutazione sta nella possibilità di ottenere un'indicazione di tipo operativo che, come sarà evidente dai risultati presentati nel seguito del presente paragrafo, conferma inequivocabilmente un significativo *deficit informativo* riguardante la corretta e completa caratterizzazione delle emissioni prodotte dalle vetrerie.
+ 
+Dal punto di vista computazionale, c'è da rilevare che LAPMOD non è ancora in grado di simulare l'effetto *building downwash* (*feature* modellistica non ancora rilasciata ufficialmente ed attualmente ancora in fase di *testing*). 
+
+Nel tentativo di *mimare* la cattura del pennacchio inquinante emessa dai camini di emissione all'interno della scia degli edifici circostanti, è stata arbitrariamente ridotta la quota di emissione di ogni camino a 0.5 m sopra il livello del suolo.  
+
+Questo tentativo, per certi aspetti di tipo *artigianale*, di simulazione dell'effetto *building downwash*, è paragonabile a quanto viene fatto nei modelli per stimare l'effetto *stack tip downwash*, in cui, però, la riduzione dell'altezza del camino dipende dalla velocità del vento e dalla velocità di emissione degli effluenti. 
+
+L'annullamento del *plume rise*, cioè la spinta di tipo meccanico e termico di innalzamento del pennacchio degli inquinanti emessi a camino, è stata simulata impostando nel file di input delle emissioni LAPMOD il *tipo 1* per  tutte le sorgenti (invece, nel caso base era stato utilizzato il *tipo 6*). 
+
+Per maggiori dettagli su questi aspetti tecnici si rimanda direttamente a quanto riportato nel testo del manuale d'utente LAPMOD (https://www.enviroware.it/lapmod/).
+
+In Tabella \@ref(tab:tab-lap-bas-bdnpr-mis) viene riportato un confronto delle principali statistiche descrittive presso i recettori discreti 'Foscolo','Marco' e 'Serenella', relative alle misure ambientali ed al calcolo LAPMOD sia per lo scenario *'base'* che per il secondo scenario, *'altamente cautelativo'*. 
+
+Si evidenzia chiaramente che, rispetto ai risultati dello scenario *'base'*, già descritto nel paragrafo \@ref(scen-base), lo scenario di valutazione *'altamente cautelativo'*, che prevede di considerare sia l'effetto *'building downwash'* che l'annullamento del *'plume rise'*, pur evidenziando stime di concentrazione più elevate, in particolare per quanto riguarda i valori dei percentili 'alti', non riesce comunque ad avvicinare in modo significativo i livelli di concentrazione rilevati dalle misure ambientali.
+
+Anche in questo caso, analogamente a quanto evidenziato nel paragrafo \@ref(stime-cpf-lap), i valori ambientali misurati sono risultati molto maggiori rispetto a quelli stimati da modello. 
+
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_output_modeling_lapmod_base_hbdnopr.R')
+```
+
+```{r, read-data-output-lap, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+```{r, summary-lap-base-hbdnpr-mis, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+```{r tab-lap-bas-bdnpr-mis, echo=FALSE, results="asis"}
+
+summary_lap_mis %>% 
+ knitr::kable(col.names = c("recettore", "stima*", "n", "25° perc.", "media", "75° perc.","98° perc.", "max"),
+               caption = "Statistiche descrittive. Misure ambientali vs. LAPMOD caso base vs. LAPMOD caso altamente cautelativo (bdnpr). I valori di concentrazione ai recettori sono espressi in $[ng~m^{-3}]$.",
+               caption.short = "Misure vs. LAPMOD 'base' vs. LAPMOD 'altamente cautelativo'.",
+               longtable=FALSE,
+               booktabs=TRUE,
+               align = "llcccccc",
+               format = "latex",
+               digits=1,
+               linesep="",
+               escape = FALSE) %>% 
+    kableExtra::footnote(general = c("base = stime LAPMOD scenario base", 
+                                     "bdnpr = stime LAPMOD scenario altamente cautelativo", 
+                                     "misure = concentrazioni ambientali presso i recettori")) %>% 
+    kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+```
+
+```{r, ratio-mis-lap-hbdnpr, cache=FALSE, include=FALSE}
+
+# read chunk in "03_read_data_output_modeling_lapmod_base_hbdnopr.R"
+# ratio measure vs. model case building downwash no plume rise at each of the 3 receptors
+
+```
+
+\par
+
+Limitandoci al confronto delle sole medie di periodo (settembre - dicembre 2017), si osserva che il rapporto tra valori valori misurati e valori stimati vale circa  `r r_fos_lap` presso il recettore discreto 'Foscolo', circa `r r_mar_lap` presso il recettore 'Marco' e circa `r r_ser_lap` presso il recettore 'Serenella', con un valore medio di tali rapporti che è pari a circa `r r_avg_receptors`.
+
+In altri termini, considerando lo scenario di valutazione più cautelativo, le emissioni in ingresso al modello dovrebbero essere incrementate di circa `r r_avg_receptors` volte al fine di ottenere valori simulati paragonabili a quelli ambientali osservati (misure in campo).
+
+Nelle successive mappe tematiche sono rappresentate, per lo scenario di valutazione altamente cautelativo qui presentato, le stime LAPMOD relative 
+alla concentrazione media di periodo (in Figura \@ref(fig:ggplot-raster-contour-hbd-npr-avg)), 
+al 98° percentile delle concentrazioni medie 24h (in Figura \@ref(fig:ggplot-raster-contour-hbd-npr-p98-m24h)), al valore massimo delle concentrazioni medie 24h (in Figura \@ref(fig:ggplot-raster-contour-hbd-npr-max-m24h)).
+
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_raster_contour_model_output_hbd_npr.R')
+```
+
+```{r, read-map-grid-output-hbd-npr, cache=FALSE, include=FALSE}
+# read chunk
+```
+
+
+```{r ggplot-raster-contour-hbd-npr-avg, echo=FALSE, fig.align="center", fig.cap="LAPMOD. Concentrazione media di periodo del Cadmio (Cd) per lo scenario cautelativo nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.width=6, fig.scap="LAPMOD. Media periodo, scenario cautelativo.",  message=FALSE}
+
+# read chunk
+
+```
+
+
+```{r ggplot-raster-contour-hbd-npr-p98-m24h, echo=FALSE, fig.align="center", fig.cap="LAPMOD. 98° percentile delle concentrazioni medie 24h del Cadmio (Cd) per lo scenario cautelativo nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.width=6, fig.scap="LAPMOD. 98°percentile medie 24h, scenario cautelativo.",  message=FALSE}
+
+# read chunk
+
+```
+
+
+```{r ggplot-raster-contour-hbd-npr-max-m24h, echo=FALSE, fig.align="center", fig.cap="LAPMOD. Valore massimo delle concentrazioni medie 24h del Cadmio (Cd) per lo scenario cautelativo nel periodo di simulazione (set-dic 2017).", fig.height=6, fig.width=6, fig.scap="LAPMOD. Massimo medie 24h, scenario cautelativo.",  message=FALSE}
+
+# read chunk
+
+```
+
+\newpage
+
+## Stime modellistiche per impianto sperimentale {#pilot-study}
+
+Gli obiettivi progettuali *(OG-2) e (OS-3)* prevedono la realizzazione di una serie di misure delle emissioni a camino in relazione all'utilizzo di differenti tecniche di introduzione dei coloranti nel processo produttivo del vetro.
+
+La Vetreria *'Effetre Murano srl'*, consociata a Punto Confindustria di Venezia, si è resa disponibile per l'installazione e l'utilizzo sperimentale di un impianto pilota presso i propri locali produttivi e l'esecuzione di una serie di prove controllate alle emissioni.
+
+L'attività progettuale si prefigge di approfondire le problematiche derivanti dall'impiego di coloranti contenenti Cadmio (*Cd*) nell'industria del vetro artistico, attraverso la valutazione delle emissioni in atmosfera e la sperimentazione delle migliori tecniche di utilizzo dei composti coloranti nelle masse vetrose in fusione.
+
+In questo paragrafo sono riportati:
+
+- gli obiettivi specifici dell'attività di sperimentazione con l'impianto pilota installato presso i locali produttivi della ditta 'Effetre';
+
+- una breve descrizione dell'impianto pilota e delle modalità di conduzione della sperimentazione relativa alle misure delle emissioni a camino;
+
+- la presentazione e la valutazione dei risultati delle emissioni in funzione di differenti tecniche di alimentazione ed introduzione dei coloranti contenenti Cadmio (*Cd*) nel forno sperimentale;
+
+- i risultati delle simulazioni modellistiche di dispersione sui dati sperimentali delle emissioni a camino raccolti nel corso della sperimentazione e valutati in forma di *alternativi scenari di emissione*.
+
+
+### Obiettivi ed attività della sperimentazione
+
+La vetreria *'Effetre Murano srl'*, ubicata in Fondamenta San Giovanni dei Battuti 4/A a Murano, è stata coinvolta, con il coordinamento tecnico di ULSS 3 Serenissima, nella realizzazione di alcune prove che prevedono l'applicazione di differenti tecniche di alimentazione ed introduzione di coloranti contenenti Cadmio (*Cd*) in un impianto di tipo sperimentale allestito e messo in opera per l'obiettivo progettuale.
+
+Gli obiettivi specifici della sperimentazione sono lo studio delle emissioni e la verifica dell'efficacia di abbattimento durante lo svolgimento dei processi di fusione con impiego di composti di Cadmio (*Cd*) secondo differenti tecniche di lavorazione, in particolare:
+
+- in forma 'tradizionale' come miscela minerale di base e colorante in forma di polvere;
+
+- in forma di vetro 'cotisso';
+
+- in forma di 'ampolle', contenenti il colorante in polvere, aggiunte alla miscela minerale di base.
+
+L'attività di sperimentazione consiste nel verificare le variazioni dei livelli emissivi associati alle differenti tecniche di introduzione dei coloranti contenenti Cadmio (*Cd*) nei forni fusori sia in termini assoluti che di efficienza di abbattimento (per confronto delle concentrazioni tra monte e valle del sistema di abbattimento - i.e.  filtro a maniche).
+
+Per standardizzare le condizioni di confronto sono stati acquisiti anche i dati alle emissioni con impiego di *miscela minerale di base* (vetro cristallo) che non prevede l'utilizzo di alcun colorante ('bianco sperimentale').
+
+### Caratteristiche dell'impianto sperimentale
+
+La vetreria 'Effetre' è autorizzata all'esercizio con *"Autorizzazione di Carattere Generale" (ACG)* alle emissioni in atmosfera derivanti dalla produzione di manufatti in vetro artistico, con un numero settimanale di fusioni superiore o uguale a 2 e quantitativi di miscela vetrificabile maggiori o uguali a 200 kg al giorno.
+
+La ditta ha aderito all’*ACG* per "Attività di Produzione Vetro Artistico", di cui alla Determina n. 2165/2015, rilasciata dalla Città Metropolitana di Venezia in data 09/01/2015, con validità fino al 27/07/2030.
+
+Per l'esecuzione delle prove sperimentali è stato installato un forno alimentato a metano *(mod. MINIGLASS MG 250EL)*. Nel forno la regolazione della combustione è di tipo automatico in modo da mantenere una temperatura ottimale durante il processo di fusione. L'impianto è dotato di un sistema di iniezione dell'adsorbente solido (calce + carbone attivo) con micro-dosatore, un sistema di depurazione fumi (filtro a 21 maniche in tessuto/feltro) con sacco di raccolta del reagente esausto, un ventilatore di estrazione ed un camino di espulsione fumi in atmosfera. Il camino e le condotte di collegamento tra le apparecchiature hanno un diametro interno di 250 mm.
+
+L'impianto è stato progettato considerando una velocità nominale degli effluenti di circa 10 \mps ed una portata (secca) di circa 1400 \Nmch. Il camino di espulsione degli effluenti derivanti dal processo di fusione scarica a parete, ad una altezza di circa 6 m dal piano campagna, all'interno di un cortile adibito al deposito del vetro *'cotisso'*.
+
+L'impianto *'Effetre'* rientra formalmente nell'inquadramento normativo previsto dall'art. 272, comma 1, del DLgs. 152/2006 @dlgs_152:2006, che recita testualmente: *'Non sono sottoposti ad autorizzazione di cui al presente titolo gli stabilimenti in cui sono presenti esclusivamente impianti e attività elencati nella parte I dell'Allegato IV alla parte quinta del presente decreto. L'elenco si riferisce quindi ad impianti e ad attività le cui emissioni sono scarsamente rilevanti agli effetti dell'inquinamento atmosferico'*.
+
+L'impianto è quindi classificato tra gli *'impianti ed attività in deroga'*, cioè non soggetti ad autorizzazione ordinaria alle emissioni, e ricompresi nell'elenco dell'Allegato IV, parte 1, al punto jj, *'Laboratori di analisi  e  ricerca,  impianti  pilota  per  prove, ricerche, sperimentazioni, individuazione di prototipi'*.
+
+In Figura \@ref(fig:img-imp-f3) sono presentate alcune immagini dell'impianto sperimentale ed alcune tipiche fasi di della fusione e lavorazione del vetro.
+
+```{r img-imp-f3, fig.cap="Impianto sperimentale installato presso ditta 'Effetre' srl ed alcune fasi della fusione e lavorazione del vetro.", fig.scap="Impianto sperimentale e fasi di lavorazione", echo=FALSE, out.width='90%', fig.align="center"}
+
+include_graphics("./figure/montage_fornace_f3.jpg")
+
+```
+
+#### Posizionamento e geometria del camino
+
+Il camino del forno sperimentale 'Effetre' è posizionato all'interno dei locali produttivi della sede principale della ditta in Fondamenta San Giovanni dei Battuti 4/A a Murano. E' ubicato a poca distanza dai recettori discreti già considerati nelle precedenti simulazioni, in particolare: a meno di 90 m in direzione SSE da 'Foscolo', a circa 170 m in direzione NNE da 'Marco', e a poco meno di 800 m in direzione ESE da 'Serenella'.
+
+Il terminale del camino del forno sperimentale è orizzontale, con sbocco a parete, posto a circa 6 metri di altezza dal suolo e direzionato verso Nord, come indicato in Figura \@ref(fig:img-camino-f3).
+
+<!-- ```{r img-camino-f3, fig.cap="Posizionamento in mappa e dettaglio sbocco camino forno sperimentale 'Effetre'", fig.subcap=c('sbocco orizzontale a parete', 'direzione di sbocco'), fig.scap="Posizionamento camino del forno sperimentale 'Effetre.'", echo=FALSE,  fig.align="center"} -->
+
+<!-- # out.width='50%', out.heigth='60%', -->
+<!-- #include_graphics("./figure/camino_f3_foto.png") -->
+<!-- #include_graphics("./figure/camino_f3_mappa.png") -->
+<!-- #include_graphics("./figure/camino_f3_foto_mappa.jpg") -->
+
+<!-- include_graphics("./figure/camino_f3_mappa_foto.png") -->
+
+<!-- ``` -->
+
+```{r img-camino-f3, fig.cap="Posizionamento in mappa e dettaglio del camino del forno sperimentale 'Effetre'.", fig.subcap=c('direzione di orientamento', 'sbocco orizzontale a parete'), fig.scap="Camino forno sperimentale.", echo=FALSE,  fig.align="center", out.width='50%', out.heigth='60%'}
+
+include_graphics("./figure/camino_f3_map.png")
+include_graphics("./figure/camino_f3_crop.png")
+
+```
+
+
+Nella Tabella \@ref(tab:tab-imp-f3-targa) sono riassunte le principali caratteristiche geometriche del camino di emissione dal forno sperimentale 'Effetre'.
+
+```{r tab-imp-f3-targa, echo=FALSE, results="asis"}
+# read file with table for emissions pilot furnace
+tab_emi_f3 <- readr::read_csv('./data_input/tab_emi_pilota_f3.csv')
+
+tab_emi_f3 %>%
+  knitr::kable(.,
+             #col.names = c(),
+             caption = "Caratteristiche geometriche camino impianto sperimentale installato presso 'Effetre'.",
+             caption.short ="Caratteristiche geometriche camino impianto sperimentale.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = c("l", "c", "r"),
+             format = "latex",
+             escape=FALSE
+             ) %>%
+  footnote(general = "* X, Y: coordinate camino EPSG 32632, WGS 84 / UTM zona 32N;") %>%
+  kableExtra::kable_styling(latex_options = "hold_position", full_width = FALSE) # this is a more powerful option, it corresponds in latex to [H]
+```
+
+
+### Livelli emissivi delle prove sperimentali {#emi-f3-study}
+
+Le prove sperimentali di fusione sono state predisposte con l'obiettivo di verificare l'effetto sulla qualità delle emissioni in funzione dell'introduzione nel forno di fusione di materiali contenenti prodotti coloranti a base Cadmio (*Cd*) in differenti forme, in particolare:
+
+- miscela minerale 'tradizionale' con colorante in polvere a base di *CdS (Solfuro di Cadmio)* e di *Cd(Se)S (Solfo-Seleniuro di Cadmio)*;
+
+- miscela minerale base con colorante a base di *CdS (Solfuro di Cadmio)*  preventivamente dosato ed aggiunto in forma di 'ampolle' di vetro;
+
+- vetro in forma di 'cotisso' colorato, sia 'trasparente' che 'opaco'.
+
+In Figura \@ref(fig:img-mat-prove-f3) sono presentate alcune fotografie esemplificative della differente tipologia di materiale introdotto in fusione nel corso dello svolgimento delle prove sperimentali.
+
+```{r img-mat-prove-f3, fig.cap="Materiali in ingresso al forno per le prove alle emissioni presso l'impianto sperimentale 'Effetre'.", fig.scap="Materiali per le prove alle emissioni", echo=FALSE, out.width='90%', fig.align="center"}
+
+include_graphics("./figure/mat_prove_emi_f3.jpg")
+
+```
+
+Nel corso delle prove sperimentali è stato effettuato il campionamento degli effluenti con due linee di campionamento in serie posizionate rispettivamente *'a monte'* e *'a valle'* del sistema di depurazione fumi per valutare l'efficienza di abbattimento dei filtri a maniche.
+
+Al fine di evitare un possibile 'effetto memoria' del forno è stato predisposto un 'programma di fusione' che ha visto in sequenza, dopo il bianco sperimentale con miscela minerale di base senza aggiunta di coloranti, dapprima l'utilizzo di 'miscele' con un teorico 'basso contenuto' di Cadmio *(Cd)* per proseguire successivamente con materiale a più alto contenuto, fino al 'caso peggiore' rappresentato dalla miscela minerale formata secondo la tecnica di tipo 'tradizionale'.
+
+L'attività di sperimentazione ha avuto una durata di circa due settimane, dal 11/04/2023 al 19/04/2023, in cui sono state eseguite complessivamente 6 prove di misura alle emissioni che, dal punto di vista produttivo, rendono conto di tre cicli di fusione a settimana, con un quantitativo di miscela per singola fusione pari a circa 250 kg di materiale.
+
+Le attività di campionamento delle emissioni sono state svolte a cura del laboratorio chimico dell'*Ente Zona Industriale di Porto Marghera (VE)*.
+
+In Figura \@ref(fig:img-linea-camp-emi-f3) sono riportate alcune immagini di dettaglio della linea di campionamento delle emissioni installata a monte del sistema di abbattimento ed allestita appositamente per lo svolgimento delle prove sperimentali.
+
+```{r img-linea-camp-emi-f3, fig.cap="Dettagli della linea di campionamento alle emissioni per le prove sperimentali presso impianto 'Effetre'.", fig.scap="Linea campionamento emissioni.", echo=FALSE, out.width='90%', fig.align="center"}
+
+include_graphics("./figure/linea_prelievo_emi_f3.jpg")
+
+```
+
+Le date di svolgimento delle prove sperimentali di fusione con i differenti materiali in ingresso al forno ed il valore del flusso di massa dei composti del Cadmio *(Cd)* rilevato dalle linee di campionamento degli effluenti posizionate *'a monte'* ed *'a valle'* del sistema di abbattimento sono riportati rispettivamente in Tabella \@ref(tab:tab-emi-prove-f3-new-monte) ed in Tabella \@ref(tab:tab-emi-prove-f3-new-valle).
+
+I flussi di massa di Cadmio *(Cd)*, espressi in \mgs, sono stati ricavati dai corrispondenti valori di portata degli effluenti [\Nmch] e di concentrazione dell'inquinante [\mgNmc], normalizzati al 13% di Ossigeno di riferimento, ed  indicati nei corrispondenti Rapporti di Prova, allegati in Appendice \@ref(AB-report-emi) del presente rapporto.
+
+Da segnalare che per i campioni con concentrazione inferiore al limite di quantificazione, cioè per i campioni misurati a valle del sistema di filtrazione rilevati nei giorni dal 10 al 12 aprile 2023, è stato assunto, in termini cautelativi, un valore di concentrazione di Cadmio *(Cd)* pari a 0.001 [\mgNmc], cioè corrispondente al limite di quantificazione analitico.
+
+<!--
+```{r tab-emi-prove-f3, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_emi_f3_prove <- readr::read_csv('./data_input/tab_emi_prove_f3.csv')
+
+tab_emi_f3_prove %>%
+  knitr::kable(.,
+             col.names = c("data","materiale in ingresso", "monte * ", "valle **"),
+             caption = "Sintesi dei risultati delle analisi per le prove di utilizzo di differenti materiali in fusione all'impianto sperimentale 'Effetre'.",
+             caption.short ="Sintesi dei risultati delle analisi fusione 'Effetre'.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = c("l", "l", "c", "c"),
+             format = "latex"
+             ) %>%
+  column_spec(2, width = "8cm") %>%
+  add_header_above(c("", "", "flusso di massa $[~mg~s^{-1}]$" = 2), escape = FALSE) %>%
+  footnote(general = c("*  = misurato a monte del sistema di abbattimento",
+                       "** = misurato a valle del sistema di abbattimento")) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position") # this is a more powerful option, it corresponds in latex to [H]
+
+```
+
+```{r tab-emi-prove-f3-new, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_emi_prove_f3_new <- readr::read_csv('./data_input/tab_emi_prove_f3_new.csv', skip= 2)
+
+tab_emi_prove_f3_new %>%
+  knitr::kable(.,
+             col.names = linebreak(c("n",
+                                     "RdP",
+                                     "prova alimentazione",
+                                     "vel\n$[m~s^{-1}]$",
+                                     "temp\n$[^{\\circ} C]$",
+                                     "portata\n$[Nm^{3}~h^{-1}]$",
+                                     "conc\n$[mg~Nm^{-3}]$",
+                                     "rateo\n$[mg~s^{-1}]$",
+                                     "vel\n$[m~s^{-1}]$",
+                                     "temp\n$[^{\\circ} C]$",
+                                     "portata\n$[Nm^{3}~h^{-1}]$",
+                                     "conc\n$[mg~Nm^{-3}]$",
+                                     "rateo\n$[mg~s^{-1}]$"),
+                                  align = "c"),
+
+             caption = "Misure sul forno sperimentale 'Effetre' a mone e a valle del sistema di filtrazione.",
+             caption.short = "Misure sul forno sperimentale",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "cclcccccccccc",
+             format = "latex",
+             escape = FALSE,
+             linesep = ""
+             ) %>%
+  #column_spec(column = c(1, 2, 3, 4, 5, 6), width = c("0.3cm", "2.5cm", "2cm", "2cm", "2.5cm", "3.5cm")) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down","HOLD_position")) %>%
+  kableExtra::add_header_above(c(" " = 3, "a monte sistema filtrazione" = 5, "a valle sistema filtrazione" = 5)) %>%
+  kableExtra::footnote(general = c("RdP = rapporto di prova con numerazione YYMMGG;",
+                        "portata = portata degli effluenti normalizzata alle condizioni di rifermento;",
+                        "conc = concentrazione inquinante normalizzata alle condizioni di riferimento;",
+                        "rateo = flusso di massa inquinante;"),
+                       escape =FALSE)
+
+```
+
+-->
+
+```{r tab-emi-prove-f3-new-monte, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_emi_prove_f3_new <- readr::read_csv('./data_input/tab_emi_prove_f3_new.csv', skip= 2)
+
+tab_emi_prove_f3_new[,1:8] %>%
+  knitr::kable(.,
+             col.names = linebreak(c("n",
+                                     "RdP",
+                                     "prova alimentazione",
+                                     "vel\n$[m~s^{-1}]$",
+                                     "temp\n$[^{\\circ} C]$",
+                                     "portata\n$[Nm^{3}~h^{-1}]$",
+                                     "conc\n$[mg~Nm^{-3}]$",
+                                     "rateo\n$[mg~s^{-1}]$"),
+                                  align = "c"),
+
+             caption = "Misure a monte del sistema di filtrazione nell'impianto sperimentale 'Effetre'.",
+             caption.short = "Misure a monte del sistema di filtrazione.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "cclccccc",
+             format = "latex",
+             escape = FALSE,
+             linesep = ""
+             ) %>%
+  #column_spec(column = c(1, 2, 3, 4, 5, 6), width = c("0.3cm", "2.5cm", "2cm", "2cm", "2.5cm", "3.5cm")) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down","hold_position")) %>%
+  kableExtra::add_header_above(c(" " = 3, "a monte del sistema di filtrazione" = 5)) %>%
+  kableExtra::footnote(general = c("RdP = rapporto di prova con numerazione YYMMGG;",
+                        "portata = portata degli effluenti normalizzata alle condizioni di rifermento;",
+                        "conc = concentrazione inquinante normalizzata alle condizioni di riferimento;",
+                        "rateo = flusso di massa inquinante;"),
+                       escape =FALSE)
+
+```
+
+
+
+```{r tab-emi-prove-f3-new-valle, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+#tab_emi_prove_f3_new <- readr::read_csv('./data_input/tab_emi_prove_f3_new.csv', skip= 2)
+
+tab_emi_prove_f3_new[,c(1:3,9:13)] %>%
+  knitr::kable(.,
+             col.names = linebreak(c("n",
+                                     "RdP",
+                                     "prova alimentazione",
+                                     "vel\n$[m~s^{-1}]$",
+                                     "temp\n$[^{\\circ} C]$",
+                                     "portata\n$[Nm^{3}~h^{-1}]$",
+                                     "conc\n$[mg~Nm^{-3}]$",
+                                     "rateo\n$[mg~s^{-1}]$"),
+                                  align = "c"),
+
+             caption = "Misure a valle del sistema di filtrazione nell'impianto sperimentale 'Effetre'.",
+             caption.short = "Misure a valle del sistema di filtrazione.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "cclccccc",
+             format = "latex",
+             escape = FALSE,
+             linesep = ""
+             ) %>%
+  #column_spec(column = c(1, 2, 3, 4, 5, 6), width = c("0.3cm", "2.5cm", "2cm", "2cm", "2.5cm", "3.5cm")) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down","hold_position")) %>%
+  kableExtra::add_header_above(c(" " = 3, "a valle del sistema di filtrazione" = 5)) %>%
+  kableExtra::footnote(general = c("RdP = rapporto di prova con numerazione YYMMGG;",
+                        "portata = portata degli effluenti normalizzata alle condizioni di rifermento;",
+                        "conc = concentrazione inquinante normalizzata alle condizioni di riferimento;",
+                        "rateo = flusso di massa inquinante;"),
+                       escape =FALSE)
+
+```
+
+### Scenari di valutazione {#scenari-f3}
+
+A partire dai risultati delle misure delle emissioni, già presentati al precedente paragrafo \@ref(emi-f3-study), sono stati delineati quattro scenari emissivi:
+
+- *scenario 1*: rappresenta la situazione tipo di aziende non obbligate all'utilizzo di sistemi di
+filtrazione; per tale scenario è stato utilizzato un rateo emissivo di 0.229 \mgs, pari a quello
+misurato *'a monte'* del sistema di filtrazione quando il forno è alimentato con *cotisso rosso opaco*; per questo scenario si assume un camino con sbocco *verticale* alto 6 m;
+
+- *scenario 2*: rappresenta la situazione tipo di aziende obbligate all'utilizzo di sistemi di
+filtrazione; per tale scenario è stato utilizzato un rateo emissivo di 0.0075 \mgs, pari a quello misurato *'a valle'* del sistema di filtrazione quando il forno è alimentato con *CdS*; per questo scenario si assume un camino con sbocco *verticale* alto 6 m;
+
+- *scenario 3*: rappresenta il caso reale sperimentato presso la ditta 'Effetre'; viene utilizzato un rateo emissivo di 0.0075 mg/s, pari a quello misurato a valle del sistema di filtrazione quando il forno è alimentato con *CdS*; per questo scenario il camino è a parete, con sbocco *orizzontale*, alla quota di 6 m dal suolo;
+
+- *scenario 4*: identico allo *scenario 2* fatta eccezione per un un camino con *altezza doppia* (12 m); questo scenario analizza la possibile diluizione delle emissioni per effetto di un aumento della quota
+di emissione.
+
+Per maggiore confrontabilità dei risultati per tutti gli scenari emissivi sono state considerate la temperatura *media* e la velocità *media* degli effluenti misurati *'a valle'* del sistema di filtrazione, pari rispettivamente a 120.6 °C e 6.7 \mps (cfr. Rapporti di Prova alle emissioni allegati in Appendice \@ref(AB-report-emi)).
+
+Per la stima modellistica è stato definito un *profilo di attività* comune a tutti gli scenari di valutazione, il più possibile aderente al profilo *'medio'* di attività di una vetreria artistica dell'isola di Murano. 
+
+Considerate, dunque,  le principali festività, le ferie (tipicamente il mese di agosto) ed il periodo di fermo produttivo (seconda metà del mese di dicembre), tale profilo di attività prevede una frequenza di circa 2-3 fusioni alla settimana, che rendono conto di un totale complessivo di circa 150 cicli di fusione all'anno. 
+
+Le emissioni sono state ipotizzate avvenire nelle ore serali e notturne, tipicamente nella fascia oraria che va dalle 18 alle 03, ottenendo un numero totale di 1552 ore di emissione/anno.
+
+Nella successiva analisi dei risultati verranno effettuati i seguenti confronti tra i quattro scenari di riferimento:
+
+- *scenario 1 vs. scenario 2*, cioè il 'caso peggiore' con alimentazione a *cotisso* per le vetrerie non obbligate a utilizzare sistema di filtrazione verso il 'caso peggiore' con forno alimentato a *miscela tradizionale* a base di *CdS* con sistema di filtrazione;
+
+- *scenario 2 vs. scenario 3*, cioè l’effetto del camino *verticale* rispetto a quello *orizzontale*, per valutare gli eventuali effetti sulla diluizione dell’inquinante e l’area di impatto;
+
+- *scenario 2 vs. scenario 4*, cioè l’effetto del *raddoppio dell’altezza* del camino (con terminale verticale), per valutare eventuali effetti sulla diluizione dell’inquinante e l’area di impatto.
+
+Le caratteristiche principali dei quattro scenari di riferimento utilizzati per la simulazione degli effetti delle prove sperimentali effettuate presso l'impianto 'Effetre' sono brevemente riepilogati nella successiva Tabella \@ref(tab:tab-emi-scenari-f3).
+
+
+```{r tab-emi-scenari-f3, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_emi_scenari_f3 <- readr::read_csv('./data_input/tab_emi_scenari_f3.csv')
+
+tab_emi_scenari_f3 %>%
+  knitr::kable(.,
+               col.names = linebreak(c("n",
+                                     "tipo\nalimentazione",
+                                     "rateo\nemissivo",
+                                     "sbocco\ncamino",
+                                     "altezza\ncamino (m)",
+                                     "rappresentatività\n del caso tipo"),
+                                  align = "c"),
+             caption = "Principali caratterische degli scenari emissivi simulati per l'impianto sperimentale 'Effetre'.",
+             caption.short = "Scenari emissivi simulati per impianto sperimentale.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "clllcl",
+             format = "latex",
+             escape=FALSE
+             ) %>%
+  #column_spec(column = c(1, 2, 3, 4, 5, 6), width = c("0.3cm", "2.5cm", "2cm", "2cm", "2.5cm", "3.5cm")) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down","hold_position"))
+
+```
+
+### Caratterizzazione meteorologica
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_data_input_prtmet_2022.R')
+```
+
+```{r, input-prtmet-22, cache=FALSE, include=FALSE}
+# read all data input in above file to be later recalled within different chunks
+```
+
+I dati meteorologici utilizzati per la stima delle ricadute degli inquinanti emessi durante le prove sperimentali dell'impianto pilota installato presso la ditta 'Effetre' sono riferiti alle stesse modalità di calcolo e dominio di simulazione già descritti con maggiore dettaglio nel paragrafo \@ref(model-met).
+
+Il dominio di CALMET ha una dimensione di 8×10 $km^2$ con origine nel punto di coordinate UTM 32T X = 757000 m, Y = 5035000 m (EPSG 32632, WGS 84 / UTM zona 32N) e celle di calcolo quadrate con lato di 500 m. In direzione verticale sono state utilizzate 10 griglie di dimensione variabile sino ad una quota massima sopra il livello del suolo di 3000 m.
+
+Al fine di effettuare una valutazione di tipo speditivo della meteorologia prevalente, sono stati estratti i valori delle variabili meteorologiche nel punto corrispondente al centro del dominio di calcolo CALMET di coordinate X = 762230 m, Y = 5039163 m (EPSG 32632, WGS 84 / UTM zona 32N), che coincide approssimativamente con il ‘centro’ dell’isola di Murano (cioè una posizione prossima all'ubicazione della sorgente emissiva simulata - vetreria 'Effetre').
+
+L'intervallo temporale considerato nella presente simulazione è il più recente disponibile, cioè il periodo annuale completo da gennaio a dicembre 2022.
+
+Nella Tabella \@ref(tab:tab-wind-22) sono riportate le principali statistiche descrittive (min, media, mediana, max, quartili inferiori e superiori) della velocità scalare del vento stratificata per mese dell'anno 2022. La velocità media di periodo è compresa tra 1.5 e 2.5 \mps, quella massima è pari a circa 11 \mps.
+
+```{r tab-wind-22, echo=FALSE, results="asis"}
+
+#stat for wind by month
+met %>%
+  group_by(month=factor(format(date, '%m-%Y'))) %>%
+  #group_by(month=month(date, label=TRUE)) %>%
+  summarise(n=n(),
+            min=min(ws),
+            p25=quantile(ws, 0.25),
+            mean=mean(ws),
+            median=median(ws),
+            p75=quantile(ws, 0.75),
+            max=max(ws))%>%
+  knitr::kable(col.names = c("mese", "n", "min", "25° perc.","media","mediana","75° perc.", "max"),
+             caption = "Statistiche descrittive della velocità scalare del vento $[m~s^{-1}]$ stratificate per mese nel 2022.",
+             caption.short = "Statistiche descrittive velocità del vento.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             digits=c(0,0,1,1,1,1,1,1),
+             escape = TRUE)
+
+```
+
+\par
+
+In Figura \@ref(fig:wind-rose-22) sono riprodotte le rose dei venti stratificate per mese dell'anno 2022 relative al punto di estrazione ubicato al centro del dominio di calcolo di CALMET.
+
+Come evidente dal grafico, la direzione prevalente dei venti varia in funzione dei mesi considerati, con una netta prevalenza dai settori N-NE nei mesi 'freddi' ed, invece, da SE-S in quelli più 'caldi'. I venti di intensità maggiore provengono sempre dal settore NE.
+
+Nel corso del periodo *notturno* i venti prevalenti spirano dal settore nord-orientale, mentre nel periodo *diurno* provengono prevalentemente dal settore sud-orientale (cfr. Figura \@ref(fig:wind-rose-day-night-22)).
+
+Le calme, definite in questa analisi come venti di intensità inferiore a 0.5 \mps, interessano circa il 4% delle ore relative all'anno di simulazione 2022 (cfr. Figura \@ref(fig:wind-barplot-22)).
+
+
+```{r, wind-rose-22, echo=FALSE, fig.align="center", fig.cap="Rosa dei venti stratificata per mese nel 2022.", fig.scap="Rosa dei venti per mese.", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+
+# wind-rose chunk
+
+```
+
+
+```{r, wind-rose-day-night-22, echo=FALSE, fig.align="center", fig.cap="Rosa dei venti stratificata per periodo diurno vs. notturno nel 2022.", fig.scap="Rosa dei venti dì vs. notte.", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+
+# wind-rose chunk
+
+```
+
+
+```{r, wind-barplot-22, echo=FALSE, fig.align="center", fig.cap="Frequenza percentuale delle classi velocità del vento $[m~s^{-1}]$ nel 2022.", fig.scap="Frequenza percentuale delle classi velocità del vento.", fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+
+# wind-rose chunk
+
+```
+
+\newpage
+
+### Stime LAPMOD
+
+A partire dalla versione di maggio 2023, LAPMOD è stato modificato per simulare le emissioni provenienti da camini con qualsiasi direzione di sbocco del terminale.
+
+La direzione sul piano orizzontale viene fornita con un angolo azimutale che va da 0 a 360 gradi e segue le convenzioni utilizzate per la direzione del vento (ad esempio, 0 e 360 indicano un camino direzionato verso Nord, 90 indica un camino direzionato verso Est).
+
+L'inclinazione verticale viene specificata tramite un angolo polare che varia da 0 a 180 gradi,
+dove 0 indica un camino verticale, 90 un camino orizzontale e 180 un camino puntato verso il basso
+(del tipo *gooseneck*).
+
+Questi due angoli sono specificati nei due ultimi campi del vettore EMATG dell'input emissivo, che nelle versioni precedenti di LAPMOD non venivano utilizzati per le sorgenti puntiformi.
+
+Le componenti della velocità di uscita nelle tre direzioni sono calcolate a partire dai due angoli sopra descritti. Questo tip di trattazione è necessaria per modelli come LAPMOD, che utilizzano un algoritmo di tipo numerico per il *plume rise*, perché il diametro diventa la condizione iniziale per determinare la sezione del pennacchio.
+
+Nel caso di modelli che utilizzano trattazioni parametriche del *plume rise* si introduce, invece, un *diametro equivalente* per compensare il galleggiamento @epa_proposal:1993. 
+Il diametro equivalente così calcolato potrebbe, però, avere dimensioni di decine di metri, e quindi, porterebbe portare a dei risultati non realistici se fosse utilizzato come dato iniziale in algoritmi numerici @olores:2023. 
+
+Come mostrato in Figura \@ref(fig:img-camino-f3), il camino orizzontale è puntato verso Nord, quindi in input a LAPMOD è stato utilizzato un azimut di 0 gradi e un angolo polare di 90 gradi.
+
+Sono stati utilizzati i parametri di configurazione del modello già definiti a seguito dell'analisi di sensitività effettuata per le precedenti simulazioni @enviroware:2023 e riportati in dettaglio in Appendice \@ref(AA-model-conf) del presente rapporto, al paragrafo [Parametri di calcolo].
+
+L’output di LAPMOD è stato calcolato sulla griglia di punti che ha come angolo SW, le
+coordinate X = 760225 m, Y = 5036725 m , e come angolo NE, il punto di coordinate
+UTM 32T X = 764275 m, Y = 5040775 m (EPSG 32632, WGS 84 / UTM zona 32N).
+
+Inoltre, l’output è stato calcolato in corrispondenza dei tre recettori discreti, 'Foscolo' (Fondamenta Colleoni), 'Marco' (Calle Marco da Muran) e 'Serenella' (Sacca Serenella), già individuati per le precedenti simulazioni, e rappresentati in Figura \@ref(fig:map-3siti-qa). Presso tutti i recettori discreti la stima della concentrazione di Cadmio (*Cd*) è stata calcolata alla quota di 1.5 m sopra il suolo.
+
+Nel seguito vengono presentate le *'valutazioni comparate'* tra gli scenari di valutazione già definiti nel precedente paragrafo \@ref(scenari-f3). 
+
+#### Scenario 1 vs. Scenario 2
+
+Sono confrontati i risultati delle simulazioni modellistiche relative al *'caso peggiore'* con alimentazione a *cotisso* per vetrerie non obbligate a utilizzare un sistema di filtrazione (*scenario 1*), verso il *'caso peggiore'* con forno alimentato a miscela tradizionale a base di *Cd(S)* e sistema di filtrazione (scenario 2).
+
+Dai dati riportati in Tabella \@ref(tab:tab-emi-prove-f3-new-monte) si osserva che, considerando l'alimentazione del forno a *cotisso* senza sistema di filtrazione, il *'caso migliore'* ha un rateo emissivo pari a circa la metà rispetto al *'caso peggiore'* (0.108 \mgs vs. 0.229 \mgs). Da tali considerazioni discende che l'impatto del *'caso migliore'*, con alimentazione a *cotisso* e senza sistema di filtrazione, può essere indirettamente stimato, in modo  speditivo, dimezzando i risultati di seguito presentati per il *'caso peggiore'*.
+
+I valori massimi di concentrazione stimati sull'intero dominio di simulazione sono riportati in Tabella \@ref(tab:tab-out-dom-sc1-vs-sc2), mentre quelli stimati presso i tre recettori discreti sono riportati in Tabella \@ref(tab:tab-out-rec-sc1-vs-sc2).
+
+```{r tab-out-dom-sc1-vs-sc2, echo=FALSE, results="asis"}
+
+# read file
+tab_dom_sc1_vs_sc2 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_dom_sc1_vs_sc2.csv')
+
+tab_dom_sc1_vs_sc2 %>%
+  knitr::kable(.,
+             col.names = c("Scenario",	"max 24h",	"98° perc. 24h",	"media anno"),
+             caption = "Scenario 1 vs. Scenario 2. Stime valori massimi $[ng~m^{-3}]$ sul dominio di calcolo per impianto sperimentale 'Effetre'.",
+             caption.short = "Scenario 1 vs. Scenario 2. Stime valori massimi di dominio.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+ kableExtra::kable_styling(latex_options = c("hold_position"))
+
+```
+
+
+```{r tab-out-rec-sc1-vs-sc2, echo=FALSE, results="asis"}
+
+# read file
+tab_rec_sc1_vs_sc2 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_rec_sc1_vs_sc2.csv', skip=1)
+
+tab_rec_sc1_vs_sc2 %>%
+  knitr::kable(.,
+             col.names = c("recettore",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno"),
+
+             caption = "Scenario 1 vs. Scenario 2. Stime valori massimi $[ng~m^{-3}]$ presso i recettori discreti per impianto sperimentale 'Effetre'.",
+             caption.short = "Scenario 1 vs. Scenario 2. Stime valori massimi ai recettori.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+  kableExtra::add_header_above(c(" " = 1, "Scenario 1" = 3, "Scenario 2" = 3)) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+```
+
+\par
+
+Come atteso, in base ai valori misurati alle emissioni, le stime per lo *scenario 1* sono molto maggiori rispetto a quelle per lo *scenario 2*. Più precisamente, fissata la statistica e la posizione, il rapporto tra valore simulato per lo *scenario 1* e quello simulato per lo *scenario 2* è pari a 30.5.
+
+Questo risultato non sorprende affatto perché è proprio il rapporto tra i due ratei emissivi (0.229 \mgs per lo *scenario 1* e 0.0075 \mgs per lo *scenario 2*), mentre gli altri parametri del camino rimangono invariati. 
+
+Si osserva, inoltre, che il valore massimo della media annuale per lo *scenario 1* (cioè l'ipotetico caso di una vetreria che utilizza *cotisso* e, quindi, non obbligata ad utilizzare il sistema di filtrazione) è pari, per una singola vetreria, a circa il 65% del valore obiettivo di 5 \ngmc previsto dal DLgs. 155/2010.
+
+Le mappe di concentrazione per le tre statistiche considerate (media annuale, 98° percentile medie 24h, massimo medie 24h) sono riportate per lo *scenario 1* in
+Figura \@ref(fig:ggplot-f3-sc1-avg),
+Figura \@ref(fig:ggplot-f3-sc1-p98),
+Figura \@ref(fig:ggplot-f3-sc1-max),
+e per lo *scenario 2* in
+Figura \@ref(fig:ggplot-f3-sc2-avg),
+Figura \@ref(fig:ggplot-f3-sc2-p98),
+Figura \@ref(fig:ggplot-f3-sc2-max).
+
+#### Scenario 2 vs. Scenario 3
+
+I ratei emissivi di entrambi gli scenari si riferiscono al *'caso peggiore'* con forno
+alimentato a miscela tradizionale a base di *CdS (Solfuro di Cadmio)* e presenza di un sistema di filtrazione (0.0075 \mgs). Anche la quota di emissione del camino (6 m) e il diametro (0.25 m) coincidono tra i due scenari qui esaminati. La differenza è l'orientazione del terminale di uscita (sbocco del camino), che è verticale nello *scenario 2* ed orizzontale nello *scenario 3*. L'obiettivo del confronto delle stime relative a questi due scenari è valutare eventuali effetti sulla diluizione dell’inquinante e sull’area di impatto.
+
+I valori massimi di concentrazione stimati sull’intero dominio di simulazione sono riportati in Tabella \@ref(tab:tab-out-dom-sc2-vs-sc3), mentre quelli stimati ai tre recettori discreti sono riportati in Tabella \@ref(tab:tab-out-rec-sc2-vs-sc3).
+
+```{r tab-out-dom-sc2-vs-sc3, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_dom_sc2_vs_sc3 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_dom_sc2_vs_sc3.csv')
+
+tab_dom_sc2_vs_sc3 %>%
+  knitr::kable(.,
+             col.names = c("Scenario",	"max 24h",	"98° perc. 24h",	"media anno"),
+             caption = "Scenario 2 vs. Scenario 3. Stime valori massimi $[ng~m^{-3}]$ sul dominio di calcolo per impianto sperimentale 'Effetre'.",
+             caption.short = "Scenario 2 vs. Scenario 3. Stime valori massimi di dominio.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+ kableExtra::kable_styling(latex_options = c("hold_position"))
+
+```
+
+
+```{r tab-out-rec-sc2-vs-sc3, echo=FALSE, results="asis"}
+
+# read file
+tab_rec_sc2_vs_sc3 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_rec_sc2_vs_sc3.csv', skip=1)
+
+tab_rec_sc2_vs_sc3 %>%
+  knitr::kable(.,
+             col.names = c("recettore",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno"),
+
+             caption = "Scenario 2 vs. Scenario 3. Stime valori massimi $[ng~m^{-3}]$ presso i recettori discreti per impianto sperimentale 'Effetre'..",
+             caption.short = "Scenario 2 vs. Scenario 3. Stime valori massimi ai recettori.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+  kableExtra::add_header_above(c(" " = 1, "Scenario 2" = 3, "Scenario 3" = 3)) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+```
+
+Per quanto riguarda i massimi assoluti sul dominio, la massima media 24h ed il 98° percentile della media 24h nel caso di utilizzo di un *camino orizzontale* (*scenario 3*) superano di circa il 20% le corrispondenti statistiche ottenute con *camino verticale*. Per la massima media annuale l'incremento è invece pari al 16%.
+
+Considerando i recettori discreti, l'incremento maggiore nel passaggio da *camino verticale (scenario 2)* a *camino orizzontale (scenario 3)* si verifica al recettore 'Foscolo', che oltre a essere il più vicino è anche quello verso cui punta il camino orizzontale. Tale incremento è pari al 9% per la massima media 24h, al 16% per il 98° percentile delle medie 24h, e al 10% per la media annuale. 
+
+Al recettore 'Marco' gli incrementi sono invece pari al 4%, 1% e 2%, rispettivamente per massima media 24h, 98° percentile delle medie 24h, e media annuale.
+
+Al recettore 'Serenella' si verifica un aumento del 2% per la massima media di 24h, ma una
+diminuzione sia per il 98° percentile delle medie 24h che per la media annuale (evidentemente perchè il recettore non risulta particolarmente esposto e *'sensibile'* agli effetti delle emissioni se non per particolari e sporadici eventi orari i cui effetti tendono ad essere *'mascherati'* nei valori medi annuali).
+
+Le mappe di concentrazione per le tre statistiche considerate  (media annuale, 98° percentile delle medie 24h, massimo medie 24h) sono riportate per lo *scenario 2* in
+Figura \@ref(fig:ggplot-f3-sc2-avg),
+Figura \@ref(fig:ggplot-f3-sc2-p98),
+Figura \@ref(fig:ggplot-f3-sc2-max),
+e per lo *scenario 3* in
+Figura \@ref(fig:ggplot-f3-sc3-avg),
+Figura \@ref(fig:ggplot-f3-sc3-p98),
+Figura \@ref(fig:ggplot-f3-sc3-max).
+
+Per la massima media 24h con camino *orizzontale* (*scenario 3*) si nota un'isolinea di 1 \ngmc con estensione massima di circa 80 m che, nel caso del camino *verticale* (*scenario 2*) non è presente.
+
+L'isolinea di 0.5 \ngmc è un po’ più ampia per il camino *orizzontale* che non per il camino *verticale*. Se si considera il 98° percentile delle medie 24h, l'isolinea di 0.5 \ngmc sottende un'area maggiore per il camino *orizzontale* (circa 5960 $m^2$) che non per il camino *verticale* (circa 2420 $m^2$).
+
+Anche l'area sottesa dall'isolinea di 0.25 \ngmc è maggiore per il camino *orizzontale*, ma le differenze si riducono significativamente. Le stesse considerazioni fatte per il 98° percentile delle medie 24h valgono anche per le medie annuali, ma con minori differenze in termini 'areali' (cioè dell'estensione del dominio sotteso dall'isolinea).
+
+#### Scenario 2 vs. Scenario 4
+
+I ratei emissivi di entrambi gli scenari si riferiscono al *'caso peggiore'* con forno alimentato a *miscela tradizionale* a base di *CdS (Solfuro di Cadmio)* e presenza del sistema di filtrazione (0.0075 \mgs). L'unica differenza tra i due scenari a contrasto è rappresentata dall'altezza del camino, pari a $6~m$ nello *scenario 2* e a $12~m$ nello *scenario 4*. Lo scopo del confronto tra questi due scenari è valutare eventuali effetti sulla *diluizione* dell'inquinante e sull'area di impatto.
+
+I valori massimi di concentrazione predetti sull'intero dominio di simulazione sono riportati in Tabella \@ref(tab:tab-out-dom-sc2-vs-sc4), mentre quelli predetti ai tre recettori discreti sono riportati in Tabella \@ref(tab:tab-out-rec-sc2-vs-sc4).
+
+```{r tab-out-dom-sc2-vs-sc4, echo=FALSE, results="asis"}
+
+# read file with table for emissions pilot furnace
+tab_dom_sc2_vs_sc4 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_dom_sc2_vs_sc4.csv')
+
+tab_dom_sc2_vs_sc4 %>%
+  knitr::kable(.,
+             col.names = c("Scenario",	"max 24h",	"98° perc. 24h",	"media anno"),
+             caption = "Scenario 2 vs. Scenario 4. Stime valori massimi $[ng~m^{-3}]$ sul dominio di calcolo per impianto sperimentale 'Effetre'.",
+             caption.short = "Scenario 2 vs. Scenario 4. Stime valori massimi di dominio.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+ kableExtra::kable_styling(latex_options = c("hold_position"))
+
+```
+
+
+```{r tab-out-rec-sc2-vs-sc4, echo=FALSE, results="asis"}
+
+# read file
+tab_rec_sc2_vs_sc4 <- readr::read_csv('./data_input/output_scenari_f3/tab_out_rec_sc2_vs_sc4.csv', skip=1)
+
+tab_rec_sc2_vs_sc4 %>%
+  knitr::kable(.,
+             col.names = c("recettore",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno",
+                           "max 24h",
+                           "98° perc. 24h",
+                           "media anno"),
+
+             caption = "Scenario 2 vs. Scenario 4. Stime  valori massimi $[ng~m^{-3}]$ presso i recettori discreti per impianto sperimentale 'Effetre'.",
+             caption.short = "Scenario 2 vs. Scenario 4. Stime valori massimi ai recettori.",
+             longtable=FALSE,
+             booktabs=TRUE,
+             align = "c",
+             format = "latex",
+             escape=FALSE
+             )%>%
+  kableExtra::add_header_above(c(" " = 1, "Scenario 2" = 3, "Scenario 4" = 3)) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+
+```
+
+\par
+
+Per quanto riguarda i massimi assoluti sul dominio, la massima media 24h risulta *dimezzata* nel caso di utilizzo di camino con *altezza doppia* (*scenario 4*), mentre il 98° percentile delle medie 24h e la media annuale sono *ridotti a circa un terzo* rispetto al valore calcolato per lo *scenario 2*.
+
+Considerando, invece, i recettori discreti, presso 'Foscolo' le tre statistiche sono più che *dimezzate* quando si utilizza un camino alto il doppio (*scenario 4*). 
+
+Al recettore 'Marco' la diminuzione nello *scenario 4* è pari a circa il 10% per la massima media di 24h, e al 30% per il 98° percentile delle medie 24h e per la media annuale.
+
+Infine, al recettore 'Serenella' la massima media 24h rimane praticamente identica nei due scenari, mentre nel caso di camino più alto (*scenario 4*) si osserva un aumento del 13% per il 98° percentile delle medie 24h, e del 19% per la media annuale rispetto al caso del camino più basso (*scenario 2*). Anche in questo caso per il recettore più lontano ('Serenella') sembrano valere le considerazioni già fatte in precedenza per cui gli effetti registrati non sono direttamente riconducibili alla variazione delle emissioni.
+
+Le mappe di concentrazione per le tre statistiche considerate (media annuale, 98° percentile delle medie 24h, massimo medie 24h) sono riportate per lo *scenario 2* in
+Figura \@ref(fig:ggplot-f3-sc2-avg),
+Figura \@ref(fig:ggplot-f3-sc2-p98),
+Figura \@ref(fig:ggplot-f3-sc2-max),
+e per lo *scenario 4* in
+Figura \@ref(fig:ggplot-f3-sc4-avg),
+Figura \@ref(fig:ggplot-f3-sc4-p98),
+Figura \@ref(fig:ggplot-f3-sc4-max).
+
+Per la massima media di 24h, con camino alto 12 m (*scenario 4*), si nota l'assenza dell'isolinea 0.5 \ngmc, che, invece, è presente ed arriva ad includere il recettore 'Foscolo' quando il camino è alto 6 m (*scenario 2*). L'isolinea 0.2 \ngmc include un'area più ampia nello *scenario 2* rispetto allo *scenario 4*. L'area sottesa alle isolinee di valore minore è, invece, paragonabile nei due scenari.
+
+Anche per le medie annuali l'isolinea di valore maggiore (0.05 \ngmc) è presente solo nello *scenario 2*. Le aree sottese ai due isolivelli di concentrazione più bassi sono, invece, maggiori nello *scenario 4* (camino di 12 m) rispetto allo *scenario 2* (camino di 6 m).
+
+
+\newpage
+
+<!----- #### scenario 1 #### ----->
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_sc_1_f3.R')
+```
+
+```{r, read-data-grid-f3-sc1, cache=FALSE, include=FALSE}
+# read some data and shapefile in above file, next chunks for reading and plotting the grids
+```
+
+<!--
+...to center a figure vertically on a page
+\begin{figure}[p]
+... here put the figure
+\end{figure}
+-->
+
+```{r, ggplot-f3-sc1-avg, echo=FALSE, fig.align="center", fig.cap="Scenario 1. Media annuale, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 1. Media annuale.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc1-p98, echo=FALSE, fig.align="center", fig.cap="Scenario 1. 98° percentile 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 1. 98° percentile 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc1-max, echo=FALSE, fig.align="center", fig.cap="Scenario 1. Max 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 1. Max 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+<!----- #### scenario 2 #### ----->
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_sc_2_f3.R')
+```
+
+```{r, read-data-grid-f3-sc2, cache=FALSE, include=FALSE}
+# read some data and shapefile in above file, next chunks for reading and plotting the grids
+```
+
+```{r, ggplot-f3-sc2-avg, echo=FALSE, fig.align="center", fig.cap="Scenario 2. Media annuale, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 2. Media annuale.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc2-p98, echo=FALSE, fig.align="center", fig.cap="Scenario 2. 98° percentile 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 2. 98° percentile 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+
+```{r, ggplot-f3-sc2-max, echo=FALSE, fig.align="center", fig.cap="Scenario 2. Max 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 2. Max 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+<!----- #### scenario 3 #### ----->
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_sc_3_f3.R')
+```
+
+```{r, read-data-grid-f3-sc3, cache=FALSE, include=FALSE}
+# read some data and shapefile in above file, next chunks for reading and plotting the grids
+```
+
+```{r, ggplot-f3-sc3-avg, echo=FALSE, fig.align="center", fig.cap="Scenario 3. Media annuale, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 3. Media annuale.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc3-p98, echo=FALSE, fig.align="center", fig.cap="Scenario 3. 98° percentile 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 3. 98° percentile 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc3-max, echo=FALSE, fig.align="center", fig.cap="Scenario 3. Max 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 3. Max 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+<!----- #### scenario 4 #### ----->
+
+```{r, include=FALSE, cache=FALSE}
+knitr::read_chunk('./rscript_source/03_read_grid_plot_sc_4_f3.R')
+```
+
+
+```{r, read-data-grid-f3-sc4, cache=FALSE, include=FALSE}
+# read some data and shapefile in above file, next chunks for reading and plotting the grids
+```
+
+```{r, ggplot-f3-sc4-avg, echo=FALSE, fig.align="center", fig.cap="Scenario 4. Media annuale, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 4. Media annuale.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc4-p98, echo=FALSE, fig.align="center", fig.cap="Scenario 4. 98° percentile 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 4. 98° percentile 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+```{r, ggplot-f3-sc4-max, echo=FALSE, fig.align="center", fig.cap="Scenario 4. Max 24h, stima LAPMOD per sperimentazione 'Effetre'.", fig.scap="Scenario 4. Max 24h.", message=FALSE, warning=FALSE, fig.width=6, fig.height=6}
+# read chunk
+```
+
+

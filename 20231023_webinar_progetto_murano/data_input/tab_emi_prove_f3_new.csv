@@ -1,0 +1,9 @@
+#,RdP,prova alimentazione,A monte del sistema filtrazione,,,,,A valle del sistema di filtrazione,,,,
+,,,vel fumi,temp,portata,conc,flusso massa,vel fumi,temp,portata,conc,flusso massa
+,,,m/s,°C,Nm3/h,mg/Nm3,mg/s,m/s,°C,Nm3/h,mg/Nm3,mg/s
+1,230411/1-2,cristallo bianco,9.03,306.40,500.00,0.013,0.002,7.44,133.40,460.00,0.001,0.0001
+2,230412/1-2,cotisso rosso trasparente,9.42,328.90,590.00,0.657,0.108,6.73,116.30,440.00,0.001,0.0001
+3,230413/1-2,cotisso rosso opaco,9.21,371.60,660.00,1.249,0.229,6.32,112.40,430.00,0.001,0.0001
+4,230417/1-2,ampolle vetro con CdS,8.16,371.60,470.00,14.192,1.853,5.94,118.90,410.00,0.002,0.0002
+5,230418/1-2,CdS,9.07,385.40,430.00,158.777,18.965,6.64,121.40,450.00,0.060,0.0075
+6,230419/1-2,CdS(Se),9.41,361.20,430.00,103.872,12.407,6.97,121.40,430.00,0.005,0.0006

@@ -1,0 +1,185 @@
+---
+draft: false
+title: "Il Progetto Cadmio"
+sub-title: "Qualità dell'aria e modellistica atmosferica delle vetrerie artistiche nell'isola di Murano (Venezia)" # my addition in template, optional
+author: 'Massimo Bressan'
+date: "last compiled: `r Sys.Date()`"
+institution: 'ARPAV'
+department: "Dipartimento Regionale Qualità dell'Ambiente" # my addition in template, optional
+
+knit: bookdown::render_book
+site: bookdown::bookdown_site
+
+# The next two lines allow you to change the spacing in your thesis. You can 
+# switch out \onehalfspacing with \singlespacing or \doublespacing, if desired.
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+
+# Remove the hashtag to specify which version of output you would like.
+# Can only choose one at a time.
+output:
+  thesisdown::thesis_pdf: default 
+#  thesisdown::thesis_gitbook: default         
+#  thesisdown::thesis_word: default
+#  thesisdown::thesis_epub: default
+
+# the following is to force the floating to be placed after the corresponding text
+# remember that in preamble of tex file is needed \usepackage{flafter} 
+# see also next chunk 'global_options'
+pdf_document:
+    extra_dependencies: ["float","flafter"]
+
+# If you are creating a PDF you'll need to write your preliminary content 
+# (e.g., abstract, acknowledgements) below or use code similar to line 25-26 
+# for the .RMD files. If you are NOT producing a PDF, delete or silence
+# lines 25-39 in this YAML header.
+# sommario
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines(here::here("prelims", "00-abstract.Rmd")), collapse = "\n  ")`
+
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  
+# Note that a tab is needed on the line after the `|`.
+# correponding files are stored in dir prelims
+
+acknowledgements: |
+  `r if(knitr:::is_latex_output()) paste(readLines(here::here("prelims", "00-acknowledgments.Rmd")), collapse = "\n  ")`
+
+#dedication: |
+
+#preface: |
+
+# here specify the location of the bibliography 
+bibliography: bib/my_bib.bib
+ 
+# this is for the style of the bibliography
+# citation style language https://citationstyles.org/
+# https://github.com/citation-style-language/styles
+# something to be studied with more attention....
+# Download your specific csl file and refer to it in the line below.
+# this is working fine, no need to change it...
+#csl: csl/apa.csl
+csl: csl/springer-mathphys-brackets.csl
+#csl: csl/oxford-university-press-scimed-numeric.csl
+#csl: csl/nature-no-et-al.csl
+#csl: csl/nature.csl
+#csl: csl/nature-no-superscript.csl
+#csl: csl/wiley-vch-books.csl
+#csl: csl/elsevier-with-titles-alphabetical.csl
+#csl: csl/elsevier-with-titles.csl
+
+# list of tables, toggle logical true/false
+lot: true
+# list of figures, toggle logical true/false
+lof: true
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of 
+metadata used to produce the document.  Be careful with spacing in this header!
+
+If you'd prefer to not include a Dedication, for example, simply delete the section entirely, or silence them (add # before each line). 
+
+If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+
+If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this.
+
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+
+-->
+
+```{r incl-pkgs, include=FALSE}
+library(thesisdown)
+# Set how wide the R output will go
+options(width = 40)
+```
+
+```{r global_options, include=FALSE}
+# this is (should be) a command for preventing the floating of figures, but it somehow effective...
+knitr::opts_chunk$set(fig.pos = 'H')
+```
+
+<!-- this is a personal new command for formatting cadmio in italics
+it can be used throughout the whole text 
+-->
+
+\newcommand{\Cd}{\textit{Cd}}
+
+<!-- The {.unnumbered} option here means that the introduction will be 
+"Chapter 0." You can also use {-} for no numbers on chapters.
+or it can be used the rmarkdown shortcut
+-->
+
+<!-- 
+ug/m3 equals to $\mu*g~m^{-3}$ in rmarkdown
+
+how to write ug/m3 correctly, simply add this in the text
+\si{\micro\gram\per\cubic\metre}
+note that a new package must be added to the template.tex
+\usepackage{siunitx}
+
+\newcommand{\mgmc}{\si{\milli\gram\per\cubic\meter}}
+\newcommand{\ugmc}{\si{\micro\gram\per\cubic\meter}}
+\newcommand{\ugmc}{\si{\micro\gram\per\cubic\meter}}
+
+\SI{40}{\ugmc} (PM10)
+\SI{25}{\ugmc} (PM2.5)
+\SI{40}{\ugmc} (NO2)
+
+\SI{0.1}{mg~Nm^{-3}}. 
+
+\newcommand{\mps}{\si{m~s^{-1}}}
+
+-->
+
+\newcommand{\mgmc}{\si{\milli\gram\per\cubic\metre}}
+\newcommand{\mgNmc}{\si{mg~Nm^{-3}}}
+\newcommand{\Nmch}{\si{N~m^{3}~h^{-1}}}
+\newcommand{\ugmc}{\si{\micro\gram\per\cubic\metre}}
+\newcommand{\ngmc}{\si{\nano\gram\per\cubic\metre}}
+
+\newcommand{\mgs}{\si{mg~s^{-1}}}
+
+\newcommand{\mps}{\si{\metre\per\second}}
+
+# Introduzione {-} 
+
+La problematica ambientale dell'inquinamento atmosferico connesso all'impiego di composti del Cadmio (*Cd*) come sostanze coloranti nella produzione del vetro artistico dalle attività a carattere prevalentemente artigianale presenti nell'isola di Murano (Venezia), ha portato all'inizio del 2019 alla sottoscrizione di un accordo di programma tra il Ministero della Salute e ULSS 3 Serenissima dal titolo: *'Opportunità di elevare i livelli di sicurezza per la salute e per l'ambiente attraverso le misure di gestione del rischio previste dal regolamento REACH per i composti del Cadmio impiegati nella produzione del vetro artistico come coloranti della massa vetrosa'*. 
+
+ULSS 3 Serenissima nel 2022 ha sottoscritto con ARPAV, già partner progettuale, un accordo per la realizzazione di stime modellistiche di dispersione degli inquinanti atmosferici emessi a camino dalle vetrerie artistiche e le analisi chimiche delle emissioni derivanti dalla sperimentazione di diverse tecniche di introduzione di coloranti contenenti Cadmio (*Cd*) presso un impianto pilota di tipo sperimentale.
+
+#### Sezioni e contenuti {-}
+
+Il contenuto del presente rapporto è strutturato nelle seguenti sezioni principali:
+
+- nel Capitolo \@ref(obj-prog) sono presentati nel dettaglio gli obiettivi generali e specifici delle linee di attività curate da ARPAV nell'ambito del *'Progetto Cadmio'*;
+
+- nel Capitolo \@ref(state-qa) viene fornito un inquadramento generale ed un'analisi dei dati sullo stato di qualità dell'aria nell'isola di Murano, con particolare riferimento ai Metalli, e tra questi, il Cadmio (*Cd*), oggetto specifico della presente valutazione;
+
+- nel Capitolo \@ref(model-qa) sono riportati i risultati delle simulazioni di ricaduta degli inquinanti atmosferici stimati con differenti sistemi modellistici (CALPUFF e LAPMOD) per le 25 sorgenti emissive (vetrerie artistiche), ubicate nell'isola di Murano, che risultavano autorizzate all'impiego di composti del Cadmio (*Cd*) ed attive nel periodo di simulazione da settembre a dicembre 2017; nel Capitolo sono, inoltre, discussi i risultati della stima modellistica di dispersione degli inquinanti emessi dall'impianto pilota di tipo sperimentale installato e messo in opera presso i locali produttivi della ditta *'Effetre Murano srl'*; 
+
+- nelle [Conclusioni] sono restituite le principali evidenze dell'attività progettuale ARPAV con particolare riferimento alle misure sullo stato di qualità dell'aria ed ai risultati della stima modellistica di dispersione degli inquinanti atmosferici; una particolare valutazione di dettaglio sarà incentrata sull'analisi di scenario delle simulazioni  modellistiche delle emissioni dell'impianto sperimentale 'Effetre';
+
+- in Appendice \@ref(AA-model-conf) sono riportati tutti i dettagli tecnici relativi alle principali [Configurazioni modellistiche] i cui risultati di stima sono presentati e discussi in dettaglio nel Capitolo \@ref(model-qa);
+
+- in Appendice \@ref(AB-report-emi) sono  allegati i rapporti di prova delle analisi alle emissioni prelevate nel corso delle sperimentazioni effettuate presso l'impianto pilota delle ditta 'Effetre' di Murano che sono stati utilizzati come dati di input per le stime presentate nel Capitolo \@ref(model-qa). 
+
+La composizione del testo del presente rapporto tecnico, le elaborazioni statistiche, la restituzione grafica dei risultati e la rappresentazione delle mappe di cartografia tematica sono state effettuate con l'utilizzo del software libero '*R*' @R_manual:2022 e di specifici pacchetti applicativi (per maggiori dettagli si rimanda alla sezione [Bibliografia], @rstudio_manual:2022, @xie_book:2016, @wickam_tidy:2019, @carslaw_openair:2012,  @leaflet_manual:2022, @mapview_manual:2022).
+
+
+#### Strutture organizzative {-}
+
+Nel seguito sono indicate le strutture organizzative ARPAV che, a vario titolo, sono state coinvolte nella definizione e realizzazione degli obiettivi del *'Progetto Cadmio'*.
+
+Il coordinamento delle attività progettuali è stato curato dalla *Direzione del Dipartimento Provinciale di Venezia* e dalla *Direzione del Dipartimento Regionale Qualità dell'Ambiente*.
+
+La gestione amministrativa e contabile di progetto è stata realizzata dall'*Ufficio di Supporto Gestionale del Dipartimento Regionale Qualità dell'Ambiente* e dall'*Ufficio di Supporto Territoriale del Dipartimento Provinciale di Treviso*.
+
+L'attività di analisi dei dati di qualità dell'aria ambiente, di stima modellistica della dispersione degli inquinanti atmosferici e la redazione finale del report è stata realizzata dall'*Unità Organizzativa Modellistica Aria e Valutazioni Odorigene* del Dipartimento Regionale Qualità dell'Ambiente.
+
+I dati relativi al campionamento delle concentrazioni ambientali di inquinanti atmosferici (Metalli e PM10) monitorati nell'isola di Murano, sono stati raccolti in campo e validati dall'*Unità Organizzativa Monitoraggio Aria* del Dipartimento Regionale Qualità dell'Ambiente.
+
+I dati e le elaborazioni per la caratterizzazione meteorologica dell'area oggetto di studio,  utilizzati nelle simulazioni modellistiche di dispersione degli inquinanti atmosferici relativi ai vari periodi di valutazione considerati nel presente rapporto, sono stati forniti dall'*Unità Organizzativa Meteorologia e Climatologia*, ed in particolare dall'*Ufficio Previsioni del Dipartimento Regionale Sicurezza del Territorio*.
+
+Le determinazioni analitiche degli inquinanti emessi a camino, monitorati presso l'impianto pilota di tipo sperimentale 'Effetre', sono state eseguite dall'*Unità Organizzativa Emissioni ed Olfattometria Dinamica* del Dipartimento Regionale Laboratori. 
+
