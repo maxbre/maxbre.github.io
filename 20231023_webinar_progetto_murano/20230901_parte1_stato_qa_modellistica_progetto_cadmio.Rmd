@@ -8,6 +8,7 @@ output:
   xaringan::moon_reader:
     css: ["./css/my_css.css", "./css/my_fonts.css"]
     lib_dir: libs
+    #self_contained: true # for sel contained html, may fail sometimes, though!
     includes:
       after_body: timer.html # this is for including timer presentation
     nature:
@@ -773,7 +774,7 @@ per brevità qui non si riportano i grafici relativi agli altri due recettori: M
 
 <br>
 
-Definizione di uno scenario *'altamente cautelativo'* che rispetto allo scenario *'base'* considera gli effetti dovuti a .red[‘building downwash’] (solo indirettamente in LAPMOD!) ed annullamento del .red[‘plume rise’].
+Definizione di uno scenario *'altamente cautelativo'* che rispetto allo scenario *'base' (già cautelativo)* considera gli effetti dovuti a .red[‘building downwash’] (solo indirettamente in LAPMOD!) ed annullamento del .red[‘plume rise’].
 
 .red[*Che cosa significa dal punto di vista modellistico?*]
 
@@ -850,7 +851,7 @@ Limitando il confronto alle medie di periodo, si osserva .red[*il rapporto tra v
 
 In altri termini:
 
-- .red[*partendo dallo scenario di valutazione 'altamente cautelativo' (costruito a sua volta su uno scenario 'cautelativo'), le emissioni in ingresso al modello devono essere incrementate di circa 100 volte per  ottenere valori simulati (stime) paragonabili a quelli ambientali osservati (misure).*]
+- .red[*partendo dallo scenario di valutazione 'altamente cautelativo' (costruito a sua volta su uno scenario di tipo 'cautelativo'), le emissioni in ingresso al modello devono essere incrementate di circa 100 volte per  ottenere valori simulati (stime) paragonabili a quelli ambientali osservati (misure).*]
 
 ---
 background-image: url("img_pres/cotisso_orange.jpg")
@@ -908,3 +909,6 @@ layout: false
 
 ### consuelo.zemello@arpa.veneto.it
 ### massimo.bressan@arpa.veneto.it
+
+<br>
+.white[https://shorturl.at/akmJV]
