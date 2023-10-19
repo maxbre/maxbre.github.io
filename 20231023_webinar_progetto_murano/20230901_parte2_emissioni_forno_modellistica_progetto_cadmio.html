@@ -3,7 +3,7 @@
   <head>
     <title>Il progetto Cadmio nell’isola di Murano - Venezia</title>
     <meta charset="utf-8" />
-    <meta name="author" content=" M. Vesco#, R. Bassan##, G. Marson##, C. Zemello##, M. Bressan## " />
+    <meta name="author" content=" M. Vesco#, R. Bassan##, G. Marson##, G. Formenton###, C. Zemello##, M. Bressan## " />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <script src="libs/kePrint/kePrint.js"></script>
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -21,13 +21,13 @@ class: center, middle, inverse, title-slide
 ## Parte II: emissioni forno sperimentale e modellistica di dispersione atmosferica<br/>
 ]
 .author[
-### <br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, C. Zemello<sup>##</sup>, M. Bressan<sup>##</sup><br/>
+### <br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, G. Formenton<sup>###</sup>, C. Zemello<sup>##</sup>, M. Bressan<sup>##</sup><br/>
 ]
 .institute[
-### </br>ARPAV: <sup>#</sup> DAPVE, <sup>##</sup> UQA
+### </br>ARPAV: <sup>#</sup> DAPVE, <sup>##</sup> UQA, <sup>###</sup> DRL
 ]
 .date[
-### <br/> updated: 2023-10-18
+### <br/> updated: 2023-10-19
 ]
 
 ---
@@ -303,7 +303,7 @@ background-size: contain
 
   - dominio: 4 km * 4 km
   
-  - .red[griglia regolare: 50 m (risoluzione fine!)]
+  - .red[griglia regolare: 50 m] (risoluzione fine!)
   
   - 'tuning' parametri modello con analisi di sensitività risultati 
   
@@ -346,7 +346,7 @@ per una effettiva confrontabilità delle stime, in tutti gli scenari:
   - numero totale di 1552 ore di emissione/anno;
   
 ---
-## Scenari di valutazione: sintesi 
+## Scenari di valutazione: tabella di sintesi 
 
 &lt;table&gt;
  &lt;thead&gt;
@@ -463,8 +463,8 @@ keywords:
 
 - .red[**Scenario 1 vs. Scenario 2: 'effetto filtro'**]
 
-  - 'caso peggiore' con alimentazione a .red[*cotisso* senza obbligo di sistemi di filtrazione] *vs.* 'caso peggiore' con forno alimentato a .red[miscela minerale di *CdS* e sistema di filtrazione]; 
-  .red[*nota bene*]: valuta effetti ambientali di una .red[efficienza di abbattimento] del sistema di filtrazione pari ad un .red[fattore 30] (approccio cautelativo perchè reale efficienza di abbattimento è circa 3 ordini grandezza, cfr. misure monte vs. valle!);
+  - 'caso peggiore' con alimentazione a *cotisso* .red[senza obbligo di sistemi di filtrazione] *vs.* 'caso peggiore' con forno alimentato a miscela minerale di *CdS* .red[con sistema di filtrazione]; 
+  .red[*nota bene*]: questo 'contrasto' valuta gli effetti ambientali di una .red[efficienza di abbattimento] del sistema di filtrazione pari ad un .red[fattore 30] (approccio cautelativo perchè reale efficienza di abbattimento è circa 3 ordini grandezza, cfr. misure monte vs. valle!);
 
 - .red[**Scenario 2 vs. Scenario 3: 'effetto direzione'**]
 
@@ -477,7 +477,7 @@ keywords:
 ---
 ## Scenario 1 vs. Scenario 2: 'effetto filtro' (tabelle)
 
-*senza filtro (Scenario 1) vs. con filtro (Scenario 2)*
+*camino: senza filtro (Scenario 1) vs. con filtro (Scenario 2)*
 
 .red[
 - [Scenario 1] &gt;&gt; [Scenario 2]: fissata la statistica e la posizione, il rapporto tra concentrazioni è pari a circa 30 : 1 (per max dominio e per max ai recettori); abbastanza ovvio, è lo stesso rapporto dei ratei emissivi! (no trasformazioni chimiche)
@@ -561,27 +561,23 @@ keywords:
 &lt;/table&gt;
 
 ---
-
 ## Scenario 1 vs. Scenario 2: 'effetto filtro' (contour)
 
-*senza filtro (Scenario 1) vs. con filtro (Scenario 2)*
+*camino: senza filtro (Scenario 1) vs. con filtro (Scenario 2)*
 
-&lt;img src="./img_pres/contour_sc1_vs_sc2_avg.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_pres/contour_sc1_vs_sc2_avg_new_scale.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
-.tiny[.red['+' recettore, 'o' sorgente]; nota bene: per i due scenari lo stesso colore delle isolinee non rappresenta lo stesso valore di concentrazione (cfr. legenda)]
-
-.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc1_vs_sc2_avg.png)
+.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc1_vs_sc2_avg_new_scale.png)
 
 ---
-
 ## Scenario 2 vs. Scenario 3: 'effetto direzione' (tabelle)
 
-*camino verticale (Scenario 2) vs. camino orizzontale (Scenario 3)*
+*camino: verticale (Scenario 2) vs. orizzontale (Scenario 3)*
 
 .red[
 - max dominio: camino orizzontale +20% per [max 24h] e per [98 pct 24h], +16% per [media anno];
 
-- max ai recettori: incremento maggiore presso Foscolo (più vicino!), +9% per [max 24h], +16% per [98 pct 24h], +10% per [media anno];
+- max ai recettori: &gt; incremento in Foscolo (più vicino!), +9% per [max 24h], +16% per [98 pct 24h], +10% per [media anno];
 ]
 
 &lt;br&gt;
@@ -662,21 +658,18 @@ keywords:
 &lt;/table&gt;
 
 ---
-
 ## Scenario 2 vs. Scenario 3: 'effetto direzione' (contour)
 
-*camino verticale (Scenario 2) vs. camino orizzontale (Scenario 3)*
+*camino: verticale (Scenario 2) vs. orizzontale (Scenario 3)*
 
-&lt;img src="./img_pres/contour_sc2_vs_sc3_avg.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_pres/contour_sc2_vs_sc3_avg_new_scale.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
-.tiny[.red['+' recettore, 'o' sorgente]; nota bene: per i due scenari lo stesso colore delle isolinee non rappresenta lo stesso valore di concentrazione (cfr. legenda)]
-
-.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc2_vs_sc3_avg.png)
+.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc2_vs_sc3_avg_new_scale.png)
 
 ---
 ## Scenario 2 vs. Scenario 4: 'effetto diluizione' (tabelle)
 
-*camino 6 m (Scenario 2) vs. camino 12 m (Scenario 4)*
+*camino: 6 m (Scenario 2) vs. 12 m (Scenario 4)*
 
 .red[
 - max dominio: per camino 12 m, circa -1/2 per [max 24h], circa -2/3 per [98 pct 24h] e per [media anno];
@@ -764,13 +757,11 @@ keywords:
 ---
 ## Scenario 2 vs. Scenario 4: 'effetto diluizione' (contour)
 
-*camino 6 m (Scenario 2) vs. camino 12 m (Scenario 4)*
+*camino: 6 m (Scenario 2) vs. 12 m (Scenario 4)*
 
-&lt;img src="./img_pres/contour_sc2_vs_sc4_avg.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./img_pres/contour_sc2_vs_sc4_avg_new_scale.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
-.tiny[.red['+' recettore, 'o' sorgente]; nota bene: per i due scenari lo stesso colore delle isolinee non rappresenta lo stesso valore di concentrazione (cfr. legenda)]
-
-.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc2_vs_sc4_avg.png)
+.red[&amp;rarr;] [*zoom img*](./img_pres/contour_sc2_vs_sc4_avg_new_scale.png)
 
 ---
 background-image: url("img_pres/cotisso_orange.jpg")
@@ -783,18 +774,16 @@ class: inverse, center, middle
 .white[.huge[Conclusioni]]
 
 ---
-## Valutazione finale dei risultati scenari di contrasto
+## Considerazioni finali (ambientali)
 
-- l'impiego di sistemi di filtrazione è di fondamentale importanza: a parità di tutti gli altri parametri, i valori di concentrazione stimati al suolo dal sistema modellistico si riducono di decine di volte; 
+- l'impiego di .red[sistemi di filtrazione] è di fondamentale importanza: a parità di tutti gli altri parametri, i valori di concentrazione stimati al suolo dal sistema modellistico sono .red[ridotti di decine di volte]; 
 
-- la possibilità di installare adeguati sistemi di filtrazione deve essere valutata, oltre che dal punto di vista economico, anche in funzione dei locali produttivi (spesso con spazi molto spesso limitati), che nel contesto insediativo dell’isola potrebbe risultare un fattore limitante o quanto meno di significativo impedimento operativo;
+- l'utilità di installare sistemi di filtrazione dovrebbe essere valutata in termini .red[economico-sociali] ('analisi costi-benefici') ed in funzione della .red[logistica] (locali produttivi  in spazi limitati che, nel contesto insediativo dell’isola, possono risultare un fattore limitante o di concreto impedimento operativo);
 
-- a parità di rateo emissivo e di quota di emissione, i valori di concentrazione
-stimati al suolo sono minori per il camino con sbocco verticale
-rispetto a quello orizzontale;
+- a parità di rateo emissivo, diametro e quota del camino, i valori di concentrazione stimati al suolo sono .red[minori] per il camino con .red[sbocco verticale] rispetto a quello orizzontale; gli effetti sono evidenti nell'.red[immediato intorno della sorgente] (effetti locali);
 
-- a parità di rateo emissivo e di diametro del camino di emissione, i valori di
-concentrazione al suolo sono notevolmente inferiori al raddoppio dell'altezza del camino (da 6 m a 12 m); considerato il contesto urbanistico ed architettonico dell’isola è una soluzione che, anche in questo caso, potrebbe non essere sempre facilmente realizzabile.
+- a parità di rateo emissivo e diametro del camino, i valori di
+concentrazione al suolo sono .red[significativamente inferiori] al raddoppio dell'.red[altezza] (camino da 6 m a 12 m); considerato il contesto urbanistico ed architettonico dell’isola si tratta di una 'soluzione' che potrebbe non essere sempre realizzabile.
 
 ---
 background-image: url("img_pres/cotisso_giallo.jpg")

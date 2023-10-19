@@ -1,8 +1,8 @@
 ---
 title: "Il progetto Cadmio nell'isola di Murano - Venezia"
 subtitle: "Parte I: stato di qualità dell'aria e modellistica di dispersione atmosferica<br/>"
-author: "<br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, C. Zemello<sup>##</sup>, M. Bressan<sup>##</sup><br/>"
-institute: "</br>ARPAV: <sup>#</sup> DAPVE, <sup>##</sup> UQA"
+author: "<br/>M. Vesco<sup>#</sup>, R. Bassan<sup>##</sup>, G. Marson<sup>##</sup>, G. Formenton<sup>###</sup>, C. Zemello<sup>##</sup>, M. Bressan<sup>##</sup><br/>"
+institute: "</br>ARPAV: <sup>#</sup> DAPVE, <sup>##</sup> UQA, <sup>###</sup> DRL"
 date: "<br/> updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -92,6 +92,24 @@ knitr::include_graphics('./img_pres/flow_chart_AQ_it.png')
 ```
 
 .red[*E' possibile accoppiare la precisione (puntale) delle misure con la capacità descrittiva (areale) del modello?*]
+---
+## Obiettivi progettuali
+
+<br/>
+
+Obiettivo generale 1, obiettivo specifico 3
+
+***'analisi di sensitività' dei risultati rispetto all'utilizzo di differenti sistemi modellistici: CALPUFF vs. LAPMOD***
+
+<br>
+
+Risponde alle domande:
+
+- Le .red[stime] risalenti al 2017 con CALPUFF sono congruenti con quelle di un nuovo e più evoluto sistema modellistico lagrangiano a particelle LAPMOD?
+
+- Le .red[misure] di qualità dell'aria sono congruenti con le stime prodotte con CALPUFF e/o LAPMOD? A che cosa sono dovute eventuali differenze?
+
+- Esiste un .red['deficit informativo'] relativo alla corretta e completa caratterizzazione delle sorgenti di emissione? Il .red['censimento'] 2017 delle vetrerie è accurato per numero di sorgenti, qualità e quantità di emissioni prodotte? 
 
 ---
 background-image: url("img_pres/02_mat_square_rot.jpg")
@@ -409,25 +427,6 @@ knitr::include_graphics('./img_pres/plume_real_vs_model.png')
 - .red[*"condiziona e subordina"*], almeno in parte, il rigoroso approccio di tipo fisico-chimico (*come fare le stime*) 
 
 - per .red[*"privilegiare ed indirizzare"*] le conclusioni sugli aspetti di tipo operativo-gestionale (*cosa fare con le stime*)
-
----
-## Obiettivi progettuali
-
-<br/>
-
-Obiettivo generale 1, obiettivo specifico 3
-
-***'analisi di sensitività' dei risultati rispetto all'utilizzo di differenti sistemi modellistici: CALPUFF vs. LAPMOD***
-
-<br>
-
-Risponde alle domande:
-
-- Le .red[stime] risalenti al 2017 con CALPUFF sono congruenti con quelle di un nuovo e più evoluto sistema modellistico lagrangiano a particelle LAPMOD?
-
-- Le .red[misure] di qualità dell'aria sono congruenti con le stime prodotte con CALPUFF e/o LAPMOD? A che cosa sono dovute eventuali differenze?
-
-- Esiste un .red['deficit informativo'] relativo alla corretta e completa caratterizzazione delle sorgenti di emissione? Il .red['censimento'] 2017 delle vetrerie è accurato per numero di sorgenti, qualità e quantità di emissioni prodotte? 
 
 ---
 ## Le vetrerie (sorgenti di emissione) 
@@ -886,10 +885,10 @@ class: inverse, center, middle
 ## Ipotesi di lavoro futuro 
 <br>
 
-- costruire un efficace .red[sistema di supporto alle decisioni] per la gestione della qualità dell’aria incentrato su analisi di scenario 
+- costruire un efficace .red[sistema di supporto alle decisioni] per la gestione della qualità dell’aria nell'isola di Murano;
 
-- con .red['valutazioni controfattuali'] (scenario reale vs. possibile scenario futuro) definite in funzione di:
-  - pianificazione/programmazione/progettazione del territorio;
+- sistema incentrato su analisi di scenario con .red['valutazioni controfattuali'] (scenario reale vs. possibile scenario futuro), definite in funzione di:
+  - scelte di pianificazione/programmazione/progettazione del territorio;
   - vincoli urbanistici ed architettonici;
   - prescrizioni autorizzative all'esercizio;
   - materiali di processo impiegati (quantità e tipologia);
