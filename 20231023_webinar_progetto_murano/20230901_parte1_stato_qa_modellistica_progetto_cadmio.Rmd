@@ -9,8 +9,8 @@ output:
     css: ["./css/my_css.css", "./css/my_fonts.css"]
     lib_dir: libs
     #self_contained: true # for sel contained html, may fail sometimes, though!
-    includes:
-      after_body: timer.html # this is for including timer presentation
+    #includes:
+    #  after_body: timer.html # this is for including timer presentation
     nature:
       highlightStyle: github
       highlightLanguage: ["r", "yaml", "markdown"]
@@ -372,7 +372,7 @@ background-size: 5%
 
 - è una rappresentazione semplificata della realtà (...necessariamente!)
 
-- i modelli, anche i più complessi e sofisticati, non prescindono mai dall'utilizzo di misure (... che sono modelli semplificati della realtà!)
+- i modelli, anche i più complessi e sofisticati, non prescindono mai dall'utilizzo di misure (... che sono anch'esse modelli della realtà!)
 
 <br/>
 
@@ -395,21 +395,22 @@ knitr::include_graphics('./img_pres/plume_real_vs_model.png')
 ---
 ## Perchè utilizzare un modello?
 
-<br>
+###... non posso sempre misurare!
 
-###... non posso misurare!
+- nel caso di nuovi progetti o modifiche progettuali per impianti esistenti 
 
-- valutazioni di nuovi progetti
-- valutazioni di modifiche progettuali per impianti esistenti 
+###... non conviene sempre misurare!
 
-###... non conviene misurare!
+- tecnicamente ed economicamente impossibile misurare in ogni punto dello spazio e del tempo
 
-- tecnicamente ed economicamente impossibile misurare in ogni punto "dello spazio e del tempo"
+###... non basta solo misurare!
 
-###... non basta misurare!
+- nel caso di valutazione del contributo relativo di una o più sorgenti
 
-- valutazione del contributo relativo di una o più sorgenti
-- analisi di scenario
+###... permette di:
+
+- estendere la misura puntuale nello spazio e nel tempo
+- effettuare valutazioni 'controfattuali' (analisi di scenario)
 
 ---
 ## Che cos'è un modello per la valutazione di impatto ambientale?
@@ -711,9 +712,9 @@ summary_cpf_lap_mis %>%
 
 *sintesi*: 
 
-- .red[accettabile convergenza stime CALPUFF e LAPMOD], più evidente rispetto al valore medio (statistica 'robusta');
+- .red[accettabile convergenza delle stime modellistiche (CALPUFF vs. LAPMOD)], più evidente rispetto al valore medio (statistica 'robusta');
 
-- .red[significativa divergenza rispetto alle misure ambientali] (ordini di grandezza), indipendente dal tipo di modello utilizzato;
+- .red[significativa divergenza delle stime modellistiche rispetto alle misure ambientali] (ordini di grandezza), indipendente dal tipo di modello utilizzato;
 
 ---
 
@@ -779,7 +780,7 @@ Definizione di uno scenario *'altamente cautelativo'* che rispetto allo scenario
 
 *building downwash (calcolo del)*
 
-- la cattura del pennacchio inquinante emessa dai camini di emissione all’interno della scia degli edifici circostanti 
+- la cattura del pennacchio inquinante emessa dai camini all’interno della scia degli edifici circostanti 
 
 *plume rise (annullamento del)*
 
@@ -873,13 +874,13 @@ class: inverse, center, middle
 - la serie storica delle medie giornaliere di Cd rilevate in modo continuativo a partire da metà 2016 presso il sito Foscolo evidenzia un .red[andamento tipicamente altalenante] da mettere in relazione alle .red[emissioni a ciclo discontinuo] prodotte dalle vetrerie.
 
 ---
-## Conclusioni: modellistica atmosferica
+## Conclusioni: modellistica
 
 <br>
 
 - la simulazione di dispersione con due alternativi sistemi modellistici (CALPUFF e LAPMOD) ha evidenziato una .red[significativa sottostima] rispetto alle misure ambientali da ricondurre senza alcun dubbio all’.red[incompleta caratterizzazione del profilo emissivo], sia in termini di numero di sorgenti attive che per quantità inquinanti;
 
-- la ‘chiusura di stima’ rispetto alle vetrerie effettivamente presenti ed operanti nell'isola e la quantificazione del loro contributo sullo stato di qualità dell’aria presuppone necessariamente l'.red[attualizzazione del censimento] delle sorgenti attive e dei loro profili emissivi (parte di una nuova possibile attività progettuale?).
+- la ‘chiusura di stima’ rispetto alle vetrerie effettivamente presenti ed operanti nell'isola e la quantificazione del loro contributo sullo stato di qualità dell’aria presuppone necessariamente l'.red[attualizzazione del censimento] delle sorgenti e dei loro profili emissivi (parte di una nuova possibile attività progettuale?).
 
 ---
 ## Ipotesi di lavoro futuro 
@@ -888,12 +889,13 @@ class: inverse, center, middle
 - costruire un efficace .red[sistema di supporto alle decisioni] per la gestione della qualità dell’aria nell'isola di Murano;
 
 - sistema incentrato su analisi di scenario con .red['valutazioni controfattuali'] (scenario reale vs. possibile scenario futuro), definite in funzione di:
-  - scelte di pianificazione/programmazione/progettazione del territorio;
+  - pianificazione/programmazione/progettazione territorio;
   - vincoli urbanistici ed architettonici;
   - prescrizioni autorizzative all'esercizio;
-  - materiali di processo impiegati (quantità e tipologia);
-  - gestione operativa delle vetrerie e implementazione di sistemi di abbattimento;
-  - valutazione costi-benefici.
+  - materiali di processo impiegati (quantità, tipologia, modalità);
+  - gestione operativa del processo produttivo;
+  - implementazione di sistemi di abbattimento;
+  - valutazione complessiva 'costi-benefici'.
 
 ---
 

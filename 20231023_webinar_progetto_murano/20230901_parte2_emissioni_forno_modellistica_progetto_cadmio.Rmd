@@ -9,8 +9,8 @@ output:
     css: ["./css/my_css.css", "./css/my_fonts.css"]
     lib_dir: libs
     #self_contained: true # for sel contained html, may fail sometimes, though!
-    includes:
-      after_body: timer.html # this is for including timer presentation
+    #includes:
+    #  after_body: timer.html # this is for including timer presentation
     nature:
       highlightStyle: github
       highlightLanguage: ["r", "yaml", "markdown"]
@@ -103,7 +103,7 @@ background-position: center
 background-size: contain
 
 ---
-## Misure a monte (6 prove)
+## Misure a monte sistema di filtrazione
 
 ```{r}
 # read file with table for emissions pilot furnace
@@ -128,7 +128,7 @@ tab_emi_prove_f3_new[,c(1,3:8)] %>%
 .red[rateo emissivo prova n. 3 (caso peggiore cotisso): simulazioni modellistiche di scenario per aziende *senza* 'obbligo sistemi filtrazione']
 
 ---
-## Misure a valle (6 prove)
+## Misure a valle sistema filtrazione
 
 ```{r}
 
@@ -551,16 +551,16 @@ class: inverse, center, middle
 .white[.huge[Conclusioni]]
 
 ---
-## Considerazioni finali (ambientali)
+## Considerazioni finali
 
 - l'impiego di .red[sistemi di filtrazione] è di fondamentale importanza: a parità di tutti gli altri parametri, i valori di concentrazione stimati al suolo dal sistema modellistico sono .red[ridotti di decine di volte]; 
 
-- a parità di rateo emissivo, diametro e quota del camino, i valori di concentrazione stimati al suolo sono .red[minori] per il camino con .red[sbocco verticale] rispetto a quello orizzontale; gli effetti sono evidenti nell'.red[immediato intorno della sorgente] (effetti locali);
+- a parità di rateo emissivo, diametro e quota del camino, i valori di concentrazione stimati al suolo sono .red[minori] per il camino con .red[sbocco verticale] rispetto a quello orizzontale; gli effetti sono evidenti nell'.red[immediato intorno della sorgente] (effetti localizzati);
 
-- a parità di rateo emissivo e diametro del camino, i valori di
+- a parità di rateo emissivo, diametro e tipo di sbocco del camino, i valori di
 concentrazione al suolo sono .red[significativamente inferiori] al raddoppio dell'.red[altezza] (camino da 6 m a 12 m); considerato il contesto urbanistico ed architettonico dell’isola si tratta di una 'soluzione' che potrebbe non essere sempre realizzabile;
 
-- l'utilità di installare sistemi di filtrazione dovrebbe essere valutata in termini .red[economico-sociali] ('analisi costi-benefici') ed in funzione della .red[logistica] (locali produttivi  in spazi limitati che, nel contesto insediativo dell’isola, possono risultare un fattore limitante o di concreto impedimento operativo).
+- l'utilità di installare sistemi di filtrazione dovrebbe essere valutata anche in termini .red[economici] ('analisi costi-benefici') ed in funzione della .red[logistica] (locali produttivi  in spazi limitati che, nel contesto insediativo dell’isola, possono risultare un fattore limitante o di concreto impedimento operativo).
 
 ---
 background-image: url("img_pres/cotisso_giallo.jpg")

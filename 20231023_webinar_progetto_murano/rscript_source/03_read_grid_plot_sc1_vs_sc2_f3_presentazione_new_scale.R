@@ -44,7 +44,7 @@ cols <- c("0.05" = '#3288bd',
           "3" = '#d53e4f')
 
 # define title
-title <- "Scenario 1 - media anno" 
+title <- "Scenario 1 (senza filtro) - media anno" 
 
 lp_avg %>%
   ggplot() +
@@ -113,7 +113,7 @@ lp_avg <- raster(fl) %>%
 #breaks <- c(0.05, 0.1, 0.5, 1, 2, 3)
 
 # define title
-title <- "Scenario 2 - media anno" 
+title <- "Scenario 2 (con filtro) - media anno" 
 
 lp_avg %>%
   ggplot() +

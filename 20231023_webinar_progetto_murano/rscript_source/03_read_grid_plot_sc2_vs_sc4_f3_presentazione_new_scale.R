@@ -48,7 +48,7 @@ cols <- c("0.002" = '#3288bd',
 
 
 # define title
-title <- "Scenario 2 - media anno" 
+title <- "Scenario 2 (6 m) - media anno" 
 
 lp_avg %>%
   ggplot() +
@@ -115,7 +115,7 @@ lp_avg <- raster(fl) %>%
 #breaks <- c(0.002, 0.005, 0.01, 0.02, 0.05)
 
 # define title
-title <- " Scenario 4 - media anno" 
+title <- " Scenario 4 (12 m) - media anno" 
 
 lp_avg %>%
   ggplot() +
