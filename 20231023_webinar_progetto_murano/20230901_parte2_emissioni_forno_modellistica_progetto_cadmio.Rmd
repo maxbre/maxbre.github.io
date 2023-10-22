@@ -70,7 +70,7 @@ library(ggspatial)
 
 risponde alla domanda: 
 
-.red[*in che modo differenti 'diete' di alimentazione e configurazioni operative della 'linea di fusione' influiscono sulle emissioni a camino e conseguentemente sullo stato di qualità dell'aria*]
+.red[*in che modo differenti 'diete' di alimentazione e configurazioni operative della 'linea di fusione' influiscono sulle emissioni a camino e conseguentemente sullo stato di qualità dell'aria?*]
 
 ---
 background-image: url("img_pres/02_mat_square_rot.jpg")
@@ -80,7 +80,7 @@ background-size: cover
 layout: false
 class: inverse, center, middle
 
-.white[.huge[Emissioni forno sperimentale]]
+.white[.huge[Emissioni del forno sperimentale]]
 
 ---
 
@@ -266,7 +266,7 @@ tab_emi_scenari_f3 %>%
 
 <br>
 keywords:
-- *scenario 1: cotisso, no filtro, 6 m, verticale* 
+- *scenario 1: cotisso, senza filtro, 6 m, verticale* 
 - *scenario 2: CdS, filtro, 6 m, verticale*
 - *scenario 3: CdS, filtro, 6 m, orizzontale*
 - *scenario 4: CdS, filtro, 12 m, verticale*

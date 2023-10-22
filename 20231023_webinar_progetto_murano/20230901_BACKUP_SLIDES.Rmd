@@ -1,0 +1,426 @@
+---
+title: "BACKUP SLIDES"
+output:
+  xaringan::moon_reader:
+    css: ["./css/my_css.css", "./css/my_fonts.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLanguage: ["r", "yaml", "markdown"]
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: true    
+    #this is for the first slide, see .title-slide in css
+---
+layout: true
+
+background-image: url(./css/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE, 
+                      message = FALSE,
+                      comment = NA,
+                      fig.retina = 3)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(scales)
+library(leaflet)
+library(mapview)
+library(raster)
+library(terra)
+library(metR)
+library(patchwork)
+library(sf)
+library(ggspatial)
+
+#heavy metals
+hm <- read_csv("./data_input/input_murano_metalli.csv") %>% 
+  mutate(data=dmy(data),
+         anno=year(data))
+```
+
+---
+
+# BACKUP SLIDES
+
+### here follows some slides not intended for presentation
+
+### spare slides, just in case...
+
+---
+### Arsenico, medie 24h 2016-2022, Murano Foscolo
+
+```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
+
+hm %>%
+  filter(stazione == "foscolo",
+         data >= "2016-01-01")%>%
+  ggplot(mapping=aes(x = data, y = As))+
+  geom_point(alpha=0.2)+
+  geom_line(alpha=0.2)+
+  geom_smooth()+
+  scale_x_date(name = NULL, date_breaks = "2 months", expand = c(0.01, 0.01))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                name = expression(paste("As [ ", ng~m^-3, " ]"))
+                ) +
+  annotation_logticks(sides="l")+
+  geom_vline(xintercept = as.numeric(ymd("2020-03-08")), linetype="dashed", color = "red", size=0.6)+
+  geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
+  annotate(geom="text", x=ymd("2020-02-10"), y=10, label="2020-03-08, inizio lockdown", color="red", size=3, angle =90)+
+  annotate(geom="text", x=ymd("2020-05-10"), y=10, label="2020-06-03, fine lockdown", color="red", size=3, angle =90)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2017-03-01"), y=0.85, label="LQ", colour="green", size=3.5)+
+  #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
+  theme_bw()+
+  theme(axis.text.x = element_text(size=6, angle = 90))
+
+```
+
+---
+### Antimonio, medie 24h 2016-2022, Murano Foscolo
+
+```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
+
+hm %>%
+  filter(stazione == "foscolo",
+         data >= "2016-01-01")%>%
+  ggplot(mapping=aes(x = data, y = Sb))+
+  geom_point(alpha=0.2)+
+  geom_line(alpha=0.2)+
+  geom_smooth()+
+  scale_x_date(name = NULL, date_breaks = "month", expand = c(0.01, 0.01))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                name = "Sb [ng/m3]") +
+  annotation_logticks(sides="l")+
+  geom_vline(xintercept = as.numeric(ymd("2020-03-08")), linetype="dashed", color = "red", size=0.6)+
+  geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
+  annotate(geom="text", x=ymd("2020-02-10"), y=150, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
+  annotate(geom="text", x=ymd("2020-05-10"), y=150, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-12-01"), y=0.85, label="LQ", colour="green", size=3.5)+
+  #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+---
+### Cromo, medie 24h 2016-2022, Murano Foscolo
+
+```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
+hm %>%
+  filter(stazione == "foscolo",
+         data >= "2016-01-01")%>%
+  ggplot(mapping=aes(x = data, y = Cr))+
+  geom_point(alpha=0.2)+
+  geom_line(alpha=0.2)+
+  geom_smooth()+
+  scale_x_date(name = NULL, date_breaks = "month", expand = c(0.01, 0.01))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                name = "Cr [ng/m3]") +
+  annotation_logticks(sides="l")+
+  geom_vline(xintercept = as.numeric(ymd("2020-03-08")), linetype="dashed", color = "red", size=0.6)+
+  geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
+  annotate(geom="text", x=ymd("2020-02-10"), y=45, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
+  annotate(geom="text", x=ymd("2020-05-10"), y=45, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
+  #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+---
+
+### Nichel, medie 24h 2016-2022, Murano Foscolo
+
+```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
+hm %>%
+  filter(stazione == "foscolo",
+         data >= "2016-01-01")%>%
+  ggplot(mapping=aes(x = data, y = Ni))+
+  geom_point(alpha=0.2)+
+  geom_line(alpha=0.2)+
+  geom_smooth()+
+  scale_x_date(name = NULL, date_breaks = "month", expand = c(0.01, 0.01))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                name = "Ni [ng/m3]") +
+  annotation_logticks(sides="l")+
+  geom_vline(xintercept = as.numeric(ymd("2020-03-08")), linetype="dashed", color = "red", size=0.6)+
+  geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
+  annotate(geom="text", x=ymd("2020-02-10"), y=45, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
+  annotate(geom="text", x=ymd("2020-05-10"), y=45, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 1, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.85, label="LQ", colour="green", size=3.5)+
+  #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+---
+
+### Piombo, medie 24h 2016-2022, Murano Foscolo
+
+```{r echo=FALSE, fig.align ='center', fig.height=7.5, fig.width=10}
+hm %>%
+  filter(stazione == "foscolo",
+         data >= "2016-01-01")%>%
+  ggplot(mapping=aes(x = data, y = Pb))+
+  geom_point(alpha=0.2)+
+  geom_line(alpha=0.2)+
+  geom_smooth()+
+  scale_x_date(name = NULL, date_breaks = "month", expand = c(0.01, 0.01))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                name = "Pb [ng/m3]") +
+  annotation_logticks(sides="l")+
+  geom_vline(xintercept = as.numeric(ymd("2020-03-08")), linetype="dashed", color = "red", size=0.6)+
+  geom_vline(xintercept = as.numeric(ymd("2020-06-03")), linetype="dashed", color = "red", size=0.6)+
+  annotate(geom="text", x=ymd("2020-02-10"), y=900, label="2020-03-08, inizio lockdown", color="red", size=3.5, angle =90)+
+  annotate(geom="text", x=ymd("2020-05-10"), y=900, label="2020-06-03, fine lockdown", color="red", size=3.5, angle =90)+
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "green", size=0.5)+
+  annotate(geom="text", x=ymd("2016-10-01"), y=0.45, label="LQ", colour="green", size=3.5)+
+  #labs(title = "Stazione c/o Scuola Ugo Foscolo - Murano VE")+
+    theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+
+
+```
+---
+# Sorgenti di emissione
+
+```{r echo=FALSE, fig.align ='center'}
+
+
+sources_appendix <- readr::read_csv('./data_input/lista_25_vetrerie.csv')
+
+sources_appendix %>%
+  dplyr::select(c(1:3,6,7,15:16,8:9)) %>% 
+  knitr::kable(., 
+             col.names = c("Id", "Abb.", "Nome", "H [m]","d [m]", "T [°C]", "v [m/s]", "Q [mg/s]","A [h]"),
+             align = "c",
+             format = "html", 
+             escape=TRUE,
+             booktabs = TRUE, longtable = TRUE) %>% 
+  footnote(general = c("H [m]: altezza camino;",
+                       "d [m]: diametro camino;",
+                       "T [°C]: temperatura fumi;",
+                       "v [m/s]: velocità uscita fumi;",
+                       "Q [mg/s]: flusso di massa inquinante;",
+                       "A [h]: ore di attività della sorgente nel periodo 01/09/2017 - 31/12/2017;")) %>% 
+  kableExtra::kable_styling(full_width = TRUE, font_size = 10) %>%
+  kableExtra::scroll_box(width = "800px", height = "500px")
+
+```
+---
+### Scenario base: mappa stime CALPUFF
+
+```{r eval=TRUE, echo=FALSE, fig.align='center', out.width='70%'}
+
+# read background shapefile
+shp_murano <- read_sf('./data_input/shp_murano/murano.shp')
+
+# read grid calpuff - period average
+cp_r_avg <- raster('./data_input/calpost_grid/rank(0)_cd_2952hr_conc_cd.grd') 
+
+# remember the CALPUFF extent in km
+new_extent <- raster::extent(raster::xmin(cp_r_avg) * 1000, raster::xmax(cp_r_avg) * 1000, 
+                             raster::ymin(cp_r_avg) * 1000, raster::ymax(cp_r_avg) * 1000)
+# transform in meters
+cp_r_avg <- raster::setExtent(cp_r_avg, new_extent)
+
+# transform to df, it is a necessary preliminary step to later ggplot
+cp_avg_df <- cp_r_avg %>% 
+  as.data.frame(., xy=TRUE) %>% 
+  rename('z' = 3)
+
+# set the appropriate crs
+raster::crs(cp_r_avg) <- 32632
+
+# calpuff plot map average
+shp_murano %>% 
+  ggplot() + 
+  geom_sf(colour="gray",  alpha=0.5) +
+  geom_raster(data = cp_avg_df, mapping = aes(x = x, y = y, fill = z),
+              alpha = 0.5)+
+  scale_fill_viridis_c(#name = "Cd\n[ng/m3]",
+                       name = expression(paste("Cd [ ", ng~m^-3, " ]")),
+                       breaks=breaks_pretty(5),
+                       #breaks=breaks_width(0.5),
+                       option="viridis", 
+                       alpha = 0.5)+
+  annotation_scale(location = "br", width_hint=0.4, line_width = 1,
+                   height = unit(0.2, "cm"),
+                   pad_x = unit(0.65, "cm"),
+                   pad_y = unit(0.65, "cm"),) +
+  annotation_north_arrow(location = "br", which_north = "true",
+                         height = unit(0.9, "cm"),
+                         width = unit(0.9, "cm"),
+                         pad_x = unit(0.55, "cm"),
+                         pad_y = unit(0.85, "cm"),
+                         style = north_arrow_fancy_orienteering) +
+  #coord_sf(datum=32632)+ # this is to set CRS that provides datum to use when generating graticules
+  coord_sf(datum = st_crs(shp_murano))+ # this is the very same result as above but programmatically taking crs from the specified layer
+  #labs(x=NULL, y=NULL)+
+  theme_void()+
+  #theme_minimal()
+  theme(legend.position = "bottom")
+
+```
+
+---
+### Scenario base: mappa stime LAPMOD
+
+```{r eval=TRUE, echo=FALSE, fig.align='center', out.width='70%'}
+
+# read grid lapmod - period average
+lp_r_avg <- raster('./data_input/lapost_grid/annual.grd', 
+                   crs="+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs +type=crs")
+
+
+lp_avg_df <- lp_r_avg %>%
+  as.data.frame(., xy=TRUE) %>% 
+  rename('z' = 3)
+
+# lapmod plot map average
+shp_murano %>% 
+  ggplot() + 
+  geom_sf(colour="gray",  alpha=0.5) +
+  geom_raster(data = lp_avg_df, mapping = aes(x = x, y = y, fill = z),
+              alpha = 0.5)+
+  scale_fill_viridis_c(#name = "Cd\n[ng/m3]",
+                       name = expression(paste("Cd [ ", ng~m^-3, " ]")),
+                       breaks=breaks_pretty(5),
+                       #breaks=breaks_width(0.5),
+                       option="viridis", 
+                       alpha = 0.5)+
+  annotation_scale(location = "br", width_hint=0.4, line_width = 1,
+                   height = unit(0.2, "cm"),
+                   pad_x = unit(0.65, "cm"),
+                   pad_y = unit(0.65, "cm"),) +
+  annotation_north_arrow(location = "br", which_north = "true",
+                         height = unit(0.9, "cm"),
+                         width = unit(0.9, "cm"),
+                         pad_x = unit(0.55, "cm"),
+                         pad_y = unit(0.85, "cm"),
+                         style = north_arrow_fancy_orienteering) +
+  #coord_sf(datum=32632)+ # this is to set CRS that provides datum to use when generating graticules
+  coord_sf(datum = st_crs(shp_murano))+ # this is the very same result as above but programmatically taking crs from the specified layer
+  #labs(x=NULL, y=NULL)+
+  coord_sf(datum=32632) +
+  theme_void()+
+  #theme_minimal()
+  theme(legend.position = "bottom")
+
+```
+
+---
+
+### Scenario base: medie 24h, CALPUFF vs. LAPMOD vs. misura Marco
+
+```{r fig.align='center', out.width='75%', out.height='75%'}
+
+
+# read discrete receptors
+cpf_lap_mis <- read_csv('./data_input/recettori_calpuff_lapmod_misure.csv')
+
+# here define a named vectos for colors
+cols <- c("misura" = "#00BA38", "lapmod" = "#619CFF", "calpuff"="#F8766D")
+
+coeff<-1000
+
+mar_cal <- cpf_lap_mis %>% 
+  filter(recettore=="marco") %>% 
+  pivot_wider(c(data,recettore), names_from = stima, values_from = valore) %>% 
+  ggplot() + 
+  geom_line(aes(x=data, y = misura, colour="misura"), linewidth = 0.75)+
+  geom_line(aes(x=data, y = calpuff*coeff, colour = "calpuff"), linewidth = 0.75)+
+  scale_y_continuous(name = expression(paste("misura [ ", ng~m^-3, " ]")), 
+                     #limits=c(0,2100), 
+                     sec.axis = sec_axis(~./coeff, name=expression(paste("calpuff [ ", ng~m^-3, " ]"))))+
+  #ylim(0, 2100)+
+  coord_cartesian(ylim = c(0, 2500)) + #this is the safest option to avoid any conversion of data to NA
+  scale_x_date(name=NULL, breaks="month", date_labels = "%d-%b-%y")+
+  scale_color_manual(values=cols)+
+  theme_minimal()+
+  theme(legend.position="top", legend.title = element_blank())
+
+mar_lap <- cpf_lap_mis %>% 
+  filter(recettore=="marco") %>% 
+  pivot_wider(c(data,recettore), names_from = stima, values_from = valore) %>% 
+  ggplot() + 
+  geom_line(aes(x=data, y = misura, colour="misura"), linewidth = 0.75)+
+  geom_line(aes(x=data, y = lapmod*coeff, colour = "lapmod"), linewidth = 0.75)+
+  scale_y_continuous(name = expression(paste("misura [ ", ng~m^-3, " ]")), 
+                     #limits=c(0,2100), 
+                     sec.axis = sec_axis(~./coeff, name=expression(paste("lapmod [ ", ng~m^-3, " ]"))))+
+  #ylim(0, 2100)+
+  coord_cartesian(ylim = c(0, 2500)) + #this is the safest option to avoid any conversion of data to NA
+  scale_x_date(name=NULL, breaks="month", date_labels = "%d-%b-%y")+
+  scale_color_manual(values=cols)+
+  theme_minimal()+
+  theme(legend.position="top", legend.title = element_blank())
+
+# compose two charts
+mar_cal / mar_lap #+ plot_annotation(title = "Marco: misura vs. lapmod vs. calpuff")
+
+```
+
+---
+### Scenario base: medie 24h, CALPUFF vs. LAPMOD vs. misura Serenella
+
+```{r fig.align='center', out.width='75%', out.height='75%'}
+
+# here define a named vectos for colors
+cols <- c("misura" = "#00BA38", "lapmod" = "#619CFF", "calpuff"="#F8766D")
+
+coeff<-1000
+
+ser_cal <- cpf_lap_mis %>% 
+  filter(recettore=="serenella") %>% 
+  pivot_wider(c(data,recettore), names_from = stima, values_from = valore) %>% 
+  ggplot() + 
+  geom_line(aes(x=data, y = misura, colour="misura"), linewidth = 0.75)+
+  geom_line(aes(x=data, y = calpuff*coeff, colour = "calpuff"), linewidth = 0.75)+
+  scale_y_continuous(name = expression(paste("misura [ ", ng~m^-3, " ]")), 
+                     #limits=c(0,2100), 
+                     sec.axis = sec_axis(~./coeff, name=expression(paste("calpuff [ ", ng~m^-3, " ]"))))+
+  #ylim(0, 2100)+
+  coord_cartesian(ylim = c(0, 1200)) + #this is the safest option to avoid any conversion of data to NA
+  scale_x_date(name=NULL, breaks="month", date_labels = "%d-%b-%y")+
+  scale_color_manual(values=cols)+
+  theme_minimal()+
+  theme(legend.position="top", legend.title = element_blank())
+
+ser_lap <- cpf_lap_mis %>% 
+  filter(recettore=="serenella") %>% 
+  pivot_wider(c(data,recettore), names_from = stima, values_from = valore) %>% 
+  ggplot() + 
+  geom_line(aes(x=data, y = misura, colour="misura"), linewidth = 0.75)+
+  geom_line(aes(x=data, y = lapmod*coeff, colour = "lapmod"), linewidth = 0.75)+
+  scale_y_continuous(name = expression(paste("misura [ ", ng~m^-3, " ]")), 
+                     #limits=c(0,2100), 
+                     sec.axis = sec_axis(~./coeff, name=expression(paste("lapmod [ ", ng~m^-3, " ]"))))+
+  #ylim(0, 2100)+
+  coord_cartesian(ylim = c(0, 1200)) + #this is the safest option to avoid any conversion of data to NA
+  scale_x_date(name=NULL, breaks="month", date_labels = "%d-%b-%y")+
+  scale_color_manual(values=cols)+
+  theme_minimal()+
+  theme(legend.position="top", legend.title = element_blank())
+
+# compose two charts
+ser_cal / ser_lap #+ plot_annotation(title = "Serenella: misura vs. lapmod vs. calpuff")
+
+```
+
+---
