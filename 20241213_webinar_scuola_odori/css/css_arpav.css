@@ -1,0 +1,490 @@
+/* 
+---------------------------------------------------------------
+                      css xaringan slides, mb
+adapted from
+
+https://github.com/yihui/xaringan/blob/master/inst/rmarkdown/templates/xaringan/resources/default.css
+
+https://github.com/yihui/xaringan/blob/master/inst/rmarkdown/templates/xaringan/resources/rutgers.css
+
+---------------------------------------------------------------
+*/
+
+/* ======================= link color ======================= */
+
+/* link color*/
+a, a > code {
+  color: #1f90f2; /* sets color of links */
+  text-decoration: none; /* turns off background coloring of links */
+}
+
+/* ======================= footnote ======================= */
+
+/* footnote, slightly lower and smaller than default */
+.footnote {
+  position: absolute;
+  bottom: 1em;
+  padding-right: 4em;
+  font-size: 80%;
+}
+
+/* ======================= center whole page ======================= */
+
+
+.center_2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+/* ======================= remark-code-line-highlighted ?? ======================= */
+
+/* important code slightly red */
+.remark-code-line-highlighted {
+  background-color: #FFD3DE !important;
+}
+
+
+/* ======================= inverse color tweak ======================= */
+
+/* background */
+.inverse {
+  background-color: #272822;
+  color: #fcfcfc;
+}
+
+/* h1, h2, h3 */
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #fcfcfc;
+}
+
+.inverse_2 {
+  background-color: #386cb0;
+  color: #fcfcfc;
+}
+
+.inverse_2 h1, .inverse h2, .inverse h3 {
+  color: #fcfcfc;
+}
+
+/* ======================= column layout ======================= */
+
+/* Two-column layout (slightly wider for aspect ratio) */
+.left-column {
+  color: #777;
+  width: 25%;
+  height: 92%;
+  float: left;
+}
+
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+
+/* slightly thiner to suppor aspect ration */
+.right-column {
+  width: 70%;
+  float: right;
+  padding-top: 1em;
+}
+
+/* ======================= pull text ======================= */
+
+.pull-left {
+  float: left;
+  width: 47%;
+  text-align: left;
+}
+
+.pull-left-augmented {
+  float: left;
+  width: 65%;
+  text-align: left;
+}
+
+.pull-right {
+  float: right;
+  width: 47%;
+}
+
+.pull-right-reduced {
+  float: right;
+  width: 30%;
+}
+
+.pull-right ~ * {
+  clear: both;
+}
+
+/* ======================= left code, right plot ======================= */
+
+/* https://www.garrickadenbuie.com/blog/decouple-code-and-output-in-xaringan-slides/ */
+
+.left-code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+}
+
+.right-plot {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+
+/* ======================= img, video, iframe ======================= */
+
+img, video, iframe {
+  max-width: 100%;
+}
+
+/* ======================= blockquote ======================= */
+
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+
+/* ======================= table ======================= */
+
+/* table adjust horizontal spacing 
+th, td {
+    padding:0 15px 0 15px;
+}
+*/
+
+/* table remove color 
+
+table {
+  margin: auto;
+  border-top: none;
+  border: 1px solid #f2f2f2;
+}
+
+*/
+
+/* colors of borders*/
+table, th, td{
+  border: 1px solid #919394;
+  border-collapse: collapse;
+}
+
+table{
+display: inline-block;
+}
+
+/* head and foot colors*/
+thead, tfoot {background-color: #f2f2f2;}
+
+/* padding of the cells*/
+th, td{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* hover highlight table cells*/
+tr:hover {background-color: #d5f007;}
+
+/*table zebra striped
+tr:nth-child(even) {background-color: #f2f2f2;}
+*/
+
+/* ======================= size of code ======================= */
+.small-code .remark-code{
+  font-size: 70%
+}
+
+/* ======================= body alignment ======================= */
+
+body {
+  text-align: justify;
+}
+
+/* ======================= title slide, cover first slide ======================= */
+
+/* Add image and change bg color */
+.title-slide {
+  background-image: url(../img_layout/snpa_arpav.svg);
+  background-position: 95% 5%;
+  background-size: 400px;
+  background-color: #fff;
+  margin-top: -50px
+  /*padding-left: 100px;  /* uncomment this for 16:9 aspect ratio */
+}
+
+/* H1 fonts */
+.title-slide h1 {
+  color: #515151;
+  font-weight: normal;
+  font-size: 45px;
+  text-align: left;
+  text-shadow: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 90px;
+  margin-bottom: 10px;
+}
+
+/* H2 fonts */
+.title-slide h2 {
+  color: #515151;
+  font-weight: normal;
+  font-size: 30px;
+  text-align: left;
+  text-shadow: none;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+/* H3 fonts */
+.title-slide h3 {
+  color: #515151;
+  font-weight: normal;
+  font-size: 20px;
+  text-align: left;
+  text-shadow: none;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1;
+}
+
+/* =======================  slide numbering ======================= */
+
+/* remove slide count on the first slide */
+.title-slide .remark-slide-number {
+  display: none
+}
+
+/* format slide numbering */
+.remark-slide-number {
+  font-size: 15px;
+  margin-bottom: -5px;
+  margin-right: -5px;
+  color: #515151; 
+  opacity: 0.5; /* default: 0.5 */
+}
+
+/* =======================  section dividers ======================= */
+
+/* section divider red */
+.title-slide-section-red {
+  background-color: #cc0033;
+  /*padding-left: 100px;*/  /* uncomment this for 16:9 aspect ratio */
+}
+
+/* section divider red H1 fonts */
+.title-slide-section-red h1, .title-slide-section-red h2, .title-slide-section-red h3, .title-slide-section-red p {
+  color: #fff;
+}
+
+/* section divider grey */
+.title-slide-section-grey {
+  background-color: #515151;
+  /*padding-left: 100px;*/  /* uncomment this for 16:9 aspect ratio */
+}
+
+/* section divider grey H1 fonts */
+.title-slide-section-grey h1, .title-slide-section-grey h2, .title-slide-section-grey h3 {
+  color: #fff;
+}
+
+.title-slide-section-grey p {
+  color: #fff;
+}
+
+/* =======================  final slide blank ======================= */
+
+.title-slide-final-blank {
+  background-color: #272822;
+  color: #fcfcfc;
+  text-align: center;
+}
+
+.title-slide-final-blank  h1 {
+  color: #fcfcfc;
+}
+
+.title-slide-final-blank h2 {
+  color: #fcfcfc;
+}
+
+/* =======================  global adjustments ======================= */
+
+/* Add padding to all slides for 16:9 aspect ratio */
+/* uncomment this for 16:9 aspect ratio */
+/*
+.remark-slide-content {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  
+}
+*/
+
+/* tweak position h1, h2, h3 */
+.remark-slide-content > h1, h2, h3 {
+   margin-top: 0px;
+   margin-bottom: 10px;
+}
+
+/* =======================  color tags for text ======================= */
+
+.purple{
+  color:purple;
+}
+
+.orange{
+color:#C04F22;
+}
+
+.blueteal{
+  color:#497AA7;
+}
+
+.brown {
+  color: #66010e;
+}
+
+.red {
+  color: #cc0033;
+}
+
+.blue {
+  color: #0000CC;
+/*  font-weight: bold;*/
+}
+
+.grey {
+  color: #515151;
+}
+
+.lightgrey {
+  color: #818181;
+}
+
+.black {
+  color: black;
+  font-weight: bold;
+}
+
+.white {
+  color: white;
+}
+
+.green {
+  color: green;
+}
+
+
+/* =======================  color content box ======================= */
+
+.content-box-yellow {
+             box-sizing: border-box;
+             background: yellow;
+             border-radius: 10px;
+             padding:  0.2em 0.2em;
+             box-shadow: 2px 2px #818181;
+}
+
+/* ======================== blockquotes ============================== */
+
+.blockquote{
+  display: block;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  margin-right: 2px;
+  margin-left: 2px;
+  border-left: solid 10px  #cc0033;
+  border-bottom: solid 2px  #cc0033;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #818181;
+  padding: 0.5em;
+  background-color: #818181;
+  color: #fff;
+}
+
+
+/* =======================  color adjustment headers ======================= */
+
+h1 {
+  color: #cc0033;
+}
+
+h2 {
+  color: #cc0033; 
+}
+
+h3 {
+  color: #cc0033;
+}
+
+/* =======================  font size tags ======================= */
+
+.huge {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.big {
+  font-size: 1.5em;
+}
+
+.large{
+  font-size: 130% 
+}
+
+.small{
+  font-size: 70%
+}
+
+.tiny{
+  font-size: 40%
+}
+
+.bottomtext{
+  font-size:12px;
+  text-align: middle;
+}
+
+/* =======================  sub- and super-script ======================= */
+
+.superscript{
+       vertical-align: super;
+       font-size:2rem;
+}
+
+.subscript{
+	vertical-align: sub;
+	font-size:2rem;
+}
+
+
+
+/* ======================= what is this? ======================= */
+
+/* leave this alone */
+@page { margin: 0; }
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+

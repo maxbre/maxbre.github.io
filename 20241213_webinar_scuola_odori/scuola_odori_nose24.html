@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>SCUOLA ODORI 2024  Valutazione modellistica di impatto odorigeno: sensitività dei risultati a differenti Peak-to-Mean Ratio</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Massimo Bressan" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#befa46"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/css_arpav.css" type="text/css" />
+    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# SCUOLA ODORI 2024<br><br>Valutazione modellistica di impatto odorigeno: sensitività dei risultati a differenti Peak-to-Mean Ratio
+]
+.subtitle[
+## Analisi di un caso studio simulato
+]
+.author[
+### Massimo Bressan
+]
+.institute[
+### ARPAV - UQA Unità Organizzativa Qualità dell’Aria
+]
+.date[
+### 13/12/2024 (updated: 2024-12-12)
+]
+
+---
+
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+&lt;!-- set general options and load libraries --&gt;
+
+
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+---
+
+# NOSE24 
+
+.red[**Naples, 15-18 September 2024**]
+
+.pull-left[
+**Bressan M., Dalla Fontana A., Intini B., Bassan R., Pretto U., Tomiato L., 2024.**
+
+*Sensitivity analysis of odour exposure from dispersion modelling exercises with different Peak-to-Mean Ratio.*
+
+*CET, in press*
+
+]
+
+.pull-right[
+&lt;img src="./img_pres/nose24_page1_crop.png" width="95%" style="border:1px solid #D3D3D3; vertical-align:top; margin:1px 1px" /&gt;
+
+]
+
+---
+
+layout: false
+class: inverse_2, center, middle
+
+# Introduzione
+# Motivazioni ed obiettivi
+
+&lt;!-- set inverse layout --&gt;
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Peak-to-Mean Ratio (PMR): che cos'è?
+
+.red[fattore moltiplicativo] per stimare le concentrazioni odorigene *di picco* ("istantanee") a partire dai *valori medi* del modello (1h)
+
+&lt;img src="scuola_odori_nose24_files/figure-html/unnamed-chunk-2-1.png" width="58%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[
+adapted from:
+
+Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
+]
+]
+
+---
+
+# PMR e plume meandering
+
+PMR tenta di "catturare" i valori massimi a breve termine determinati dalle fluttuazioni del pennacchio.
+
+&lt;img src="./img_pres/smoke_plume_cut_legend.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[
+.small[
+from:
+
+Stull, 2015. Practical Meteorology. An Algebra-based Survey of Atmospheric Science. The University of British Columbia Vancouver, Canada.
+]
+]
+
+---
+
+# PMR: come si calcola?
+
+Relazione empirica tra .red[concentrazione di picco] `\(C_p\)` riferita ad intervallo temporale `\(t_p\)` (ad es. 5 s) e .red[concentrazione media] `\(C_m\)` riferita ad intervallo temporale `\(t_m\)` (ad es. 1 h).
+
+&lt;br&gt;
+
+.big[
+
+`$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^u$$`
+]
+
+&lt;br&gt;
+.small[
+
+`\(\psi\)` =  PMR, Peak-to-Mean ratio &lt;br&gt;
+`\(C_p\)` =  concentrazione odorigena di picco (a breve termine, per convenzione 5 s)&lt;br&gt;
+`\(C_m\)` =  concentrazione odorigena media (tipicamente riferita a 1 h)&lt;br&gt;
+`\(t_m\)` = intervallo temporale medio (tipicamente 1 h)&lt;br&gt;
+`\(t_p\)` = intervallo temporale di picco (a breve termine, per  convenzione 5 s)&lt;br&gt;
+`\(u\)` = esponente in funzione della classe di stabilità atmosferica (vari schemi proposti)&lt;br&gt;
+
+]
+
+.footnote[
+.small[
+
+Smith M., 1973. Recommended Guide for the Prediction of the Dispersion of Airborne Effluents. ASME Eds, New York.
+
+Schauberger G., Piringer M., Schmitzer R., Kamp M., Sowa A., Koch R., Eckhof W., Grimm E., Kypke J., Hartung E., 2012. Concept to assess the human perception of odour by estimating short-time peak concentrations from one-hour mean values. Atmospheric Environment, 54, 624-628.
+]
+]
+
+---
+
+# PMR e modellistica odorigena
+
+
+- **PMR 'statico'**:
+
+  utilizzo più frequente, fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie
+
+- **PMR 'dinamico'**:
+
+  variabile nel tempo e nello spazio, calcolo internalizzato nel codice del modello e parametrizzato in funzione di altre variabili (stabilità atmosferica, tempo di volo, tempo lagrangiano);
+
+&lt;br&gt;
+In questo studio: 
+
+- **CALPUFF** e **LAPMOD**: PMR statico
+
+- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne &amp; Mason, 1991) 
+
+.footnote[
+.small[
+
+Smith M., 1973. Recommended Guide for the Prediction of the Dispersion of Airborne Effluents. ASME Eds, New York.
+
+Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume dispersing at a range up to 1000. Q. J. R. Meteorol. Society, 117, 177-206.
+
+]
+]
+
+---
+
+# Il problema
+
+&lt;br&gt;
+
+Domanda:
+
+- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**&lt;br&gt;(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+
+&lt;br&gt;
+Approccio:
+
+  - **Sensitività a differenti (alternativi) sistemi modellistici** 
+  
+  .red[CALPUFF vs. LAPMOD]&lt;br&gt;
+  (lagrangiano puff vs. lagrangiano particelle)
+
+
+  - **Sensitività a differenti (alternative) parametrizzazioni PMR**
+  
+  .red[LAPMOD]&lt;br&gt;
+  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]&lt;br&gt;
+  (post-processing vs. stima 'interna' al modello)
+
+
+---
+
+# Perchè fare domande?
+
+.pull-right-reduced[
+
+&lt;img src="./img_pres/dubbio_omino.jpg" width="40%" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+]
+
+.pull-left-augmented[
+Motivazione:
+
+- tecnico-scientifica: 
+
+  - riferimenti casi studio in letteratura
+
+- normativa (Allegato 1, MASE, 2023):
+  
+  - modellistica come strumento per verifica di conformità
+  
+  - PMR = 2.3 per riproducibilità ma non come unica possibilità
+  
+]
+
+.footnote[.small[
+
+Schauberger G., Piringer M., Schmitzer R., Kamp M., Sowa A., Koch R., Eckhof W., Grimm E., Kypke J., Hartung E., 2012. Concept to assess the human perception of odour by estimating short-time peak concentrations from one-hour mean values. Atmospheric Environment, 54, 624-628.
+
+Schauberger G., Piringer M., 2012. Assessment of Separation Distances to Avoid Odour Annoyance: Interaction Between Odour Impact Criteria and Peak-to-Mean Factors. Chemical Engeneering Transactions 30, 13-18.
+
+Brancher M., Hieden A., Baumann-Stanzer K., Schauberger G., Piringer M., 2020. Performance evaluation of approaches to predict sub-hourly peak odour concentrations. Atmospheric Environment: X, 7, 100076.
+
+Invernizzi M., Brancher M., Sironi S., Capelli L., Piringer M., Schauberger G., 2020. Odour impact assessment by considering short-term ambient concentrations: A multi-model and two-site comparison. Environment International, 144, 105990.
+
+]]
+
+---
+
+# Il caso studio simulato
+
+.red[sorgente, emissioni, meteo, dominio, terreno, recettori]
+
+
+&lt;img src="./img_pres/NOSE24/ter_wry_append_new.png" width="160%" style="display: block; margin: auto;" /&gt;
+
+.small[
+.pull-left[
+
+sorgente puntuale (camino): h = 22 m, d = 1 m
+
+effluenti: T = 50 °C, v = 13 m/s
+
+OER: 24,000 OUE/s (costante 24/7)
+
+transetto SW: 25 recettori discreti 
+
+]
+
+.pull-right[
+
+CALMET (Cosmo5 24+): 10x10 km, mesh 250 m 
+
+LAPMOD, CALPUFF:  4x4 km, mesh 50 m
+
+rosa venti: h = 10 m, da CALMET
+
+uso suolo: CORINAIR; orografia: DTM RV
+]
+]
+
+---
+
+# 2 modelli, 7 configurazioni 
+
+#### per 7 stime alternative di impatto odorigeno 
+
+&lt;br&gt;
+
+.center[
+&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; # &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; valore &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; peak-time &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; stat &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CALPUFF &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:left;vertical-align: middle !important;" rowspan="6"&gt; LAPMOD &lt;/td&gt;
+   
+   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_max_1.6 &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; 1.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_5s &lt;/td&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="4"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_max_5s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_max_60s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.footnote[
+
+.red[PMR statico] = post-processing output modello, fattore .red[costante];
+
+.red[PMR dinamico] = stima interna al modello, fattore .red[variabile];
+
+]
+
+
+
+---
+
+layout: false
+class: inverse_2, center, middle
+
+# Risultati
+# (grafici, tabelle)
+
+&lt;!-- set inverse layout --&gt;
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Panoramica .small[(1/2)]: contour plots 
+
+&lt;!-- panoramica 98° percentile --&gt;
+
+&lt;img src="./img_pres/pct098_grid_contour_model_config_comp_new.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Panoramica .small[(2/2)]: contour plots
+
+&lt;!-- panoramica 100° percentile, max --&gt;
+
+&lt;img src="./img_pres/pct100_grid_contour_model_config_comp_new.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# CALPUFF, PMR 2.3 (statico), Pct98
+
+&lt;img src="./img_pres/cp_grid_s_avg_2.3_pct98_new_for_presentation.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[s_2.3]
+]
+---
+
+# LAPMOD, PMR 2.3 (statico), Pct98  
+
+&lt;img src="./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_presentation.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[s_avg_2.3]
+]
+
+---
+
+# LAPMOD, PMR 60s (dinamico), Pct98 
+
+&lt;img src="./img_pres/lp_grid_out_05_d_avg_60s_pct98_new_for_presentation.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[d_avg_60s]
+]
+---
+
+# LAPMOD, PMR 5s (dinamico), Pct98 
+
+&lt;img src="./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presentation.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[d_avg_5s]
+]
+
+---
+
+# Estensione areale isolinee
+
+- definita una soglia "arbitraria": `\(1~ OU_E~m^{-3}\)`; 
+
+- calcolo dell'estensione areale, in `\(km^2\)`, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
+
+
+&lt;br&gt;
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; km2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; calpuff &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1583 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.3152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3406 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; d_avg_5s &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.9995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+- misura quantitativa (proxy) di impatto odorigeno relativa alla stima prodotta con alternative configurazioni modellistiche (PMR statico vs. PMR dinamico).
+
+
+---
+
+# Stime presso recettori (selezione)
+
+100 m (R1), 300 m (R3), 500 m (R5) di distanza (xy) dalla sorgente
+
+.center[
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Run &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Rec &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Dist_xy &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Pct98 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Exc_1h &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; N_epis &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Dur_epis &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; static &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; calpuff &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 596 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 330 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="9"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 2.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1663 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 811 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 444 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 272 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 144 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; dynamic &lt;/td&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_5s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 23.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2480 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 585 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 4.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1145 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 414 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 161 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_60s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 5.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1611 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 570 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 278 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 201 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.footnote[
+.small[
+
+Exc_1h = superamenti valore soglia pari a 1 OUE/m3&lt;br&gt;
+N_epis = numero di episodi (ore continuative) di superamento soglia&lt;br&gt;
+Dur_epis = durata massima (ore) di un episodio di superamento continuativo
+
+]
+]
+
+---
+
+# LAPMOD, transetto recettori, Pct98
+
+&lt;img src="./img_pres/lapmod_disc_rec_transect_pct98_samtype_avg.png" width="120%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+nb: zoom --&gt; ylim(0, 5)
+]
+
+---
+
+# LAPMOD, distanza separazione, Pct98
+
+&lt;img src="./img_pres/lapmod_sep_dist_conf_comp_samtype_avg.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.footnote[225 °N transetto recettori discreti]
+
+---
+
+layout: false
+class: inverse_2, center, middle
+
+# Conclusioni
+
+&lt;!-- set inverse layout --&gt;
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Qual è la stima "corretta"...
+
+&lt;br&gt;
+
+.pull-left[
+
+###.center[...PMR statico?]
+
+&lt;img src="./img_pres/don.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+###.center[...PMR dinamico?] 
+
+&lt;img src="./img_pres/fox_crop.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+&lt;br&gt;
+
+###.center[...non c'è una risposta univoca !]
+
+
+- variabilità nelle stime dovuta alle modalità di calcolo del PMR introduce un significativo margine di incertezza;
+- manca una verifica empirica di tipo contro-fattuale (es. field inspection, analisi lamentele, citizen science); 
+
+---
+
+# Conclusioni su aspetti di tipo operativo
+
+&lt;br&gt;
+
+### campo vicino vs. lontano
+
+-  PMR dinamico (peak-time 5s) sovrastima nel campo vicino (&lt; 800 m) e sottostima nel lontano (&gt; 800 m) rispetto a PMR statico.
+
+### recettori discreti
+
+- differenze di concentrazione: fino a 1 ordine di grandezza per recettore più vicino alla sorgente (a circa 141 m, dir SW); 
+- fino a circa 1 km, PMR dinamico peak-time 5s &gt; PMR statico.
+
+
+### distanza di separazione e areale di impatto
+
+-  variabilità nella distanza minima e nella copertura areale per un predefinito livello di protezione (concentrazione odorigena);
+- PMR dinamico peak-time 5s &gt;  PMR statico.
+
+---
+
+# Conclusioni su aspetti di tipo regolatorio
+
+&lt;br&gt;
+
+### verifica di conformità e valutazioni di impatto
+
+- necessaria una *consapevolezza tecnica*, da parte dei proponenti e delle autorità di controllo, sugli effetti riconducibili all'utilizzo di una specifica configurazione modellistica;
+
+- richiesto un impegno verso la *riproducibilità* delle stime per garantire una valutazione di impatto *accurata e robusta* in relazione alle configurazioni modellistiche adottate (o non adottate) dai proponenti e/o richieste (o non richieste) dalle autorità di controllo;
+
+- importante ricordare che l'utilizzo *esclusivo* dello strumento modellistico (spesso in un'unica configurazione) può essere fonte di un potenziale *effetto di 'distorsione' (bias)* nella verifica di conformità ai valori di accettabilità.
+
+&lt;br&gt;
+
+.bottom[
+.center[
+
+### "All models are wrong, but some are useful." Box
+
+]
+]
+
+---
+
+layout: false
+class: title-slide, middle, no-scribble
+
+# Grazie per l'attenzione
+## massimo.bressan@arpa.veneto.it
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLanguage": ["r", "yaml", "markdown"],
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
