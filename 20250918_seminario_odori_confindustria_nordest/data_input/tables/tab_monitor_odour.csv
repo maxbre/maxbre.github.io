@@ -1,0 +1,8 @@
+ \ ,sensoriale,strumentale,matematico
+emissioni-sorgente,olfattometria dinamica,analisi chimica,db emissioni
+emissioni-sorgente,olfattometria dinamica,IOMS,modellistica inversa
+emissioni-sorgente,olfattometria dinamica,anemometro sonico e campionatore gas (*),metodi stima micro-met*
+immissioni-recettore,field inspection,analisi chimica,modellistica dispersione
+immissioni-recettore,field olfactometry ,IOMS,modellistica dispersione
+immissioni-recettore,schede odori,IOMS,equazioni empiriche
+immissioni-recettore,citizen science,IOMS,equazioni empiriche

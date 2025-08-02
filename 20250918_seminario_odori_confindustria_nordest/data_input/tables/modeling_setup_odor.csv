@@ -1,0 +1,12 @@
+Model run,run_00,run_01,run_02,run_03,run_04,run_05,run_06
+Label run,s_2.3,s_avg_2.3,s_max_1.6,d_avg_5s,d_max_5s,d_avg_60s,d_max_60s
+Model name,CALPUFF,LAPMOD,LAPMOD,LAPMOD,LAPMOD,LAPMOD,LAPMOD
+PMR type,static,static,static,dynamic,dynamic,dynamic,dynamic
+Tpeak,--,--,--,5,5,60,60
+Nsam,--,6,6,6,6,6,6
+Tint_met,--,600,600,600,600,600,600
+Tavg_met,3600,3600,3600,3600,3600,3600,3600
+Samtype,avg,avg,max,avg,max,avg,max
+PMR method calculation,constant value after Smith’s power law: (3600/60)^u = 60^u,constant value after Smith’s power law: (3600/60)^u = 60^u,constant value after Smith’s power law: [3600/(60*6)]^u = (600/60)^0.2 = 10^u,initial value after Smith’s power law: (3600/5)^u = 720^u,initial value after Smith’s power law [3600/(5*6)]^u = (600/5)^u = 120^u,initial value after Smith’s power law: (3600/60)^u = 60^u,initial value after Smith’s power law: [3600/(60*6)]^u = (600/60)^0.2 = 10^u
+Calculation assumptions,"tpeak = 60s, u = 0.2 as per calpuff user’s manual","tpeak = 60s, u = 0.2 as per calpuff user’s manual","tpeak = 60s, u = 0.2 as per calpuff user’s manual","u = 0.2 but in fact depending on atmospheric stability, schauberger et al.","u = 0.2 but in fact depending on atmospheric stability, schauberger et al.","u = 0.2 but in fact depending on atmospheric stability, schauberger et al.","u = 0.2 but in fact depending on atmospheric stability, schauberger et al."
+PMR value,2.3,2.3,1.6,3.7,2.6,2.3,1.6

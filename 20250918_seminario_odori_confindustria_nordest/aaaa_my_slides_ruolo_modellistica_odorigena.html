@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title> Meeting Confindustria Veneto Est  Modellistica di impatto odorigeno</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="   Massimo Bressan" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#befa46"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="css/css_arpav.css" type="text/css" />
+    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <br>Meeting Confindustria Veneto Est<br><br>Modellistica di impatto odorigeno
+]
+.subtitle[
+## Principi fondamentali, criticità ed applicazioni nel quadro di riferimento normativo
+]
+.author[
+### <br><br><br>Massimo Bressan
+]
+.institute[
+### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
+]
+.date[
+### Marghera, 18/09/2025 [last updated: 2025-07-31]
+]
+
+---
+
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+&lt;!-- set general options and load libraries --&gt;
+
+
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Anteprima per punti 
+
+&lt;br&gt;
+
+1. La letteratura tecnico-scientifica e gli orientamenti normativi stabiliscono il "governo" delle emissioni odorigene (sorgenti) tramite la .red[valutazione degli effetti sui recettori (target)].
+
+1. La verifica di .red[conformità ai valori di accettabilità presso i recettori] prevista dagli "Indirizzi" (MASE, 2023) si basa sull’applicazione di una .red[stima modellistica] dell’impatto odorigeno.
+
+1. Il percorso regolatorio (autorizzativo) degli "Indirizzi" inquadra la modellistica odorigena come uno strumento operativo nel .red[ciclo di miglioramento continuo] delle performance d'impianto.
+
+1. La corretta e riproducibile .red[parametrizzazione della simulazione modellistica] assume un ruolo cruciale - e spesso molto critico - nella valutazione dell’impatto odorigeno (analisi di sensitività dei risultati). Analisi di un caso studio simulato.
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Parole chiave
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.left[
+# Ho ancora nel naso l'odore ...
+]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.right[
+### Il sergente nella neve, M. Rigoni Stern
+### 1953
+
+]
+
+---
+
+# Odore vs. odorante
+
+&lt;br&gt;
+
+&lt;img src="./img_pres/odorant_odour/skunk_man2_bw.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+.red[l'odore (effetto)]
+
+- .red[non] coincide con l'.red[odorante (causa)] e .red[non] rappresenta una caratteristica intrinseca (tipica) delle molecole.
+
+- corrisponde alla .red[sensazione] che la(e) molecola(e) provoca(no) nel recettore (uomo) attraverso il sistema olfattivo.
+
+
+---
+
+# Complessità: dagli odoranti alla lamentela
+
+.pull-left[
+&lt;img src="./img_pres/flowchart/from_odorant_to_complaint/flow_odorant_to_complaint_crop2.png" width="130%" style="vertical-align:top; margin:0px 90px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right-reduced[
+
+&lt;br&gt;
+.body_center[
+.red[
+**Domanda:**
+
+**quale "metrica" utilizzare per misura/monitoraggio odoranti/odore?**
+] 
+]
+
+
+
+.small[
+.footnote[
+Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science &amp; Technology, 44: 9-15.
+]
+
+]
+]
+
+---
+
+# Metrica (misura, monitoraggio, stima)
+
+### approccio multi-modale e multi-dimensionale
+
+.red[**target**] (righe) vs. .red[**metodo**] (colonne)
+
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; \ &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; sensoriale &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; strumentale &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; matematico &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: black !important;vertical-align: middle !important;" rowspan="3"&gt; emissioni-sorgente &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; olfattometria dinamica &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; analisi chimica &lt;/td&gt;
+   &lt;td style="text-align:center;color: black !important;"&gt; db emissioni &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   &lt;td style="text-align:center;background-color: white !important;"&gt; IOMS &lt;/td&gt;
+   &lt;td style="text-align:center;color: black !important;background-color: white !important;"&gt; modellistica inversa &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   &lt;td style="text-align:center;background-color: white !important;"&gt; anemometro sonico e campionatore gas (*) &lt;/td&gt;
+   &lt;td style="text-align:center;color: black !important;background-color: white !important;"&gt; metodi stima micro-met* &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: red !important;vertical-align: middle !important;background-color: white !important;" rowspan="4"&gt; immissioni-recettore &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; field inspection &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; analisi chimica &lt;/td&gt;
+   &lt;td style="text-align:center;color: red !important;vertical-align: middle !important;background-color: white !important;" rowspan="2"&gt; modellistica dispersione &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   &lt;td style="text-align:center;background-color: white !important;"&gt; field olfactometry &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;background-color: white !important;" rowspan="3"&gt; IOMS &lt;/td&gt;
+   
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   &lt;td style="text-align:center;background-color: white !important;"&gt; schede odori &lt;/td&gt;
+   
+   &lt;td style="text-align:center;color: black !important;vertical-align: middle !important;background-color: white !important;" rowspan="2"&gt; equazioni empiriche &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   &lt;td style="text-align:center;"&gt; citizen science &lt;/td&gt;
+   
+   
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+.footnote[.small[
+
+Adapted from: 
+
+Bax et al., 2020, How Can Odors Be Measured? An Overview of Methods and Their Application.
+Atmosphere, 11, 92; doi:10.3390/atmos11010092
+
+(*) Applicability of "eddy covariance" and "gradient method from similarity theory" for the estimation of gas vertical fluxes: Lotesoriere et al., 2022: Micrometeorological Methods for the Indirect Estimation of Odorous Emissions, Critical Reviews in Analytical Chemistry, https://doi.org/10.1080/10408347.2022.2036092
+
+]
+]
+
+---
+
+# Valori di accettabilità
+
+#### Verifica di conformità dei valori di accettabilità presso i ricettori con una .red[stima modellistica di dispersione odorigena].
+
+
+&lt;table class="table table-striped" style="font-size: 14px; "&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Classe &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Descrizione &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Valori &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; PRIMA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo A o B. Edifici, in centri abitati o nuclei uso collettivo continuativo ed alta concentrazione persone (ospedali, case di cura, ospizi, asili, scuole, università, anche private), esclusi usi commerciale e terziario. &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; 1 OUE/m3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; SECONDA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo C. Edifici o spazi aperti, in centri abitati o nuclei uso collettivo continuativo, commerciale, terziario o turistico (mercati stabili, centri commerciali, terziari e direzionali,  servizi, strutture ricettive, monumenti). &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; 2 OUE/m3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; TERZA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Edifici o spazi aperti, in centri abitati o nuclei, uso collettivo non continuativo (luoghi pubblico spettacolo, per attività ricreative, sportive, culturali, religiose, fiere, mercatini o altri eventi, cimiteri); case sparse; edifici in zone a prevalente uso residenziale non ricomprese in ZTO tipo A, B, C. &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; 3 OUE/m3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; QUARTA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree prevalente uso industriale, artigianale, agricola, zootecnica. &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; 4 OUE/m3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; QUINTA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree con manufatti o strutture che non prevedono ordinaria presenza di gruppi di persone (terreni agricoli, zone non abitate). &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; 5 OUE/m3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+#### ex Indirizzi Nazionali, Decreto Direttoriale MASE n. 309/2023
+
+---
+
+# Modellistica odorigena
+
+.red[
+####Strumento di tipo matematico che fornisce una valutazione quantitativa del processo di "trasporto e diluizione" dell'odore nell'aria ambiente, dalla sorgente al recettore ("link function").  
+]
+&lt;br&gt;
+&lt;img src="./img_pres/odorant_odour/wind_odour_diluition.png" width="69%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+.small[
+Olfattometro (analogia rispetto agli obiettivi di valutazione)
+
+Strumento di *laboratorio* che *diluisce* un campione di aria per determinare il "livello" (concentrazione) di odore "misurato" dagli esaminatori tramite il riconoscimento sensoriale ("naso") della soglia olfattiva; la diluizione del campione in laboratorio *"simula" il processo di diluizione* dell'emissione odorigena nell'aria ambiente. 
+]
+
+---
+
+# Impatto odorigeno
+
+Ricerca di una soluzione operativa per "tradurre":
+ 
+- la .red[**concentrazione di una miscela di odoranti**]  
+ .small[quantità chimica in aria ambiente in [ppm, ppb] o [mg/m3, ug/m3]]
+
+- in .red[**concentrazione odorigena**]  
+ .small[quantità di odore percepito dal naso umano in [OUE/m3]]   
+   - alla sorgente -&gt; olfattometria dinamica  
+   - ai recettori -&gt; modellistica di dispersione odorigena  
+
+- in .red[**intensità odorigena**] e/o .red[**tono edonico**]  
+ .small["forza" e "s-piacevolezza" della sensazione percepita dal ricettore (varie scale)]
+
+- in .red[**disturbo/molestia olfattiva**]  
+ .small[manifestazione e percezione impatto odorigeno descritto tramite schema  .red_bold[FIDO*]]
+
+&lt;br&gt;
+.red_bold[Nota bene]: .red[NON] sono note relazioni quantitative univoche ed universalmente riconosciute tra: .red[composizione e concentrazione chimica] di un’aria osmogena, .red[concentrazione odorigena] misurata con il naso umano, .red[intensità odorigena] e .red[tono edonico] percepito dal recettore, .red[disturbo/molestia odorigena] presso la popolazione.
+
+
+---
+
+&lt;img src="./img_pres/flowchart/fasi_processi_impatto_odorigeno/fasi_processi_impatto_odorigeno.png" width="66%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[.small[Adapted from: Schauberger, NOSE24]]
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Quale tipologia di sorgenti con più frequente criticità odorigena?
+
+## .white[Questionario RRTEM05 SNPA 2023]
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+---
+
+class: center, bottom
+
+background-image: url(./img_pres/politically_correct_signal_crop.png)
+background-position: bottom
+background-size: cover
+
+# .white[A politically correct communication!]
+
+---
+
+# Mappatura sorgenti criticità .small[(1/2)]
+
+&lt;img src="./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_1_.png" width="84%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Mappatura sorgenti criticità .small[(2/2)]
+
+&lt;img src="./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_2_.png" width="84%" style="display: block; margin: auto;" /&gt;
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Le caratteristiche
+# del fenomeno odorigeno
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Tempi di mediazione
+
+
+- .red[**percezione dei recettori --&gt; su "tempi brevissimi"**] 
+
+ - .small[concentrazioni di picco su .red[pochi secondi] (Brancher et al. 2017);]
+ - .small[durata fisiologica inalazione umana: .red[1.6 s] (Mainland and Sobel, 2006);]
+ - .small[risposta stimolo olfattivo: tempo medio di un respiro .red[3.6 s] (Freeman  &amp; Cudmore, 2002);] 
+ - .small[ valore di riferimento per ciclo "inalazione, percezione, espirazione": per convenzione .red[5 s]  (Ruijten et al., 2009);]
+ 
+
+- .red[**"misure" presso i recettori --&gt; su "tempi lunghi"**]
+
+ - .small[standard QA (breve termine): medie .red[1 h] (ex DLgs. 155/2010);]
+ - .small[strumentazione QA: .red[tempi di risposta] non adeguati (tranne eccezioni &gt;=.red[1 min]);]
+ - .small[modellistica dispersione atmosferica (standard):  medie .red[1 h];]
+ - .small[modellistica odorigena: ricerca di un adeguato .red["fattore di correzione"] delle medie 1h.]
+ 
+&lt;br&gt;
+
+.red[**La differenza nei tempi di mediazione tra:**]
+
+- .red[**percezione (manifestazione) vs. misura (osservazione, stima)**]
+
+.red[**rappresenta l'elemento principale di criticità nel determinare la correttezza e l'efficacia della valutazione di impatto odorigeno!**]
+
+---
+
+# Il problema dal punto di vista teorico...
+
+
+&lt;img src="aaaa_my_slides_ruolo_modellistica_odorigena_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[synthetic data (esempio)]
+
+---
+
+# ...e dal punto di vista sperimentale
+
+.pull-left-augmented[
+&lt;img src="./img_pres/avg_time/nicell.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right-reduced[ 
+&lt;br&gt;
+.green[**&lt; 1 OU**]
+
+`\(t_m\)`: 1 h 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.orange[**~ 1 OU**]
+
+`\(t_m\)`: 10 min 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.red[**0-6 OU**]
+
+`\(t_m\)`: 12 s 
+
+]
+
+.footnote[
+.small[
+Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-206.
+]
+]
+
+---
+
+# Conseguenze operative!
+
+- .red[**paradosso logistico ed organizzativo**]
+
+.small[
+
+  - normali tempi di intervento (&gt;&gt; 1h) determinano la difficoltà e, a volte, l'impossibilità di trovare "traccia" di un evento di disturbo o molestia olfattiva caratterizzato da intervalli temporali molto brevi e con una forte intermittenza.
+
+]
+
+- .red[**paradosso "strumentale" (sensu lato)**]
+
+.small[
+ 
+  - misura (monitoraggio) in continuo di un odorante (miscela) viene effettuata su tempi di mediazione "lunghi", tipicamente orari (per standard QA e normale operatività strumentazione);
+  
+- impiego di sistemi modellistici configurati secondo la "parametrizzazione classica" per gli inquinanti atmosferici "tradizionali" (media 1h).
+]
+
+&lt;br&gt;
+.red_bold[
+ Problema:
+ 
+ Disponibilità di sistemi e strumenti (misura, monitoraggio, stima) che per "risoluzione temporale" non sono (quasi mai) adeguati per "descrivere" in modo accurato la complessità e la specificità del fenomeno odorigeno *presso i recettori*.]
+
+.red_bold[
+- E quindi, come fare?  
+
+- La modellistica fornisce qualche risposta utile?]
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+
+# Modellistica odorigena
+# FIDO*
+
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Schema FIDO.red[*]
+
+
+Fattori (elementi) nella valutazione dell'impatto odorigeno: 
+
+- .red[**F**]requency (frequenza)
+
+- .red[**I**]ntensity (intesità)
+
+- .red[**D**]uration (durata)
+
+- .red[**O**]ffensiveness (offensività)
+
+&lt;br&gt; 
+
+In letteratura tecnico-scientifica le differenti varianti dello schema **FIDO** prevedono un fattore aggiuntivo:
+
+- **FIDO.red[S]** `\(\rightarrow\)` .red[**S**]ensitivity (sensitivtà)
+
+- **FIDO.red[L**] `\(\rightarrow\)` .red[**L**]ocation (luogo)
+
+- **FIDO.red[R**] `\(\rightarrow\)` .red[**R**]eceptor (recettore)
+
+---
+
+# Frequency (.red[F]IDO)
+
+Misura la frequenza di accadimento degli eventi odorigeni che dipende dalla variazione temporale delle emissioni e dalle condizioni meteorologiche prevalenti.
+
+Due approcci tipici:
+
+- .red[conteggio delle ore di odore ("odour hours")]: esprime la frequenza (percentuale) di ore sopra la soglia minima di concentrazione (intensità) odorigena (soglia di percezione); è condiderato un'espressione del `\(LOD_{field}\)`
+
+- .red[ranking delle concentrazioni odorigene ("percentile")]: esprime la concentrazione odorigena (intensità) di soglia che si verifica con una frequenza predefinita (98° percentile delle concentrazioni orarie di picco su base annuale)
+
+.red_bold[Implicazioni modellistiche]:
+
+- scelta dei tempi di mediazione
+
+- definizione dei criteri di impatto: es. 98° percentile 
+
+---
+
+# Intensity (F.red[I]DO)
+
+Misura "quanto forte" un odore viene percepito, cioè descrive la .red["magnitudo" di una  sensazione odorosa] percepita tramite l'olfatto umano.
+
+Natura logaritmica della percezione olfattiva: al decrescere della concentrazione odorigena (misurata con un olfattometro, tipicamente di un fattore 10), l'intensità è diminuita di una "quantità/forza" molto inferiore.
+
+La .red[concentrazione odorigena sopra la soglia di percezione non è un'indicazione diretta dell'intensità odorigena] (forza di percezione dell'odore).
+Non è mai stata osservata una relazione univoca ed universalmente valida tra disturbo o molestia olfattiva e misura dei livelli di concentrazione odorigena.
+
+.red_bold[Implicazioni modellistiche]:
+
+- stima della magnitudo delle emissioni odorigene
+
+- stima output concentrazioni odorigene (fattore di rimodulazione peak-to-mean ratio)
+
+- restituzione stime di impatto (contour plot)
+
+---
+
+# Duration (FI.red[D]O)
+
+Misura la durata di esposizione di un recettore all'odore.
+
+Valutazione quantitativa delle .red[concentrazioni di picco] per una determinata .red[durata, intervallo temporale] (percentile). 
+
+Il disturbo odorigeno è strettamente correlato alla frequenza delle .red[concentrazioni di picco a breve termine] cioè per .red[quanto tempo] un soggetto risulta esposto all'odore.
+
+.red_bold[Implicazioni modellistiche]:
+
+- trattazione concentrazioni in termini di .red[percentili] (il 98°, in Italia!).
+
+---
+
+# Offensiveness (FID.red[O])
+
+Misura del .red[carattere] e del .red[tono edonico] dell'odore.
+
+E' una .red[misura soggettiva] dell'accettabilità dell'odore, fattore chiave nella valutazione del disturbo o molestia odorigena.
+
+Il tono edonico non è una qualità "indipendente" di un composto chimico ma è .red[un attributo che dipende] strettamente da intensità, concentrazione, durata, frequenza dell'esposizione all'odorante. E' una .red[misura soggettiva] correlata all'esperienza, allo stato emotivo ed alle circostanze.
+
+.red_bold[Implicazioni modellistiche (warning)]:
+
+- aspetto non esplicitamente trattato nelle simulazioni (in Italia)
+
+.footnote[
+
+.red[*"Offensiveness must be considered at the level of odour exposure .without extrapolation of potential evolution for lower or higher concentrations."*`]
+
+from: 
+AMIGO &amp; Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling
+]
+
+---
+
+# Location-Sensitivity-Receptor (FIDO.red[L-S-R])
+
+Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone un impatto differente .red[sensitività] in funzione di:
+
+- destinazione d'uso del territorio
+
+- del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità),
+
+- dello stato di benessere e/o di salute dei .red[recettori] (per eventuale presenza di altre fonti di "pressione ambientali"). 
+
+Altri aspetti, strettamente correlati e spesso non facilmente scindibili, riguardano la .red[sensitività] ed il tipo di .red[recettore] considerato.
+
+.red_bold[Implicazioni modellistiche]:
+
+- criteri di selezione dei recettori (distanza da sorgente, luogo, sensibilità recettore)
+
+- destinazione d'uso (classificazione) del territorio
+
+- normativa di riferimento e criteri di impatto
+
+---
+
+# Modellistica e FIDO*
+
+.red_bold[Quali fattori FIDO* sono risolti nella simulazione modellistica?]
+
+Ricomposizione secondo i contenuti tecnici degli "Indirizzi Nazionali" (ex Decreto Direttoriale MASE n. 309/2023)
+
+.center[
+|Modellistica odorigena | schema FIDO* |
+|:-----------------:|:--------------------:|
+|Criteri di impatto, Percentili | Frequency, Duration|
+|Valori di accettabilità&lt;br&gt;(1, ...,5 OUE/m3)&lt;br&gt;Peak-to-Mean (2.3, in Italia) | Intensity (pars)|
+|Classi di Sensibilità&lt;br&gt;(prima, ...,quinta) | Location, Sensitivity, Receptors|
+]
+
+Nota bene:
+
+-  .red[Offensiveness]: nelle applicazioni tipiche e normativa attuale non c'è questo fattore (fondamentale ma difficile da chiudere);
+
+- .red[Intensity]: fattore valutato solo "parzialmente" con variabile *proxy*  .red[concentrazione odorigena] (diverso da intensità).
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Modellistica di dispersione atmosferica
+# (introduzione un po' filosofica) 
+
+&lt;!-- set inverse layout --&gt;
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+---
+
+# Flow chart modellistica atmosferica
+
+.pull-left-augmented[
+&lt;img src="./img_pres/flow_chart_AQ_it.png" width="450" height="540" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right-reduced[
+.body_center[
+.large[
+.red_bold[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+Modellistica odorigena:&lt;br&gt;
+stime vs. misure?
+
+Come fare?
+]
+]
+]
+]
+---
+
+# Che cos'è un modello?
+
+- rappresentazione  semplificata del reale, necessariamente! 
+
+- i modelli, anche i più complessi e sofisticati, non prescindono mai dall'utilizzo di misure (...a loro volta dei modelli!)
+
+#### dal reale al modello per .red[semplificazioni, astrazioni, assunzioni]
+
+&lt;img src="./img_pres/plume_historical.png" width="45%" /&gt;&lt;img src="./img_pres/plume_scheme.png" width="45%" /&gt;
+
+.footnote[
+.small[
+"Tanto peggio per i fatti (se non si accordano con la teoria)", attribuita a Hegel.
+
+"All models are wrong, but some are useful", Box.
+]
+]
+
+---
+
+# Plume spread: semplificazioni!
+
+&lt;img src="./img_pres/plume_spread65.png" width="500" height="500" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, top
+
+background-image: url(./img_pres/montello_altimetria.png)
+background-position: bottom
+background-size: contain
+
+# Altimetria: semplificazioni!
+
+.bottomtext[
+***Rilievo del Montello (TV)***
+]
+
+---
+
+class: center, top
+
+background-image: url(./img_pres/pianezze2.jpeg)
+background-position: center
+background-size: contain
+
+# Altezza rimescolamento: astrazioni!
+
+.bottomtext[
+.white[***2011-01-18 11:00, vista da Pianezze (~1000 m slm), M.te Cesen, TV***]
+]
+
+---
+
+# Parametrizzazioni: assunzioni!
+
+
+&lt;img src="./img_pres/pct098_grid_contour_model_config_comp_new.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Perchè utilizzare un modello?
+
+###... non posso sempre misurare!
+
+- nuovi progetti o modifiche progettuali per impianti esistenti 
+
+###... non conviene sempre misurare!
+
+- tecnicamente ed economicamente impossibile misurare in ogni punto dello spazio e del tempo
+
+###... non basta solo misurare!
+
+- valutazione del contributo relativo ad una o più sorgenti
+
+
+###L'utilizzo di un modello permette di:
+
+- estendere la misura puntuale nello spazio e nel tempo
+
+- effettuare valutazioni 'contro-fattuali' (analisi di scenario)
+
+---
+
+
+layout: false
+class: inverse_3, center, middle
+
+# Modellistica odorigena:
+# caratteristiche, specificità, limiti
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Modellistica odorigena .small[(1/2)]
+
+- Il disturbo o molestia olfattiva è connesso alla percezione dell’odore presso i .red[recettori].
+
+- L'olfattometria dinamica (UNI EN 13725) è la tecnica di riferimento per la quantificazione delle .red[*concentrazioni*] di odore .red[*alla sorgente (emissioni)*], ma non è adeguata per valutare l’impatto presso i recettori. 
+
+- Per valutare l’esposizione è necessario quantificare gli odori presso i ricettori .red[ma la "misura" degli odori in campo è estremamente complessa, soggetta a grandi incertezze] e non ancora "chiusa" dal punto di vista tecnico-scientifico e normativo.
+
+- L'impiego di simulazioni modellistiche consente, dal flusso di odore emesso, la .red[stima della concentrazione di odore presso i recettori], sia in termini diagnostici (stato di fatto) che prognostici (stato di progetto o scenari alternativi).
+
+- Le principali "normative" fondano la valutazione e la verifica dei criteri di accettabilità presso i recettori su approcci modellistici che esprimono la .red[frequenza di superamento di un valore di concentrazione odorigena simulato presso i recettori].
+
+---
+
+# Modellistica odorigena .small[(2/2)]
+
+- La "tipica" valutazione con i “classici” modelli di dispersione che tratta gli inquinanti “non odorigeni” produce stime riferite alla media oraria (e stratificazioni giornaliere o annuali).
+
+- La caratteristica distintiva dei modelli di dispersione odorigena è la necessità e difficoltà teorica e pratica, non ancora superata, di ricostruire e valutare .red[concentrazioni di picco], a breve termine, per descrivere in modo accurato e realistico l’.red[impatto sui recettori].
+
+- Esistono "nuovi ed avanzati approcci modellistici" ma sono ancora in fase di sviluppo e ricerca e, con poche eccezioni, non trovano una diffusa traduzione "operativa", per una serie di motivazioni tecniche (es.: modelli CFD, di trasporto varianza, pennacchio fluttuante, micromixing, a due particelle).
+
+- E' necessario concepire un "metodo di stima" delle .red[fluttuazioni a breve termine delle concentrazioni odorigene] o applicare un .red["fattore di correzione" (Peak-to-Mean ratio)] ai risultati delle stime medie su 1h (approccio modellistico "classico").
+
+- L'approccio più frequentemente utilizzato (norma) per le simulazioni modellistiche odorigene è l'applicazione del .red[*Peak-to-Mean Ratio*] alle stime delle medie 1h.
+
+---
+
+# Peak-to-Mean Ratio (PMR): che cos'è?
+
+.red[fattore moltiplicativo] per stimare le concentrazioni odorigene *di picco* ("istantanee") a partire dai *valori medi* del modello (1h)
+
+&lt;img src="aaaa_my_slides_ruolo_modellistica_odorigena_files/figure-html/unnamed-chunk-14-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[
+adapted from:
+
+Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
+]
+]
+
+---
+
+# PMR e plume meandering
+
+PMR stima i valori di "picco"  ai recettori (breve termine) "determinati" dalle fluttuazioni del pennacchio (vs. "ensamble average").
+
+&lt;img src="./img_pres/smoke_plume_cut_legend.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[
+.small[
+from:
+
+Stull, 2015. Practical Meteorology. An Algebra-based Survey of Atmospheric Science. The University of British Columbia Vancouver, Canada.
+]
+]
+
+---
+
+# Concentrazione vs. flusso odore emissioni
+
+#### `\(C_{OD} ~ [OU_E~m^{-3}]\)` = concentrazione
+
+misura "intensiva", dipende dallo *stato del sistema* 
+
+#### `\(OER ~ [OU_E ~ s^{-1}]\)` = flusso (portata)
+
+misura "estensiva", dipende dalle *dimensioni del sistema*
+
+
+#### Nella valutazione di impatto odorigeno (recettori) la .red[concentrazione alle emissiooni NON] è sufficiente perchè bisogna considerare il .red[flusso d'aria] `\(Q_{AIR}~ [m^3~s^{-1}]\)` associato (emesso) (d)alla sorgente!
+
+#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] `\(OER\)` che si ricava da:
+
+#### `$$OER = Q_{AIR} \times C_{OD}$$`
+
+#### e viene espresso in unità di odore al secondo `\([OU_E ~ s^{-1}]\)`
+
+---
+
+# Concentrazione vs. percezione recettori .small[(1/2)]
+
+In olfattometria dinamica si ha che statisticamente:
+
+- `\(1\ OU_E\ m^{-3}\Rightarrow\)` il 50% della popolazione percepisce l’odore;
+
+- `\(3\ OU_E\ m^{-3}\Rightarrow\)` l’85% della popolazione percepisce l’odore;
+
+- `\(5\ OU_E\ m^{-3}\Rightarrow\)` il 90-95% della popolazione percepisce l’odore.
+
+
+#### Nelle valutazioni di impatto odorigeno (ai recettori) .red[contano gli eventi di picco], cioè i "valori massimi" di concentrazione e la loro .red[frequenza di manifestazione (percezione)].
+
+Due approcci tipici:
+
+- .red[**conteggio ore di odore ("odour hours")**]: frequenza (percentuale) di ore sopra la soglia di percezione della minima concentrazione odorigena; può essere considerato un'espressione del `\(LOD_{field}\)`.
+
+- .red[**ranking concentrazioni odorigene ("percentile")**]: concentrazione odorigena "di soglia" che si verifica con una frequenza predefinita (secondo la normativa).
+
+---
+
+# Concentrazione vs. percezione recettori .small[(2/2)]
+
+
+Secondo la tipica convenzione operativa e la normale  prescrizione normativa (in Italia):
+
+- la valutazione relativa ad una simulazione modellistica di impatto odorigeno .red[**ai recettori**] viene espressa come:
+
+- .red[**98° percentile delle concentrazioni annuali di picco**].
+
+&lt;br&gt;
+
+Definire un valore di soglia:
+
+- .red[**1, 2, 3, 4, 5**] in `\(OU_E~m^{-3}\)` (ex MASE, 2023)
+
+che corrisponde al 98° percentile delle concentrazioni odorigene annuali di picco, significa:
+
+  - .red[**che i recettori possono percepire la concentrazione odorigena di soglia (proxy del disturbo o  molestia olfattiva) al massimo per 175 ore in un anno (2% di 8760 ore/anno).**]
+
+---
+
+# Sintesi su modellistica odorigena
+
+#### .red[Principali caratteristiche e criticità]
+
+- La concentrazione (misura intensiva) all'emissione non è sufficiente per determinare l'impatto presso i recettori, bisogna considerare il flusso o portata odorigena (OER) all'emissione (misura estensiva);
+
+- La stima della portata odorigena (OER) in particolare per alcune tipologie di sorgenti (es. areali passive) è molto complessa e questo determina una forte incertezza nelle valutazioni;
+
+- Presso i recettori è necessario valutare le concentrazioni odorigene e le loro fluttuazioni a breve termine; nel caso "classico" dell'inquinamento atmosferico da inquinanti "tradizionali" la scala temporale è tipicamente di 1 h mentre nell'impatto odorigeno la scala temporale è riferibile ad un atto respiratorio (pochi secondi);
+
+- E' necessario utilizzare un "fattore di correzione" delle stime orarie (peak-to-mean) oppure un sistema modellistico che tratti in modo adeguato e robusto i valori massimi a breve termine (sistema non ancora disponibile dal punto di vista operativo). 
+
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Quali applicazioni per la modellistica odorigena? E con quali strumenti?
+
+## .white[Questionario RRTEM05 SNPA 2023]
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+---
+
+# Per pareri di competenza
+
+&lt;img src="./img_pres/questionario_snpa_2023/modellistica_pareri_competenza.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Per verifica segnalazioni
+
+&lt;img src="./img_pres/questionario_snpa_2023/modellistica_su_segnalazioni.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Strumenti modellistici
+
+&lt;img src="./img_pres/questionario_snpa_2023/modellistica_quali_strumenti.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Obiettivi della modellistica 
+# nelle valutazioni di impatto odorigeno
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# Simulazioni modellistiche
+
+#### Rispetto a una o più sorgenti su "area limitata":
+
+- .red[**valutazioni preventive**] (ex ante, prognostiche)
+  - verifica di conformità dei livelli di accettabilità presso i recettori
+  - analisi di scenario per modifiche layout impianto
+
+- .red[**valutazioni successive**] (ex post, diagnostiche)
+  - misura quantitativa dell'impatto presso i recettori
+  - sistema di gestione e/o allerta d'impianto
+
+
+#### Rispetto a più sorgenti su "area estesa":
+
+- .red[**valutazioni strategiche**] (pianificazione, zonizzazione territorio)
+  - sistema di supporto decisionale per la pianificazione
+
+ Allo stato attuale in gran parte inespressa è prevista solo indirettamente dagli "Indirizzi" e si ricollega alla definizione dei valori di accettabilità ai recettori definiti sulla base di criteri di pianificazione urbanistica e territoriale.
+
+---
+
+# Valutazioni modellistiche strategiche .small[(1/3)]
+
+#### .red["Vecchi" criteri e valori di accettabilità (ex LG ARPAV):]
+
+- recettori in **aree residenziali**
+ - .small[1 OUE/m3 per distanze &gt; 500 m da sorgenti]
+ - .small[2 OUE/m3 per distanze tra 500 m e 200 m da sorgenti]
+ - .small[3 OUE/m3 per distanze &lt; 200 m da sorgenti]
+
+- recettori in **aree non residenziali**
+  - .small[2 OUE/m3 per distanze &gt; 500 m da sorgenti]
+  - .small[3 OUE/m3 per distanze tra 500 m e 200 m da sorgenti]
+  - .small[4 OUE/m3 per distanze &lt; 200 m da sorgenti]
+
+#### .red["Nuovi" criteri e valori di accettabilità (ex "Indirizzi" MASE, 2023):]
+
+- eliminazione del criterio "distanza" dalle sorgenti;
+- definizione più rigorosa ed articolata dell'ambito territoriale e delle classi di sensibilità dei recettori;
+- maggiore enfasi sugli aspetti connessi alla pianificazione urbanistica e territoriale.
+
+
+---
+
+# Valutazioni modellistiche strategiche .small[(2/3)]
+
+### Legato (...o meglio, un auspicio!)
+
+Il contenuto tecnico degli "Indirizzi" (MASE, 2023) presuppone una *sinergia e verifica di compatibilità* con gli strumenti sovraordinati di pianificazione urbanistica e territoriale.
+
+.red[*"Appare utile [...] che le competenti autorità territoriali possano assicurare, a livello locale, un efficace coordinamento con le norme e procedure relative alle emissioni acustiche e quelle relative alla pianificazione territoriale/urbanistica"*]
+
+Sottolinea l'importanza di un approccio di tipo .red[*strategico (preventivo)*] nella gestione dell'impatto odorigeno. La definizione dei criteri di accettabilità richiama l'approccio della .red[*"Zonizzazione Acustica"*].
+
+.red[**Domanda aperta**]:
+
+- la possibile evoluzione normativa e procedurale delle valutazioni di impatto odorigeno sarà caratterizzata dalla definizione di una .red[**Zonizzazione Odorigena (Osmogena) del Territorio?**]
+
+---
+
+# Valutazioni modellistiche strategiche .small[(3/3)]
+
+
+### ...Ma come fare?
+
+
+- Attualmente non esistono "LG ufficiali" sui metodi per implementare una valutazione modellistica odorigena di tipo "strategico", con l'obiettivo di produrre una classificazione "osmogena" del territorio.
+
+- E' possibile un impiego della .red[**"modellistica inversa"**]?
+  
+  La modellistica inversa (kernel deconvolution) produce un stima del .red[**"termine sorgente"**], cioè per ogni cella del dominio di calcolo stima .red[**l’emissione massima di odore [OUE/s] "consentita" per garantire il rispetto dei valori di accettabilità presso i recettori discreti**].
+
+- Un argomento ed una metodica di valutazione da inventare, sviluppare e testare: c'è qualche "caso studio" interessante, ancora in fase di sviluppo (ARPA-FVG).
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# La modellistica odorigena 
+# nel processo regolatorio (autorizzativo)
+# ex "Indirizzi Nazionali"
+
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# PDCA, autorizzazione ex "Indirizzi"
+
+Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno degli “Indirizzi" visto come un .red[**ciclo di miglioramento continuo (Deming, PDCA)**].
+
+.pull-left[
+
+&lt;br/&gt;
+
+<div class="grViz html-widget html-fill-item" id="htmlwidget-1194d8cdbe0935d66231" style="width:100%;height:360px;"></div>
+<script type="application/json" data-for="htmlwidget-1194d8cdbe0935d66231">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"PLAN\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"1,2!\"] \n  \"2\" [label = \"DO\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"2,1!\"] \n  \"3\" [label = \"CHECK\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"1,0!\"] \n  \"4\" [label = \"ACT\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n\"1\"->\"2\" [color = \"gray\"] \n\"2\"->\"3\" [color = \"gray\"] \n\"3\"->\"4\" [color = \"gray\"] \n\"4\"->\"1\" [color = \"gray\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+.red[**PLAN – istruttoria**]
+.small[
+- autorizzazione "iniziale" (sub iudice) e "finale" (aggiornamento)
+- prescrizioni tecniche, gestionali, operative e di monitoraggio
+]
+
+.red[**DO – esercizio attività**]
+.small[
+- implementazione, monitoraggio 
+]
+
+.red[**CHECK – riesame e rivalutazione**]
+.small[
+- controllo risultati, feedback
+]
+
+.red[**ACT – mitigazione e controllo**]
+.small[
+- messa a regime, regolazione
+]
+
+]
+---
+
+# PDCA, modellistica e autorizzazione
+
+<div class="grViz html-widget html-fill-item" id="htmlwidget-ae923f3caa59f2403215" style="width:85%;height:80%;"></div>
+<script type="application/json" data-for="htmlwidget-ae923f3caa59f2403215">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"PLAN\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"1,2!\"] \n  \"2\" [label = \"DO\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2,1!\"] \n  \"3\" [label = \"CHECK\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"1,0!\"] \n  \"4\" [label = \"ACT\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"0,1!\"] \n  \"5\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2.1,2.6!\"] \n  \"6\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"-0.2,2!\"] \n  \"7\" [label = \"fase\nistruttoria\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"1,2.8!\"] \n  \"8\" [label = \"monitoraggio\nattività\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"2.9,1!\"] \n  \"9\" [label = \"valutazione\nrisultati\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"1,-0.8!\"] \n  \"10\" [label = \"messa\na regime\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"-0.9,1!\"] \n  \"11\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2.2,0!\"] \n\"1\"->\"2\" [color = \"gray\", color = \"gray\"] \n\"2\"->\"3\" [color = \"gray\", color = \"gray\"] \n\"3\"->\"4\" [color = \"gray\", color = \"gray\"] \n\"4\"->\"1\" [color = \"gray\", color = \"gray\"] \n\"5\"->\"1\" [color = \"red\", style = \"dashed\"] \n\"1\"->\"5\" [color = \"red\", style = \"dashed\"] \n\"4\"->\"6\" [color = \"red\", style = \"dashed\"] \n\"6\"->\"1\" [color = \"red\", style = \"dashed\"] \n\"2\"->\"11\" [color = \"red\", style = \"dashed\"] \n\"11\"->\"3\" [color = \"red\", style = \"dashed\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+
+# Impianti nuovi o con modifiche peggiorative
+
+- .red[**PLAN - istruttoria**]
+
+stima modellistica con fattori di emissioni stimati da letteratura o da misure in impianti analoghi o da storico attività.
+
+- .red[**DO - rilascio autorizzazione**]
+
+stima modellistica a seguito di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo monitoraggio.
+
+- .red[**CHECK - impianto realizzato, autorizzazione iniziale**]
+
+stima modellistica con fattori di emissione da misure dirette, eventuale supporto ed integrazione del monitoraggio dell’impatto presso i recettori; definizione di valori alle emissioni da prescrivere in autorizzazione finale.
+
+- .red[**ACT - impianto realizzato, aggiornamento autorizzazione**]
+
+stima modellistica con fattori di emissioni da misure dirette, dopo la messa a regime, applicazione di modifiche tecniche, gestionali, operative dal periodo di monitoraggio e definizione dei valori alle emissioni da inserire in autorizzazione finale.
+
+---
+
+# Impianti esistenti con casi critici
+
+- .red[**PLAN - fase iniziale**]
+
+stima modellistica con fattori di emissioni da misure dirette per eventuale monitoraggio dell’impatto presso recettori.
+
+- .red[**DO - progettazione interventi**]
+
+stima modellistica a seguito di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo periodo di monitoraggio.
+
+- .red[**CHECK - verifica soluzioni proposte**]
+
+stima modellistica con fattori di emissione da misure dirette, supporto ed integrazione di eventuale ulteriore monitoraggio dell’impatto presso i recettori; definizione di valori alle emissioni da inserire in autorizzazione finale.
+
+- .red[**ACT - aggiornamento autorizzazione**]
+
+stima modellistica con fattori di emissione da misure dirette, dopo la messa a regime, applicazione modifiche tecniche, gestionali, operative dal periodo di monitoraggio e definizione dei valori alle emissioni da inserire in autorizzazione finale.
+
+---
+
+layout: false
+class: inverse_3, center, middle
+
+# Caso studio simulato 
+# PMR statico vs. dinamico
+
+---
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+
+---
+
+# NOSE24 
+
+.red[**Naples, 15-18 September 2024**]
+
+.pull-left[
+**Bressan M., Dalla Fontana A., Intini B., Bassan R., Pretto U., Tomiato L., 2024.**
+
+*Sensitivity analysis of odour exposure from dispersion modelling exercises with different Peak-to-Mean Ratio.*
+
+*Chemical Engineering Transactions, 112, 169-174.*
+
+.small[https://doi.org/10.3303/CET24112029]
+ 
+]
+
+.pull-right[
+&lt;img src="./img_pres/nose24_cet_2024_112.png" width="95%" style="border:1px solid #D3D3D3; vertical-align:top; margin:1px 1px" /&gt;
+
+]
+
+
+---
+
+# Layout caso studio simulato
+
+.red[sorgente, emissioni, meteo, dominio, terreno, recettori]
+
+
+&lt;img src="./img_pres/NOSE24/ter_wry_append_new.png" width="160%" style="display: block; margin: auto;" /&gt;
+
+.small[
+.pull-left[
+
+sorgente puntuale (camino): h = 22 m, d = 1 m
+
+effluenti: T = 50 °C, v = 13 m/s
+
+OER: 24,000 OUE/s (costante 24/7)
+
+transetto SW: 25 recettori discreti 
+
+]
+
+.pull-right[
+
+CALMET (Cosmo5 24+): 10x10 km, mesh 250 m 
+
+LAPMOD, CALPUFF:  4x4 km, mesh 50 m
+
+rosa venti: h = 10 m, da CALMET
+
+uso suolo: CORINAIR; orografia: DTM RV
+]
+]
+
+---
+
+
+# Il problema in esame
+
+&lt;br&gt;
+
+Domanda:
+
+- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**&lt;br&gt;(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+
+&lt;br&gt;
+Approccio:
+
+  - **Sensitività a differenti (alternativi) sistemi modellistici** 
+  
+  .red[CALPUFF vs. LAPMOD]&lt;br&gt;
+  (lagrangiano puff vs. lagrangiano particelle)
+
+
+  - **Sensitività a differenti (alternative) parametrizzazioni PMR**
+  
+  .red[LAPMOD]&lt;br&gt;
+  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]&lt;br&gt;
+  (post-processing vs. stima 'interna' al modello)
+
+
+---
+
+# PMR e modellistica odorigena
+
+
+- **PMR 'statico'**:
+
+  utilizzo più frequente, fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie
+
+- **PMR 'dinamico'**:
+
+  variabile nel tempo e nello spazio, calcolo internalizzato nel codice del modello e parametrizzato in funzione di altre variabili (stabilità atmosferica, tempo di volo, tempo lagrangiano);
+
+&lt;br&gt;
+Esempi: 
+
+- **CALPUFF**: PMR statico
+
+- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne &amp; Mason, 1991) 
+
+.footnote[
+.small[
+
+Smith M., 1973. Recommended Guide for the Prediction of the Dispersion of Airborne Effluents. ASME Eds, New York.
+
+Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume dispersing at a range up to 1000. Q. J. R. Meteorol. Society, 117, 177-206.
+
+]
+]
+
+---
+
+# 2 modelli, 7 configurazioni 
+
+#### per 7 stime alternative di impatto odorigeno 
+
+&lt;br&gt;
+
+.center[
+&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; # &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; valore &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; peak-time &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; stat &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CALPUFF &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:left;vertical-align: middle !important;" rowspan="6"&gt; LAPMOD &lt;/td&gt;
+   
+   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_max_1.6 &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; 1.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_5s &lt;/td&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="4"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_max_5s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_max_60s &lt;/td&gt;
+   
+   
+   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.footnote[
+
+.red[PMR statico] = post-processing output modello, fattore .red[costante];
+
+.red[PMR dinamico] = stima interna al modello, fattore .red[variabile];
+
+]
+
+
+---
+
+# Panoramica .small[(1/2)]: contour plots 
+
+&lt;!-- panoramica 98° percentile --&gt;
+
+&lt;img src="./img_pres/pct098_grid_contour_model_config_comp_new.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Panoramica .small[(2/2)]: contour plots
+
+&lt;!-- panoramica 100° percentile, max --&gt;
+
+&lt;img src="./img_pres/pct100_grid_contour_model_config_comp_new.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# LAPMOD, PMR 2.3 (statico), Pct98  
+
+&lt;img src="./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[s_avg_2.3]
+]
+
+---
+
+# LAPMOD, PMR 5s (dinamico), Pct98 
+
+&lt;img src="./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[d_avg_5s]
+]
+
+---
+
+# Estensione areale isolinee
+
+- definita una soglia "arbitraria": `\(1~ OU_E~m^{-3}\)`; 
+
+- calcolo dell'estensione areale, in `\(km^2\)`, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
+
+
+&lt;br&gt;
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; km2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; calpuff &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1583 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.3152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3406 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; d_avg_5s &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.9995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+- misura quantitativa (proxy) di impatto odorigeno relativa alla stima prodotta con alternative configurazioni modellistiche (PMR statico vs. PMR dinamico).
+
+
+---
+
+# LAPMOD, transetto recettori, Pct98
+
+&lt;img src="./img_pres/lapmod_disc_rec_transect_pct98_samtype_avg.png" width="120%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+nb: zoom --&gt; ylim(0, 5)
+]
+
+---
+
+# LAPMOD, distanza separazione, Pct98
+
+&lt;img src="./img_pres/lapmod_sep_dist_conf_comp_samtype_avg.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.footnote[225 °N transetto recettori discreti]
+
+---
+
+# Qual è la stima "corretta"...
+
+&lt;br&gt;
+
+.pull-left[
+
+###.center[...PMR statico?]
+
+&lt;img src="./img_pres/don.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+###.center[...PMR dinamico?] 
+
+&lt;img src="./img_pres/fox_crop.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+###.center[...non c'è una risposta univoca !]
+
+
+- variabilità nelle stime dovuta alle modalità di calcolo del PMR introduce un significativo margine di incertezza;
+- manca una verifica empirica di tipo contro-fattuale (es. field inspection, analisi lamentele, citizen science); 
+
+---
+
+# Conclusioni su aspetti di tipo operativo
+
+
+### campo vicino vs. lontano
+
+-  PMR dinamico (peak-time 5s) sovrastima nel campo vicino (&lt; 800 m) e sottostima nel lontano (&gt; 800 m) rispetto a PMR statico.
+
+### recettori discreti
+
+- differenze di concentrazione: fino a 1 ordine di grandezza per recettore più vicino alla sorgente (a circa 141 m, dir SW); 
+- fino a circa 1 km, PMR dinamico peak-time 5s &gt; PMR statico.
+
+
+### distanza di separazione e areale di impatto
+
+-  variabilità nella distanza minima e nella copertura areale per un predefinito livello di protezione (concentrazione odorigena);
+- PMR dinamico peak-time 5s &gt;  PMR statico.
+
+---
+
+# Conclusioni su aspetti di tipo regolatorio
+
+
+### verifica di conformità e valutazioni di impatto
+
+- necessaria una *consapevolezza tecnica*, da parte dei proponenti e delle autorità di controllo, sugli effetti riconducibili all'utilizzo di una specifica configurazione modellistica;
+
+- richiesto un impegno verso la *riproducibilità* delle stime per garantire una valutazione di impatto *accurata e robusta* in relazione alle configurazioni modellistiche adottate (o non adottate) dai proponenti e/o richieste (o non richieste) dalle autorità di controllo;
+
+- importante ricordare che l'utilizzo *esclusivo* dello strumento modellistico (spesso in un'unica configurazione) può essere fonte di un potenziale *effetto di 'distorsione' (bias)* nella verifica di conformità ai valori di accettabilità.
+
+&lt;br&gt;
+
+.bottom[
+.center[
+
+### "All models are wrong, but some are useful." Box
+
+]
+]
+
+---
+
+
+layout: false
+class: title-slide, middle, no-scribble
+
+# Grazie per l'attenzione
+## massimo.bressan@arpa.veneto.it
+
+---
+
+
+layout: false
+class: inverse_3, center, middle
+
+# BACKUP SLIDES 
+
+---
+
+layout: true
+
+background-image: url(./img_layout/logo_arpetta.jpeg)
+background-position: 98% 2%
+background-size: 5%
+
+&lt;!-- set normal layout --&gt;
+---
+
+# 2025, documento SNPA
+
+.pull-left[
+&lt;img src="./img_pres/books/SNPA_2025_odori.png" width="95%" height="95%" style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[ 
+Delibera n. 268/2025
+
+Approvazione documento: *Emissioni odorigene: elementi di riferimento e approcci metodologici per il monitoraggio*
+
+.small[
+&lt;br&gt;
+
+1. L’odore e la sua percezione 
+
+2. I principali riferimenti normativi in materia di odori
+
+3. Analisi delle metodologie di monitoraggio e controllo delle emissioni odorigene
+
+4. .red_bold[*Modelli di dispersione per la valutazione di impatto olfattivo*]
+
+5. Approcci integrati per la valutazione della molestia olfattiva 
+
+6. Metodologie di abbattimento degli odori
+]
+
+]
+
+---
+
+# 2018, documento SNPA
+
+.pull-left[
+
+&lt;img src="./img_pres/books/metodologie_snpa_2018.png" width="95%" height="95%" style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[ 
+Delibera n. 38/2018
+
+Approvazione documento: *Metodologie per la valutazione delle emissioni odorigene - documento di sintesi*
+
+]
+
+---
+
+# Disturbo vs. molestia olfattiva ai recettori
+
+- #### Disturbo (Annoyance)
+  
+  .red[complesso delle reazioni umane] che si verifica in seguito ad un’esposizione immediata ad un fattore di stress ambientale (odore) che porta ad una valutazione cognitiva negativa; ha relazione diretta con il modo in cui la popolazione valuta l'ambiente in cui vive; il .red[potenziale di disturbo] di un odore è uno specifico .red[attributo del composto (miscela)] che determina una reazione (negativa)da parte dei recettori;
+
+- #### Molestia (Nuisance)
+
+  .red[effetto cumulativo prodotto da ripetuti eventi di disturbo] in un lungo periodo di tempo, che genera un comportamento modificato o alterato nel recettore umano; il .red[potenziale di molestia] di un odore è un .red[attributo specifico della una popolazione (recettori)] che indica la propensione dei recettori di verificare condizioni di molestia olfattiva
+  
+
+.small[
+.footnote[
+Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science &amp; Technology, 44: 9-15.
+]
+
+]
+
+---
+
+# Vademecum modellistica atmosferica 
+
+Una classificazione semplificata, per grandi "famiglie":
+
+- **deterministici**: chiusura analitica e/o numerica
+  - **euleriani**: sistema di riferimento "fisso" 
+      - *gaussiani*: ipotesi stazionarietà ed omogeneità
+      - *a griglia*: risoluzione determinata da "mesh" di calcolo
+
+  - **lagrangiani**: sistema di riferimento "mobile" (segue gli spostamenti delle masse d'aria)
+      - *puff*: estensione dei gaussiani in condizioni non omogenee e non stazionarie
+      - *particelle*: simulano emissione di "particelle virtuali" (unità di inquinante emesso, trasportato e disperso)
+
+- **stocastici (data-driven)**: chiusura "statistica" (diversi approcci)
+
+- **fluidodinamici**: molto sofisticati, computazione onerosa 
+
+- **al recettore**: "invertono" l'integrazione, dalle concentrazioni alle emissioni, per stima del termine sorgente.
+
+---
+
+# Classificazione sorgenti per modellistica 
+
+#### significative (da considerare)
+
+`\(OER\)` &gt; 500 `\(UO_E~s^{-1}\)`
+
+#### non significative (possono non essere considerate)
+
+`\(C_{OD}\)` &lt; 80  `\(UO_E~m^{-3}\)` 
+
+.red[indipendentemente da portata volumetrica emessa]
+
+#### eventuali esclusioni
+
+"[...] un insieme di sorgenti .red[*può essere ritenuto trascurabile*] se corrispondente ad un rateo emissivo di odore inferiore al 10% di quello complessivo dello stabilimento e comunque contemporaneamente non superiore a 500 ou/s"
+
+"In ogni caso deve essere data evidenza, almeno in forma riassuntiva tabellare, .red[di tutte le fonti di emissione odorigena presenti, indipendentemente dalla loro effettiva modellizzazione]." 
+.footnote[.small[
+Indirizzi MASE, 2023, All. 1
+]]
+
+---
+
+# Valori di accettabilità ai recettori
+
+I valori di accettabilità dell’impatto olfattivo da rispettare presso i ricettori sono definiti in funzione delle classi di sensibilità individuate sulla base della classificazione ISTAT delle località e delle Zone Territoriali Omogenee (ZTO ex DM 2 aprile 1968, n. 1444, e s.m.i.).
+
+**ex Allegato 1, Indirizzi nazionali**
+
+- la verifica di conformità presuppone una stima modellistica di dispersione odorigena;
+
+- .red[98° percentile delle concentrazioni orarie di picco calcolate tramite l'utilizzo di un fattore moltiplicativo (peak-to-mean-ratio, PMR) pari a 2.3 (PMR statico)];
+
+- il confronto tra valori stimati da modello e valori di accettabilità presso il recettore prevede un intervallo temporale di valutazione di un anno.
+
+---
+
+# Valutazioni modellistiche preventive
+
+- verificare che gli standard di riferimento esistenti alle emissioni garantiscano i valori di accettabilità ai recettori;
+
+- predire il disturbo o molestia olfattiva presso la popolazione residente nei pressi di un impianto o attività in relazione
+alle condizioni meteorologiche ed alle caratteristiche emissive della sorgente;
+
+- valutare l’effetto di configurazioni alternative di un impianto o attività per definirne l’assetto ottimale in grado di minimizzare l’impatto presso i recettori (ad es: dimensionamento camino, implementazione di sistemi di abbattimento).
+
+---
+
+# Valutazioni modellistiche successive 
+
+- verifica di conformità dei criteri di accettabilità in condizioni emissive o meteo non considerate in autorizzazione;
+
+- interpretare disturbo o molestia olfattiva (meteorologia, emissioni, effetto degli edifici circostanti), anche in termini cumulativi;
+
+- simulare effetto ambientali modifiche layout impianto a seguito di prescrizioni autorizzative e/o tecniche-gestionali;
+
+- predisporre "sistema gestione" criticità odorigene per management aziendale o "sistema allerta" per eventi incidentali (impianti sostanze pericolose);
+
+- individuare contributo relativo sorgenti sul territorio per stima impatto differenziale (nello spazio e nel tempo);
+
+-  stimare termine sorgente (emissioni) con “modellistica inversa”;
+
+- analisi sensitività per differenti approssimazioni termine sorgente, scenari emissivi, ri-allocazione virtuale sorgente;
+
+- assimilare misure di concentrazione odorigena da sistemi puntuali (“nasi elettronici”) per valutazione più robusta su scala estesa.
+
+---
+
+
+# PMR, come si calcola?
+
+Relazione empirica tra .red[concentrazione di picco] `\(C_p\)` riferita ad intervallo temporale `\(t_p\)` (ad es. 5 s) e .red[concentrazione media] `\(C_m\)` riferita ad intervallo temporale `\(t_m\)` (ad es. 1 h).
+
+&lt;br&gt;
+
+.big[
+
+`$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^u$$`
+]
+
+&lt;br&gt;
+.small[
+
+`\(\psi\)` =  PMR, Peak-to-Mean ratio &lt;br&gt;
+`\(C_p\)` =  concentrazione odorigena di picco (a breve termine, per convenzione 5 s)&lt;br&gt;
+`\(C_m\)` =  concentrazione odorigena media (tipicamente riferita a 1 h)&lt;br&gt;
+`\(t_m\)` = intervallo temporale medio (tipicamente 1 h)&lt;br&gt;
+`\(t_p\)` = intervallo temporale di picco (a breve termine, per  convenzione 5 s)&lt;br&gt;
+`\(u\)` = esponente in funzione della classe di stabilità atmosferica (vari schemi proposti)&lt;br&gt;
+
+]
+
+.footnote[
+.small[
+
+Smith M., 1973. Recommended Guide for the Prediction of the Dispersion of Airborne Effluents. ASME Eds, New York.
+
+Schauberger G., Piringer M., Schmitzer R., Kamp M., Sowa A., Koch R., Eckhof W., Grimm E., Kypke J., Hartung E., 2012. Concept to assess the human perception of odour by estimating short-time peak concentrations from one-hour mean values. Atmospheric Environment, 54, 624-628.
+]
+]
+
+---
+
+
+# Stime presso recettori (selezione)
+
+100 m (R1), 300 m (R3), 500 m (R5) di distanza (xy) dalla sorgente
+
+.center[
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Run &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Rec &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Dist_xy &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Pct98 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Exc_1h &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; N_epis &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Dur_epis &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; static &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; calpuff &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 596 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 330 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="9"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 2.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1663 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 811 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 444 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 272 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 144 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; dynamic &lt;/td&gt;
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_5s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 23.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2480 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 585 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 4.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1145 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 414 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 161 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_60s &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 5.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1611 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 570 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 278 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 201 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   
+   
+   
+   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.footnote[
+.small[
+
+Exc_1h = superamenti valore soglia pari a 1 OUE/m3&lt;br&gt;
+N_epis = numero di episodi (ore continuative) di superamento soglia&lt;br&gt;
+Dur_epis = durata massima (ore) di un episodio di superamento continuativo
+
+]
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLanguage": ["r", "yaml", "markdown"],
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

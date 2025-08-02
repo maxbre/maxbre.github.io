@@ -1,0 +1,8 @@
+caratteristica,gaussiani a pennacchio,lagrangiani a puff e lagrangiani a particelle
+variabilità temporale,"non presente, la piuma si estende istantaneamente in linea retta all'infinito","presente, le traiettorie sono curve e variabili nello spazio"
+variabilità spaziale (land use),"parametri di superficie (roughness, bowen ratio, albedo) variano in settori di provenienza del vento, centrati su stazione meteo","land use e parametri di superficie variano per ogni cella del dominio di calcolo"
+variabilità spaziale meteorologia,"non presente, singola stazione e campo uniforme variabili meteo",completa variabilità variabili meteo e turbolenza atmosferica
+trattamento calme di vento,"non presente, definita una velocità minima del vento",supportate le calme di vento
+accumulo in condizioni di stagnazione,non presente,"presente, considera le ore precedenti"
+memoria temporale,"non presente, ogni ora ed emissione sono trattate indipendentemente",presente
+effetti di costa e ricircolazione,non presente o limitato,presente
