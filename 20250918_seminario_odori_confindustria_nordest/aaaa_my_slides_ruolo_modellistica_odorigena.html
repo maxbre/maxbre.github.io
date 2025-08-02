@@ -11,11 +11,6 @@
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#befa46"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/kePrint/kePrint.js"></script>
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
-    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <script src="libs/viz/viz.js"></script>
-    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
-    <script src="libs/grViz-binding/grViz.js"></script>
     <link rel="stylesheet" href="css/css_arpav.css" type="text/css" />
     <link rel="stylesheet" href="css/fonts.css" type="text/css" />
   </head>
@@ -36,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
 ]
 .date[
-### Marghera, 18/09/2025 [last updated: 2025-07-31]
+### Marghera, 18/09/2025 [last updated: 2025-08-02]
 ]
 
 ---
@@ -484,15 +479,14 @@ Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-20
 ]
 
 &lt;br&gt;
-.red_bold[
- Problema:
- 
- Disponibilità di sistemi e strumenti (misura, monitoraggio, stima) che per "risoluzione temporale" non sono (quasi mai) adeguati per "descrivere" in modo accurato la complessità e la specificità del fenomeno odorigeno *presso i recettori*.]
 
-.red_bold[
-- E quindi, come fare?  
+Problema:
 
-- La modellistica fornisce qualche risposta utile?]
+.red_bold[ 
+disponibilità di sistemi e strumenti (misura, monitoraggio, stima) che per "risoluzione temporale" non sono (quasi mai) adeguati per "descrivere" in modo accurato la complessità e la specificità del fenomeno odorigeno *presso i recettori*.
+]
+
+E quindi, come fare?  La modellistica fornisce qualche risposta utile?
 
 ---
 
@@ -543,13 +537,21 @@ In letteratura tecnico-scientifica le differenti varianti dello schema **FIDO** 
 
 # Frequency (.red[F]IDO)
 
-Misura la frequenza di accadimento degli eventi odorigeni che dipende dalla variazione temporale delle emissioni e dalle condizioni meteorologiche prevalenti.
+Misura la .red[frequenza di accadimento degli eventi odorigeni] che dipende dalla variazione temporale delle emissioni e dalle condizioni meteorologiche e dispersive dell'atmosfera.
 
 Due approcci tipici:
 
-- .red[conteggio delle ore di odore ("odour hours")]: esprime la frequenza (percentuale) di ore sopra la soglia minima di concentrazione (intensità) odorigena (soglia di percezione); è condiderato un'espressione del `\(LOD_{field}\)`
+- .red[conteggio delle ore di odore ("odour hours")]: 
 
-- .red[ranking delle concentrazioni odorigene ("percentile")]: esprime la concentrazione odorigena (intensità) di soglia che si verifica con una frequenza predefinita (98° percentile delle concentrazioni orarie di picco su base annuale)
+.small[esprime la frequenza (percentuale) di ore sopra la soglia minima di concentrazione (intensità) odorigena (soglia di percezione); è condiderato un'espressione del `\(LOD_{field}\)`
+]
+
+- .red[ranking delle concentrazioni odorigene ("percentile")]:
+
+.small[esprime la concentrazione odorigena (intensità) di soglia che si verifica con una frequenza predefinita (98° percentile delle concentrazioni orarie di picco su base annuale)
+]
+
+&lt;br&gt;
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -563,10 +565,14 @@ Due approcci tipici:
 
 Misura "quanto forte" un odore viene percepito, cioè descrive la .red["magnitudo" di una  sensazione odorosa] percepita tramite l'olfatto umano.
 
-Natura logaritmica della percezione olfattiva: al decrescere della concentrazione odorigena (misurata con un olfattometro, tipicamente di un fattore 10), l'intensità è diminuita di una "quantità/forza" molto inferiore.
+.small[
+.red[Natura logaritmica della percezione olfattiva]: al decrescere della concentrazione odorigena (misurata con un olfattometro, tipicamente di un fattore 10), l'intensità è diminuita di una "quantità/forza" molto inferiore.
 
-La .red[concentrazione odorigena sopra la soglia di percezione non è un'indicazione diretta dell'intensità odorigena] (forza di percezione dell'odore).
+.red[La concentrazione odorigena sopra la soglia di percezione non è un'indicazione diretta dell'intensità odorigena] (forza di percezione dell'odore).
 Non è mai stata osservata una relazione univoca ed universalmente valida tra disturbo o molestia olfattiva e misura dei livelli di concentrazione odorigena.
+]
+
+&lt;br&gt;
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -580,11 +586,15 @@ Non è mai stata osservata una relazione univoca ed universalmente valida tra di
 
 # Duration (FI.red[D]O)
 
-Misura la durata di esposizione di un recettore all'odore.
+Misura la .red[durata di esposizione] di un recettore all'odore.
 
+.small[
 Valutazione quantitativa delle .red[concentrazioni di picco] per una determinata .red[durata, intervallo temporale] (percentile). 
 
 Il disturbo odorigeno è strettamente correlato alla frequenza delle .red[concentrazioni di picco a breve termine] cioè per .red[quanto tempo] un soggetto risulta esposto all'odore.
+]
+
+&lt;br&gt;
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -594,11 +604,15 @@ Il disturbo odorigeno è strettamente correlato alla frequenza delle .red[concen
 
 # Offensiveness (FID.red[O])
 
-Misura del .red[carattere] e del .red[tono edonico] dell'odore.
+Misura del .red[tono edonico] dell'odore.
 
+.small[
 E' una .red[misura soggettiva] dell'accettabilità dell'odore, fattore chiave nella valutazione del disturbo o molestia odorigena.
 
 Il tono edonico non è una qualità "indipendente" di un composto chimico ma è .red[un attributo che dipende] strettamente da intensità, concentrazione, durata, frequenza dell'esposizione all'odorante. E' una .red[misura soggettiva] correlata all'esperienza, allo stato emotivo ed alle circostanze.
+]
+
+&lt;br&gt;
 
 .red_bold[Implicazioni modellistiche (warning)]:
 
@@ -618,13 +632,12 @@ AMIGO &amp; Olores.org (2023) International Handbook on the Assessment of Odour 
 
 Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone un impatto differente .red[sensitività] in funzione di:
 
-- destinazione d'uso del territorio
-
-- del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità),
-
-- dello stato di benessere e/o di salute dei .red[recettori] (per eventuale presenza di altre fonti di "pressione ambientali"). 
+- destinazione d'uso del territorio, del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità), dello stato di benessere e/o di salute dei .red[recettori] (per eventuale contemporanea presenza di altre fonti di "pressione ambientale"). 
 
 Altri aspetti, strettamente correlati e spesso non facilmente scindibili, riguardano la .red[sensitività] ed il tipo di .red[recettore] considerato.
+
+
+&lt;br&gt;
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -1101,8 +1114,17 @@ Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno
 
 &lt;br/&gt;
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-1194d8cdbe0935d66231" style="width:100%;height:360px;"></div>
-<script type="application/json" data-for="htmlwidget-1194d8cdbe0935d66231">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"PLAN\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"1,2!\"] \n  \"2\" [label = \"DO\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"2,1!\"] \n  \"3\" [label = \"CHECK\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"1,0!\"] \n  \"4\" [label = \"ACT\", shape = \"circle\", height = \"0.8\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n\"1\"->\"2\" [color = \"gray\"] \n\"2\"->\"3\" [color = \"gray\"] \n\"3\"->\"4\" [color = \"gray\"] \n\"4\"->\"1\" [color = \"gray\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+&lt;!-- ```{r deming} --&gt;
+
+&lt;!-- source('./script/autorizzazione_deming_modellistica.R') --&gt;
+
+&lt;!-- d %&gt;% --&gt;
+&lt;!--   render_graph() --&gt;
+
+&lt;!-- ``` --&gt;
+
+&lt;img src="./img_pres/pcda.png" width="100%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 .pull-right[
@@ -1128,13 +1150,12 @@ Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno
 ]
 
 ]
+
 ---
 
 # PDCA, modellistica e autorizzazione
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-ae923f3caa59f2403215" style="width:85%;height:80%;"></div>
-<script type="application/json" data-for="htmlwidget-ae923f3caa59f2403215">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"PLAN\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"1,2!\"] \n  \"2\" [label = \"DO\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2,1!\"] \n  \"3\" [label = \"CHECK\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"1,0!\"] \n  \"4\" [label = \"ACT\", shape = \"circle\", height = \"0.8\", fontcolor = \"gray50\", fixedsize = \"true\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"0,1!\"] \n  \"5\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2.1,2.6!\"] \n  \"6\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"-0.2,2!\"] \n  \"7\" [label = \"fase\nistruttoria\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"1,2.8!\"] \n  \"8\" [label = \"monitoraggio\nattività\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"2.9,1!\"] \n  \"9\" [label = \"valutazione\nrisultati\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"1,-0.8!\"] \n  \"10\" [label = \"messa\na regime\", shape = \"plaintext\", fontcolor = \"gray50\", fixedsize = \"FALSE\", color = \"white\", fillcolor = \"#FFFFFF\", fontsize = \"8\", pos = \"-0.9,1!\"] \n  \"11\" [label = \"modeling\", shape = \"rectangle\", fontcolor = \"red\", fixedsize = \"FALSE\", color = \"gray70\", fillcolor = \"#F0F8FF\", fontsize = \"10\", pos = \"2.2,0!\"] \n\"1\"->\"2\" [color = \"gray\", color = \"gray\"] \n\"2\"->\"3\" [color = \"gray\", color = \"gray\"] \n\"3\"->\"4\" [color = \"gray\", color = \"gray\"] \n\"4\"->\"1\" [color = \"gray\", color = \"gray\"] \n\"5\"->\"1\" [color = \"red\", style = \"dashed\"] \n\"1\"->\"5\" [color = \"red\", style = \"dashed\"] \n\"4\"->\"6\" [color = \"red\", style = \"dashed\"] \n\"6\"->\"1\" [color = \"red\", style = \"dashed\"] \n\"2\"->\"11\" [color = \"red\", style = \"dashed\"] \n\"11\"->\"3\" [color = \"red\", style = \"dashed\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-
+&lt;img src="./img_pres/pcda_modellistica.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1144,7 +1165,7 @@ Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno
 
 stima modellistica con fattori di emissioni stimati da letteratura o da misure in impianti analoghi o da storico attività.
 
-- .red[**DO - rilascio autorizzazione**]
+- .red[**DO - monitoraggio e rilascio autorizzazione**]
 
 stima modellistica a seguito di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo monitoraggio.
 
@@ -1164,7 +1185,7 @@ stima modellistica con fattori di emissioni da misure dirette, dopo la messa a r
 
 stima modellistica con fattori di emissioni da misure dirette per eventuale monitoraggio dell’impatto presso recettori.
 
-- .red[**DO - progettazione interventi**]
+- .red[**DO - monitoraggio, progettazione interventi**]
 
 stima modellistica a seguito di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo periodo di monitoraggio.
 
