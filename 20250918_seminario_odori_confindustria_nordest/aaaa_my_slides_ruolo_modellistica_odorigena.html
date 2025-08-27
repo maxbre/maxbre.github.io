@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
 ]
 .date[
-### Marghera, 18/09/2025 [last updated: 2025-08-13]
+### Marghera, 18/09/2025 [last updated: 2025-08-27]
 ]
 
 ---
@@ -79,13 +79,15 @@ background-size: 5%
 
 &lt;br&gt;
 
-1. La letteratura tecnico-scientifica e gli orientamenti normativi stabiliscono il "governo" delle emissioni odorigene (sorgenti) tramite la .red[valutazione degli effetti sui recettori (target)].
+1. La letteratura tecnico-scientifica e gli orientamenti normativi stabiliscono il .red["governo"] delle emissioni odorigene (sorgenti) tramite la .red[valutazione degli effetti presso i recettori (target)].
 
-1. La verifica di .red[conformità ai valori di accettabilità presso i recettori] prevista dagli "Indirizzi" (MASE, 2023) si basa sull’applicazione di una .red[stima modellistica] dell’impatto odorigeno.
+1. La verifica di .red[conformità ai valori di accettabilità presso i recettori] definita negli "Indirizzi" (MASE, 2023) si basa su una .red[simulazione modellistica odorigena].
 
-1. Il percorso regolatorio (autorizzativo) degli "Indirizzi" inquadra la modellistica odorigena come uno strumento operativo nel .red[ciclo di miglioramento continuo] delle performance d'impianto.
+1. Il percorso regolatorio (autorizzativo) degli "Indirizzi" inquadra la simulazione modellistica come uno strumento operativo integrato nel .red[ciclo di miglioramento continuo] della performance d'impianto.
 
-1. Una corretta e riproducibile .red[parametrizzazione della simulazione modellistica] assume un ruolo cruciale - e spesso molto critico - nella valutazione dell’impatto odorigeno (analisi di sensitività dei risultati). Analisi di un caso studio simulato.
+1. La definizione delle classi di sensibilità e dei valori di accettabilità degli "Indirizzi" aprono ad una possibile .red["valutazione di impatto strategica" (zonizzazione osmogena del territorio)]?
+
+1. La .red[parametrizzazione della simulazione modellistica] assume un ruolo cruciale (critico) nella valutazione di impatto odorigeno. Analisi di sensitività dei risultati per un caso studio simulato.
 
 ---
 
@@ -231,8 +233,9 @@ Atmosphere, 11, 92; doi:10.3390/atmos11010092
 
 # Valori di accettabilità
 
-#### Verifica di conformità dei valori di accettabilità presso i ricettori con una .red[stima modellistica di dispersione odorigena].
+#### Verifica di conformità dei valori di accettabilità presso i ricettori effettuata con una .red[valutazione modellistica di dispersione odorigena].
 
+&lt;br&gt;
 
 &lt;table class="table table-striped" style="font-size: 14px; "&gt;
  &lt;thead&gt;
@@ -308,12 +311,12 @@ Ricerca di una soluzione operativa per "tradurre":
  .small["forza" e "s-piacevolezza" della sensazione percepita dal ricettore (varie scale)]
 
 - in .red[**disturbo/molestia olfattiva**]  
- .small[manifestazione e percezione impatto odorigeno descritto tramite schema  .red_bold[FIDO*]]
+ .small[manifestazione e percezione impatto odorigeno descritto "globalmente" da schema  .red_bold[FIDO*]]
 
 &lt;br&gt;
 
 .small[
-**Nota bene!** 
+**MA... Nota bene!** 
 
 .red[NON] sono note relazioni quantitative univoche ed universalmente riconosciute tra: .red[composizione e concentrazione chimica] di un’aria osmogena, .red[concentrazione odorigena] misurata con il naso umano, .red[intensità odorigena] e .red[tono edonico] percepito dal recettore, .red[disturbo/molestia odorigena] presso la popolazione.
 ]
@@ -773,7 +776,7 @@ Il tono edonico non è una qualità "indipendente" di un composto chimico ma è 
 
 .footnote[
 
-.red[*"Offensiveness must be considered at the level of odour exposure .without extrapolation of potential evolution for lower or higher concentrations."*`]
+.red[*"Offensiveness must be considered at the level of odour exposure without extrapolation of potential evolution for lower or higher concentrations."*`]
 
 from: 
 AMIGO &amp; Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling
@@ -857,48 +860,18 @@ background-size: 5%
 
 # Modellistica odorigena .small[(2/2)]
 
-- La "tipica" valutazione con i “classici” modelli di dispersione che tratta gli inquinanti “non odorigeni” produce stime riferite alla media oraria (e stratificazioni giornaliere o annuali).
+- La valutazione con i “classici” modelli di dispersione per gli inquinanti “non odorigeni” produce stime riferite alla media 1h (e stratificazioni giornaliere o annuali).
 
 - La caratteristica distintiva dei modelli di dispersione odorigena è la necessità e difficoltà teorica e pratica, non ancora superata, di ricostruire e valutare .red[concentrazioni di picco], a breve termine, per descrivere in modo accurato e realistico l’.red[impatto sui recettori].
 
-- Esistono "nuovi ed avanzati approcci modellistici" ma sono ancora in fase di sviluppo e ricerca e, con poche eccezioni, non trovano una diffusa traduzione "operativa", per una serie di motivazioni tecniche (es.: modelli CFD, di trasporto varianza, pennacchio fluttuante, micromixing, a due particelle).
+- "Nuovi ed avanzati" approcci modellistici, ancora in fase di sviluppo e ricerca non trovano hanno una diffusa traduzione "operativa" per varie motivazioni tecniche (CFD, trasporto varianza, pennacchio fluttuante, micromixing, a due particelle).
 
-- E' necessario concepire .red[un "metodo di stima" delle fluttuazioni a breve termine delle concentrazioni odorigene oppure applicare un .red["fattore di correzione" (Peak-to-Mean ratio)] ai risultati delle stime modellistiche su medie 1h (approccio modellistico "classico")].
+- E' necessario concepire .red[un "metodo di stima" delle fluttuazioni a breve termine delle concentrazioni odorigene] oppure applicare un .red["fattore di correzione" (Peak-to-Mean ratio)] ai risultati delle stime modellistiche su medie 1h (approccio modellistico "classico")].
 
-- L'approccio più frequentemente utilizzato (la norma attuale, più semplice) per le simulazioni modellistiche odorigene è l'applicazione del .red[*Peak-to-Mean Ratio*] alle stime delle medie 1h.
-
----
-
-# Peak-to-Mean Ratio (PMR): che cos'è?
-
-.red[fattore moltiplicativo] per stimare le concentrazioni odorigene *di picco* ("istantanee") a partire dai *valori medi* del modello (1h)
-
-&lt;img src="./img_pres/pmr_what_is.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-.footnote[
-.small[
-adapted from:
-Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
-]
-]
+- L'approccio più utilizzato (semplice) è l'applicazione del .red[*Peak-to-Mean Ratio*] alle stime delle medie 1h (soluzione pragmatica con un fondamento di tipo semi-empirico, ma non del tutto rigorosa!).
 
 ---
 
-# PMR e plume meandering
-
-PMR stima i valori di "picco"  ai recettori (breve termine) "determinati" dalle fluttuazioni del pennacchio (vs. "ensamble average").
-
-
-&lt;img src="./img_pres/smoke_plume_cut_legend.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
-.footnote[
-.small[
-From: Stull, 2015. Practical Meteorology. An Algebra-based Survey of Atmospheric Science. The University of British Columbia Vancouver, Canada.
-]
-]
-
----
 
 # Concentrazione vs. flusso odore emissioni
 
@@ -971,6 +944,37 @@ l'indicazione (trascurabile, critica, etc.) è da prendere con molta cautela e  
 
 ---
 
+# Peak-to-Mean Ratio (PMR): che cos'è?
+
+.red[fattore moltiplicativo] semi-empirico che stima ai recettori le concentrazioni *di picco* ("istantanee") dai *valori medi (1h)*
+
+&lt;img src="./img_pres/pmr_what_is.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+.small[
+adapted from:
+Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
+]
+]
+
+---
+
+# PMR e plume meandering
+
+PMR tenta di stimare  i valori di "picco" ai recettori "determinati" dalle fluttuazioni del pennacchio (vs. "ensamble average").
+
+
+&lt;img src="./img_pres/smoke_plume_cut_legend.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[
+.small[
+from: Stull, 2015. Practical Meteorology. An Algebra-based Survey of Atmospheric Science. The University of British Columbia Vancouver, Canada.
+]
+]
+
+---
+
 # Concentrazione vs. percezione recettori .small[(1/2)]
 
 In olfattometria dinamica si ha che statisticamente:
@@ -1019,7 +1023,7 @@ che corrisponde al 98° percentile delle concentrazioni odorigene di picco su ba
 
 - Presso i recettori è necessario valutare le concentrazioni odorigene e le loro fluttuazioni a breve termine; nel caso "classico" dell'inquinamento atmosferico da inquinanti "tradizionali" la scala temporale è tipicamente di 1 h mentre nell'impatto odorigeno la scala temporale è riferibile ad un atto respiratorio (pochi secondi);
 
-- E' necessario utilizzare un "fattore di correzione" delle stime orarie (peak-to-mean) oppure un sistema modellistico che tratti in modo adeguato e robusto i valori massimi a breve termine (sistema non ancora disponibile dal punto di vista operativo). 
+- Operativamente si impiega un "fattore di correzione" delle stime orarie (peak-to-mean) oppure un sistema modellistico che tratti in modo adeguato e robusto i valori massimi a breve termine (sistema non ancora completamente disponibile). 
 
 
 ---
@@ -1063,7 +1067,7 @@ background-size: 5%
 layout: false
 class: inverse_3, center, middle
 
-# Obiettivi della modellistica 
+# Applicazioni modellistiche 
 # nelle valutazioni di impatto odorigeno
 
 ---
@@ -1078,7 +1082,7 @@ background-size: 5%
 
 ---
 
-# Simulazioni modellistiche
+# Obiettivi delle simulazioni modellistiche
 
 #### Rispetto a una o più sorgenti su "area limitata":
 
@@ -1635,8 +1639,9 @@ nb: zoom --&gt; ylim(0, 5)
 
 ---
 
-# Conclusioni su aspetti di tipo operativo
+# Conclusioni operative (stima)
 
+&lt;br&gt;
 
 ### campo vicino vs. lontano
 
@@ -1655,8 +1660,9 @@ nb: zoom --&gt; ylim(0, 5)
 
 ---
 
-# Conclusioni su aspetti di tipo regolatorio
+# Conclusioni regolatorie (autorizzative)
 
+&lt;br&gt;
 
 ### verifica di conformità e valutazioni di impatto
 
