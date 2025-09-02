@@ -1,62 +1,72 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title> Meeting Confindustria Veneto Est  Modellistica di impatto odorigeno</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="   Massimo Bressan" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#befa46"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/kePrint/kePrint.js"></script>
-    <link href="libs/lightable/lightable.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/css_arpav.css" type="text/css" />
-    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# <br>Meeting Confindustria Veneto Est<br><br>Modellistica di impatto odorigeno
-]
-.subtitle[
-## Principi fondamentali, criticità ed applicazioni nel quadro di riferimento normativo
-]
-.author[
-### <br><br><br>Massimo Bressan
-]
-.institute[
-### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
-]
-.date[
-### Marghera, 18/09/2025 [last updated: 2025-09-02]
-]
-
+---
+title: "<br>Meeting Confindustria Veneto Est<br><br>Modellistica di impatto odorigeno"
+subtitle: "Principi fondamentali, criticità ed applicazioni nel quadro di riferimento normativo"
+author: "<br><br><br>Massimo Bressan"
+institute: "ARPAV - UQA, Unità Organizzativa Qualità dell'Aria"
+date: "Marghera, 18/09/2025 [last updated: `r Sys.Date()`]"
+output:
+  xaringan::moon_reader:
+    css: ["./css/css_arpav.css", "./css/fonts.css"]
+    lib_dir: libs
+    #self_contained: true # for self contained html, may fail sometimes, though!
+    includes:
+    #  after_body: ./img_layout/timer.html # this is for including timer presentation
+    nature:
+      highlightStyle: github
+      highlightLanguage: ["r", "yaml", "markdown"]
+      highlightLines: true
+      countIncrementalSlides: false
+      #countdown: 60000 # 1 min for each slide
+      ratio: "4:3"
+      #ratio: "16:9" 
+    seal: true    # this is for generating the title (first)slide
 ---
 
+<!-- set general options and load libraries -->
 
-&lt;!-- set general options and load libraries --&gt;
+```{r setup, include=FALSE}
 
+options(htmltools.dir.version = FALSE)
 
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE, 
+	fig.dim=c(5, 5), 
+	out.width="100%",
+	fig.retina = 3,
+	fig.align = 'center',
+	message = FALSE,
+	warning = FALSE
+	)
+
+# here load libraries uncomment accordingly
+
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(DiagrammeR)
+
+# use scribble
+xaringanExtra::use_scribble(pen_color= "#befa46")
+
+```
 
 
 ### Parte prima
 ### Il caposaldo
 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+<br>
+<br>
+<br>
+<br>
 
 .left[
 # Ho ancora nel naso l'odore ...
 ]
 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+<br>
+<br>
+<br>
 
 .right[
 ### Il sergente nella neve, M. Rigoni Stern
@@ -72,7 +82,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 # Contenuti 
@@ -103,18 +113,22 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 
 ---
 
 # Odore vs. odorante
 
-&lt;br&gt;
+<br>
 
-&lt;img src="./img_pres/odorant_odour/skunk_man2_bw.png" width="65%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '65%'}
 
-&lt;br&gt;
+knitr::include_graphics("./img_pres/odorant_odour/skunk_man2_bw.png")
+
+```
+
+<br>
 
 .red[l'odore (effetto)]
 
@@ -128,11 +142,15 @@ background-size: 5%
 # Complessità: dagli odoranti alla lamentela
 
 .pull-left[
-&lt;img src="./img_pres/flowchart/from_odorant_to_complaint/flow_odorant_to_complaint_crop2.png" width="130%" style="vertical-align:top; margin:0px 90px" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.height=6, fig.width=5, align='top', out.width='130%', out.extra='style="vertical-align:top; margin:0px 90px"'}
+
+knitr::include_graphics("./img_pres/flowchart/from_odorant_to_complaint/flow_odorant_to_complaint_crop2.png")
+
+```
 ]
 .pull-right-reduced[
 
-&lt;br&gt;
+<br>
 .body_center[
 .red[
 **Domanda:**
@@ -145,7 +163,7 @@ background-size: 5%
 
 .small[
 .footnote[
-Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science &amp; Technology, 44: 9-15.
+Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science & Technology, 44: 9-15.
 ]
 
 ]
@@ -159,60 +177,19 @@ Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions f
 
 .red[**target**] (righe) vs. .red[**metodo**] (colonne)
 
-&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:center;"&gt; \ &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; sensoriale &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; strumentale &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; matematico &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: black !important;vertical-align: middle !important;" rowspan="3"&gt; emissioni-sorgente &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; olfattometria dinamica &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; analisi chimica &lt;/td&gt;
-   &lt;td style="text-align:center;color: black !important;"&gt; db emissioni &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   &lt;td style="text-align:center;background-color: white !important;"&gt; IOMS &lt;/td&gt;
-   &lt;td style="text-align:center;color: black !important;background-color: white !important;"&gt; modellistica inversa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   &lt;td style="text-align:center;background-color: white !important;"&gt; anemometro sonico e campionatore gas .small[(*)] &lt;/td&gt;
-   &lt;td style="text-align:center;color: black !important;background-color: white !important;"&gt; metodi stima micro-met .small[(*)] &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: red !important;vertical-align: middle !important;background-color: white !important;" rowspan="4"&gt; immissioni-recettore &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; field inspection &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; analisi chimica &lt;/td&gt;
-   &lt;td style="text-align:center;color: red !important;vertical-align: middle !important;background-color: white !important;" rowspan="2"&gt; modellistica dispersione &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   &lt;td style="text-align:center;background-color: white !important;"&gt; field olfactometry &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;background-color: white !important;" rowspan="3"&gt; IOMS &lt;/td&gt;
-   
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   &lt;td style="text-align:center;background-color: white !important;"&gt; schede odori &lt;/td&gt;
-   
-   &lt;td style="text-align:center;color: black !important;vertical-align: middle !important;background-color: white !important;" rowspan="2"&gt; equazioni empiriche &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   &lt;td style="text-align:center;"&gt; citizen science &lt;/td&gt;
-   
-   
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+t <- read_csv('./data_input/tables/tab_monitor_odour.csv')
+
+t %>% 
+  kbl(format='html', align='c') %>% 
+  column_spec(1, bold= TRUE, color = ifelse(t[,1] == "immissioni-recettore", "red", "black")) %>% 
+  column_spec(4, color = ifelse(t[,4] == "modellistica dispersione", "red", "black")) %>% 
+  collapse_rows(columns = 1:4, valign = "middle") %>% 
+  row_spec(2:6, background = "white") %>% 
+  kable_styling("basic", position="center", full_width = TRUE, font_size = 18)
+ 
+
+```
 
 
 .footnote[.small[
@@ -233,44 +210,37 @@ Atmosphere, 11, 92; doi:10.3390/atmos11010092
 
 #### Verifica di conformità dei valori di accettabilità presso i ricettori con una .red[valutazione modellistica di dispersione odorigena].
 
-&lt;br&gt;
+<br>
 
-&lt;table class="table table-striped" style="font-size: 14px; "&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:center;"&gt; Classe &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Descrizione &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Valori &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; PRIMA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo A o B. Edifici, in centri abitati o nuclei uso collettivo continuativo ed alta concentrazione persone (ospedali, case di cura, ospizi, asili, scuole, università, anche private), esclusi usi commerciale e terziario. &lt;/td&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; 1 OUE/m3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; SECONDA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo C. Edifici o spazi aperti, in centri abitati o nuclei uso collettivo continuativo, commerciale, terziario o turistico (mercati stabili, centri commerciali, terziari e direzionali,  servizi, strutture ricettive, monumenti). &lt;/td&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; 2 OUE/m3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; TERZA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Edifici o spazi aperti, in centri abitati o nuclei, uso collettivo non continuativo (luoghi pubblico spettacolo, per attività ricreative, sportive, culturali, religiose, fiere, mercatini o altri eventi, cimiteri); case sparse; edifici in zone a prevalente uso residenziale non ricomprese in ZTO tipo A, B, C. &lt;/td&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; 3 OUE/m3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; QUARTA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree prevalente uso industriale, artigianale, agricola, zootecnica. &lt;/td&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; 4 OUE/m3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; QUINTA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree con manufatti o strutture che non prevedono ordinaria presenza di gruppi di persone (terreni agricoli, zone non abitate). &lt;/td&gt;
-   &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; 5 OUE/m3 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+
+vacz <- read_csv('./data_input/tables/tab_valori_accettabilità.csv',
+              locale = locale(encoding = "UTF-8"))
+
+vacz %>% 
+  kbl(format='html', align = 'clc') %>% 
+  kable_styling(bootstrap_options = "striped", 
+                full_width = TRUE, 
+                position = "left",
+                font_size = 14) %>% 
+  column_spec(1, 
+              bold = TRUE,
+              color = case_when(str_detect(vacz$Classe, "PRIMA") ~ "green",
+                                   str_detect(vacz$Classe, "SECONDA") ~ "orange",
+                                   str_detect(vacz$Classe, "TERZA") ~ "red",
+                                   str_detect(vacz$Classe, "QUARTA") ~ "brown",
+                                   str_detect(vacz$Classe, "QUINTA") ~ "purple",
+                                   .default = as.character(vacz$Valori))) %>% 
+  column_spec(3, 
+              bold = TRUE,
+              color = case_when(str_detect(vacz$Valori, "1 OUE/m3") ~ "green",
+                                str_detect(vacz$Valori, "2 OUE/m3") ~ "orange",
+                                str_detect(vacz$Valori, "3 OUE/m3") ~ "red",
+                                str_detect(vacz$Valori, "4 OUE/m3") ~ "brown",
+                                str_detect(vacz$Valori, "5 OUE/m3") ~ "purple",
+                                .default = as.character(vacz$Valori)))
+  
+```
 
 #### ex Indirizzi Nazionali, Decreto Direttoriale MASE n. 309/2023
 
@@ -281,10 +251,14 @@ Atmosphere, 11, 92; doi:10.3390/atmos11010092
 .red[
 ####Strumento matematico che fornisce una valutazione quantitativa del processo di "trasporto e diluizione" dell'odore nell'aria ambiente, dalla sorgente al recettore.  
 ]
-&lt;br&gt;
-&lt;img src="./img_pres/odorant_odour/wind_odour_diluition.png" width="69%" style="display: block; margin: auto;" /&gt;
+<br>
+```{r, echo=FALSE, fig.align='center', out.width = '69%'}
 
-&lt;br&gt;
+knitr::include_graphics("./img_pres/odorant_odour/wind_odour_diluition.png")
+
+```
+
+<br>
 .small[
 Analogia rispetto agli obiettivi di valutazione con olfattometro
 
@@ -301,8 +275,8 @@ Ricerca di una soluzione operativa per "tradurre":
 
 - in .red[**concentrazione odorigena**]  
  .small[quantità di odore percepito dal naso umano in [OUE/m3]]   
-   - alla sorgente -&gt; olfattometria dinamica  
-   - ai recettori -&gt; modellistica di dispersione odorigena  
+   - alla sorgente -> olfattometria dinamica  
+   - ai recettori -> modellistica di dispersione odorigena  
 
 - in .red[**intensità odorigena**] e/o .red[**tono edonico**]  
  .small["forza" e "s-piacevolezza" della sensazione percepita dal ricettore (varie scale)]
@@ -310,7 +284,7 @@ Ricerca di una soluzione operativa per "tradurre":
 - in .red[**disturbo/molestia olfattiva (schema FIDO*)** ]  
  .small[manifestazione e percezione "globale" impatto odorigeno presso i recettori]
 
-&lt;br&gt;
+<br>
 
 .small[
 .red[**Nota bene!**]
@@ -323,7 +297,11 @@ Ricerca di una soluzione operativa per "tradurre":
 #Impatto odorigeno: fasi e processi
 
 
-&lt;img src="./img_pres/flowchart/fasi_processi_impatto_odorigeno/fasi_processi_impatto_odorigeno_crop.png" width="60%" style="display: block; margin: auto;" /&gt;
+```{r chart-paper, echo=FALSE, fig.align='center', out.width = '60%'}
+
+knitr::include_graphics("./img_pres/flowchart/fasi_processi_impatto_odorigeno/fasi_processi_impatto_odorigeno_crop.png")
+
+```
 
 
 .footnote[.small[Adapted from: Schauberger, NOSE24]]
@@ -344,7 +322,7 @@ Ricerca di una soluzione operativa per "tradurre":
 
 .footnote[
 .small[
-Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science &amp; Technology, 44: 9-15.
+Van Harreveld, 2001. From odorant formation to odour nuisance: new definitions for discussing a complex process, Water Science & Technology, 44: 9-15.
 ]
 
 ]
@@ -365,29 +343,29 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
 # Tempi di mediazione
 
 
-- .red[**percezione dei recettori --&gt; su "tempi brevissimi"**] 
+- .red[**percezione dei recettori --> su "tempi brevissimi"**] 
 
  - .small[concentrazioni di picco su .red[pochi secondi] (Brancher et al. 2017);]
  - .small[durata fisiologica inalazione umana: .red[1.6 s] (Mainland and Sobel, 2006);]
- - .small[risposta stimolo olfattivo: tempo medio di un respiro .red[3.6 s] (Freeman  &amp; Cudmore, 2002);] 
+ - .small[risposta stimolo olfattivo: tempo medio di un respiro .red[3.6 s] (Freeman  & Cudmore, 2002);] 
  - .small[ valore di riferimento per ciclo "inalazione, percezione, espirazione": per convenzione .red[5 s]  (Ruijten et al., 2009);]
  
 
-- .red[**"misure" (valutazioni) presso i recettori --&gt; su "tempi lunghi"**]
+- .red[**"misure" (valutazioni) presso i recettori --> su "tempi lunghi"**]
 
  - .small[standard QA (breve termine): medie .red[1 h] (ex DLgs. 155/2010);]
- - .small[strumentazione QA: .red[tempi di risposta] non adeguati (tranne eccezioni &gt;=.red[1 min]);]
+ - .small[strumentazione QA: .red[tempi di risposta] non adeguati (tranne eccezioni >=.red[1 min]);]
  - .small[modellistica dispersione atmosferica (standard):  medie .red[1 h];]
  - .small[modellistica odorigena: ricerca di un adeguato .red["fattore di correzione"] delle medie 1h.]
  
-&lt;br&gt;
+<br>
 
 .red[**La differenza nei tempi di mediazione caratteristici tra:**]
 
@@ -400,7 +378,11 @@ background-size: 5%
 # Il problema dal punto di vista teorico...
 
 
-&lt;img src="./img_pres/avg_time/teorico_avg_5s_vs_1h.png" width="90%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '90%'}
+
+knitr::include_graphics("./img_pres/avg_time/teorico_avg_5s_vs_1h.png")
+
+```
 
 .footnote[synthetic data (esempio)]
 
@@ -409,28 +391,32 @@ background-size: 5%
 # ...e dal punto di vista sperimentale
 
 .pull-left-augmented[
-&lt;img src="./img_pres/avg_time/nicell.png" width="100%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '100%'}
+
+knitr::include_graphics("./img_pres/avg_time/nicell.png")
+
+```
 ]
 
 .pull-right-reduced[ 
-&lt;br&gt;
-.green[**&lt; 1 OU**]
+<br>
+.green[**< 1 OU**]
 
-`\(t_m\)`: 1 h 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+$t_m$: 1 h 
+<br>
+<br>
+<br>
 .orange[**~ 1 OU**]
 
-`\(t_m\)`: 10 min 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+$t_m$: 10 min 
+<br>
+<br>
+<br>
+<br>
+<br>
 .red[**0-6 OU**]
 
-`\(t_m\)`: 12 s 
+$t_m$: 12 s 
 
 ]
 
@@ -448,7 +434,7 @@ Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-20
 
 .small[
 
-  - normali tempi di intervento (&gt;&gt; 1h) determinano la difficoltà e, a volte, l'impossibilità di trovare "traccia" di un evento di disturbo o molestia olfattiva caratterizzato da intervalli temporali molto brevi ed una significativa intermittenza.
+  - normali tempi di intervento (>> 1h) determinano la difficoltà e, a volte, l'impossibilità di trovare "traccia" di un evento di disturbo o molestia olfattiva caratterizzato da intervalli temporali molto brevi ed una significativa intermittenza.
 
 ]
 
@@ -461,7 +447,7 @@ Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-20
 - impiego di sistemi modellistici configurati secondo la "parametrizzazione classica" per gli inquinanti atmosferici "tradizionali" (media 1h).
 ]
 
-&lt;br&gt;
+<br>
 
 .red_bold[
 
@@ -489,7 +475,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 class: center, bottom
@@ -504,13 +490,21 @@ background-size: cover
 
 # Mappatura sorgenti criticità .small[(1/2)]
 
-&lt;img src="./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_1_.png" width="84%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '84%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_1_.png")
+
+```
 
 ---
 
 # Mappatura sorgenti criticità .small[(2/2)]
 
-&lt;img src="./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_2_.png" width="84%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '84%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/criticità_impianti_map_ordered_page_2_.png")
+
+```
 
 ---
 
@@ -520,7 +514,7 @@ class: inverse_3, center, middle
 # Modellistica di dispersione atmosferica
 # (introduzione un po' filosofica) 
 
-&lt;!-- set inverse layout --&gt;
+<!-- set inverse layout -->
 
 ---
 layout: true
@@ -529,25 +523,29 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 # Flow chart modellistica atmosferica
 
 .pull-left-augmented[
-&lt;img src="./img_pres/flow_chart_AQ_it.png" width="450" height="540" style="display: block; margin: auto;" /&gt;
+```{r eval=TRUE, echo=FALSE, fig.align='center', out.height=540, out.width=450}
+
+knitr::include_graphics('./img_pres/flow_chart_AQ_it.png')
+
+```
 ]
 
 .pull-right-reduced[
 .body_center[
 .large[
 .red_bold[
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-Modellistica odorigena:&lt;br&gt;
+<br>
+<br>
+<br>
+<br>
+<br>
+Modellistica odorigena:<br>
 stime vs. misure?
 
 Come fare?
@@ -565,7 +563,12 @@ Come fare?
 
 #### dal reale al modello per .red[semplificazioni, astrazioni, assunzioni]
 
-&lt;img src="./img_pres/plume_historical.png" width="45%" /&gt;&lt;img src="./img_pres/plume_scheme.png" width="45%" /&gt;
+```{r fig.show = "hold", out.width = "45%", fig.align = "default"}
+
+knitr::include_graphics('./img_pres/plume_historical.png')
+knitr::include_graphics('./img_pres/plume_scheme.png') 
+
+```
 
 .footnote[
 .small[
@@ -579,7 +582,11 @@ Come fare?
 
 # Plume spread: semplificazioni!
 
-&lt;img src="./img_pres/plume_spread65.png" width="500" height="500" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, eval=TRUE, fig.align='center', out.height=500, out.width=500}
+
+knitr::include_graphics('./img_pres/plume_spread65.png')
+
+```
 
 ---
 
@@ -614,7 +621,11 @@ background-size: contain
 # Parametrizzazioni: assunzioni!
 
 
-&lt;img src="./img_pres/pct098_grid_contour_model_config_comp_new.png" width="75%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '75%'}
+
+knitr::include_graphics("./img_pres/pct098_grid_contour_model_config_comp_new.png")
+
+```
 
 ---
 
@@ -656,7 +667,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
@@ -673,15 +684,15 @@ Fattori (elementi) nella valutazione dell'impatto odorigeno:
 
 - .red[**O**]ffensiveness (offensività)
 
-&lt;br&gt; 
+<br> 
 
 In letteratura tecnico-scientifica le differenti varianti dello schema **FIDO** prevedono un .red[fattore di valutazione aggiuntivo]:
 
-- **FIDO.red[S]** `\(\rightarrow\)` .red[**S**]ensitivity (sensitivtà)
+- **FIDO.red[S]** $\rightarrow$ .red[**S**]ensitivity (sensitivtà)
 
-- **FIDO.red[L**] `\(\rightarrow\)` .red[**L**]ocation (luogo)
+- **FIDO.red[L**] $\rightarrow$ .red[**L**]ocation (luogo)
 
-- **FIDO.red[R**] `\(\rightarrow\)` .red[**R**]eceptor (recettore)
+- **FIDO.red[R**] $\rightarrow$ .red[**R**]eceptor (recettore)
 
 ---
 
@@ -693,7 +704,7 @@ Due approcci tipici:
 
 - .red[conteggio delle ore di odore ("odour hours")]: 
 
-.small[esprime la frequenza (percentuale) di ore sopra la soglia minima di concentrazione (intensità) odorigena (soglia di percezione); è condiderato un'espressione del `\(LOD_{field}\)`
+.small[esprime la frequenza (percentuale) di ore sopra la soglia minima di concentrazione (intensità) odorigena (soglia di percezione); è condiderato un'espressione del $LOD_{field}$
 ]
 
 - .red[ranking delle concentrazioni odorigene ("percentile")]:
@@ -701,7 +712,7 @@ Due approcci tipici:
 .small[esprime la concentrazione odorigena (intensità) di soglia che si verifica con una frequenza predefinita (98° percentile delle concentrazioni orarie di picco su base annuale)
 ]
 
-&lt;br&gt;
+<br>
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -723,7 +734,7 @@ Misura "quanto forte" un odore viene percepito, cioè descrive la .red["magnitud
 Non è mai stata osservata e definita una relazione univoca (universalmente valida) tra disturbo o molestia olfattiva e misura dei livelli di concentrazione odorigena.
 
 
-&lt;br&gt;
+<br>
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -743,7 +754,7 @@ Valutazione quantitativa delle .red[concentrazioni di picco] per una determinata
 
 Il disturbo odorigeno è strettamente correlato alla frequenza delle .red[concentrazioni di picco a breve termine] cioè per .red[quanto tempo] un soggetto risulta esposto all'odore.
 
-&lt;br&gt;
+<br>
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -760,7 +771,7 @@ E' una .red[misura soggettiva] dell'accettabilità dell'odore, fattore chiave ne
 Il tono edonico non è una qualità "indipendente" di un composto chimico ma è .red[un attributo che dipende] strettamente da intensità, concentrazione, durata, frequenza dell'esposizione all'odorante e rappresenta una .red[misura soggettiva] correlata all'esperienza, allo stato emotivo ed alle circostanze.
 
 
-&lt;br&gt;
+<br>
 
 .red_bold[Implicazioni modellistiche (warning)]:
 
@@ -772,7 +783,7 @@ Il tono edonico non è una qualità "indipendente" di un composto chimico ma è 
 
 .small[
 from: 
-AMIGO &amp; Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling
+AMIGO & Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling
 ]
 ]
 ---
@@ -786,7 +797,7 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone un i
 Altri aspetti, strettamente correlati e spesso non facilmente scindibili, riguardano la .red[sensitività] ed il tipo di .red[recettore] considerato.
 
 
-&lt;br&gt;
+<br>
 
 .red_bold[Implicazioni modellistiche]:
 
@@ -808,8 +819,8 @@ Ricomposizione secondo i contenuti tecnici degli "Indirizzi Nazionali" (ex Decre
 |Modellistica odorigena | schema FIDO* |
 |:-----------------:|:--------------------:|
 |.small[Criteri di impatto, Percentili]| .small[.red[F]requency, .red[D]uration]|
-|.small[Valori di accettabilità&lt;br&gt;(1, 3, 5 OUE/m3)&lt;br&gt;Peak-to-Mean (2.3, in Italia) | .small[.red[I]ntensity (pars!)]]|
-|.small[Classi di Sensibilità&lt;br&gt;(prima, ...,quinta) | .small[.red[L]ocation, .red[S]ensitivity, .red[R]eceptors]]|
+|.small[Valori di accettabilità<br>(1, 3, 5 OUE/m3)<br>Peak-to-Mean (2.3, in Italia) | .small[.red[I]ntensity (pars!)]]|
+|.small[Classi di Sensibilità<br>(prima, ...,quinta) | .small[.red[L]ocation, .red[S]ensitivity, .red[R]eceptors]]|
 ]
 
 Nota bene:
@@ -834,7 +845,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
@@ -869,22 +880,22 @@ background-size: 5%
 
 # Concentrazione vs. flusso odore emissioni
 
-#### `\(C_{OD} ~ [OU_E~m^{-3}]\)` = concentrazione
+#### $C_{OD} ~ [OU_E~m^{-3}]$ = concentrazione
 
 misura "intensiva", dipende dallo *stato del sistema* 
 
-#### `\(OER ~ [OU_E ~ s^{-1}]\)` = flusso (portata)
+#### $OER ~ [OU_E ~ s^{-1}]$ = flusso (portata)
 
 misura "estensiva", dipende dalle *dimensioni del sistema*
 
 
-#### Nella valutazione di impatto odorigeno (recettori) la .red[concentrazione alle emissioni NON] è sufficiente perchè bisogna considerare il .red[flusso d'aria] `\(Q_{AIR}~ [m^3~s^{-1}]\)` associato (emesso) (d)alla sorgente!
+#### Nella valutazione di impatto odorigeno (recettori) la .red[concentrazione alle emissioni NON] è sufficiente perchè bisogna considerare il .red[flusso d'aria] $Q_{AIR}~ [m^3~s^{-1}]$ associato (emesso) (d)alla sorgente!
 
-#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] `\(OER\)` che si ricava da:
+#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] $OER$ che si ricava da:
 
-#### `$$OER = Q_{AIR} \times C_{OD}$$`
+#### $$OER = Q_{AIR} \times C_{OD}$$
 
-#### e viene espresso in unità di odore al secondo `\([OU_E ~ s^{-1}]\)`
+#### e viene espresso in unità di odore al secondo $[OU_E ~ s^{-1}]$
 
 ---
 
@@ -892,20 +903,26 @@ misura "estensiva", dipende dalle *dimensioni del sistema*
 # Concentrazione di odore 
 
 .pull-left[
-#### `\(C_{OD} ~ [OU_E~m^{-3}]\)`
+#### $C_{OD} ~ [OU_E~m^{-3}]$
 ]
 
 .pull-right[
 
-&lt;img src="./img_pres/rule_of_thumb/rule-of-thumb.png" width="25%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r, echo=FALSE, fig.align='right', out.width = '25%'}
+knitr::include_graphics("./img_pres/rule_of_thumb/rule-of-thumb.png")
+```
 
 ]
 
 **Valori di riferimento, "a spanne"!**
 
-&lt;br&gt;
+<br>
 
-&lt;img src="./img_pres/flowchart/c_oer/c_od_no_label.png" width="180%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '180%'}
+
+knitr::include_graphics("./img_pres/flowchart/c_oer/c_od_no_label.png")
+
+```
 
 .footnote[.small[adapted from: Invernizzi]]
 
@@ -914,18 +931,23 @@ misura "estensiva", dipende dalle *dimensioni del sistema*
 # Flusso di odore 
 
 .pull-left[
-#### `\(OER ~ [OU_E ~ s^{-1}]\)`
+#### $OER ~ [OU_E ~ s^{-1}]$
 ]
 
 .pull-right[
-&lt;img src="./img_pres/rule_of_thumb/rule-of-thumb.png" width="25%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r, echo=FALSE, fig.align='right', out.width = '25%'}
+knitr::include_graphics("./img_pres/rule_of_thumb/rule-of-thumb.png")
+```
 ]
 
 **Valori di riferimento, "a spanne"!**
 
-&lt;br&gt;
+<br>
 
-&lt;img src="./img_pres/flowchart/c_oer/oer_no_label.png" width="180%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '180%'}
+
+knitr::include_graphics("./img_pres/flowchart/c_oer/oer_no_label.png")
+```
 
 .small[
 Nota bene: 
@@ -942,12 +964,16 @@ l'indicazione (trascurabile, critica, etc.) è da prendere con molta cautela e  
 
 .red[fattore moltiplicativo] semi-empirico che stima ai recettori le concentrazioni *di picco* ("istantanee") dai *valori medi (1h)*
 
-&lt;img src="./img_pres/pmr_what_is.png" width="70%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '70%'}
+
+knitr::include_graphics("./img_pres/pmr_what_is.png")
+
+```
 
 .footnote[
 .small[
 adapted from:
-Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
+Freeman T. & Cudmore R., (2002). Review of Odour Management in New Zealand. Air quality Technical Report n. 24. https://environment.govt.nz/assets/Publications/Files/odour-tr-aug02.pdf
 ]
 ]
 
@@ -958,7 +984,11 @@ Freeman T. &amp; Cudmore R., (2002). Review of Odour Management in New Zealand. 
 PMR tenta di stimare  i valori di "picco" ai recettori "determinati" dalle fluttuazioni del pennacchio (vs. "ensamble average").
 
 
-&lt;img src="./img_pres/smoke_plume_cut_legend.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/smoke_plume_cut_legend.png")
+
+```
 
 
 .footnote[
@@ -978,14 +1008,14 @@ Approccio tipico utilizzato nelle valutazioni effettuate tramite simulazione mod
 
 - .red[**ranking concentrazioni odorigene ("percentile")**]: concentrazione odorigena "di soglia" che si verifica con una frequenza predefinita (secondo la normativa).
 
-&lt;br&gt;
+<br>
 In olfattometria dinamica si ha che statisticamente:
 
-- `\(1\ OU_E\ m^{-3}\Rightarrow\)` il 50% della popolazione percepisce l’odore;
+- $1\ OU_E\ m^{-3}\Rightarrow$ il 50% della popolazione percepisce l’odore;
 
-- `\(3\ OU_E\ m^{-3}\Rightarrow\)` l’85% della popolazione percepisce l’odore;
+- $3\ OU_E\ m^{-3}\Rightarrow$ l’85% della popolazione percepisce l’odore;
 
-- `\(5\ OU_E\ m^{-3}\Rightarrow\)` il 90-95% della popolazione percepisce l’odore.
+- $5\ OU_E\ m^{-3}\Rightarrow$ il 90-95% della popolazione percepisce l’odore.
 
 ---
 
@@ -996,11 +1026,11 @@ Secondo la tipica convenzione operativa e la normale  prescrizione normativa (in
 
 - .red[**98° percentile delle concentrazioni annuali di picco**].
 
-&lt;br&gt;
+<br>
 
 Definire un valore di soglia:
 
-- .red[**1, 2, 3, 4, 5**] in `\(OU_E~m^{-3}\)` (ex MASE, 2023)
+- .red[**1, 2, 3, 4, 5**] in $OU_E~m^{-3}$ (ex MASE, 2023)
 
 che corrisponde al 98° percentile delle concentrazioni odorigene di picco su base annuale, significa:
 
@@ -1037,24 +1067,36 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 # Per verifica pareri di competenza
 
-&lt;img src="./img_pres/questionario_snpa_2023/modellistica_pareri_competenza.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/modellistica_pareri_competenza.png")
+
+```
 
 ---
 
 # Per verifica segnalazioni recettori
 
-&lt;img src="./img_pres/questionario_snpa_2023/modellistica_su_segnalazioni.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/modellistica_su_segnalazioni.png")
+
+```
 
 ---
 
 # Approcci modellistici utilizzati
 
-&lt;img src="./img_pres/questionario_snpa_2023/modellistica_quali_strumenti.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/modellistica_quali_strumenti.png")
+
+```
 
 
 ---
@@ -1073,7 +1115,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
@@ -1104,14 +1146,14 @@ background-size: 5%
 #### .red["Vecchi" criteri e valori di accettabilità (ex LG ARPAV):]
 
 - recettori in **aree residenziali**
- - .small[1 OUE/m3 per distanze &gt; 500 m da sorgenti]
+ - .small[1 OUE/m3 per distanze > 500 m da sorgenti]
  - .small[2 OUE/m3 per distanze tra 500 m e 200 m da sorgenti]
- - .small[3 OUE/m3 per distanze &lt; 200 m da sorgenti]
+ - .small[3 OUE/m3 per distanze < 200 m da sorgenti]
 
 - recettori in **aree non residenziali**
-  - .small[2 OUE/m3 per distanze &gt; 500 m da sorgenti]
+  - .small[2 OUE/m3 per distanze > 500 m da sorgenti]
   - .small[3 OUE/m3 per distanze tra 500 m e 200 m da sorgenti]
-  - .small[4 OUE/m3 per distanze &lt; 200 m da sorgenti]
+  - .small[4 OUE/m3 per distanze < 200 m da sorgenti]
 
 #### .red["Nuovi" criteri e valori di accettabilità (ex "Indirizzi" MASE, 2023):]
 
@@ -1142,7 +1184,7 @@ Importanza di un approccio .red[*strategico (preventivo)*] nella gestione dell'i
 
 ### ...Ma come fare?
 
-&lt;br&gt;
+<br>
 
 - Non esistono "LG ufficiali" sui contenuti tecnici di una valutazione modellistica odorigena "strategica" con l'obiettivo di produrre una classificazione "osmogena" del territorio.
 
@@ -1170,7 +1212,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
@@ -1180,18 +1222,22 @@ Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno
 
 .pull-left[
 
-&lt;br/&gt;
+<br/>
 
-&lt;!-- ```{r deming} --&gt;
+<!-- ```{r deming} -->
 
-&lt;!-- source('./script/autorizzazione_deming_modellistica.R') --&gt;
+<!-- source('./script/autorizzazione_deming_modellistica.R') -->
 
-&lt;!-- d %&gt;% --&gt;
-&lt;!--   render_graph() --&gt;
+<!-- d %>% -->
+<!--   render_graph() -->
 
-&lt;!-- ``` --&gt;
+<!-- ``` -->
 
-&lt;img src="./img_pres/pcda.png" width="100%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '100%'}
+
+knitr::include_graphics("./img_pres/pcda.png")
+
+```
 
 ]
 
@@ -1223,7 +1269,11 @@ Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno
 
 # PDCA, modellistica e autorizzazione
 
-&lt;img src="./img_pres/pcda_modellistica.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/pcda_modellistica.png")
+
+```
 
 ---
 
@@ -1280,7 +1330,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 
 ---
 
@@ -1300,7 +1350,11 @@ background-size: 5%
 ]
 
 .pull-right[
-&lt;img src="./img_pres/nose24_cet_2024_112.png" width="95%" style="border:1px solid #D3D3D3; vertical-align:top; margin:1px 1px" /&gt;
+```{r, echo=FALSE, fig.align='top', out.width='95%', out.extra='style="border:1px solid #D3D3D3; vertical-align:top; margin:1px 1px"'}
+
+knitr::include_graphics("./img_pres/nose24_cet_2024_112.png")
+
+```
 
 ]
 
@@ -1312,7 +1366,10 @@ background-size: 5%
 .red[sorgente, emissioni, meteo, dominio, terreno, recettori]
 
 
-&lt;img src="./img_pres/NOSE24/ter_wry_append_new.png" width="160%" style="display: block; margin: auto;" /&gt;
+```{r chart-ter-wr, echo=FALSE, fig.align='center', out.width = '160%', fig.dim=c(9, 7)}
+knitr::include_graphics("./img_pres/NOSE24/ter_wry_append_new.png")
+
+```
 
 .small[
 .pull-left[
@@ -1344,25 +1401,25 @@ uso suolo: CORINAIR; orografia: DTM RV
 
 # Il problema in esame
 
-&lt;br&gt;
+<br>
 
 Domanda:
 
-- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**&lt;br&gt;(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**<br>(oltre al .red["classico" PMR = 2.3], usato in Italia!)
 
-&lt;br&gt;
+<br>
 Approccio:
 
   - **Sensitività a differenti (alternativi) sistemi modellistici** 
   
-  .red[CALPUFF vs. LAPMOD]&lt;br&gt;
+  .red[CALPUFF vs. LAPMOD]<br>
   (lagrangiano puff vs. lagrangiano particelle)
 
 
   - **Sensitività a differenti (alternative) parametrizzazioni PMR**
   
-  .red[LAPMOD]&lt;br&gt;
-  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]&lt;br&gt;
+  .red[LAPMOD]<br>
+  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]<br>
   (post-processing vs. stima 'interna' al modello)
 
 
@@ -1379,12 +1436,12 @@ Approccio:
 
   variabile nel tempo e nello spazio, calcolo internalizzato nel codice del modello e parametrizzato in funzione di altre variabili (stabilità atmosferica, tempo di volo, tempo lagrangiano);
 
-&lt;br&gt;
+<br>
 Esempi: 
 
 - **CALPUFF**: PMR statico
 
-- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne &amp; Mason, 1991) 
+- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne & Mason, 1991) 
 
 .footnote[
 .small[
@@ -1402,87 +1459,27 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 #### per 7 stime alternative di impatto odorigeno 
 
-&lt;br&gt;
+<br>
 
 .center[
-&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; # &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; valore &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; peak-time &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; stat &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; CALPUFF &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; statico &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; s_avg_2.3 &lt;/td&gt;
-   &lt;td style="text-align:left;vertical-align: middle !important;" rowspan="6"&gt; LAPMOD &lt;/td&gt;
-   
-   &lt;td style="text-align:center;"&gt; 2.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; s_max_1.6 &lt;/td&gt;
-   
-   
-   &lt;td style="text-align:center;"&gt; 1.6 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; d_avg_5s &lt;/td&gt;
-   
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="4"&gt; dinamico &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; d_max_5s &lt;/td&gt;
-   
-   
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 5 s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
-   
-   
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; media 1h &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; d_max_60s &lt;/td&gt;
-   
-   
-   &lt;td style="text-align:center;"&gt; -- &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 60 s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; max 1h &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+
+tb_model <- read_csv('./data_input/tables/tab_model_runs.csv', col_names = FALSE)
+
+tb_model %>% 
+  kbl(col.names = c("#", "sigla", "modello", "PMR", "valore", "peak-time", "stat" ),
+      align = c("l", "l", "l", "c", "c", "c", "c")) %>% 
+  kable_styling(font_size = 20) %>% 
+  # column_spec(2, bold = FALSE, background = case_when(tb_model$X2 == "s_2.3" ~ "yellow",
+  #                                                     tb_model$X2 == "s_avg_2.3" ~ "yellow",
+  #                                                     tb_model$X2 == "d_avg_5s" ~ "yellow",
+  #                                                     tb_model$X2 == "d_avg_60s" ~ "yellow",
+  #                                                    TRUE ~ "white")) %>%
+  collapse_rows(columns = c(3,4), valign = "middle")
+
+  
+
+```
 ]
 
 .footnote[
@@ -1498,23 +1495,35 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 # Panoramica .small[(1/2)]: contour plots 
 
-&lt;!-- panoramica 98° percentile --&gt;
+<!-- panoramica 98° percentile -->
 
-&lt;img src="./img_pres/pct098_grid_contour_model_config_comp_new.png" width="75%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '75%'}
+
+knitr::include_graphics("./img_pres/pct098_grid_contour_model_config_comp_new.png")
+
+```
 
 ---
 
 # Panoramica .small[(2/2)]: contour plots
 
-&lt;!-- panoramica 100° percentile, max --&gt;
+<!-- panoramica 100° percentile, max -->
 
-&lt;img src="./img_pres/pct100_grid_contour_model_config_comp_new.png" width="78%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '78%'}
+
+knitr::include_graphics("./img_pres/pct100_grid_contour_model_config_comp_new.png")
+
+```
 
 ---
 
 # LAPMOD, PMR 2.3 (statico), Pct98  
 
-&lt;img src="./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '78%'}
+
+knitr::include_graphics("./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_presentation.png")
+
+```
 
 .footnote[
 .small[s_avg_2.3]
@@ -1524,7 +1533,11 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 # LAPMOD, PMR 5s (dinamico), Pct98 
 
-&lt;img src="./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '78%'}
+
+knitr::include_graphics("./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presentation.png")
+
+```
 
 .footnote[
 .small[d_avg_5s]
@@ -1534,53 +1547,28 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 # Estensione areale isolinee
 
-- definita una soglia "arbitraria": `\(1~ OU_E~m^{-3}\)`; 
+- definita una soglia "arbitraria": $1~ OU_E~m^{-3}$; 
 
-- calcolo dell'estensione areale, in `\(km^2\)`, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
+- calcolo dell'estensione areale, in $km^2$, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
 
 
-&lt;br&gt;
+<br>
 
 .center[
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; PMR &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; km2 &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; calpuff &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; statico &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.1583 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; statico &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; s_avg_2.3 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.3152 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; lapmod &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; dinamico &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.3406 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; dinamico &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; d_avg_5s &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.9995 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+
+area <- read_csv('./data_input/tables/area_contours.csv')
+
+area %>% 
+  kable() %>% 
+  #column_spec(4, bold = FALSE, background = case_when(area$km2 == 0.3152 ~ "yellow",
+  #                                                    area$km2 == 0.9995 ~ "yellow",
+  #                                                    TRUE ~ "white"))  
+ row_spec(c(2,4), bold = FALSE, background = "#d5f007")
+```
 ]
 
-&lt;br&gt;
+<br>
 
 - misura quantitativa (proxy) di impatto odorigeno relativa alla stima prodotta con alternative configurazioni modellistiche (PMR statico vs. PMR dinamico).
 
@@ -1589,17 +1577,25 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 # LAPMOD, transetto recettori, Pct98
 
-&lt;img src="./img_pres/lapmod_disc_rec_transect_pct98_samtype_avg.png" width="120%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '120%'}
+
+knitr::include_graphics("./img_pres/lapmod_disc_rec_transect_pct98_samtype_avg.png")
+
+```
 
 .footnote[
-nb: zoom --&gt; ylim(0, 5)
+nb: zoom --> ylim(0, 5)
 ]
 
 ---
 
 # LAPMOD, distanza separazione, Pct98
 
-&lt;img src="./img_pres/lapmod_sep_dist_conf_comp_samtype_avg.png" width="100%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '100%'}
+
+knitr::include_graphics("./img_pres/lapmod_sep_dist_conf_comp_samtype_avg.png")
+
+```
 
 .footnote[225 °N transetto recettori discreti]
 
@@ -1607,13 +1603,16 @@ nb: zoom --&gt; ylim(0, 5)
 
 # Qual è la stima "corretta"...
 
-&lt;br&gt;
+<br>
 
 .pull-left[
 
 ###.center[...PMR statico?]
 
-&lt;img src="./img_pres/don.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, out.width = '70%'}
+knitr::include_graphics("./img_pres/don.jpg")
+
+```
 
 ]
 
@@ -1621,7 +1620,10 @@ nb: zoom --&gt; ylim(0, 5)
 
 ###.center[...PMR dinamico?] 
 
-&lt;img src="./img_pres/fox_crop.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, out.width = '70%'}
+knitr::include_graphics("./img_pres/fox_crop.jpg")
+
+```
 
 ]
 
@@ -1636,28 +1638,28 @@ nb: zoom --&gt; ylim(0, 5)
 
 # Conclusioni operative (stime)
 
-&lt;br&gt;
+<br>
 
 ### campo vicino vs. lontano
 
--  PMR dinamico (peak-time 5s) sovrastima nel campo vicino (&lt; 800 m) e sottostima nel lontano (&gt; 800 m) rispetto a PMR statico.
+-  PMR dinamico (peak-time 5s) sovrastima nel campo vicino (< 800 m) e sottostima nel lontano (> 800 m) rispetto a PMR statico.
 
 ### recettori discreti
 
 - differenze di concentrazione: fino a 1 ordine di grandezza per recettore più vicino alla sorgente (a circa 141 m, dir SW); 
-- fino a circa 1 km, PMR dinamico peak-time 5s &gt; PMR statico.
+- fino a circa 1 km, PMR dinamico peak-time 5s > PMR statico.
 
 
 ### distanza di separazione e areale di impatto
 
 -  variabilità nella distanza minima e nella copertura areale per un predefinito livello di protezione (concentrazione odorigena);
-- PMR dinamico peak-time 5s &gt;  PMR statico.
+- PMR dinamico peak-time 5s >  PMR statico.
 
 ---
 
 # Conclusioni regolatorie (autorizzative)
 
-&lt;br&gt;
+<br>
 
 ### verifica di conformità e valutazioni di impatto
 
@@ -1667,7 +1669,7 @@ nb: zoom --&gt; ylim(0, 5)
 
 - importante ricordare che l'utilizzo *esclusivo* dello strumento modellistico (spesso in un'unica configurazione) può essere fonte di un potenziale *effetto di 'distorsione' (bias)* nella verifica di conformità ai valori di accettabilità.
 
-&lt;br&gt;
+<br>
 
 .bottom[
 .center[
@@ -1686,141 +1688,3 @@ class: title-slide, middle, no-scribble
 # Grazie per l'attenzione
 ## massimo.bressan@arpa.veneto.it
 
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-  "highlightStyle": "github",
-  "highlightLanguage": ["r", "yaml", "markdown"],
-  "highlightLines": true,
-  "countIncrementalSlides": false,
-  "ratio": "4:3"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
