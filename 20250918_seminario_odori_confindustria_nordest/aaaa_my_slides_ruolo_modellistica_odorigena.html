@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
 ]
 .date[
-### Marghera, 18/09/2025 [last updated: 2025-09-02]
+### Marghera, 18/09/2025 [last updated: 2025-09-04]
 ]
 
 ---
@@ -888,7 +888,6 @@ misura "estensiva", dipende dalle *dimensioni del sistema*
 
 ---
 
-
 # Concentrazione di odore 
 
 .pull-left[
@@ -938,6 +937,68 @@ l'indicazione (trascurabile, critica, etc.) è da prendere con molta cautela e  
 
 ---
 
+
+# Classificazione sorgenti per modellistica 
+
+#### significative (da considerare)
+
+`\(OER\)` &gt; 500 `\(UO_E~s^{-1}\)`
+
+#### non significative (possono non essere considerate)
+
+`\(C_{OD}\)` &lt; 80  `\(UO_E~m^{-3}\)` 
+
+.red[indipendentemente da portata volumetrica emessa]
+
+#### eventuali esclusioni
+
+"[...] un insieme di sorgenti .red[*può essere ritenuto trascurabile*] se corrispondente ad un rateo emissivo di odore inferiore al 10% di quello complessivo dello stabilimento e comunque contemporaneamente non superiore a 500 ou/s"
+
+"In ogni caso deve essere data evidenza, almeno in forma riassuntiva tabellare, .red[di tutte le fonti di emissione odorigena presenti, indipendentemente dalla loro effettiva modellizzazione]." 
+.footnote[.small[
+Indirizzi MASE, 2023, All. 1
+]]
+
+---
+
+# Concentrazione vs. percezione recettori .small[(1/2)]
+
+
+#### Nelle valutazioni di impatto odorigeno ai recettori (popolazione target) .red[contano gli eventi di picco], cioè i "valori massimi" di concentrazione e la loro .red[frequenza di manifestazione (percezione)].
+
+Approccio tipico utilizzato nelle valutazioni effettuate tramite simulazione modellistica:
+
+- .red[**ranking concentrazioni odorigene ("percentile")**]: concentrazione odorigena "di soglia" che si verifica con una frequenza predefinita (secondo la normativa).
+
+&lt;br&gt;
+In olfattometria dinamica si ha che statisticamente:
+
+- `\(1\ OU_E\ m^{-3}\Rightarrow\)` il 50% della popolazione percepisce l’odore;
+
+- `\(3\ OU_E\ m^{-3}\Rightarrow\)` l’85% della popolazione percepisce l’odore;
+
+- `\(5\ OU_E\ m^{-3}\Rightarrow\)` il 90-95% della popolazione percepisce l’odore.
+
+---
+
+# Concentrazione vs. percezione recettori .small[(2/2)]
+
+Secondo la tipica convenzione operativa e la normale  prescrizione normativa (in Italia) la valutazione relativa ad una simulazione modellistica di impatto odorigeno .red[**ai recettori**] viene espressa come:
+
+- .red[**98° percentile delle concentrazioni annuali di picco**].
+
+&lt;br&gt;
+
+Definire un valore di soglia:
+
+- .red[**1, 2, 3, 4, 5**] in `\(OU_E~m^{-3}\)` (ex MASE, 2023)
+
+che corrisponde al 98° percentile delle concentrazioni odorigene di picco su base annuale, significa:
+
+  - .red[**"concedere" che i recettori possano percepire la concentrazione odorigena di soglia (proxy del disturbo o  molestia olfattiva) al massimo per 175 ore in un anno (2% di 8760 ore/anno).**]
+
+---
+
 # Peak-to-Mean Ratio (PMR): che cos'è?
 
 .red[fattore moltiplicativo] semi-empirico che stima ai recettori le concentrazioni *di picco* ("istantanee") dai *valori medi (1h)*
@@ -966,45 +1027,6 @@ PMR tenta di stimare  i valori di "picco" ai recettori "determinati" dalle flutt
 from: Stull, 2015. Practical Meteorology. An Algebra-based Survey of Atmospheric Science. The University of British Columbia Vancouver, Canada.
 ]
 ]
-
----
-
-# Concentrazione vs. percezione recettori .small[(1/2)]
-
-
-#### Nelle valutazioni di impatto odorigeno ai recettori (popolazione target) .red[contano gli eventi di picco], cioè i "valori massimi" di concentrazione e la loro .red[frequenza di manifestazione (percezione)].
-
-Approccio tipico utilizzato nelle valutazioni effettuate tramite simulazione modellistica:
-
-- .red[**ranking concentrazioni odorigene ("percentile")**]: concentrazione odorigena "di soglia" che si verifica con una frequenza predefinita (secondo la normativa).
-
-&lt;br&gt;
-In olfattometria dinamica si ha che statisticamente:
-
-- `\(1\ OU_E\ m^{-3}\Rightarrow\)` il 50% della popolazione percepisce l’odore;
-
-- `\(3\ OU_E\ m^{-3}\Rightarrow\)` l’85% della popolazione percepisce l’odore;
-
-- `\(5\ OU_E\ m^{-3}\Rightarrow\)` il 90-95% della popolazione percepisce l’odore.
-
----
-
-# Concentrazione vs. percezione recettori .small[(2/2)]
-
-
-Secondo la tipica convenzione operativa e la normale  prescrizione normativa (in Italia) la valutazione relativa ad una simulazione modellistica di impatto odorigeno .red[**ai recettori**] viene espressa come:
-
-- .red[**98° percentile delle concentrazioni annuali di picco**].
-
-&lt;br&gt;
-
-Definire un valore di soglia:
-
-- .red[**1, 2, 3, 4, 5**] in `\(OU_E~m^{-3}\)` (ex MASE, 2023)
-
-che corrisponde al 98° percentile delle concentrazioni odorigene di picco su base annuale, significa:
-
-  - .red[**"concedere" che i recettori possano percepire la concentrazione odorigena di soglia (proxy del disturbo o  molestia olfattiva) al massimo per 175 ore in un anno (2% di 8760 ore/anno).**]
 
 ---
 
@@ -1629,56 +1651,36 @@ nb: zoom --&gt; ylim(0, 5)
 ###.center[...non c'è una risposta univoca !]
 
 
-- variabilità nelle stime dovuta alle modalità di calcolo del PMR introduce un significativo margine di incertezza;
+- variabilità stime dovuta alle modalità di calcolo del PMR introduce un significativo margine di incertezza;
 - manca una verifica empirica di tipo contro-fattuale (es. field inspection, analisi lamentele, citizen science); 
 
 ---
 
-# Conclusioni operative (stime)
+# Conclusioni 
 
+.red[**di tipo operativo (su stime)**]
+
+- concentrazioni fino a ~ 1 km: PMR dinamico (5s) &gt; PMR statico;
+
+- impatto recettori vicini sorgente &lt;150 m: per PMR dinamico superiore di circa ordine di grandezza;
+
+- distanza di seprarazione: PMR dinamico &gt;  PMR statico.
+
+.red[**di tipo regolatorio (autorizzativo)**]
+
+- necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e/o *richieste (o non richieste)* da autorità di controllo;
+
+- richiesto impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
+
+- utilizzo *esclusivo* di una specifica configurazione modellistica può determinare un *bias significativo* nella verifica di conformità.
 &lt;br&gt;
-
-### campo vicino vs. lontano
-
--  PMR dinamico (peak-time 5s) sovrastima nel campo vicino (&lt; 800 m) e sottostima nel lontano (&gt; 800 m) rispetto a PMR statico.
-
-### recettori discreti
-
-- differenze di concentrazione: fino a 1 ordine di grandezza per recettore più vicino alla sorgente (a circa 141 m, dir SW); 
-- fino a circa 1 km, PMR dinamico peak-time 5s &gt; PMR statico.
-
-
-### distanza di separazione e areale di impatto
-
--  variabilità nella distanza minima e nella copertura areale per un predefinito livello di protezione (concentrazione odorigena);
-- PMR dinamico peak-time 5s &gt;  PMR statico.
-
----
-
-# Conclusioni regolatorie (autorizzative)
-
 &lt;br&gt;
-
-### verifica di conformità e valutazioni di impatto
-
-- necessaria una *consapevolezza tecnica*, da parte dei proponenti e delle autorità di controllo, sugli effetti riconducibili all'utilizzo di una specifica configurazione modellistica;
-
-- richiesto un impegno verso la *riproducibilità* delle stime per garantire una valutazione di impatto *accurata e robusta* in relazione alle configurazioni modellistiche adottate (o non adottate) dai proponenti e/o richieste (o non richieste) dalle autorità di controllo;
-
-- importante ricordare che l'utilizzo *esclusivo* dello strumento modellistico (spesso in un'unica configurazione) può essere fonte di un potenziale *effetto di 'distorsione' (bias)* nella verifica di conformità ai valori di accettabilità.
-
 &lt;br&gt;
-
-.bottom[
 .center[
-
-### "All models are wrong, but some are useful." Box
-
-]
+###"All models are wrong, but some are useful." Box
 ]
 
 ---
-
 
 layout: false
 class: title-slide, middle, no-scribble
