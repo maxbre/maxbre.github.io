@@ -1,0 +1,6 @@
+Classe,Descrizione,Valori
+PRIMA,"Aree ad uso .blue[residenziale, ZTO tipo A o B]: aree in centri abitati o nuclei ad uso collettivo continuativo ad alta concentrazione",1 OUE/m3
+SECONDA,"Aree ad uso .blue[residenziale, ZTO tipo C]: aree in centri abitati o nuclei ad uso collettivo continuativo, commerciale, terziario o turistico",2 OUE/m3
+TERZA,"Aree ad uso .blue[residenziale non ricomprese in ZTO tipo A, B, C]: edifici o spazi aperti in centri abitati o nuclei ad uso collettivo non continuativo",3 OUE/m3
+QUARTA,"Aree ad uso .blue[industriale, artigianale, agricolo, zootecnico]",4 OUE/m3
+QUINTA,"Aree che .blue[non prevedono ordinaria presenza di gruppi di persone]: terreni agricoli e zone non abitate",5 OUE/m3

@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
 ]
 .date[
-### Marghera, 18/09/2025 [last updated: 2025-09-04]
+### Marghera, 18/09/2025 [last updated: 2025-09-05]
 ]
 
 ---
@@ -231,11 +231,11 @@ Atmosphere, 11, 92; doi:10.3390/atmos11010092
 
 # Valori di accettabilità
 
-#### Verifica di conformità dei valori di accettabilità presso i ricettori con una .red[valutazione modellistica di dispersione odorigena].
 
-&lt;br&gt;
+#### Verifica di conformità presso i ricettori da effettuare con una .red[valutazione modellistica di dispersione odorigena].
 
-&lt;table class="table table-striped" style="font-size: 14px; "&gt;
+
+&lt;table class="table table-striped" style="font-size: 17px; "&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:center;"&gt; Classe &lt;/th&gt;
@@ -246,31 +246,32 @@ Atmosphere, 11, 92; doi:10.3390/atmos11010092
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; PRIMA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo A o B. Edifici, in centri abitati o nuclei uso collettivo continuativo ed alta concentrazione persone (ospedali, case di cura, ospizi, asili, scuole, università, anche private), esclusi usi commerciale e terziario. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree ad uso .blue[residenziale, ZTO tipo A o B]: aree in centri abitati o nuclei ad uso collettivo continuativo ad alta concentrazione &lt;/td&gt;
    &lt;td style="text-align:center;font-weight: bold;color: green !important;"&gt; 1 OUE/m3 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; SECONDA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree, in centri abitati o nuclei, prevalente uso residenziale, ZTO tipo C. Edifici o spazi aperti, in centri abitati o nuclei uso collettivo continuativo, commerciale, terziario o turistico (mercati stabili, centri commerciali, terziari e direzionali,  servizi, strutture ricettive, monumenti). &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree ad uso .blue[residenziale, ZTO tipo C]: aree in centri abitati o nuclei ad uso collettivo continuativo, commerciale, terziario o turistico &lt;/td&gt;
    &lt;td style="text-align:center;font-weight: bold;color: orange !important;"&gt; 2 OUE/m3 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; TERZA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Edifici o spazi aperti, in centri abitati o nuclei, uso collettivo non continuativo (luoghi pubblico spettacolo, per attività ricreative, sportive, culturali, religiose, fiere, mercatini o altri eventi, cimiteri); case sparse; edifici in zone a prevalente uso residenziale non ricomprese in ZTO tipo A, B, C. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree ad uso .blue[residenziale non ricomprese in ZTO tipo A, B, C]: edifici o spazi aperti in centri abitati o nuclei ad uso collettivo non continuativo &lt;/td&gt;
    &lt;td style="text-align:center;font-weight: bold;color: red !important;"&gt; 3 OUE/m3 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; QUARTA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree prevalente uso industriale, artigianale, agricola, zootecnica. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree ad uso .blue[industriale, artigianale, agricolo, zootecnico] &lt;/td&gt;
    &lt;td style="text-align:center;font-weight: bold;color: brown !important;"&gt; 4 OUE/m3 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; QUINTA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Aree con manufatti o strutture che non prevedono ordinaria presenza di gruppi di persone (terreni agricoli, zone non abitate). &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aree .blue[che non prevedono ordinaria presenza di gruppi di persone]: terreni agricoli e zone non abitate &lt;/td&gt;
    &lt;td style="text-align:center;font-weight: bold;color: purple !important;"&gt; 5 OUE/m3 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 
 #### ex Indirizzi Nazionali, Decreto Direttoriale MASE n. 309/2023
 
@@ -730,8 +731,6 @@ Non è mai stata osservata e definita una relazione univoca (universalmente vali
 - stima della magnitudo delle emissioni odorigene
 
 - stima output concentrazioni odorigene (fattore di rimodulazione peak-to-mean ratio)
-
-- restituzione stime di impatto (contour plot)
 
 ---
 
@@ -1651,7 +1650,7 @@ nb: zoom --&gt; ylim(0, 5)
 ###.center[...non c'è una risposta univoca !]
 
 
-- variabilità stime dovuta alle modalità di calcolo del PMR introduce un significativo margine di incertezza;
+- variabilità dovuta alle modalità di calcolo PMR introduce un significativo margine di incertezza nelle stime;
 - manca una verifica empirica di tipo contro-fattuale (es. field inspection, analisi lamentele, citizen science); 
 
 ---
@@ -1666,7 +1665,7 @@ nb: zoom --&gt; ylim(0, 5)
 
 - distanza di seprarazione: PMR dinamico &gt;  PMR statico.
 
-.red[**di tipo regolatorio (autorizzativo)**]
+.red[**di tipo regolatorio (su iter autorizzativo)**]
 
 - necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e/o *richieste (o non richieste)* da autorità di controllo;
 
