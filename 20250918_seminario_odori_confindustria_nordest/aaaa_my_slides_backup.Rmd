@@ -1,42 +1,52 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>BACKUP SLIDES</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="   Massimo Bressan" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#befa46"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/kePrint/kePrint.js"></script>
-    <link href="libs/lightable/lightable.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/css_arpav.css" type="text/css" />
-    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# BACKUP SLIDES
-]
-.subtitle[
-## …
-]
-.author[
-### <br><br><br>Massimo Bressan
-]
-.institute[
-### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
-]
-.date[
-### last updated: 2025-09-11
-]
-
 ---
+title: "BACKUP SLIDES"
+subtitle: "..."
+author: "<br><br><br>Massimo Bressan"
+institute: "ARPAV - UQA, Unità Organizzativa Qualità dell'Aria"
+date: "last updated: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["./css/css_arpav.css", "./css/fonts.css"]
+    lib_dir: libs
+    #self_contained: true # for self contained html, may fail sometimes, though!
+    includes:
+    #  after_body: ./img_layout/timer.html # this is for including timer presentation
+    nature:
+      highlightStyle: github
+      highlightLanguage: ["r", "yaml", "markdown"]
+      highlightLines: true
+      countIncrementalSlides: false
+      #countdown: 60000 # 1 min for each slide
+      ratio: "4:3"
+      #ratio: "16:9" 
+    seal: true    # this is for generating the title (first)slide
+---
+```{r setup, include=FALSE}
 
+options(htmltools.dir.version = FALSE)
 
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE, 
+	fig.dim=c(5, 5), 
+	out.width="100%",
+	fig.retina = 3,
+	fig.align = 'center',
+	message = FALSE,
+	warning = FALSE
+	)
+
+# here load libraries uncomment accordingly
+
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(DiagrammeR)
+
+# use scribble
+xaringanExtra::use_scribble(pen_color= "#befa46")
+
+```
 
 
 layout: false
@@ -52,7 +62,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 # Modellistica odorigena: sintesi
@@ -73,7 +83,7 @@ background-size: 5%
 layout: false
 class: inverse_3, center, middle
 
-# Parametri per caratterizzare&lt;br&gt;le sorgenti odorigene&lt;br&gt;nelle valutazioni modellistiche
+# Parametri per caratterizzare<br>le sorgenti odorigene<br>nelle valutazioni modellistiche
 
 ---
 layout: true
@@ -82,7 +92,7 @@ background-image: url(./img_layout/logo_arpetta.jpeg)
 background-position: 98% 2%
 background-size: 5%
 
-&lt;!-- set normal layout --&gt;
+<!-- set normal layout -->
 ---
 
 # Concentrazione odorigena
@@ -108,7 +118,7 @@ E' il flusso degli effluenti per unità di tempo.
 Viene espressa in:
 
 
-- `\([Nm^3~s^{-1}]\)` riferita a 20 °C (per olfattometria dinamica)
+- $[Nm^3~s^{-1}]$ riferita a 20 °C (per olfattometria dinamica)
 
 
 Rappresenta un parametro la cui determinazione risulta fondamentale in tema di emissioni e sempre molto critica, in particolare per le sorgenti passive (non dotate di flusso proprio).
@@ -126,15 +136,15 @@ $$
 $$
 
 
-E' calcolato dal prodotto tra la concentrazione di odore `\(OU_E~m^{-3}\)` e la portata (flusso) di effluenti della sorgente  `\(m^3~s^{-1}\)`.
+E' calcolato dal prodotto tra la concentrazione di odore $OU_E~m^{-3}$ e la portata (flusso) di effluenti della sorgente  $m^3~s^{-1}$.
 
 Per una valutazione dell'impatto odorigeno di una determinata sorgente non è sufficiente calcolare la concentrazione di odore ma è necessario determinare OER.
 
 .small[
 Eesempio:
 
-- camino con flusso volumetrico di effluenti: `\(10 ~ m^3~s^{-1}\)`
-- concentrazione odorigena (da olfattometria dinamica): `\(200 ~ OU_E~m^{-3}\)`
+- camino con flusso volumetrico di effluenti: $10 ~ m^3~s^{-1}$
+- concentrazione odorigena (da olfattometria dinamica): $200 ~ OU_E~m^{-3}$
 
 $$
 OER = 10~[m^3~s^{-1}] \times 200 ~ [OU_E~m^{-3}] = 2000 ~ [OU_E~s^{-1}]
@@ -149,7 +159,7 @@ E' la concentrazione di odore riferita all'unità di superficie e di tempo, tipi
 
 Viene espresso in:
 
-`$$[OU_E~m^{-2}~s^{-1}]$$`
+$$[OU_E~m^{-2}~s^{-1}]$$
 
 Prodotto tra concentrazione di odore e flusso di aria indotto all'interno strumento di campionamento (cappa statica, wind tunnel), diviso per l'area (estensione) coperta dallo strumento.
 Rappresenta la "copertura" dello strumento sulla superficie di emissione odorigena campionata. 
@@ -157,9 +167,9 @@ Rappresenta la "copertura" dello strumento sulla superficie di emissione odorige
 .small[
 Esempio:
 
-- sorgente areale con concentrazione odorigena (da olfattometria dinamica): `\(5000 ~ OU_E~m^{-3}\)`
-- flusso di aria neutra indotto all'interno della cappa statica: `\(2~ l~min^{-1}\)`, cioè `\(0.002 ~m^3~min^{-1}\)`
-- area della sorgente coperta dalla cappa statica: `\(0.5 ~m^2\)`
+- sorgente areale con concentrazione odorigena (da olfattometria dinamica): $5000 ~ OU_E~m^{-3}$
+- flusso di aria neutra indotto all'interno della cappa statica: $2~ l~min^{-1}$, cioè $0.002 ~m^3~min^{-1}$
+- area della sorgente coperta dalla cappa statica: $0.5 ~m^2$
 
 $$
 SOER = \frac{5000 ~ [OU_E~m^{-3}] \times 0.002 ~ [m^3~min^{-1}]}{0.5 ~[m^2]}= 20~ [OU_E~m^{-2}~min^{-1}]
@@ -173,19 +183,19 @@ $$
 ### flusso di odore "specifico" per sorgenti areali passive
 
 
-`$$SOER =  \frac{C_{OD} \times Q_{AIR}}{A_{hood}} = [OU_E~m^{-2}~s^{-1}]$$`
+$$SOER =  \frac{C_{OD} \times Q_{AIR}}{A_{hood}} = [OU_E~m^{-2}~s^{-1}]$$
 
 dove:
 
-`\(C_{OD} = [OU_E~m^{-3}]\)` 
+$C_{OD} = [OU_E~m^{-3}]$ 
 
 concentrazione di odore misurata in uscita allo strumento (WT, cappa)
 
-`\(Q_{AIR} = [Nm^3~s^{-1}]\)` 
+$Q_{AIR} = [Nm^3~s^{-1}]$ 
 
 flusso di aria insufflato nello strumento
 
-`\(A_{hood} = [m^2]\)` 
+$A_{hood} = [m^2]$ 
 
 superficie dello strumento di campionamento (che copre la superficie della sorgente di emissione dell'odore)
 
@@ -196,16 +206,16 @@ superficie dello strumento di campionamento (che copre la superficie della sorge
 ### flusso di odore "complessivo" per sorgenti areali passive
 
 
-`$$OER = SOER \times A_{sorgente} = [OU_E~s^{-1}]$$`
+$$OER = SOER \times A_{sorgente} = [OU_E~s^{-1}]$$
 
 
 dove:
 
-`\(SOER =  \frac{C_{OD} \times Q_{AIR}}{A_{hood}} = [OU_E~m^{-2}~s^{-1}]\)` 
+$SOER =  \frac{C_{OD} \times Q_{AIR}}{A_{hood}} = [OU_E~m^{-2}~s^{-1}]$ 
 
 concentrazione di odore riferita all'unità di superficie e di tempo
 
-`\(A_{sorgente} = [m^2]\)`
+$A_{sorgente} = [m^2]$
 
 area complessiva della sorgente passiva
 
@@ -244,10 +254,10 @@ $$
 OER_S = OER_R ~\sqrt{\frac{V_S}{V_R}}
 $$
 .small[
-- `\(OER_S =\)` portata odore alla velocità dell'aria `\(V_S\)` ricalcolata sulla superficie di emissione 
-- `\(OER_R =\)` portata odore alla velocità di riferimento `\(V_R\)` in uscita da camera  campionamento
-- `\(V_S =\)` velocità dell'aria sulla superficie di emissione
-- `\(V_R =\)` velocità dell'aria di riferimento nella camera di ventilazione durante il campionamento
+- $OER_S =$ portata odore alla velocità dell'aria $V_S$ ricalcolata sulla superficie di emissione 
+- $OER_R =$ portata odore alla velocità di riferimento $V_R$ in uscita da camera  campionamento
+- $V_S =$ velocità dell'aria sulla superficie di emissione
+- $V_R =$ velocità dell'aria di riferimento nella camera di ventilazione durante il campionamento
 ]
 
 - Approccio empirico derivato per una sorgente emissiva liquida, a livello operativo adottato, per similitudine e per motivi di "praticità", in molti altri contesti di valutazione.
@@ -265,11 +275,11 @@ $$
 V_S = V_H \frac{ln(\frac{Z_S}{Z_0})}{ln(\frac{Z_H}{Z_0})}
 $$
 .small[
-- `\(V_S =\)` velocità dell'aria vicino alla superficie emissiva
-- `\(V_H =\)` velocità del vento alla quota dell’anemometro
-- `\(Z_S =\)` quota rispetto al suolo a cui si vuole calcolare `\(V_S\)`
-- `\(Z_H =\)` quota dell’anemometro rispetto al suolo
-- `\(Z_0 =\)` lunghezza di rugosità superficiale (scabrezza di superficie)
+- $V_S =$ velocità dell'aria vicino alla superficie emissiva
+- $V_H =$ velocità del vento alla quota dell’anemometro
+- $Z_S =$ quota rispetto al suolo a cui si vuole calcolare $V_S$
+- $Z_H =$ quota dell’anemometro rispetto al suolo
+- $Z_0 =$ lunghezza di rugosità superficiale (scabrezza di superficie)
 ]
 
 Non è una formula universalmente applicabile a tutte le situazioni (per quanto detto prima).
@@ -280,11 +290,11 @@ Non è una formula universalmente applicabile a tutte le situazioni (per quanto 
 
 #### significative (da considerare)
 
-`\(OER\)` &gt; 500 `\(UO_E~s^{-1}\)`
+$OER$ > 500 $UO_E~s^{-1}$
 
 #### non significative (possono non essere considerate)
 
-`\(C_{OD}\)` &lt; 80  `\(UO_E~m^{-3}\)` 
+$C_{OD}$ < 80  $UO_E~m^{-3}$ 
 
 .red[indipendentemente da portata volumetrica emessa]
 
@@ -306,11 +316,11 @@ Indirizzi MASE, 2023, All. 1
 
 Lo scenario emissivo delle simulazioni modellistiche di impatto olfattivo deve  considerare tutte le sorgenti di emissione presenti nell’impianto o nell'attività oggetto di studio (convogliate, diffuse, fuggitive) che verificano:
 
-- #### .red[una portata di odore:]  `\(OER &gt; 500 ~[OU_E~ s^{-1}]\)`
+- #### .red[una portata di odore:]  $OER > 500 ~[OU_E~ s^{-1}]$
 
 fatta eccezione per le sorgenti, indipendentemente dalla portata volumetrica emessa, che verificano:
 
-- #### .red[una concentrazione massima di odore:]  `\(C_{OD} &lt; 80 ~ [OU_E~ m^{-3}]\)`
+- #### .red[una concentrazione massima di odore:]  $C_{OD} < 80 ~ [OU_E~ m^{-3}]$
 
 ---
 
@@ -405,13 +415,13 @@ Summary of Suggested Procedures for Estimating Initial Lateral Dimensions σy an
 
 - Sono i punti del dominio di calcolo presso i quali simulare l'impatto odorigeno delle emissioni.
 
-- Devono essere individuati in relazione alle "classi di sensibilità" del recettore ed all'interno dell'area definita dall'isolinea corrispondente alla concentrazione odorigena di `\(1~OU_E ~m^{-3}\)`, corrispondente al 98° percentile delle concentrazioni di picco orarie su base annuale.
+- Devono essere individuati in relazione alle "classi di sensibilità" del recettore ed all'interno dell'area definita dall'isolinea corrispondente alla concentrazione odorigena di $1~OU_E ~m^{-3}$, corrispondente al 98° percentile delle concentrazioni di picco orarie su base annuale.
 
 ---
 
 # Dominio spaziale e passo di griglia
 
-- Il dominio spaziale di calcolo deve estendersi in modo tale da comprendere almeno l'isoliena di concentrazione dell’odore pari a `\(1~OU_E ~m^{-3}\)` corrispondente al 98° percentile delle concentrazioni di picco orario su base annuale e deve includere tutti i ricettori sensibili.
+- Il dominio spaziale di calcolo deve estendersi in modo tale da comprendere almeno l'isoliena di concentrazione dell’odore pari a $1~OU_E ~m^{-3}$ corrispondente al 98° percentile delle concentrazioni di picco orario su base annuale e deve includere tutti i ricettori sensibili.
 
 - Il passo della griglia di calcolo deve essere inferiore alla distanza fra il ricettore sensibile più prossimo
 e la sorgente dell’odore e deve essere determinato a seguito di un’analisi di sensitività dei risultati che permetta
@@ -423,7 +433,11 @@ di individuare le aree di massimo impatto in modo chiaro e distinto (e sostanzia
 
 # Plume meandering
 
-&lt;img src="./img_pres/10546_2020_547_Fig1_HTML.png" width="90%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '90%'}
+
+knitr::include_graphics("./img_pres/10546_2020_547_Fig1_HTML.png")
+
+```
 
 .small["Concentration fluctuations are relevant in many fields including the evaluation of toxicity, flammability, and odour nuisance. 
 Characterizing concentration fluctuations requires not just the mean concentration but also at least the variance of the concentration in the location of interest. However, for most purposes the characterization of the concentration fluctuations requires knowledge of the concentration probability density function (PDF) in the point of interest and even the time evolution of the concentration."]
@@ -441,7 +455,11 @@ https://doi.org/10.1007/s10546-020-00547-4
 
 # Plume meandering
 
-&lt;img src="./img_pres/Top-panel-sketch-of-a-plume-as-made-of-multiple-puffs-the-Eulerian-approach-Bottom.png" width="100%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '100%'}
+
+knitr::include_graphics("./img_pres/Top-panel-sketch-of-a-plume-as-made-of-multiple-puffs-the-Eulerian-approach-Bottom.png")
+
+```
 
 .footnote[
 .small[
@@ -456,9 +474,9 @@ Orsi et al., 2021. Scalar mixing in homogeneous isotropic turbulence: A numerica
 
 # Esempi PMR (standard internazionali)
 
-&lt;br&gt;
+<br>
 
-Country | Region   | `\(t_p\)`       | `\(\frac{C_p}{C_m}\)` | Pct (%) |
+Country | Region   | $t_p$       | $\frac{C_p}{C_m}$ | Pct (%) |
 ------- | -------  | ----------- | ------------------|---------|
 Canada  | Quebec   | 4 min       | 1.9               |    98   
   -     | Ontario  | 10 min      | 1.65              |    99.5 
@@ -468,7 +486,7 @@ Germany |   -      | 1 sec       | 4                 |    98
 .red[Italy]   |   .red[-]   | .red[not defined] | .red[2.3]   |  .red[98]   
 
 
-&lt;br&gt;
+<br>
 
 .red[
 #### domanda:
@@ -476,12 +494,12 @@ Germany |   -      | 1 sec       | 4                 |    98
 #### da dove e come origina il valore numerico del PMR = 2.3 utilizzato in Italia?
 ]
 
-&lt;br&gt;
+<br>
 .footnote[
 .small[
 from:
 
-Brancher, M., Griffiths, K. D., Franco, D., &amp; de Melo Lisboa, H. (2017). A review of odour impact criteria in selected countries around the world. Chemosphere, 168, 1531–1570.
+Brancher, M., Griffiths, K. D., Franco, D., & de Melo Lisboa, H. (2017). A review of odour impact criteria in selected countries around the world. Chemosphere, 168, 1531–1570.
 ]
 ]
 ---
@@ -491,17 +509,17 @@ Brancher, M., Griffiths, K. D., Franco, D., &amp; de Melo Lisboa, H. (2017). A r
 Un'.red[ipotesi] (possibile spiegazione) sul valore numerico del PMR utilizzato in Italia.
 
 
-`$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^n = \left ( \frac{3600}{60} \right )^{0.2} = 60~^{0.2} = 2.267933155 \approx 2.3$$`
+$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^n = \left ( \frac{3600}{60} \right )^{0.2} = 60~^{0.2} = 2.267933155 \approx 2.3$$
 
 
 
 .red[Ipotesi] che si basa sulle seguenti assunzioni (non verificate ma plausibili):
 
-- `\(t_m = 3600 ~s\)`
+- $t_m = 3600 ~s$
 
-- `\(t_p = 60 ~s\)`
+- $t_p = 60 ~s$
 
-- `\(n = 0.2\)`, cfr. CALPUFF user manual
+- $n = 0.2$, cfr. CALPUFF user manual
 
 
 ...sempre che si utilizzi l'approccio empirico proposto da Smith (1973).
@@ -510,17 +528,82 @@ Un'.red[ipotesi] (possibile spiegazione) sul valore numerico del PMR utilizzato 
 
 # Smith's power law as function of stability
 
-&lt;img src="aaaa_my_slides_backup_files/figure-html/chart-pmr-smith-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+```{r chart-pmr-smith, echo=FALSE, fig.align='center', out.width = '75%'}
+
+# by assuming the formula of smith 1973
+# where the non-dimensional exponent u 
+# depends on atmospheric stability
+
+# in CALPUFF
+# the scaling factor used to adjust the lateral dispersion coefficient (Turner, 1970)
+# for averaging time is the 1/5 th power law:
+# paragraph 2.10 Odor Modeling
+# formula (2-269)
+
+# here some of the many parametrizations around
+
+u_AB <- 0.65
+u_C <- 0.52 
+u_D <- 0.35 
+u_EF <- 0
+u_CPUF <- 0.2
+
+# seq of time in seconds up to 1h
+
+t<-seq(1,3600)
+
+# then
+
+AB_0.65 <- (3600/t)^u_AB
+C_0.52 <- (3600/t)^u_C
+D_0.35 <- (3600/t)^u_D
+EF_0 <- (3600/t)^u_EF
+mod_CALPUFF_0.2 <- (3600/t)^u_CPUF
+
+# define a df
+df_PMR <- data.frame(t,
+                     AB_0.65,
+                     C_0.52,
+                     D_0.35,
+                     EF_0,
+                     mod_CALPUFF_0.2)
+
+df_PMR_l <- df_PMR %>% 
+  pivot_longer(-t, names_to = "PMR", values_to = "value")
+
+df_PMR_l  %>% 
+  ggplot(aes(x=t, y=value, group=PMR, colour=PMR))+
+  geom_line()+
+  geom_hline(yintercept = 2.3, linetype = "dashed", colour="gray")+
+  geom_vline(xintercept = 60, linetype = "dashed", colour="gray")+
+  scale_x_continuous(name="seconds", 
+                     breaks = c(seq(0,1200,100)),
+                     guide = guide_axis(n.dodge = 2))+
+  scale_y_continuous(name="PMR", breaks = c(seq(1,4,0.5),2.3))+
+  annotate("text", x=500, y=2.4, label="LG Lombardia", size=2.5)+
+  annotate("text", x=150,  y=0.5, label="60 s", size=2.5)+
+  coord_cartesian(xlim = c(0, 1200), ylim=c(0,4))+
+  guides(colour = guide_legend(""),
+         group = guide_legend(""))+
+  #labs(title = "Smith's power law")+
+  theme_light()
+# + theme(axis.text.x = element_text(angle=90))
+
+```
 
 ---
 
 # Calpuff user manual
 
-&lt;img src="./img_pres/calpuff/odor_modeling_calpuff.jpg" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+```{r calpuff-pmr, echo=FALSE, fig.align='center', out.width = '100%', out.height='100%'}
+
+knitr::include_graphics("./img_pres/calpuff/odor_modeling_calpuff.jpg")
+
+```
 
 
 .red[
-il manuale di CALPUFF "suggerisce" un valore di "default" dell'esponente `\(n\)` = 0.2
+il manuale di CALPUFF "suggerisce" un valore di "default" dell'esponente $n$ = 0.2
 ]
 
 ---
@@ -538,7 +621,7 @@ Ma questo non significa necessariamente che l'origine del valore PMR pari a 2.3 
 .small[
 Estratto da: Turner, 1994. Workbook of atmospheric dispersion estimates. An intoduction to dispersion modelling. Lewis Publishers.
 
-https://books.google.it/books?id=0GP2fgVfzQsC&amp;lpg=SA4-PA9&amp;ots=odU2hXEva8&amp;dq=Hino%2C%201968%3A&amp;hl=it&amp;pg=SA4-PA9#v=onepage&amp;q=Hino,%201968:&amp;f=false
+https://books.google.it/books?id=0GP2fgVfzQsC&lpg=SA4-PA9&ots=odU2hXEva8&dq=Hino%2C%201968%3A&hl=it&pg=SA4-PA9#v=onepage&q=Hino,%201968:&f=false
 
 Abstract articolo: Hino, 1968. Maximum ground-level concentration and sampling time. Atmospheric Environment, (2):149-165.
 
@@ -552,15 +635,15 @@ https://www.researchgate.net/publication/248403591_Maximum_ground-level_concentr
 
 
 
-`$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^n = \left ( \frac{3600}{600} \right )^{0.5} = 6~^{0.5} = 2.449489743 \approx ?? ~ 2.3$$`
+$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^n = \left ( \frac{3600}{600} \right )^{0.5} = 6~^{0.5} = 2.449489743 \approx ?? ~ 2.3$$
 
 .red[Ipotesi] che si basa sulle seguenti assunzioni:
 
-- `\(t_m = 3600 ~s\)`
+- $t_m = 3600 ~s$
 
-- `\(t_p = 600 ~s\)`
+- $t_p = 600 ~s$
 
-- `\(n = 0.5\)`
+- $n = 0.5$
 
 
 .footnote[
@@ -581,7 +664,7 @@ Hino (1968), as presented in Turner (1994), are shown in Table 1. These peak-to-
 
 Hino citato da:
 https://www.mdpi.com/2073-4433/11/3/224 e
-https://www.maind.it/contents/support_articoli.aspx?idf=163&amp;ids=CLW1&amp;sname=  
+https://www.maind.it/contents/support_articoli.aspx?idf=163&ids=CLW1&sname=  
 
 ]
 ]
@@ -591,20 +674,32 @@ https://www.maind.it/contents/support_articoli.aspx?idf=163&amp;ids=CLW1&amp;sna
 # Monitoraggio olfattometrico 
 ## alla sorgente
 
-&lt;img src="./img_pres/questionario_snpa_2023/monitoraggio_olfattometrico_sorgenti.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/monitoraggio_olfattometrico_sorgenti.png")
+
+```
 
 ---
 
 # Monitoraggio olfattometrico 
 ## ai recettori
 
-&lt;img src="./img_pres/questionario_snpa_2023/monitoraggio_olfattometrico_recettori.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/monitoraggio_olfattometrico_recettori.png")
+
+```
 
 ---
 
 # Modellistica PMR
 
-&lt;img src="./img_pres/questionario_snpa_2023/modellistica_PMR.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center', out.width = '80%'}
+
+knitr::include_graphics("./img_pres/questionario_snpa_2023/modellistica_PMR.png")
+
+```
 
 ---
 
@@ -612,7 +707,11 @@ https://www.maind.it/contents/support_articoli.aspx?idf=163&amp;ids=CLW1&amp;sna
 
 .pull-left[
 
-&lt;img src="./img_pres/books/metodologie_snpa_2018.png" width="95%" height="95%" style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 5, fig.height = 5, out.width='95%', out.height='95%', out.extra='style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px"'}
+
+knitr::include_graphics("./img_pres/books/metodologie_snpa_2018.png")
+
+``` 
 
 ]
 
@@ -696,26 +795,26 @@ Approvazione documento: *Metodologie per la valutazione delle emissioni odorigen
 
 ---
 
-# Concentrazione di odore `\(\neq\)` Flusso di odore
+# Concentrazione di odore $\neq$ Flusso di odore
 
-#### `\(C_{OD} ~ [OU_E~m^{-3}]\)` = concentrazione
+#### $C_{OD} ~ [OU_E~m^{-3}]$ = concentrazione
 
 misura "intensiva" che dipende dallo stato del sistema (e non dalle sue dimensioni) 
 
-#### `\(OER ~ [OU_E ~ s^{-1}]\)` = flusso (portata)
+#### $OER ~ [OU_E ~ s^{-1}]$ = flusso (portata)
 
 misura "estensiva" che dipende dalle dimensioni del sistema
 
 
-#### Nella valutazione dell'impatto odorigeno la .red[concentrazione] NON è sufficiente perchè bisogna considerare il .red[flusso d'aria] `\(Q_{AIR}~ [m^3~s^{-1}]\)` associato (emesso) (d)alla sorgente!
+#### Nella valutazione dell'impatto odorigeno la .red[concentrazione] NON è sufficiente perchè bisogna considerare il .red[flusso d'aria] $Q_{AIR}~ [m^3~s^{-1}]$ associato (emesso) (d)alla sorgente!
 
-#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] `\(OER\)` che si ricava da:
+#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] $OER$ che si ricava da:
 
-#### `$$OER = Q_{AIR} \times C_{OD}$$`
+#### $$OER = Q_{AIR} \times C_{OD}$$
 
-#### e viene espresso in unità di odore al secondo `\([OU_E ~ s^{-1}]\)`
+#### e viene espresso in unità di odore al secondo $[OU_E ~ s^{-1}]$
 
-&lt;br&gt;
+<br>
 
 .footnote[.small[
 La norma EN 13725 stabilisce che il flusso d'aria volumetrico deve essere valutato in condizioni normali per l'olfattometria: 20°C e 101,3 KPa, umido, cioè condizioni identiche a quelle della misura della concentrazione.
@@ -726,13 +825,13 @@ La norma EN 13725 stabilisce che il flusso d'aria volumetrico deve essere valuta
 
 # Modellistica: scenario emissivo sorgenti
 
-- sorgenti di emissione .red[*significative*]: tutte le sorgenti con .red[*portata &gt; 500 ouE/s* e *concentrazione &gt; 80 ouE/m3*];
+- sorgenti di emissione .red[*significative*]: tutte le sorgenti con .red[*portata > 500 ouE/s* e *concentrazione > 80 ouE/m3*];
   
-- sorgenti di emissione .red[*non significative*]: tutte le sorgenti con .red[*concentrazione &lt;  80 ouE/m3, indipendentemente dalla portata degli effluenti*];
+- sorgenti di emissione .red[*non significative*]: tutte le sorgenti con .red[*concentrazione <  80 ouE/m3, indipendentemente dalla portata degli effluenti*];
   
 - *"l’esclusione dal calcolo modellistico di sorgenti non significative è condizionata alla presentazione del gestore di elementi di giudizio di tipo oggettivo"*;
 
-- un *insieme* di sorgenti può essere ritenuto .red[trascurabile] (*complessivamente* non significativo) se corrispondente ad una .red[*portata emissiva &lt; 10% dello stabilimento e contemporaneamente &lt; 500 ouE/s*];
+- un *insieme* di sorgenti può essere ritenuto .red[trascurabile] (*complessivamente* non significativo) se corrispondente ad una .red[*portata emissiva < 10% dello stabilimento e contemporaneamente < 500 ouE/s*];
 
 - resta ferma la possibilità di AC di richiedere la valutazione di sorgenti .red[*sotto soglia*] per stabilimenti con numero di sorgenti molto rilevante;
 
@@ -743,20 +842,26 @@ La norma EN 13725 stabilisce che il flusso d'aria volumetrico deve essere valuta
 # Concentrazione di odore 
 
 .pull-left[
-#### `\(C_{OD} ~ [OU_E~m^{-3}]\)`
+#### $C_{OD} ~ [OU_E~m^{-3}]$
 ]
 
 .pull-right[
 
-&lt;img src="./img_pres/rule_of_thumb/rule-of-thumb.png" width="25%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r, echo=FALSE, fig.align='right', out.width = '25%'}
+knitr::include_graphics("./img_pres/rule_of_thumb/rule-of-thumb.png")
+```
 
 ]
 
 **Valori di riferimento, "a spanne"!**
 
-&lt;br&gt;
+<br>
 
-&lt;img src="./img_pres/flowchart/c_oer/c_od_no_label.png" width="180%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '180%'}
+
+knitr::include_graphics("./img_pres/flowchart/c_oer/c_od_no_label.png")
+
+```
 
 .footnote[.small[adapted from: Invernizzi]]
 
@@ -765,18 +870,23 @@ La norma EN 13725 stabilisce che il flusso d'aria volumetrico deve essere valuta
 # Flusso di odore 
 
 .pull-left[
-#### `\(OER ~ [OU_E ~ s^{-1}]\)`
+#### $OER ~ [OU_E ~ s^{-1}]$
 ]
 
 .pull-right[
-&lt;img src="./img_pres/rule_of_thumb/rule-of-thumb.png" width="25%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r, echo=FALSE, fig.align='right', out.width = '25%'}
+knitr::include_graphics("./img_pres/rule_of_thumb/rule-of-thumb.png")
+```
 ]
 
 **Valori di riferimento, "a spanne"!**
 
-&lt;br&gt;
+<br>
 
-&lt;img src="./img_pres/flowchart/c_oer/oer_no_label.png" width="180%" style="display: block; margin: auto;" /&gt;
+```{r, echo=FALSE, fig.align='center', out.width = '180%'}
+
+knitr::include_graphics("./img_pres/flowchart/c_oer/oer_no_label.png")
+```
 
 .small[Nota bene: 
 
@@ -791,69 +901,38 @@ l'indicazione (trascurabile, critica, etc.) è da prendere con molta cautela e  
 
 #### Confronto caratteristiche gaussiani vs. lagrangiani
 
-&lt;table class="table table-striped" style="font-size: 14px; width: auto !important; "&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; caratteristica &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; gaussiani a pennacchio &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; lagrangiani a puff e lagrangiani a particelle &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; variabilità temporale &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente, la piuma si estende istantaneamente in linea retta all'infinito &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; presente, le traiettorie sono curve e variabili nello spazio &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; variabilità spaziale (land use) &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; parametri di superficie (roughness, bowen ratio, albedo) variano in settori di provenienza del vento, centrati su stazione meteo &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; land use e parametri di superficie variano per ogni cella del dominio di calcolo &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; variabilità spaziale meteorologia &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente, singola stazione e campo uniforme variabili meteo &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; completa variabilità variabili meteo e turbolenza atmosferica &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; trattamento calme di vento &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente, definita una velocità minima del vento &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; supportate le calme di vento &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; accumulo in condizioni di stagnazione &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; presente, considera le ore precedenti &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; memoria temporale &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente, ogni ora ed emissione sono trattate indipendentemente &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; presente &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;width: 1.5in; "&gt; effetti di costa e ricircolazione &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; non presente o limitato &lt;/td&gt;
-   &lt;td style="text-align:center;width: 3in; "&gt; presente &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+
+models <- read_csv('./data_input/tables/tab_comparison_gaussian_lagrangian.csv')
+
+models %>% 
+  kbl(format='html', align = 'lcc') %>% 
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE, 
+                position = "left",
+                font_size = 14) %>%  
+  column_spec(1, width = '1.5in')%>%
+  column_spec(2, width = '3in') %>%
+  column_spec(3, width = '3in') 
+
+```
 
 .footnote[
 .small[
 adapted from:
 
-AMIGO &amp; Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling]
+AMIGO & Olores.org (2023) International Handbook on the Assessment of Odour Exposure using Dispersion Modelling]
 ]
 
 ---
 
 # Tempi di mediazione e PMR
 
-&lt;br&gt;
+<br>
 
 - ".red[No matter the duration of the exposure] to an odorant, it is known that the peaks (not the average concentration), .red[the height of peaks and the frequency of occurrence of peaks are important] in determining the perception of the odour."
 
-&lt;br&gt;
+<br>
 
 - "Dispersion modelling typically produces 10-60 minute to exposure level averages, while for acute odour responses, a timescale of 5 seconds is appropriate. Therefore it makes sense to .red[adjust for the peak-to-mean ratio of the variable concentration level]." 
 
@@ -866,7 +945,7 @@ Stationary Sources In NSW, Environment Protection Authority, NSW, Sydney, Austra
 
 # Perchè sono utilizzati i percentili?
 
-- Osservazione sperimentale di una relazione lineare tra disturbo a lungo termine nella popolazione ed il .red[logaritmo del 98° e del 99° percentile dei valori medi orari stimati da modello] (Versucht et al., 1991; Walpot et al. 1991); relazione empirica valida per elevate concentrazioni odorigene `\(C_{OD~98~1h} &gt; 10~OU_E~m^{-3}\)`
+- Osservazione sperimentale di una relazione lineare tra disturbo a lungo termine nella popolazione ed il .red[logaritmo del 98° e del 99° percentile dei valori medi orari stimati da modello] (Versucht et al., 1991; Walpot et al. 1991); relazione empirica valida per elevate concentrazioni odorigene $C_{OD~98~1h} > 10~OU_E~m^{-3}$
 
 - La "buona" correlazione dei percentili "alti" con il disturbo odorigeno, rispetto ad altre statistiche (medie, moda, mediana,..), deriva dal fatto che .red[poche ore con elevate concentrazioni di odore sono critiche nel determinare disturbo o molestia olfattiva], rispetto alla maggior parte delle ore quando la concentrazione è relativamente bassa (o nulla).
 
@@ -886,7 +965,11 @@ Ad esempio: il 98° percentile corrisponde al valore per cui il 98% delle osserv
 
 .pull-right-reduced[
 
-&lt;img src="./img_pres/dubbio_omino.jpg" width="40%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r, echo=FALSE, fig.align='right', out.width = '40%'}
+
+knitr::include_graphics("./img_pres/dubbio_omino.jpg")
+
+```
 
 ]
 
@@ -922,7 +1005,11 @@ Invernizzi M., Brancher M., Sironi S., Capelli L., Piringer M., Schauberger G., 
 # 2025, documento SNPA
 
 .pull-left[
-&lt;img src="./img_pres/books/SNPA_2025_odori.png" width="95%" height="95%" style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 5, fig.height = 5, out.width='95%', out.height='95%', out.extra='style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px"'}
+
+knitr::include_graphics("./img_pres/books/SNPA_2025_odori.png")
+
+``` 
 ]
 
 .pull-right[ 
@@ -931,7 +1018,7 @@ Delibera n. 268/2025
 Approvazione documento: *Emissioni odorigene: elementi di riferimento e approcci metodologici per il monitoraggio*
 
 .small[
-&lt;br&gt;
+<br>
 
 1. L’odore e la sua percezione 
 
@@ -954,7 +1041,11 @@ Approvazione documento: *Emissioni odorigene: elementi di riferimento e approcci
 
 .pull-left[
 
-&lt;img src="./img_pres/books/metodologie_snpa_2018.png" width="95%" height="95%" style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 5, fig.height = 5, out.width='95%', out.height='95%', out.extra='style="border:2px solid #D3D3D3; vertical-align:top; margin:1px 1px"'}
+
+knitr::include_graphics("./img_pres/books/metodologie_snpa_2018.png")
+
+``` 
 
 ]
 
@@ -992,11 +1083,11 @@ Una classificazione semplificata, per grandi "famiglie":
 
 #### significative (da considerare)
 
-`\(OER\)` &gt; 500 `\(UO_E~s^{-1}\)`
+$OER$ > 500 $UO_E~s^{-1}$
 
 #### non significative (possono non essere considerate)
 
-`\(C_{OD}\)` &lt; 80  `\(UO_E~m^{-3}\)` 
+$C_{OD}$ < 80  $UO_E~m^{-3}$ 
 
 .red[indipendentemente da portata volumetrica emessa]
 
@@ -1059,24 +1150,24 @@ alle condizioni meteorologiche ed alle caratteristiche emissive della sorgente;
 
 # PMR, come si calcola?
 
-Relazione empirica tra .red[concentrazione di picco] `\(C_p\)` riferita ad intervallo temporale `\(t_p\)` (ad es. 5 s) e .red[concentrazione media] `\(C_m\)` riferita ad intervallo temporale `\(t_m\)` (ad es. 1 h).
+Relazione empirica tra .red[concentrazione di picco] $C_p$ riferita ad intervallo temporale $t_p$ (ad es. 5 s) e .red[concentrazione media] $C_m$ riferita ad intervallo temporale $t_m$ (ad es. 1 h).
 
-&lt;br&gt;
+<br>
 
 .big[
 
-`$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^u$$`
+$$\psi =\frac{C_p}{C_m} = \left ( \frac{t_m}{t_p} \right )^u$$
 ]
 
-&lt;br&gt;
+<br>
 .small[
 
-`\(\psi\)` =  PMR, Peak-to-Mean ratio &lt;br&gt;
-`\(C_p\)` =  concentrazione odorigena di picco (a breve termine, per convenzione 5 s)&lt;br&gt;
-`\(C_m\)` =  concentrazione odorigena media (tipicamente riferita a 1 h)&lt;br&gt;
-`\(t_m\)` = intervallo temporale medio (tipicamente 1 h)&lt;br&gt;
-`\(t_p\)` = intervallo temporale di picco (a breve termine, per  convenzione 5 s)&lt;br&gt;
-`\(u\)` = esponente in funzione della classe di stabilità atmosferica (vari schemi proposti)&lt;br&gt;
+$\psi$ =  PMR, Peak-to-Mean ratio <br>
+$C_p$ =  concentrazione odorigena di picco (a breve termine, per convenzione 5 s)<br>
+$C_m$ =  concentrazione odorigena media (tipicamente riferita a 1 h)<br>
+$t_m$ = intervallo temporale medio (tipicamente 1 h)<br>
+$t_p$ = intervallo temporale di picco (a breve termine, per  convenzione 5 s)<br>
+$u$ = esponente in funzione della classe di stabilità atmosferica (vari schemi proposti)<br>
 
 ]
 
@@ -1096,161 +1187,56 @@ Schauberger G., Piringer M., Schmitzer R., Kamp M., Sowa A., Koch R., Eckhof W.,
 100 m (R1), 300 m (R3), 500 m (R5) di distanza (xy) dalla sorgente
 
 .center[
-&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:center;"&gt; PMR &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Model &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Run &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Rec &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Dist_xy &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Pct98 &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Exc_1h &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; N_epis &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Dur_epis &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; static &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; calpuff &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_2.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.8 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 596 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 330 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.4 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="9"&gt; lapmod &lt;/td&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; s_avg_2.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 2.2 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1663 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 811 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 444 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 272 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.9 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 144 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 103 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="6"&gt; dynamic &lt;/td&gt;
-   
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_5s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: rgba(213, 240, 7, 255) !important;"&gt; 23.7 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2480 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 585 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 17 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 4.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1145 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 414 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.0 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 194 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 161 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   &lt;td style="text-align:center;vertical-align: middle !important;" rowspan="3"&gt; d_avg_60s &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; R1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 100 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 5.3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1611 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 570 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 1.1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 278 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 201 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   
-   
-   
-   &lt;td style="text-align:center;"&gt; R5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 500 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: white !important;"&gt; 0.5 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```{r}
+
+tb_disc_rec <- read_csv('./data_input/tables/summary_cp_vs_lp_disc_rec.csv') %>% 
+  filter(rec_n %in% c(1, 3, 5),
+         samtype == "avg") %>% 
+  select(c(PMR_type, system,PMR_lab,
+           rec_lab, dist_x_y, 
+           pct98, 
+           exc_1h, 
+           n_epis,
+           dur_epis)) %>% 
+  mutate(pct98 = round(pct98,1))
+
+tb_disc_rec %>% 
+  kable(digits = 1,   
+        col.names = c("PMR",
+                      "Model",
+                      "Run",
+                      "Rec", 
+                      "Dist_xy", 
+                      "Pct98",	
+                      "Exc_1h",
+                      "N_epis",
+                      "Dur_epis"),
+        align = "c") %>% 
+  #column_spec(6, bold = TRUE, background = ifelse(tb_disc_rec$pct98>20, "orange", "white")) %>% 
+  column_spec(6, bold = FALSE, background = case_when(tb_disc_rec$pct98 == 2.2 ~ "#d5f007",
+                                                      tb_disc_rec$pct98 > 20 ~ "#d5f007",
+                                                      TRUE ~ "white")) %>%
+  # column_spec(7, bold = FALSE, background = case_when(tb_disc_rec$exc_1h == 1663 ~ "#d5f007",
+  #                                                     tb_disc_rec$exc_1h ==2480 ~ "#d5f007",
+  #                                                     TRUE ~ "white")) %>%
+  # column_spec(8, bold = FALSE, background = case_when(tb_disc_rec$n_epis == 811 ~ "yellow",
+  #                                                     tb_disc_rec$n_epis == 585 ~ "yellow",
+  #                                                     TRUE ~ "white")) %>%
+  # column_spec(9, bold = FALSE, background = case_when(tb_disc_rec$dur_epis == 11 ~ "yellow",
+  #                                                     tb_disc_rec$dur_epis == 17 ~ "yellow",
+  #                                                     TRUE ~ "white")) %>%
+  kable_styling(font_size = 18,
+                position = "center",
+                full_width = TRUE) %>% 
+  collapse_rows(columns = 1:3, valign = "middle")
+
+```
 ]
 .footnote[
 .small[
 
-Exc_1h = superamenti valore soglia pari a 1 OUE/m3&lt;br&gt;
-N_epis = numero di episodi (ore continuative) di superamento soglia&lt;br&gt;
+Exc_1h = superamenti valore soglia pari a 1 OUE/m3<br>
+N_epis = numero di episodi (ore continuative) di superamento soglia<br>
 Dur_epis = durata massima (ore) di un episodio di superamento continuativo
 
 ]
@@ -1258,141 +1244,3 @@ Dur_epis = durata massima (ore) di un episodio di superamento continuativo
 
 
 
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-  "highlightStyle": "github",
-  "highlightLanguage": ["r", "yaml", "markdown"],
-  "highlightLines": true,
-  "countIncrementalSlides": false,
-  "ratio": "4:3"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
