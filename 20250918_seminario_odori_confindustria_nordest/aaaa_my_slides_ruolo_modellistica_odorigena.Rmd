@@ -1433,51 +1433,25 @@ uso suolo: CORINAIR; orografia: DTM RV
 
 ---
 
+# Il problema 
 
-# Il problema in esame
+**Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**<br>(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+
+<br>
+
+- **Sensitività a differenti (alternativi) sistemi modellistici**:<br>
+.red[CALPUFF vs. LAPMOD]   (lagrangiano puff vs. lagrangiano particelle)
+
+- **Sensitività a differenti (alternative) parametrizzazioni PMR**:<br>
+.red[LAPMOD]  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)] (post-processing vs. stima 'interna' al modello)
 
 <br>
 
-Domanda:
+.small[
+**PMR 'statico'**:  fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie;
 
-- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**<br>(oltre al .red["classico" PMR = 2.3], usato in Italia!)
-
-<br>
-Approccio:
-
-  - **Sensitività a differenti (alternativi) sistemi modellistici** 
-  
-  .red[CALPUFF vs. LAPMOD]<br>
-  (lagrangiano puff vs. lagrangiano particelle)
-
-
-  - **Sensitività a differenti (alternative) parametrizzazioni PMR**
-  
-  .red[LAPMOD]<br>
-  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]<br>
-  (post-processing vs. stima 'interna' al modello)
-
-
----
-
-# PMR e modellistica odorigena
-
-
-- **PMR 'statico'**:
-
-  utilizzo più frequente, fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie
-
-- **PMR 'dinamico'**:
-
-  variabile nel tempo e nello spazio, calcolo internalizzato nel codice del modello e parametrizzato in funzione di altre variabili (stabilità atmosferica, tempo di volo, tempo lagrangiano);
-
-<br>
-Esempi: 
-
-- **CALPUFF**: PMR statico
-
-- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne & Mason, 1991) 
-
+**PMR 'dinamico'**:  variabile nel tempo e nello spazio, calcolo internalizzato nel codice e parametrizzato in funzione di stabilità atmosferica, tempo di volo, tempo lagrangiano;
+]
 .footnote[
 .small[
 
@@ -1528,7 +1502,7 @@ tb_model %>%
 
 ---
 
-# Panoramica .small[(1/2)]: contour plots 
+# Contour plots: 98° percentile
 
 <!-- panoramica 98° percentile -->
 
@@ -1540,19 +1514,7 @@ knitr::include_graphics("./img_pres/pct098_grid_contour_model_config_comp_new.pn
 
 ---
 
-# Panoramica .small[(2/2)]: contour plots
-
-<!-- panoramica 100° percentile, max -->
-
-```{r, echo=FALSE, fig.align='center', out.width = '78%'}
-
-knitr::include_graphics("./img_pres/pct100_grid_contour_model_config_comp_new.png")
-
-```
-
----
-
-# LAPMOD, PMR 2.3 (statico), Pct98  
+# LAPMOD: PMR 2.3 (statico)  
 
 ```{r, echo=FALSE, fig.align='center', out.width = '78%'}
 
@@ -1566,7 +1528,7 @@ knitr::include_graphics("./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_prese
 
 ---
 
-# LAPMOD, PMR 5s (dinamico), Pct98 
+# LAPMOD: PMR 5s (dinamico) 
 
 ```{r, echo=FALSE, fig.align='center', out.width = '78%'}
 
@@ -1677,7 +1639,7 @@ knitr::include_graphics("./img_pres/fox_crop.jpg")
 
 - concentrazioni fino a ~ 1 km: PMR dinamico (5s) > PMR statico;
 
-- impatto recettori vicini sorgente <150 m: per PMR dinamico superiore di circa ordine di grandezza;
+- impatto recettori vicini sorgente < 150 m: PMR dinamico superiore fino ad un ordine di grandezza;
 
 - distanza di seprarazione: PMR dinamico >  PMR statico.
 
@@ -1685,7 +1647,7 @@ knitr::include_graphics("./img_pres/fox_crop.jpg")
 
 - necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e/o *richieste (o non richieste)* da autorità di controllo;
 
-- richiesto impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
+- richiesto notevole impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
 
 - utilizzo *esclusivo* di una specifica configurazione modellistica può determinare un *bias significativo* nella verifica di conformità.
 <br>

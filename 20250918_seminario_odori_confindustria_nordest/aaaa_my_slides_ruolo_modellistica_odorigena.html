@@ -1376,51 +1376,25 @@ uso suolo: CORINAIR; orografia: DTM RV
 
 ---
 
+# Il problema 
 
-# Il problema in esame
+**Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**&lt;br&gt;(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+
+&lt;br&gt;
+
+- **Sensitività a differenti (alternativi) sistemi modellistici**:&lt;br&gt;
+.red[CALPUFF vs. LAPMOD]   (lagrangiano puff vs. lagrangiano particelle)
+
+- **Sensitività a differenti (alternative) parametrizzazioni PMR**:&lt;br&gt;
+.red[LAPMOD]  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)] (post-processing vs. stima 'interna' al modello)
 
 &lt;br&gt;
 
-Domanda:
+.small[
+**PMR 'statico'**:  fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie;
 
-- **Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**&lt;br&gt;(oltre al .red["classico" PMR = 2.3], usato in Italia!)
-
-&lt;br&gt;
-Approccio:
-
-  - **Sensitività a differenti (alternativi) sistemi modellistici** 
-  
-  .red[CALPUFF vs. LAPMOD]&lt;br&gt;
-  (lagrangiano puff vs. lagrangiano particelle)
-
-
-  - **Sensitività a differenti (alternative) parametrizzazioni PMR**
-  
-  .red[LAPMOD]&lt;br&gt;
-  .red[PMR 'statico' (costante) vs. PMR 'dinamico' (variabile)]&lt;br&gt;
-  (post-processing vs. stima 'interna' al modello)
-
-
----
-
-# PMR e modellistica odorigena
-
-
-- **PMR 'statico'**:
-
-  utilizzo più frequente, fattore moltiplicativo costante nel tempo e nello spazio, post-processing medie orarie
-
-- **PMR 'dinamico'**:
-
-  variabile nel tempo e nello spazio, calcolo internalizzato nel codice del modello e parametrizzato in funzione di altre variabili (stabilità atmosferica, tempo di volo, tempo lagrangiano);
-
-&lt;br&gt;
-Esempi: 
-
-- **CALPUFF**: PMR statico
-
-- **LAPMOD**: PMR dinamico, valore iniziale all'emissione (Smith, 1973) con attenuazione esponenziale nel trasporto (Milne &amp; Mason, 1991) 
-
+**PMR 'dinamico'**:  variabile nel tempo e nello spazio, calcolo internalizzato nel codice e parametrizzato in funzione di stabilità atmosferica, tempo di volo, tempo lagrangiano;
+]
 .footnote[
 .small[
 
@@ -1531,7 +1505,7 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 ---
 
-# Panoramica .small[(1/2)]: contour plots 
+# Contour plots: 98° percentile
 
 &lt;!-- panoramica 98° percentile --&gt;
 
@@ -1539,15 +1513,7 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 ---
 
-# Panoramica .small[(2/2)]: contour plots
-
-&lt;!-- panoramica 100° percentile, max --&gt;
-
-&lt;img src="./img_pres/pct100_grid_contour_model_config_comp_new.png" width="78%" style="display: block; margin: auto;" /&gt;
-
----
-
-# LAPMOD, PMR 2.3 (statico), Pct98  
+# LAPMOD: PMR 2.3 (statico)  
 
 &lt;img src="./img_pres/lp_grid_out_01_s_avg_2.3_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
 
@@ -1557,7 +1523,7 @@ Mylne K., Mason P., 1991. Concentration fluctuation measurements in a plume disp
 
 ---
 
-# LAPMOD, PMR 5s (dinamico), Pct98 
+# LAPMOD: PMR 5s (dinamico) 
 
 &lt;img src="./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presentation.png" width="78%" style="display: block; margin: auto;" /&gt;
 
@@ -1675,7 +1641,7 @@ nb: zoom --&gt; ylim(0, 5)
 
 - concentrazioni fino a ~ 1 km: PMR dinamico (5s) &gt; PMR statico;
 
-- impatto recettori vicini sorgente &lt;150 m: per PMR dinamico superiore di circa ordine di grandezza;
+- impatto recettori vicini sorgente &lt; 150 m: PMR dinamico superiore fino ad un ordine di grandezza;
 
 - distanza di seprarazione: PMR dinamico &gt;  PMR statico.
 
@@ -1683,7 +1649,7 @@ nb: zoom --&gt; ylim(0, 5)
 
 - necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e/o *richieste (o non richieste)* da autorità di controllo;
 
-- richiesto impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
+- richiesto notevole impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
 
 - utilizzo *esclusivo* di una specifica configurazione modellistica può determinare un *bias significativo* nella verifica di conformità.
 &lt;br&gt;
