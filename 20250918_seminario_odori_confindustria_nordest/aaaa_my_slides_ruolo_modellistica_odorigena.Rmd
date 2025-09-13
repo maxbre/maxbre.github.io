@@ -85,7 +85,7 @@ background-size: 5%
 <!-- set normal layout -->
 ---
 
-# Anteprima per punti 
+# Contenuti 
 
 1. La letteratura tecnico-scientifica e gli orientamenti normativi stabiliscono il .red["governo"] delle emissioni odorigene (sorgenti) tramite la .red[valutazione degli effetti presso i recettori (target)].
 
@@ -439,17 +439,17 @@ Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-20
 
 .small[
 
-  - normali tempi di intervento (>> 1h) determinano la difficoltà e, a volte, l'impossibilità di trovare "traccia" di un evento di disturbo o molestia olfattiva caratterizzato da intervalli temporali molto brevi ed una significativa intermittenza.
+    normali tempi di intervento (>> 1h) determinano la difficoltà e, a volte, l'impossibilità di trovare "traccia" di un evento di disturbo o molestia olfattiva caratterizzato da intervalli temporali molto brevi ed una significativa intermittenza.
 
 ]
 
-- .red[**paradosso "strumentale" (sensu lato)**]
+- .red[**paradosso "strumentale" (misura)**]
 
 .small[
  
-  - misura (monitoraggio) in continuo di un odorante (miscela) viene effettuata su tempi di mediazione "lunghi", tipicamente orari (per standard QA e normale operatività strumentazione);
+  monitoraggio in continuo di un odorante (miscela) viene effettuata su tempi di mediazione "lunghi", tipicamente orari (per standard QA e normale operatività strumentazione);
   
-- impiego di sistemi modellistici configurati secondo la "parametrizzazione classica" per gli inquinanti atmosferici "tradizionali" (media 1h).
+ impiego di sistemi modellistici configurati secondo la "parametrizzazione classica" per gli inquinanti atmosferici "tradizionali" (media 1h).
 ]
 
 <br>
@@ -508,7 +508,7 @@ background-image: url(./img_pres/politically_correct_signal_crop.png)
 background-position: bottom
 background-size: cover
 
-# .white[A politically correct communication!]
+# .white[...la gestione d'impianto!]
 
 ---
 
@@ -764,7 +764,7 @@ Misura la .red[durata di esposizione] di un recettore alle .red[concentrazioni d
 
 # Offensiveness (FID.red[O])
 
-Misura del .red[tono edonico] dell'odore cioè una .red[misura soggettiva] dell'accettabilità dell'odore (fattore chiave nella valutazione del disturbo o molestia odorigena).
+Misura il .red[tono edonico] dell'odore cioè una .red[misura soggettiva] dell'accettabilità dell'odore: è un fattore chiave nella valutazione del disturbo/molestia odorigena.
 
 .small[Il tono edonico .red[non è un attributo "indipendente"] di un odorante ma dipende strettamente da intensità, concentrazione, durata, frequenza dell'esposizione e .red[rappresenta una misura soggettiva] correlata all'esperienza, allo stato emotivo ed alle circostanze ambientali in cui si trova il recettore.]
 
@@ -792,7 +792,7 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 
 - destinazione d'uso del territorio, del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità);
 
-- dello stato di benessere e/o di salute dei .red[recettori] (anche per eventuale contemporanea presenza di altre fonti di "pressione ambientale").
+- dello stato di benessere e/o di salute dei .red[recettori], anche per contemporanea presenza di altre fonti di "pressione ambientale".
 
 
 <br>
@@ -809,8 +809,8 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 
 # Modellistica e FIDO*
 
+<br>
 .red_bold[Quali fattori FIDO* sono risolti nella simulazione modellistica?]
-
 
 .center[
 |Modellistica odorigena | schema FIDO* |
@@ -823,9 +823,10 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 
 ]
 
+<br>
 Nota bene:
 
-- .red[Intensity]: non viene valutato, solo "indirettamente" tramite la variabile *proxy*  .red[concentrazione odorigena] (diverso da intensità!).
+- .red[Intensity]: non viene valutato, è considerato solo "indirettamente" con *proxy*  .red[concentrazione odorigena] (diverso da intensità!).
 
 -  .red[Offensiveness]: nelle tipiche applicazioni e nella normativa italiana non è contemplato il tono edonico (difficile da chiudere!);
 
@@ -851,51 +852,68 @@ background-size: 5%
 
 # Modellistica odorigena .small[(1/2)]
 
-- Il disturbo o molestia olfattiva è connesso alla percezione dell’odore presso i .red[recettori].
+<br>
+- Il disturbo/molestia olfattiva è connesso alla percezione dell’odore presso i .red[recettori].
+<br>
 
-- L'olfattometria dinamica (UNI EN 13725) è la tecnica di riferimento per la quantificazione delle .red[*concentrazioni*] di odore .red[*alla sorgente (emissioni)*], ma non è adeguata per valutare l’impatto ai recettori. 
+- L'olfattometria dinamica (UNI EN 13725) è la tecnica di riferimento per la quantificazione delle .red[*concentrazioni*] di odore .red[*alla sorgente (emissioni)*], ma .red[non adeguata] per l’impatto ai recettori. 
+<br>
 
-- Per valutare l’esposizione è necessario quantificare gli odori presso i ricettori .red[ma la "misura" degli odori in campo è estremamente complessa, soggetta a grandi incertezze] e non ancora "chiusa" dal punto di vista tecnico-scientifico e normativo.
+- Per quantificare l’esposizione dei recettori è necessaria una .red["misura in campo" degli odori]: estremamente complessa, soggetta a grandi incertezze e non ancora "chiusa" dal punto di vista tecnico-scientifico e normativo.
+<br>
 
-- L'impiego di simulazioni modellistiche consente, dal flusso di odore emesso dalla sorgente, la .red[stima della concentrazione di odore ai recettori], in termini diagnostici (stato di fatto) e prognostici (stato di progetto o scenari alternativi).
+- Le simulazioni modellistiche permettono la .red[stima della concentrazione di odore ai recettori] a partire dal flusso di odore emesso dalla sorgente.
+<br>
 
-- Le principali "normative" fondano la valutazione e la verifica dei criteri di accettabilità presso i recettori su approcci modellistici che esprimono la .red[frequenza di superamento di un valore di concentrazione odorigena simulato presso i recettori].
+- Le "normativa" stabilisce la verifica dei valori di accettabilità presso i recettori tramite simulazioni modellistiche che stimano la .red[frequenza di superamento] di una  concentrazione di soglia.
 
 ---
 
 # Modellistica odorigena .small[(2/2)]
 
+<br>
 - I “modelli classici” di dispersione degli inquinanti “tradizionali” producono stime su media 1h (non utili per impatto odorigeno).
+<br>
 
-- Principale caratteristica della modellistica odorigena è la difficoltà teorica e pratica (non superata) di ricostruire e valutare le .red[fluttuazioni delle concentrazioni], cioè i picchi di odore su pochi secondi che descrivono in modo più accurato e realistico l’.red[impatto presso i recettori].
+- La principale limitazione della modellistica risiede nella difficoltà teorica e pratica (non ancora superata) di ricostruire le .red[fluttuazioni di concentrazione], cioè i picchi di odore su pochi secondi.
+<br>
 
-- "Nuovi ed avanzati" approcci (CFD, trasporto varianza, pennacchio fluttuante, micromixing, a due particelle), ancora in fase di sviluppo e ricerca non hanno una diffusa traduzione "operativa" per varie motivazioni.
+- "Nuovi" approcci modellistici (CFD, trasporto varianza, pennacchio fluttuante, micromixing, a due particelle), ancora in fase di sviluppo e ricerca, non hanno una "diffusa traduzione operativa".
+<br>
 
-- Necessario concepire .red[un "metodo di stima" delle fluttuazioni a breve termine delle concentrazioni odorigene] oppure applicare un .red["fattore di correzione" (Peak-to-Mean ratio)] ai risultati delle stime su medie 1h (da approccio modellistico "classico")].
+- Necessario concepire .red[un "metodo di stima" delle fluttuazioni a breve termine] delle concentrazioni odorigene oppure applicare un .red["fattore di correzione"] ai risultati delle simulazioni medie 1h.
+<br>
 
-- L'approccio più utilizzato (semplice) è l'applicazione del fattore .red[*Peak-to-Mean Ratio*] alle stime delle medie 1h: soluzione pragmatica di tipo semi-empirico, ma non del tutto rigorosa!
+- L'approccio più utilizzato (semplice e pragmatico) è l'applicazione del fattore moltiplicativo "semi-empirico" .red[*Peak-to-Mean Ratio*] alle stime delle medie 1h: una soluzione non del tutto rigorosa!
 
 ---
 
 
 # Concentrazione vs. flusso odore emissioni
 
-#### $C_{OD} ~ [OU_E~m^{-3}]$ = concentrazione
+<br>
+
+#### $C_{OD} ~ [OU_E~m^{-3}]$ = .red[concentrazione]
 
 misura "intensiva", dipende dallo *stato del sistema* 
 
-#### $OER ~ [OU_E ~ s^{-1}]$ = flusso (portata)
+.small[
+espressa in unità odorimetriche europee $[OU_E~m^{-3}]$ rappresenta il numero di diluizioni di aria neutra necessarie per portare la concentrazione del campione alla soglia di rilevamento di odore da parte del panel di esaminatori; assunzione forte, di perfetta trasferibilità: la risposta del panel all'odorante di riferimento (n-butanolo) è uguale alla soglia di percezione per qualsiasi altro tipo di odorante
+]
+
+<br>
+
+#### $OER ~ [OU_E ~ s^{-1}]$ = .red[flusso (portata)]
 
 misura "estensiva", dipende dalle *dimensioni del sistema*
 
+.small[
+espresso in unità di odore al secondo $[OU_E ~ s^{-1}]$ è il parametro fondamentale per valutare l'impatto odorigeno (input modellistico); nella valutazione di impatto odorigeno (recettori) la .red[concentrazione alle emissioni NON è sufficiente] perchè bisogna considerare il .red[flusso d'aria] $Q_{AIR}~ [m^3~s^{-1}]$ associato (emesso) (d)alla sorgente!
 
-#### Nella valutazione di impatto odorigeno (recettori) la .red[concentrazione alle emissioni NON] è sufficiente perchè bisogna considerare il .red[flusso d'aria] $Q_{AIR}~ [m^3~s^{-1}]$ associato (emesso) (d)alla sorgente!
+$$OER = Q_{AIR} \times C_{OD}$$
 
-#### Il parametro fondamentale per valutare l'impatto odorigeno (input modellistico) è il .red[flusso di odore] $OER$ che si ricava da:
+]
 
-#### $$OER = Q_{AIR} \times C_{OD}$$
-
-#### e viene espresso in unità di odore al secondo $[OU_E ~ s^{-1}]$
 
 ---
 
@@ -987,15 +1005,15 @@ Indirizzi MASE, 2023, All. 1
 
 # Concentrazione vs. percezione recettori .small[(1/2)]
 
+Le valutazioni modellistiche stimano i .red[**percentili** della concentrazione odorigena di picco], su base annuale, da confrontare con un .red[valore "di soglia"] definito dalla normativa.
 
-#### Nelle valutazioni di impatto odorigeno ai recettori (popolazione target) .red[contano gli eventi di picco], cioè i "valori massimi" di concentrazione e la loro .red[frequenza di manifestazione (percezione)].
-
-Approccio tipico utilizzato nelle valutazioni effettuate tramite simulazione modellistica:
-
-- .red[**ranking concentrazioni odorigene ("percentile")**]: concentrazione odorigena "di soglia" che si verifica con una frequenza predefinita (secondo la normativa).
+.small[
+Per quantificare l'impatto ai recettori (popolazione target) .red["non contano" i valori medi] ma contano i .red["valori massimi"] e la loro .red[frequenza di manifestazione] (percezione).
+]
 
 <br>
-In olfattometria dinamica si ha che statisticamente:
+
+In .red[olfattometria dinamica] si ha che statisticamente:
 
 - $1\ OU_E\ m^{-3}\Rightarrow$ il 50% della popolazione percepisce l’odore;
 
@@ -1003,23 +1021,31 @@ In olfattometria dinamica si ha che statisticamente:
 
 - $5\ OU_E\ m^{-3}\Rightarrow$ il 90-95% della popolazione percepisce l’odore.
 
+<br>
+
+Questi valori numerici, secondo un'ipotesi di trasferibilità (forte!), sono .red[convenzionalmente assunti in aria ambiente per valutare l'impatto odorigeno sui recettori].
+
 ---
 
 # Concentrazione vs. percezione recettori .small[(2/2)]
-
-Secondo la tipica convenzione operativa e la normale  prescrizione normativa (in Italia) la valutazione relativa ad una simulazione modellistica di impatto odorigeno .red[**ai recettori**] viene espressa come:
-
-- .red[**98° percentile delle concentrazioni annuali di picco**].
 
 <br>
 
 Definire un valore di soglia:
 
-- .red[**1, 2, 3, 4, 5**] in $OU_E~m^{-3}$ (ex MASE, 2023)
+- .red[**1, 2, 3, 4, 5**], espresso in $OU_E~m^{-3}$ (ex MASE, 2023)
 
-che corrisponde al 98° percentile delle concentrazioni odorigene di picco su base annuale, significa:
+che corrisponde statisticamente al:
 
-  - .red[**"concedere" che i recettori possano percepire la concentrazione odorigena di soglia (proxy del disturbo o  molestia olfattiva) al massimo per 175 ore in un anno (2% di 8760 ore/anno).**]
+- .red[**98° percentile delle concentrazioni odorigene annuali di picco**], 
+
+significa definire:
+
+  - .red[**"un criterio protettivo"**] 
+  
+per cui viene "concesso" che i recettori percepiscono l'odore:
+
+- .red[**al massimo per un periodo pari a 175 ore/anno (2% di 8760 ore).**]
 
 ---
 
@@ -1290,19 +1316,19 @@ knitr::include_graphics("./img_pres/pcda_modellistica.png")
 
 - .red[**PLAN - istruttoria**]
 
-modellistica con fattori di emissioni stimati da letteratura o da misure in impianti analoghi o da storico attività.
+modellistica con fattori di emissioni stimati da letteratura o da misure in impianti analoghi o da storico attività $\Rightarrow$ obiettivo: verifica impatto ai recettori.
 
 - .red[**DO - monitoraggio e rilascio autorizzazione**]
 
-modellistica a seguito di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo monitoraggio.
+modellistica a seguito di prescrizioni impiantistiche, gestionali, operative $\Rightarrow$ obiettivo: definizione di valori alle emissioni "funzionali" alla fase successiva.
 
 - .red[**CHECK - impianto realizzato, autorizzazione iniziale**]
 
-modellistica con fattori di emissione da misure dirette, eventuale supporto ed integrazione del monitoraggio dell’impatto presso i recettori; definizione di valori alle emissioni da prescrivere in autorizzazione finale.
+modellistica con fattori di emissione da misure dirette; eventuale supporto ed integrazione del monitoraggio presso i recettori  $\Rightarrow$ obiettivo: proposta di valori alle emissioni per autorizzazione finale.
 
 - .red[**ACT - impianto realizzato, aggiornamento autorizzazione**]
 
-modellistica con fattori di emissioni da misure dirette, dopo la messa a regime di modifiche tecniche, gestionali, operative dal periodo di monitoraggio e la definizione dei valori di emissione in autorizzazione finale.
+modellistica con fattori di emissioni da misure dirette, dopo la messa a regime $\Rightarrow$ obiettivo: definizione dei valori di emissione in autorizzazione finale.
 
 ---
 
@@ -1310,19 +1336,19 @@ modellistica con fattori di emissioni da misure dirette, dopo la messa a regime 
 
 - .red[**PLAN - fase iniziale**]
 
-modellistica con fattori di emissioni da misure dirette per eventuale monitoraggio dell’impatto presso recettori.
+modellistica con fattori di emissioni da misure dirette $\Rightarrow$ obiettivo: conferma impatto presso i recettori.
 
 - .red[**DO - monitoraggio, progettazione interventi**]
 
-modellistica a valle di prescrizioni impiantistiche, gestionali, operative con definizione di valori alle emissioni "funzionali" al successivo periodo di monitoraggio.
+modellistica a valle di prescrizioni impiantistiche, gestionali, operative $\Rightarrow$ obiettivo: definizione di valori alle emissioni "funzionali" alla fase successiva.
 
 - .red[**CHECK - verifica soluzioni proposte**]
 
-modellistica con fattori di emissione da misure dirette, a supporto ed integrazione di eventuale monitoraggio dell’impatto presso i recettori per la definizione di valori alle emissioni in autorizzazione finale.
+modellistica con fattori di emissione da misure dirette; eventuale supporto ed integrazione del monitoraggio presso i recettori $\Rightarrow$ obiettivo: proposta di valori alle emissioni per autorizzazione finale.
 
 - .red[**ACT - aggiornamento autorizzazione**]
 
-modellistica con fattori di emissione da misure dirette, dopo la messa a regime di modifiche tecniche, gestionali, operative dal periodo di monitoraggio e la definizione dei valori di emissione in autorizzazione finale.
+modellistica con fattori di emissione da misure dirette, dopo la messa a regime $\Rightarrow$ obiettivo: definizione dei valori di emissione in autorizzazione finale.
 
 ---
 
