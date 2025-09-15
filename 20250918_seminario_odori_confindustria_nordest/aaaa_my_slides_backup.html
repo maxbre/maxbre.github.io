@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### ARPAV - UQA, Unità Organizzativa Qualità dell’Aria
 ]
 .date[
-### last updated: 2025-09-11
+### last updated: 2025-09-15
 ]
 
 ---
@@ -1255,6 +1255,64 @@ Dur_epis = durata massima (ore) di un episodio di superamento continuativo
 
 ]
 ]
+
+---
+
+# Estensione areale impatto (isolinee)
+
+- definita una soglia "arbitraria": `\(1~ OU_E~m^{-3}\)`; 
+
+- calcolo dell'estensione areale, in `\(km^2\)`, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
+
+
+&lt;br&gt;
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; modello &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; PMR &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sigla &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; km2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; calpuff &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; s_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1583 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; statico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; s_avg_2.3 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.3152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; d_avg_60s &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3406 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; lapmod &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; dinamico &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: rgba(213, 240, 7, 255) !important;"&gt; d_avg_5s &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: rgba(213, 240, 7, 255) !important;"&gt; 0.9995 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+- misura quantitativa (proxy) di impatto odorigeno relativa alla stima prodotta con alternative configurazioni modellistiche (PMR statico vs. PMR dinamico).
+
+
+---
+
 
 
 

@@ -1242,5 +1242,38 @@ Dur_epis = durata massima (ore) di un episodio di superamento continuativo
 ]
 ]
 
+---
+
+# Estensione areale impatto (isolinee)
+
+- definita una soglia "arbitraria": $1~ OU_E~m^{-3}$; 
+
+- calcolo dell'estensione areale, in $km^2$, sottesa dall'isolinea relativa al 98° percentile delle concentrazioni annuali di picco;
+
+
+<br>
+
+.center[
+```{r}
+
+area <- read_csv('./data_input/tables/area_contours.csv')
+
+area %>% 
+  kable() %>% 
+  #column_spec(4, bold = FALSE, background = case_when(area$km2 == 0.3152 ~ "yellow",
+  #                                                    area$km2 == 0.9995 ~ "yellow",
+  #                                                    TRUE ~ "white"))  
+ row_spec(c(2,4), bold = FALSE, background = "#d5f007")
+```
+]
+
+<br>
+
+- misura quantitativa (proxy) di impatto odorigeno relativa alla stima prodotta con alternative configurazioni modellistiche (PMR statico vs. PMR dinamico).
+
+
+---
+
+
 
 
