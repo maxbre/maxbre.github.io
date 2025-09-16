@@ -1,9 +1,9 @@
 ---
-title: "<br>Meeting Confindustria Veneto Est<br><br>Modellistica di impatto odorigeno"
+title: '<br><br>.small[Meeting: "Le emissioni odorigene: come misurarle?"]<br><br>Modellistica di impatto odorigeno'
 subtitle: "Principi fondamentali, criticità ed applicazioni nel quadro di riferimento normativo"
 author: "<br><br><br>Massimo Bressan"
 institute: "ARPAV - Dipartimento Regionale Qualità dell'Ambiente<br>Unità Organizzativa Qualità dell'Aria"
-date: "Marghera, 18/09/2025 [last updated: `r Sys.Date()`]"
+date: "Marghera, 18/09/2025<br><br><br>.right[.small[.lightgrey[last updated: `r Sys.Date()`]]]"
 output:
   xaringan::moon_reader:
     css: ["./css/css_arpav.css", "./css/fonts.css"]
@@ -319,7 +319,7 @@ knitr::include_graphics("./img_pres/flowchart/fasi_processi_impatto_odorigeno/fa
 
 - #### .red[Molestia (Nuisance)]
 
-  .red[effetto cumulativo] prodotto da ripetuti eventi di disturbo in un lungo periodo di tempo, che genera un comportamento modificato o alterato nel recettore;
+  .red[effetto cumulativo] prodotto da ripetuti eventi di disturbo in un lungo periodo di tempo, che genera un .red[comportamento modificato o alterato] nel recettore;
   
   .small[il .red[potenziale di molestia] di un odore è un .red[attributo specifico della una popolazione (recettori)] che indica la propensione dei recettori di verificare condizioni di molestia olfattiva]
 
@@ -355,7 +355,7 @@ background-size: 5%
 # Tempi di mediazione
 
 
-- .red[**percezione dei recettori --> su "tempi brevissimi"**] 
+- .red[**percezione dei recettori: su "tempi brevissimi"**] 
 
  - .small[concentrazioni di picco su .red[pochi secondi] (Brancher et al. 2017);]
  - .small[durata fisiologica inalazione umana: .red[1.6 s] (Mainland and Sobel, 2006);]
@@ -363,7 +363,7 @@ background-size: 5%
  - .small[ valore di riferimento per ciclo "inalazione, percezione, espirazione": per convenzione .red[5 s]  (Ruijten et al., 2009);]
  
 
-- .red[**"misure" (valutazioni) presso i recettori --> su "tempi lunghi"**]
+- .red[**"misure" (valutazioni) presso i recettori: su "tempi lunghi"**]
 
  - .small[standard QA (breve termine): medie .red[1 h] (ex DLgs. 155/2010);]
  - .small[strumentazione QA: .red[tempi di risposta] non adeguati (tranne eccezioni >=.red[1 min]);]
@@ -453,15 +453,14 @@ Nicell, 2009. Assessment and regulation of odour impacts. Atmos. Env., 43:196-20
 ]
 
 <br>
-
 .red_bold[
 
 Problema:
 
 necessità di individuare sistemi e strumenti di misura (monitoraggio, stima) che in termini di  "risoluzione temporale" siano adeguati per "trattare" in modo accurato la complessità e la specificità del fenomeno odorigeno *presso i recettori*.
 ]
-
-**La simulazione modellistica fornisce una risposta utile? Ed eventualmente in che termini?**
+<br>
+**La simulazione modellistica fornisce una risposta utile?<br>Ed eventualmente in quali termini?**
 
 ---
 
@@ -649,7 +648,7 @@ knitr::include_graphics("./img_pres/pct098_grid_contour_model_config_comp_new.pn
 
 - valutazione del contributo relativo ad una o più sorgenti
 
-
+<br>
 ###L'utilizzo di un modello permette di:
 
 - estendere la misura puntuale nello spazio e nel tempo
@@ -704,7 +703,7 @@ In letteratura tecnico-scientifica le differenti varianti dello schema **FIDO** 
 
 # Frequency (.red[F]IDO)
 
-Misura la .red[frequenza di accadimento degli eventi odorigeni] che dipende dalla variazione temporale delle emissioni e dalle condizioni meteorologiche e dispersive dell'atmosfera.
+Misura la .red[frequenza di accadimento degli eventi odorigeni] presso i recettori che dipende dalla variazione temporale delle emissioni e dalle condizioni meteorologiche e dispersive dell'atmosfera.
 
 .small[
 Due approcci tipici:
@@ -760,13 +759,13 @@ Misura la .red[durata di esposizione] di un recettore alle .red[concentrazioni d
 
 .red_bold[Implicazioni modellistiche]:
 
-- trattazione delle stime di concentrazione odorigena ai recettori in termini di .red[percentili "alti"] (il 98° percentile delle medie orarie, in Italia!).
+- trattazione delle stime di concentrazione odorigena ai recettori come .red[percentile "alto"] (98° percentile medie 1h, in Italia!).
 
 ---
 
 # Offensiveness (FID.red[O])
 
-Misura il .red[tono edonico] dell'odore cioè una .red[misura soggettiva] dell'accettabilità dell'odore: è un fattore chiave nella valutazione del disturbo/molestia odorigena.
+Misura il .red[tono edonico] dell'odore cioè una .red[misura soggettiva dell'accettabilità] dell'odore: è un fattore chiave nella valutazione del disturbo/molestia odorigena.
 
 .small[Il tono edonico .red[non è un attributo "indipendente"] di un odorante ma dipende strettamente da intensità, concentrazione, durata, frequenza dell'esposizione e .red[rappresenta una misura soggettiva] correlata all'esperienza, allo stato emotivo ed alle circostanze ambientali in cui si trova il recettore.]
 
@@ -775,7 +774,7 @@ Misura il .red[tono edonico] dell'odore cioè una .red[misura soggettiva] dell'a
 
 .red_bold[Implicazioni modellistiche (warning)]:
 
-- aspetto non esplicitamente trattato nelle simulazioni (in Italia)
+- aspetto non esplicitamente trattato nelle simulazioni (in Italia): difficile da "chiudere" in modo rigoroso ed obiettivo.
 
 .footnote[
 
@@ -790,9 +789,9 @@ AMIGO & Olores.org (2023) International Handbook on the Assessment of Odour Expo
 
 # Location-Sensitivity-Receptor (FIDO.red[L-S-R])
 
-Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una .red[sensitività] differente in funzione di:
+Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una .red[sensitività] differente in funzione:
 
-- destinazione d'uso del territorio, del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità);
+- della destinazione d'uso del territorio, del contesto ambientale, economico (*pecunia non olet*) e sociale (accettabilità);
 
 - dello stato di benessere e/o di salute dei .red[recettori], anche per contemporanea presenza di altre fonti di "pressione ambientale".
 
@@ -803,7 +802,7 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 
 - criteri di selezione dei recettori (distanza da sorgente, luogo, sensibilità recettore)
 
-- destinazione d'uso (classificazione) del territorio
+- destinazione d'uso (classificazione urbanistica) del territorio
 
 - normativa di riferimento e criteri di impatto
 
@@ -812,7 +811,7 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 # Modellistica e FIDO*
 
 <br>
-.red_bold[Quali fattori FIDO* sono risolti nella simulazione modellistica?]
+.red_bold[Quali fattori FIDO* sono risolti con la simulazione modellistica?]
 
 .center[
 |Modellistica odorigena | schema FIDO* |
@@ -821,14 +820,14 @@ Il .red[luogo] dove si verifica il disturbo o molestia olfattiva presuppone una 
 |.small[Valori di accettabilità<br>(1, 3, 5 OUE/m3)<br>Peak-to-Mean (2.3, in Italia) | .small[.red[I]ntensity (pars!)]]|
 |.small[Classi di Sensibilità<br>(prima, ...,quinta) | .small[.red[L]ocation, .red[S]ensitivity, .red[R]eceptors]]|
 
-.small[Ricomposizione schema FIDO secondo i contenuti tecnici degli "Indirizzi " (ex MASE n. 309/2023)]
+.small[Ricomposizione FIDO secondo i contenuti tecnici degli "Indirizzi " (ex MASE n. 309/2023)]
 
 ]
 
 <br>
 Nota bene:
 
-- .red[Intensity]: non viene valutato, è considerato solo "indirettamente" con *proxy*  .red[concentrazione odorigena] (diverso da intensità!).
+- .red[Intensity]: non viene valutato, è considerato solo "indirettamente" tramite *proxy*  .red[concentrazione odorigena] (diverso da intensità!).
 
 -  .red[Offensiveness]: nelle tipiche applicazioni e nella normativa italiana non è contemplato il tono edonico (difficile da chiudere!);
 
@@ -982,15 +981,15 @@ l'indicazione (trascurabile, critica, etc.) è da prendere con molta cautela e  
 
 # Classificazione sorgenti per modellistica 
 
-#### significative (da considerare)
+#### .red[significative (da considerare)]
 
 $OER$ > 500 $UO_E~s^{-1}$
 
-#### non significative (possono non essere considerate)
+#### .red[non significative (possono non essere considerate)]
 
 $C_{OD}$ < 80  $UO_E~m^{-3}$ 
 
-.red[indipendentemente da portata volumetrica emessa]
+indipendentemente dalla portata volumetrica emessa
 
 <br>
 
@@ -1007,7 +1006,7 @@ Indirizzi MASE, 2023, All. 1
 
 # Concentrazione vs. percezione recettori .small[(1/2)]
 
-Le valutazioni modellistiche stimano i .red[**percentili** della concentrazione odorigena di picco], su base annuale, da confrontare con un .red[valore "di soglia"] definito dalla normativa.
+Le valutazioni modellistiche stimano i .red[**percentili** della concentrazione odorigena di picco], su base annuale, da confrontare con un .red["valore soglia"] definito dalla normativa.
 
 .small[
 Per quantificare l'impatto ai recettori (popolazione target) .red["non contano" i valori medi] ma contano i .red["valori massimi"] e la loro .red[frequenza di manifestazione] (percezione).
@@ -1156,7 +1155,7 @@ background-size: 5%
 
 ---
 
-# Valutazione su differenti livelli (tiering)
+# Valutazione su differenti livelli
 
 #### .red[Rispetto a una o più sorgenti su "area limitata":]
 
@@ -1239,7 +1238,9 @@ $\Rightarrow ~$.red[**Domanda aperta**:]
 - Un argomento "nuovo" ed una metodica di valutazione da inventare, sviluppare e testare:  qualche "caso studio" interessante ma ancora in fase di sviluppo (ARPA-FVG).
 
 .footnote[
+
 La modellistica inversa (kernel deconvolution) produce un stima del .red["termine sorgente"]: per ogni cella del dominio di calcolo  viene stimata .red[l’emissione massima di odore [OUE/s] "consentita"] per il rispetto dei valori di accettabilità presso i recettori.
+
 ]
 ---
 
@@ -1265,7 +1266,7 @@ background-size: 5%
 
 # PDCA, autorizzazione ex "Indirizzi"
 
-Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno degli “Indirizzi" visto come un .red[**ciclo di miglioramento continuo (Deming, PDCA)**].
+Il processo decisionale di autorizzazione e valutazione dell’impatto odorigeno degli “Indirizzi" come un .red[**ciclo di miglioramento continuo (Deming, PDCA)**].
 
 .pull-left[
 
@@ -1447,7 +1448,7 @@ uso suolo: CORINAIR; orografia: DTM RV
 
 # Il problema 
 
-**Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**<br>(oltre al .red["classico" PMR = 2.3], usato in Italia!)
+.red[**Quanto e come cambiano le stime modellistiche di impatto odorigeno con differenti (alternative) modalità di calcolo PMR?**]<br>(oltre al "classico" PMR = 2.3, usato in Italia!)
 
 <br>
 - **Sensitività a differenti (alternativi) sistemi modellistici**:<br>
@@ -1553,7 +1554,7 @@ knitr::include_graphics("./img_pres/lp_grid_out_03_d_avg_5s_pct98_new_for_presen
 
 ---
 
-# LAPMOD, transetto recettori, Pct98
+# LAPMOD: transetto recettori, Pct98
 
 ```{r, echo=FALSE, fig.align='center', out.width = '120%'}
 
@@ -1567,7 +1568,7 @@ nb: zoom --> ylim(0, 5)
 
 ---
 
-# LAPMOD, distanza separazione, Pct98
+# LAPMOD: distanza separazione, Pct98
 
 ```{r, echo=FALSE, fig.align='center', out.width = '100%'}
 
@@ -1579,7 +1580,7 @@ knitr::include_graphics("./img_pres/lapmod_sep_dist_conf_comp_samtype_avg.png")
 
 ---
 
-# Qual è la stima "corretta"...
+# Qual è la stima "corretta"?
 
 <br>
 
@@ -1606,7 +1607,7 @@ knitr::include_graphics("./img_pres/fox_crop.jpg")
 ]
 
 
-###.center[...non c'è una risposta univoca !]
+###.center[...non c'è una risposta univoca!]
 
 
 - variabilità dovuta alle modalità di calcolo PMR introduce un significativo margine di incertezza nelle stime;

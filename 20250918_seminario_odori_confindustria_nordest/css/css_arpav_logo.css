@@ -256,8 +256,8 @@ body {
 .title-slide {
   background-image:  url(../img_layout/confindustria_logo.png),
                      url(../img_layout/snpa_arpav.svg);
-  background-position: 11% 5%, 88% 5%;
-  background-size: 220px, 350px;
+  background-position: 5% 5%, 90% 5%;
+  background-size: 200px, 350px;
   background-color: #fff;
   margin-top: -50px
   /*padding-left: 100px;  /* uncomment this for 16:9 aspect ratio */
@@ -422,7 +422,7 @@ color:#C04F22;
 }
 
 .lightgrey {
-  color: #D4D4D4;
+  color: #818181;
 }
 
 .black {
