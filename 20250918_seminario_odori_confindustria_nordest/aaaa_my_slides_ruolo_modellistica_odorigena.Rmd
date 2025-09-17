@@ -1,5 +1,5 @@
 ---
-title: '<br><br>.small[Meeting: "Le emissioni odorigene: come misurarle?"]<br><br>Modellistica di impatto odorigeno'
+title: '<br><br>Modellistica di impatto odorigeno'
 subtitle: "Principi fondamentali, criticità ed applicazioni nel quadro di riferimento normativo"
 author: "<br><br><br>Massimo Bressan"
 institute: "ARPAV - Dipartimento Regionale Qualità dell'Ambiente<br>Unità Organizzativa Qualità dell'Aria"
@@ -139,7 +139,7 @@ knitr::include_graphics("./img_pres/odorant_odour/skunk_man2_bw.png")
 
 ---
 
-# Complessità: dagli odoranti alla lamentela
+# Complessità (dagli odoranti alla lamentela)
 
 .pull-left[
 ```{r, echo=FALSE, fig.height=6, fig.width=5, align='top', out.width='130%', out.extra='style="vertical-align:top; margin:0px 90px"'}
@@ -295,7 +295,7 @@ Ricerca di una soluzione operativa per "tradurre":
 
 ---
 
-#Impatto odorigeno: fasi e processi
+# Impatto odorigeno: fasi e processi
 
 
 ```{r chart-paper, echo=FALSE, fig.align='center', out.width = '60%'}
@@ -481,6 +481,7 @@ background-position: 98% 2%
 background-size: 5%
 
 <!-- set normal layout -->
+
 ---
 
 # Mappatura sorgenti criticità .small[(1/2)]
@@ -776,9 +777,11 @@ Misura il .red[tono edonico] dell'odore cioè una .red[misura soggettiva dell'ac
 
 - aspetto non esplicitamente trattato nelle simulazioni (in Italia): difficile da "chiudere" in modo rigoroso ed obiettivo.
 
-.footnote[
+<br>
+<br>
+.red[*"Offensiveness must be considered at the level of odour exposure without extrapolation of potential evolution for lower or higher concentrations*."*]
 
-.red[*"Offensiveness must be considered at the level of odour exposure without extrapolation of potential evolution for lower or higher concentrations."*`]
+.footnote[
 
 .small[
 from: 
@@ -1176,9 +1179,11 @@ background-size: 5%
 - .red[*valutazioni "strategiche" (zonizzazione)*]  
 <br>.small[
    - sistema di supporto decisionale alla pianificazione territoriale
-   
-     Allo stato attuale è una valutazione in gran parte inespressa, prevista solo indirettamente dagli "Indirizzi", ricollegabile alla definizione dei valori di accettabilità ai recettori definiti essenzialmente su criteri di pianificazione urbanistica e territoriale.
+
+Allo stato attuale la "valutazione strategica" è in gran parte inespressa.<br>Prevista indirettamente dagli "Indirizzi" è ricollegabile alla definizione dei .red[criteri di accettabilità] ai recettori che sono  basati su principi di .red[pianificazione urbanistica e territoriale].
+
 ]
+
 ---
 
 # Valutazioni "strategiche" .small[(1/3)]
@@ -1231,17 +1236,15 @@ $\Rightarrow ~$.red[**Domanda aperta**:]
 
 <br>
 
-- Non esistono "LG ufficiali" sui contenuti tecnici di una valutazione modellistica odorigena di tipo "strategico" per produrre una classificazione "osmogena" del territorio.
+- Non esistono "LG ufficiali" sui contenuti tecnici di una valutazione modellistica odorigena "strategica" per una classificazione "osmogena" del territorio.
 
-- Dal punto di vista tecnico con la .red["modellistica inversa"]?
+- .red["Modellistica inversa"?] Stima del .red["termine sorgente"]: per ogni cella del dominio di calcolo  viene stimata .red[l’emissione massima di odore [OUE/s] "consentita"] per il rispetto dei valori di accettabilità presso i recettori.
   
-- Un argomento "nuovo" ed una metodica di valutazione da inventare, sviluppare e testare:  qualche "caso studio" interessante ma ancora in fase di sviluppo (ARPA-FVG).
+- Un argomento "nuovo" ed una metodica di valutazione da inventare, sviluppare e testare: c'è qualche "caso studio" interessante ma ancora in fase di sviluppo (ARPA-FVG).
 
-.footnote[
+- Necessità di concertazione su modi e contenuti tecnici con autorità competenti a livello locale, regionale e nazionale per "spostare" una parte delle valutazioni a livello di pianificazione.
 
-La modellistica inversa (kernel deconvolution) produce un stima del .red["termine sorgente"]: per ogni cella del dominio di calcolo  viene stimata .red[l’emissione massima di odore [OUE/s] "consentita"] per il rispetto dei valori di accettabilità presso i recettori.
 
-]
 ---
 
 layout: false
@@ -1621,13 +1624,13 @@ knitr::include_graphics("./img_pres/fox_crop.jpg")
 
 - concentrazioni fino a ~ 1 km: PMR dinamico (5s) > PMR statico;
 
-- impatto recettori vicini sorgente < 150 m: PMR dinamico superiore fino ad un ordine di grandezza;
+- distanza di separazione: PMR dinamico >  PMR statico;
 
-- distanza di seprarazione: PMR dinamico >  PMR statico.
+- impatto recettori  < 150 m da sorgente: PMR dinamico +1 ordine di grandezza.
 
 .red[**di tipo regolatorio (su iter autorizzativo)**]
 
-- necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e/o *richieste (o non richieste)* da autorità di controllo;
+- necessaria forte *consapevolezza tecnica* sulle configurazioni modellistiche *adottate (o non adottate)* dai proponenti e *richieste (o non richieste)* da autorità di controllo;
 
 - richiesto notevole impegno verso la *riproducibilità* per una valutazione di impatto *accurata e robusta*;
 
